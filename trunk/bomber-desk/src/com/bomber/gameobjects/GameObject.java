@@ -8,7 +8,7 @@ import com.bomber.common.PoolObject;
 public abstract class GameObject extends PoolObject {
 	public Vector2 mPosition;
 	public Rectangle mBounds;
-	private int mUUID;
+	public int mUUID;
 
 	public abstract void update();
 

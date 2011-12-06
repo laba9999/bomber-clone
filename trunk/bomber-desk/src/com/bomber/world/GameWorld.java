@@ -14,12 +14,12 @@ import com.bomber.remote.Message;
 import com.bomber.remote.RemoteConnections;
 
 public class GameWorld {
-	private ObjectsPool<Monster> mMonsters;
-	private ObjectsPool<Bonus> mSpawnedBonus;
-	private ObjectsPool<Player> mPlayers;
-	private ObjectsPool<Drawable> mExplosions;
-	private short mGameType;
-	private boolean mIsPVPGame;
+	public ObjectsPool<Monster> mMonsters;
+	public ObjectsPool<Bonus> mSpawnedBonus;
+	public ObjectsPool<Player> mPlayers;
+	public ObjectsPool<Drawable> mExplosions;
+	public short mGameType;
+	public boolean mIsPVPGame;
 	public GameMap mMap;
 	public RemoteConnections mRemoteConns;
 	public ArrayList<Team> mTeams = new ArrayList<Team>();
@@ -55,6 +55,26 @@ public class GameWorld {
 		throw new UnsupportedOperationException();
 	}
 
+	public void updateMonsters()
+	{
+
+	}
+	
+	public void updatePlayers()
+	{
+
+	}
+	
+	public void updateBombs()
+	{
+
+	}
+	
+	public void updateExplosions()
+	{
+
+	}
+	
 	public void parseGameMessage(Message _msg)
 	{
 		throw new UnsupportedOperationException();

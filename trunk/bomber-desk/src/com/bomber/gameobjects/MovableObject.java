@@ -50,7 +50,10 @@ public abstract class MovableObject extends Drawable {
 	/**
 	 * Actualiza o animation ticks. mas apenas se
 	 */
-	public abstract void update();
+	public void update()
+	{
+		super.update();
+	}
 
 	protected abstract void onChangedDirection();
 
