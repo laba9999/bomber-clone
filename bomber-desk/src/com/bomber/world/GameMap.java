@@ -1,15 +1,19 @@
 package com.bomber.world;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.common.ObjectFactory;
+import com.bomber.common.ObjectsPool;
 import com.bomber.gameobjects.Tile;
 
 public class GameMap {
-	public ArrayList<Tile> mTiles;
+	public ObjectsPool<Tile> mTiles;
 	public short mWidth;
 	public short mHeight;
 
+	public GameMap() {
+		mTiles = new ObjectsPool<Tile>((short) 50, true, new ObjectFactory.CreateTile());
+	}
+	
 	public Tile getTile(Vector2 _position)
 	{
 		throw new UnsupportedOperationException();
@@ -20,6 +24,12 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
+	public void update()
+	{
+		// TODO: Verifica os tiles que estão destroyed se a animação já terminou, e se 
+		// sim remove-o do da pool
+	}
+	
 	/**
 	 * Um wrapper para o metodo com o mesmo nome mas que pede tambem o parametro
 	 * _maxSize. É devolvida uma chamada ao segundo método em que o primeiro
@@ -70,5 +80,10 @@ public class GameMap {
 	public int calcTileIndex(int _startIndex, short _direction, short _distance)
 	{
 		throw new UnsupportedOperationException();
+	}
+	
+	public void explodeTile(Tile _tile)
+	{
+		
 	}
 }

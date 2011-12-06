@@ -26,9 +26,20 @@ public abstract class Player extends KillableObject {
 	 */
 	public ObjectsPool<Drawable> mEffects;
 	public GameWorld mWorld;
-
-	public abstract void update();
-
+	
+	@Override
+	public void update()
+	{
+		super.update();
+		
+		if(mIsDead)
+		{
+			// TODO: Verificar se chegou ao ultimo frame da animação
+			// e se sim remover-se da lista
+			mWorld.mPlayers.releaseObject(this);
+		}
+	}
+	
 	/**
 	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.
 	 * Este método deve ser sempre chamar o seu super antes/depois de efectuar

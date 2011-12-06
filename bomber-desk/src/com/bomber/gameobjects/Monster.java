@@ -7,6 +7,20 @@ public abstract class Monster extends KillableObject {
 	private short mMonsterType;
 	public GameWorld mWorld;
 
+	@Override
+	public void update()
+	{
+		super.update();
+		
+		if(mIsDead)
+		{
+			// TODO: Verificar se chegou ao ultimo frame da animação
+			// e se sim remover-se da lista
+			mWorld.mMonsters.releaseObject(this);
+		}
+		
+	}
+	
 	/**
 	 * Baseado no monster type.
 	 */

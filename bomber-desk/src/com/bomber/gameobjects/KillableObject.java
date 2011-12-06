@@ -1,14 +1,26 @@
 package com.bomber.gameobjects;
 
 public abstract class KillableObject extends MovableObject {
-	private boolean mIsDead = false;
+	protected boolean mIsDead = false;
+	
+	@Override
+	public void update()
+	{
+		super.update();
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 	/**
-	 * mIsDead = true; mCurrentAnimation = mAnimations.die;
+	 *  
 	 */
 	public void kill()
 	{
-		throw new UnsupportedOperationException();
+		mIsDead = true;
+		
+		onKill();
 	}
 
 	/**
