@@ -1,0 +1,130 @@
+back.png
+format: RGBA4444
+filter: Linear,Linear
+repeat: none
+b_white_walk_up_
+  rotate: false
+  xy: 804, 2
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 2
+b_white_walk_right_
+  rotate: false
+  xy: 980, 2
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 1
+b_white_die_
+  rotate: false
+  xy: 804, 161
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 1
+b_white_walk_up_
+  rotate: false
+  xy: 848, 2
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 1
+b_white_walk_right_
+  rotate: false
+  xy: 936, 2
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 2
+b_white_walk_down_
+  rotate: false
+  xy: 980, 55
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 2
+b_white_die_
+  rotate: false
+  xy: 848, 161
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 0
+b_white_walk_left_
+  rotate: false
+  xy: 936, 55
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 0
+b_white_die_
+  rotate: false
+  xy: 892, 108
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 4
+b_white_walk_up_
+  rotate: false
+  xy: 892, 2
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 0
+b_white_walk_down_
+  rotate: false
+  xy: 804, 108
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 1
+b_white_die_
+  rotate: false
+  xy: 936, 108
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 3
+b_white_walk_left_
+  rotate: false
+  xy: 892, 55
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 1
+b_white_walk_right_
+  rotate: false
+  xy: 804, 55
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 0
+mockup
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: 800
+b_white_walk_down_
+  rotate: false
+  xy: 848, 108
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 0
+b_white_walk_left_
+  rotate: false
+  xy: 848, 55
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 2
+b_white_die_
+  rotate: false
+  xy: 980, 108
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: 2
