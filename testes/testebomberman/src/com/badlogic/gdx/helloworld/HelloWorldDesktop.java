@@ -16,10 +16,11 @@
 
 package com.badlogic.gdx.helloworld;
 
-import com.badlogic.gdx.backends.jogl.JoglApplication;
+import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+
 
 public class HelloWorldDesktop {
 	public static void main (String[] argv) {
-		new JoglApplication(new HelloWorld(), "Hello World", 800, 480, false);
+		new LwjglApplication(new HelloWorld(), "Hello World", 800, 480, false);
 	}
 }
