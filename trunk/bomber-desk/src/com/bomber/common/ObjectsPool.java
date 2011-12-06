@@ -1,26 +1,60 @@
 package com.bomber.common;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 /**
- * Se a opção de atribuir o hashcode estiver activa então o mUUID será criado
- * pela classe ObjectPool aquando da criação do novo objecto.
- * 
  * Dá muito jeito poder iterar uma colecção por isso existirá apenas um iterador
  * 
  * Implementa Iterable<T>
  */
-public class ObjectsPool<T> {
-	private Stack<PoolObject> mFreeObjects;
-	private ArrayList<T> mUsedObjects;
-	private Stack<Short> mFreePositions;
-	public Factory<T> mFactory;
-	public ObjectsPoolIterator<T> mObjectsIterator;
+public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
+	private Stack<T> mFreeObjects = new Stack<T>();
+	private ArrayList<T> mUsedObjects = new ArrayList<T>();
+	private Stack<Short> mFreePositions = new Stack<Short>();
+	private Factory<T> mFactory;
+	private ObjectsPoolIterator<T> mObjectsIterator;
 
-	public ObjectsPool(short _initialQuantity, boolean _autoCreateHashs,
-			Factory<T> _factory) {
-		throw new UnsupportedOperationException();
+	public ObjectsPool(short _initialQuantity, Factory<T> _factory) {
+
+		mFactory = _factory;
+
+		// Inicializa os containers
+		if (null != mFactory)
+			allocateNewObjects(_initialQuantity);
+
+		mObjectsIterator = new ObjectsPoolIterator<T>(mUsedObjects);
+	}
+
+	private void allocateNewObjects(short _quantity)
+	{
+		if (null == mFactory)
+			throw new UnsupportedOperationException();
+
+		short freePositionStart = (short) mUsedObjects.size();
+		for (short i = 0; i < _quantity; freePositionStart++, i++)
+		{
+			T tmpObject = mFactory.create();
+
+			mFreeObjects.push(tmpObject);
+			mFreePositions.push(freePositionStart);
+			mUsedObjects.add(null);
+		}
+	}
+
+	public void addObject(T _obj)
+	{
+		// Verifica se existem lugares livres no array
+		if (!mFreePositions.empty())
+		{
+			_obj.mIndex = mFreePositions.pop();
+			mUsedObjects.set(_obj.mIndex, _obj);
+		} else
+		{
+			_obj.mIndex = (short) mUsedObjects.size();
+			mUsedObjects.add(_obj);
+		}
 	}
 
 	/**
@@ -29,16 +63,46 @@ public class ObjectsPool<T> {
 	 */
 	public T getFreeObject()
 	{
-		throw new UnsupportedOperationException();
+		if (null == mFactory)
+			throw new UnsupportedOperationException();
+
+		// Verifica se existem objectos livres disponiveis
+		if (mFreeObjects.size() == 0)
+			allocateNewObjects((short) 1);
+
+		// Obtem o objecto a devolver
+		Short insertPos = mFreePositions.pop();
+
+		// Obtem a posição onde vai ser inserido no array de objectos ocupados
+		T result = mFreeObjects.pop();
+
+		// Actualiza o index do objecto para o libertar mais tarde
+		result.mIndex = insertPos;
+
+		mUsedObjects.add(insertPos, result);
+
+		return result;
 	}
 
-	/**
-	 * Passa o objecto do array de ocupados para a stack de livres. Os objectos
-	 * não são retirados do array de usados, a sua posição é apenas colocada a
-	 * null e esse indice é adicionado à stack de posições livres.
-	 */
-	public void releaseObject(PoolObject obj)
+	public void releaseObject(T obj)
 	{
-		throw new UnsupportedOperationException();
+		short freeIndex = obj.mIndex;
+		
+		// Se não tiver sido providenciado uma factory então significa que os objectos
+		// foram inseridos à mão e isto significa que não são reaproveitáveis, logo
+		// não vale a pena guardar
+		if (null == mFactory)
+			mFreeObjects.push(obj);
+		
+		mFreePositions.push(freeIndex);
+		mUsedObjects.set(freeIndex, null);
+	}
+
+	@Override
+	public Iterator<T> iterator()
+	{
+		// Faz reset ao iterador e devolve sempre o mesmo
+		mObjectsIterator.reset();
+		return mObjectsIterator;
 	}
 }

@@ -1,31 +1,54 @@
 package com.bomber.common;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
  * Implementa Iterator<T> Devolve o proximo elemento não null no mUsedObjects.
  */
-public class ObjectsPoolIterator<T> implements Iterator<T> {
-	public ObjectsPool<T> mContainer;
+public class ObjectsPoolIterator<T extends PoolObject> implements Iterator<T> {
+	public ArrayList<T> mContainer;
+	short mIndex = 0;
+
+	public ObjectsPoolIterator(ArrayList<T> _container) {
+		mContainer = _container;
+	}
+
+	public void reset()
+	{
+		mIndex = 0;
+	}
 
 	@Override
 	public boolean hasNext()
 	{
-		// TODO Auto-generated method stub
+		for (short i = mIndex; i < mContainer.size(); i++)
+			if (mContainer.get(i) != null)
+			{
+				mIndex = i;
+				return true;
+			}
+
 		return false;
 	}
 
 	@Override
 	public T next()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		T next = null;
+		for (short i = mIndex; i < mContainer.size(); i++)
+		{
+			next = mContainer.get(i);
+			if (next != null)
+				mIndex = ++i;
+		}
+
+		return next;
 	}
 
 	@Override
 	public void remove()
 	{
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 }

@@ -1,43 +1,72 @@
 package com.bomber.common;
 
+import java.security.InvalidParameterException;
+
+import com.bomber.gameobjects.Bomb;
+import com.bomber.gameobjects.Drawable;
+import com.bomber.gameobjects.Monster;
+import com.bomber.gameobjects.Player;
+import com.bomber.gameobjects.Tile;
+import com.bomber.gameobjects.bonus.Bonus;
+import com.bomber.remote.Message;
+
 public class ObjectFactory {
-	public static class CreatePlayer extends Factory {
+	public static class CreatePlayer extends Factory<Player> {
 
-		public Object onCreate()
+		public Player onCreate()
 		{
-			throw new UnsupportedOperationException();
+			return new Player();
 		}
 	}
 
-	public static class CreateExplosion extends Factory {
+	public static class CreateTile extends Factory<Tile> {
 
-		public Object onCreate()
+		public Tile onCreate()
 		{
-			throw new UnsupportedOperationException();
+			return new Tile();
 		}
 	}
 
-	public static class CreateMonster extends Factory {
+	public static class CreateExplosion extends Factory<Drawable> {
 
-		public Object onCreate()
+		public Drawable onCreate()
 		{
-			throw new UnsupportedOperationException();
+			return new Drawable();
 		}
 	}
 
-	public static class CreateBomb extends Factory {
+	public static class CreateMonster extends Factory<Monster> {
 
-		public Object onCreate()
+		public Monster onCreate()
 		{
-			throw new UnsupportedOperationException();
+			return new Monster();
 		}
 	}
 
-	public static class CreateBonus extends Factory {
+	public static class CreateBomb extends Factory<Bomb> {
 
-		public Object onCreate()
+		public Bomb onCreate()
 		{
-			throw new UnsupportedOperationException();
+			return new Bomb();
+		}
+	}
+
+	public static class CreateMonter {
+
+		public static Monster create(short _monsterType)
+		{
+			Monster tmpMonster = null;
+			switch (_monsterType)
+			{
+			// TODO: Adicionar a criação dos vários tipos de monstro...
+//			default:
+//				throw new InvalidParameterException("Tipo de monstro desconhecido");
+			}
+
+			if (null != tmpMonster)
+				tmpMonster.mUUID = Utils.getNextUUID();
+
+			return tmpMonster;
 		}
 	}
 
@@ -46,11 +75,19 @@ public class ObjectFactory {
 	 * da mensagem. Este é o mesmo valor que está na class RemoteConnections
 	 * (mLocalID).
 	 */
-	public class CreateMessage extends Factory {
+	public class CreateMessage extends Factory<Message> {
+		short mLocalID;
 
-		public Object onCreate()
+		public CreateMessage(short _localID) {
+			mLocalID = _localID;
+		}
+
+		public Message onCreate()
 		{
-			throw new UnsupportedOperationException();
+			Message tmpMsg = new Message();
+			tmpMsg.senderID = mLocalID;
+
+			return tmpMsg;
 		}
 	}
 }
