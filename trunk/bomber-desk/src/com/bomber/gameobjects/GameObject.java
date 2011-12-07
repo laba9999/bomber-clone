@@ -4,10 +4,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.PoolObject;
 
-
 public abstract class GameObject extends PoolObject {
-	public Vector2 mPosition;
-	public Rectangle mBounds;
+	public Vector2 mPosition = new Vector2();
+	private Rectangle mBoudingBox = new Rectangle(0, 0, Tile.TILE_SIZE, Tile.TILE_SIZE);
 	public int mUUID;
 
 	public abstract void update();
@@ -23,7 +22,15 @@ public abstract class GameObject extends PoolObject {
 
 	public final boolean equals(Object _rhs)
 	{
-		return ((GameObject)_rhs).mUUID == mUUID;
+		return ((GameObject) _rhs).mUUID == mUUID;
+	}
+
+	public Rectangle getBoundingBox()
+	{
+		mBoudingBox.x = mPosition.x - Tile.TILE_SIZE/2;
+		mBoudingBox.y = mPosition.y - Tile.TILE_SIZE/2;
+
+		return mBoudingBox;
 	}
 
 }
