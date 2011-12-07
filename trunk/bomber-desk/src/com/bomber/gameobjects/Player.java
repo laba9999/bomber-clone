@@ -58,13 +58,6 @@ public class Player extends KillableObject {
 	}
 
 	@Override
-	protected void onMove()
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	protected void onKill()
 	{
 		// TODO Auto-generated method stub

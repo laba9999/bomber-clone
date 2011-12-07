@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
  * todas as animações a apontar para a mesma referencia.
  */
 public class MovableObjectAnimation {
+	public short numberOfFramesPerWalk;
+	public short numberOfFramesDying;
+	
 	public Animation walkLeft;
 	public Animation walkRight;
 	public Animation walkUp;

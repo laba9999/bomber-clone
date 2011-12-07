@@ -47,4 +47,11 @@ public class Message extends PoolObject {
 	{
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public void reset()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }

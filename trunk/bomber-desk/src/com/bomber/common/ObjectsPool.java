@@ -27,6 +27,12 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		mObjectsIterator = new ObjectsPoolIterator<T>(mUsedObjects);
 	}
 
+	public void clear()
+	{
+		for(T tmp : this)
+			releaseObject(tmp);
+	}
+	
 	private void allocateNewObjects(short _quantity)
 	{
 		if (null == mFactory)
@@ -92,7 +98,7 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		// Se não tiver sido providenciado uma factory então significa que os objectos
 		// foram inseridos à mão e isto significa que não são reaproveitáveis, logo
 		// não vale a pena guardar
-		if (null == mFactory)
+		if (null != mFactory)
 			mFreeObjects.push(obj);
 		
 		mFreePositions.push(freeIndex);

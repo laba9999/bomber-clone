@@ -14,7 +14,7 @@ public  class Bomb extends MovableObject {
 	@Override
 	public void update()
 	{
-		
+		super.update();
 	}
 
 	@Override
@@ -31,10 +31,4 @@ public  class Bomb extends MovableObject {
 		
 	}
 
-	@Override
-	protected void onMove()
-	{
-		// TODO Auto-generated method stub
-		
-	}
 }

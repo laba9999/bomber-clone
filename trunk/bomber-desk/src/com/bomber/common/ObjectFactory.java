@@ -18,9 +18,15 @@ public class ObjectFactory {
 
 	public static class CreateTile extends Factory<Tile> {
 
+		short mType;
+
+		public CreateTile(short _type) {
+			mType = _type;
+		}
+
 		public Tile onCreate()
 		{
-			return new Tile();
+			return new Tile(mType);
 		}
 	}
 
@@ -48,8 +54,9 @@ public class ObjectFactory {
 			switch (_monsterType)
 			{
 			// TODO: Adicionar a criação dos vários tipos de monstro...
-//			default:
-//				throw new InvalidParameterException("Tipo de monstro desconhecido");
+			// default:
+			// throw new
+			// InvalidParameterException("Tipo de monstro desconhecido");
 			}
 
 			if (null != tmpMonster)
