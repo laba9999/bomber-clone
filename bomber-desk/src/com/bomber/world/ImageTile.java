@@ -1,9 +1,9 @@
 package com.bomber.world;
 
 public class ImageTile {
-	private String mImageFile;
-	private boolean mFlipVertically;
-	private boolean mFlipHorizontally;
+	public String mImageFile;
+	public boolean mFlipVertically;
+	public boolean mFlipHorizontally;
 
 	public ImageTile() {
 		mImageFile = null;
@@ -18,31 +18,5 @@ public class ImageTile {
 		this.mFlipHorizontally = _flipHorizontally;
 	}
 
-	public String getImageFile() {
-		return mImageFile;
-	}
-
-	public void setImageFile(String _imageFile) {
-		mImageFile = _imageFile;
-	}
-
-	public boolean isFlipVertical() {
-		return mFlipVertically;
-	}
-
-	public void setFlipVertical(boolean _flipVertically) {
-		mFlipVertically = _flipVertically;
-	}
-
-	public boolean isFlipHorizontal() {
-		return mFlipHorizontally;
-	}
-
-	public void setFlipHorizontal(boolean _flipHorizontally) {
-		mFlipHorizontally = _flipHorizontally;
-	}
-	
-	
-	
 	
 }

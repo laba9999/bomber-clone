@@ -3,7 +3,7 @@ package com.bomber.world;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
@@ -41,7 +41,7 @@ public class GameMap {
 	}
 
 	/**
-	 * Adiciona um novo tile ao mapa.
+	 * Adiciona um novo tile Destroyable ao mapa.
 	 * 
 	 * @param _line
 	 *            Posição vertical no mapa.
@@ -52,20 +52,40 @@ public class GameMap {
 	 * @param _anim
 	 *            Inclui o frame do tile normal e a sua destruição.
 	 */
-	public void addTile(short _line, short _col, short _type, Animation _anim)
+	public void addDestroyableTile(short _line, short _col, short _type, Animation _anim)
 	{
-		Tile tmpTile;
-
-		if (_type == Tile.WALKABLE || _type == Tile.COLLIDABLE)
-			tmpTile = mImutableTiles.getFreeObject();
-		else
-			tmpTile = mDestroyableTiles.getFreeObject();
+		Tile tmpTile = mDestroyableTiles.getFreeObject();
 
 		tmpTile.mType = _type;
 		tmpTile.setCurrentAnimation(_anim, (short) 8);
 		tmpTile.mPositionInArray = _line * mWidth + _col;
+		
+		//TODO : call updateTilesForPresentation???
 	}
 
+	/**
+	 * Adiciona um novo tile NonDestroyable ao mapa.
+	 * 
+	 * @param _line
+	 *            Posição vertical no mapa.
+	 * @param _col
+	 *            Posição horizontal no mapa.
+	 * @param _type
+	 *            Tipo de tile a adicionar.
+	 * @param _texture
+	 *            TextureRegion da tile.
+	 */
+	public void addNonDestroyableTile(short _line,short _col, short _type, TextureRegion _texture)
+	{
+		Tile tmpTile = mImutableTiles.getFreeObject();
+		tmpTile.mType = _type;
+		tmpTile.mCurrentFrame = _texture;
+		tmpTile.mLoopAnimation = false;
+		tmpTile.mPositionInArray = _line * mWidth + _col;
+		//TODO : call updateTilesForPresentation ???
+
+		
+	}
 	/**
 	 * A ser chamado de cada vez que é inicializado um novo nível.
 	 * @param _width A largura em tiles do novo mapa.

@@ -1,12 +1,13 @@
 package com.bomber.common;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bomber.gameobjects.MovableObjectAnimation;
 
@@ -15,49 +16,50 @@ import com.bomber.gameobjects.MovableObjectAnimation;
  * 
  */
 public class Assets {
-	private final float FRAME_DURATION = 0.3f;
-	private final String ATLAS_FILE = "assets/atlas.txt";
+	private static final float FRAME_DURATION = 0.3f;
+	private static final String ATLAS_FILE = "assets/atlas.txt";
 
-	private TextureAtlas mAtlas;
-	private HashMap<String, MovableObjectAnimation> mMonsters;
-	private HashMap<String, MovableObjectAnimation> mPlayers;
-	private HashMap<String, TextureRegion> mPlayersHeads;
-	private HashMap<String, Animation> mBonus;
-	private HashMap<String, TextureRegion> mNonDestroyableTiles;
+	public static TextureAtlas mAtlas;
+	public static HashMap<String, MovableObjectAnimation> mMonsters;
+	public static HashMap<String, MovableObjectAnimation> mPlayers;
+	public static HashMap<String, TextureRegion> mPlayersHeads;
+	public static HashMap<String, Animation> mBonus;
+	public static HashMap<String, TextureRegion> mNonDestroyableTiles;
 	/**
 	 * Posição 0 da animação é o tile antes de ser destruido. Daí para a frente
 	 * é a destruição do tile.
 	 */
-	private HashMap<String, Animation> mDestroyableTiles;
-	private Animation mBomb;
-	private TextureRegion mMainScreen;
-	private Animation mSoundButton;
-	private HashMap<String, TextureRegion> mPauseButtons;
-	private TextureRegion mControllerBar;
+	public static HashMap<String, Animation> mDestroyableTiles;
+	public static Animation mBomb;
+	public static TextureRegion mMainScreen;
+	public static Animation mSoundButton;
+	public static HashMap<String, TextureRegion> mPauseButtons;
+	public static TextureRegion mControllerBar;
 	/**
 	 * Usado no pause.
 	 */
-	private TextureRegion mDarkGlass;
+	public static TextureRegion mDarkGlass;
 	/**
 	 * Usado no pause.
 	 */
-	private TextureRegion mPauseScreen;
-	private BitmapFont mFont;
+	public static TextureRegion mPauseScreen;
+	public static BitmapFont mFont;
 
-	private void loadAssets() {
+	public static void loadAssets() {
 		loadAtlas();
 		loadPlayerAnimations();
 		loadMonsterAnimations();
 		loadPlayersHeads();
 		loadBonus();
-		//TODO : load the rest...
+		loadBomb();
+		//loadUI();
 	}
 
-	private void loadAtlas() {
+	private static void loadAtlas() {
 		mAtlas = new TextureAtlas(Gdx.files.internal(ATLAS_FILE));
 	}
 
-	private void loadPlayerAnimations() {
+	private static void loadPlayerAnimations() {
 
 		short dieFrames = 10;
 		short walkFrames = 3;
@@ -83,48 +85,44 @@ public class Assets {
 	 * Carrega animations de GameObjects com estados _die_ , _walk_up_ ,
 	 * _walk_down_ , _walk_left e _walk_right Útil para Players e Monsters
 	 */
-	private MovableObjectAnimation loadCompositeMovableObjectAnimation(
+	private static MovableObjectAnimation loadCompositeMovableObjectAnimation(
 			String _id, short _dieFrames, short _walkFrames) {
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation
-		movableAnimation.die = loadAnimation(_id + "_die_", _dieFrames);
+		movableAnimation.die = loadAnimation(_id + "_die_");
 
 		// load walkup animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_", _dieFrames);
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_");
 
 		// load walkdown animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_down_", _dieFrames);
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_down_");
 
 		// load walkleft animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_left_", _dieFrames);
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_left_");
 
 		// load walkright animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_right_",
-				_dieFrames);
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_right_");
 
+		movableAnimation.numberOfFramesDying = _dieFrames;
+		movableAnimation.numberOfFramesPerWalk = _walkFrames;
+		
 		return movableAnimation;
 	}
 
 	/**
-	 * Carrega animação identificada por _id com _howManyFrames frames Ex :
-	 * loadAnimation("b_white_die_",10);
+	 * Carrega animação identificada por _id Ex :
+	 * loadAnimation("b_white_die_");
 	 */
-	private Animation loadAnimation(String _id, short _howManyFrames) {
-		ArrayList<TextureRegion> regions = new ArrayList<TextureRegion>();
-
-		for (int i = 0; i < _howManyFrames; i++) {
-			TextureRegion r = mAtlas.findRegion(_id, i);
-			regions.add(r);
-		}
-		
+	private static Animation loadAnimation(String _id) {
+		List<AtlasRegion> regions = mAtlas.findRegions(_id);
 	
 		return new Animation(FRAME_DURATION, regions);
 		
 	}
 
-	private void loadMonsterAnimations() {
+	private static void loadMonsterAnimations() {
 
 		// load normal monsters
 		short dieFrames = 6;
@@ -164,23 +162,26 @@ public class Assets {
 
 	}
 
-	private MovableObjectAnimation loadGenericMonsterMovableObjectAnimations(
+	private static MovableObjectAnimation loadGenericMonsterMovableObjectAnimations(
 			String _id) {
 		short dieFrames = 6;
 		short walkFrames = 3;
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
-		movableAnimation.die = loadAnimation(_id + "_die_", dieFrames);
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_", walkFrames);
+		movableAnimation.die = loadAnimation(_id + "_die_");
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_");
 		movableAnimation.walkDown = movableAnimation.walkUp;
 		movableAnimation.walkLeft = movableAnimation.walkUp;
 		movableAnimation.walkRight = movableAnimation.walkUp;
 
+		movableAnimation.numberOfFramesDying= dieFrames;
+		movableAnimation.numberOfFramesPerWalk = walkFrames;
+		
 		return movableAnimation;
 	}
 	
 	
-	private void loadPlayersHeads() {
+	private static void loadPlayersHeads() {
 		
 		TextureRegion r = mAtlas.findRegion("face_white");
 		mPlayersHeads.put("face_white", r);
@@ -196,18 +197,44 @@ public class Assets {
 		
 	}
 	
-	private void loadBonus() {
-		short frames = 6;
+	private static void loadBonus() {
 		
-		mBonus.put("bonus_bomb_", loadAnimation("bonus_bomb_", frames));
-		mBonus.put("bonus_hand_", loadAnimation("bonus_hand_", frames));
-		mBonus.put("bonus_life_", loadAnimation("bonus_life_", frames));
-		mBonus.put("bonus_potion_", loadAnimation("bonus_potion_", frames));
-		mBonus.put("bonus_shield_", loadAnimation("bonus_shield_", frames));
-		mBonus.put("bonus_speed_", loadAnimation("bonus_speed_", frames));
-		mBonus.put("bonus_start_", loadAnimation("bonus_start_", frames));
+		mBonus.put("bonus_bomb_", loadAnimation("bonus_bomb_"));
+		mBonus.put("bonus_hand_", loadAnimation("bonus_hand_"));
+		mBonus.put("bonus_life_", loadAnimation("bonus_life_"));
+		mBonus.put("bonus_potion_", loadAnimation("bonus_potion_"));
+		mBonus.put("bonus_shield_", loadAnimation("bonus_shield_"));
+		mBonus.put("bonus_speed_", loadAnimation("bonus_speed_"));
+		mBonus.put("bonus_start_", loadAnimation("bonus_start_"));
+	}
+	
+	public static void loadDestroyableTile(String _id) {
+		mDestroyableTiles.put(_id, loadAnimation(_id));
+	}
+	
+	public static void loadNonDestroyableTile(String _id, boolean _flipHorizontally, boolean _flipVertically) {
+		TextureRegion r = mAtlas.findRegion(_id);
+		//TODO : verificar se não há engano nestes parametros
+		r.flip(_flipVertically,_flipHorizontally); 
+		mNonDestroyableTiles.put(_id, r);
+	}
+	
+	private static void loadBomb() {
+		mBomb = loadAnimation("bomb_");
 	}
 	
 	
-
+	private static void loadUI() {
+		//TODO : definir o IDs para estes componentes
+		mMainScreen = mAtlas.findRegion("TO BE DEFINED");
+		mSoundButton = loadAnimation("TO BE DEFINED");
+		mPauseButtons.put("TO BE DEFINED",mAtlas.findRegion("TO BE DEFINED"));
+		mControllerBar = mAtlas.findRegion("TO BE DEFINED");
+		mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
+		mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
+		mFont = new BitmapFont(Gdx.files.internal("TO BE DEFINED"),false);
+		
+	}
+	
+	
 }

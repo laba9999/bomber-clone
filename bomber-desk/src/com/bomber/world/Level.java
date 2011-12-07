@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -12,9 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.bomber.common.ObjectsPool;
-import com.bomber.gameobjects.Monster;
+import com.bomber.common.Assets;
 import com.bomber.gameobjects.Tile;
 
 
@@ -26,6 +25,16 @@ public class Level {
 	 * Serve também para fazer o reset.
 	 */
 	
+	public String mName;
+	public short mRows;
+	public short mColumns;
+	public short[][] mWalkableIDs;
+	public short[][] mCollidableIDs;
+	public short[][] mDestroyableIDs;
+	public short[][] mSpawnIDs;
+	
+	public HashMap<Short, ImageTile> mImageTiles = new HashMap<Short, ImageTile>();
+
 	
 
 	public static void main(String[] args) { //TODO: delete this
@@ -45,7 +54,7 @@ public class Level {
 	        XMLReader xmlReader = parser.getXMLReader();	  
 	        
 	        //parse level xml file
-	        LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler();
+	        LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler(this);
 	        
 	        xmlReader.setContentHandler(myLevelXMLHandler);   
 	        File file = new File(".\\levels\\level1\\level1.xml");			
@@ -54,7 +63,7 @@ public class Level {
 	        xmlReader.parse( new InputSource(reader));
 	        
 	        //parse tileset xml file
-	        TilesetXMLHandler myTilesetXMLHandler = new TilesetXMLHandler();
+	        TilesetXMLHandler myTilesetXMLHandler = new TilesetXMLHandler(this);
 	       
 	        xmlReader.setContentHandler( myTilesetXMLHandler);  
 			file = new File(".\\levels\\level1\\tileset.xml");			
@@ -62,12 +71,41 @@ public class Level {
 			reader = new InputStreamReader(inputStream,"UTF-8");
 	        xmlReader.parse( new InputSource(reader));
 
-	        //setup level
-	       // _world.mMap.reset(myLevelXMLHandler.mRows,myLevelXMLHandler.mColumns);
+	        //setup do nivel
+	        _world.mMap.reset(mColumns);
 	        
+	        //carrega Assets das tiles
+	        for(short i = 0; i < mColumns; i++) {
+	        	for(short j = 0; j< mRows; j++) {
+	        		
+	        		ImageTile temp;
+	        		
+	        		short id = mWalkableIDs[i][j];
+	        		if(id != 0) {
+		        		temp = mImageTiles.get(id);
+		        		Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
+		        		_world.mMap.addNonDestroyableTile(j, i, Tile.WALKABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
+	        		}
 
+	        		id = mCollidableIDs[i][j];  
+	        		if(id != 0) {
+	        			temp = mImageTiles.get(id);
+	        			Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
+		        		_world.mMap.addNonDestroyableTile(j, i, Tile.COLLIDABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
+	        		}
+	        		
+	        		id = mDestroyableIDs[i][j];
+	        		if(id != 0) {
+	        			temp = mImageTiles.get(id);
+	        			Assets.loadDestroyableTile(temp.mImageFile);
+		        		_world.mMap.addDestroyableTile(j, i, Tile.COLLIDABLE, Assets.mDestroyableTiles.get(temp.mImageFile));
+	        		}        		
+	        		
+	        	}
+	        }
 	        
-	        
+	        //TODO : tratar mSpawns
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
