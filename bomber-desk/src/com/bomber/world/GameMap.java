@@ -2,35 +2,117 @@ package com.bomber.world;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
+import com.bomber.gameobjects.GameObject;
 import com.bomber.gameobjects.Tile;
 
+/**
+ * Os Tiles vão ser lidos do nivel por camadas, imutáveis(mImutableTiles)e
+ * destroyables(mDestroyableTiles).
+ * 
+ * Os tiles que são apresentados são os que estão na lista mTilesMap e que é
+ * inicializado aquando do nivel pela ordem mImutableTiles > mDestroyableTiles.
+ * 
+ * Quando um Tile é destruído é actualizado a sua posição no atributo mTilesMap
+ * com o Tile walkable respectivo.
+ * 
+ * @author sPeC!
+ * 
+ */
 public class GameMap {
-	public ArrayList<Tile> mTiles = new ArrayList<Tile>();
-	public ObjectsPool<Tile> mDestroyableTiles;
+	private ObjectsPool<Tile> mImutableTiles;
+	private ObjectsPool<Tile> mDestroyableTiles;
+	private ObjectsPool<Tile> mTilesBeingDestroyed;
+
+	public ArrayList<Tile> mTilesMap = new ArrayList<Tile>();
+
 	public short mWidth;
 	public short mHeight;
 
 	public GameMap() {
-		mDestroyableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile());
+		mImutableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.WALKABLE));
+		mDestroyableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.DESTROYABLE));
+		mTilesBeingDestroyed = new ObjectsPool<Tile>((short) 0, null);
+
+	}
+	
+	public void addTile(short _linha, short _coluna, short _type, Animation _anim)
+	{
+		Tile tmpTile;
+		
+		if( _type == Tile.WALKABLE || _type == Tile.COLLIDABLE)
+			tmpTile = mImutableTiles.getFreeObject();
+		else
+			tmpTile = mDestroyableTiles.getFreeObject();
+		
+	}
+	public void reset(short _width, short _height)
+	{
+		mWidth = _width;
+		mHeight = _height;
+		
+		mImutableTiles.clear();
+		mDestroyableTiles.clear();
+	}
+
+	/**
+	 * Sempre que os 
+	 */
+	public void updateTilesForPresentation()
+	{
+		
+		for(int i = 0; i < mWidth; i++)
+			mTilesMap.add(null);
+			
+		for(Tile tl : mImutableTiles)
+			mTilesMap.set(tl.mPositionInArray, tl);
+		
+		for(Tile tl : mDestroyableTiles)
+			mTilesMap.set(tl.mPositionInArray, tl);
+	}
+	
+	public void explodeTile(Tile _tile)
+	{
+		if (_tile.mType != Tile.DESTROYABLE)
+			return;
+
+		_tile.explode();
+
+		// Actualiza as pools
+		mDestroyableTiles.releaseObject(_tile);
+		mTilesBeingDestroyed.addObject(_tile);
+
+		// O mapa vai apresentar a partir de agora o tile walkable que estava
+		// por baixo deste
+		for (Tile tl : mImutableTiles)
+		{
+			if (tl.mPositionInArray == _tile.mPositionInArray)
+			{
+				mTilesMap.set(tl.mPositionInArray, tl);
+				break;
+			}
+		}
+	}
+
+	public boolean objectIsCollidingWithAnyTile(GameObject _obj)
+	{
+		return true;
 	}
 
 	public void update()
 	{
-		// TODO: Verifica os tiles que estão destroyed se a animação já
-		// terminou, e se sim remove-o da pool
-		
-		for(Tile tmpTile : mDestroyableTiles)
+		// Verifica se algum dos tiles que foram destruidos já terminaram a
+		// animação
+		for (Tile tmpTile : mTilesBeingDestroyed)
 		{
-			if(!tmpTile.mIsDestroyed)
-				continue;
-			
-			// Verifica se animação de explosão terminou
-			if(tmpTile.mLooped)
-				mDestroyableTiles.releaseObject(tmpTile);
+			tmpTile.update();
+
+			if (tmpTile.mLooped)
+				mTilesBeingDestroyed.releaseObject(tmpTile);
 		}
 	}
 
@@ -86,7 +168,7 @@ public class GameMap {
 			}
 
 			// Verifica se o tile actual é do tipo de um dos tipos pretendidos
-			Tile tmpTile = mTiles.get(idx);
+			Tile tmpTile = mTilesMap.get(idx);
 			for (int c = 0; c < _tileTypes.length; c++)
 			{
 				if (tmpTile.mType == _tileTypes[c])
@@ -162,7 +244,7 @@ public class GameMap {
 		case Directions.DOWN:
 			res += _distance * mWidth;
 
-			if (res > mTiles.size() - 1)
+			if (res > mTilesMap.size() - 1)
 				res -= _distance * mWidth;
 
 			break;
@@ -210,8 +292,8 @@ public class GameMap {
 		if (res < 0)
 			res = 0;
 
-		if (res > mTiles.size() - 1)
-			res = mTiles.size() - 1;
+		if (res > mTilesMap.size() - 1)
+			res = mTilesMap.size() - 1;
 
 		return res;
 	}
@@ -226,7 +308,7 @@ public class GameMap {
 	public Tile getTile(Vector2 _position)
 	{
 		int idx = calcTileIndex(_position);
-		return mTiles.get(idx);
+		return mTilesMap.get(idx);
 	}
 
 	/**
@@ -248,6 +330,6 @@ public class GameMap {
 		int idx = calcTileIndex(_position);
 		idx = calcTileIndex(idx, _direction, _distance);
 
-		return mTiles.get(idx);
+		return mTilesMap.get(idx);
 	}
 }

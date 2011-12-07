@@ -1,63 +1,58 @@
 package com.bomber.gameobjects;
 
+import com.bomber.common.Directions;
+
 public abstract class MovableObject extends Drawable {
 	public float mSpeed;
 	public short mDirection;
 	public boolean mIsMoving = false;
 	public MovableObjectAnimation mAnimations;
 
-	/**
-	 * mIsMoving = true mCurrentAnimation = mAnimations.walkLeft;
-	 */
+
 	public void moveLeft()
 	{
-		throw new UnsupportedOperationException();
+		onChangedDirection();
+		mDirection = Directions.LEFT;
+		setCurrentAnimation(mAnimations.walkLeft, mAnimations.numberOfFramesPerWalk);
 	}
 
-	/**
-	 * mIsMoving = true mCurrentAnimation = mAnimations.walkRight;
-	 */
 	public final void moveRight()
 	{
-		throw new UnsupportedOperationException();
+		onChangedDirection();
+		mDirection = Directions.RIGHT;
+		setCurrentAnimation(mAnimations.walkRight, mAnimations.numberOfFramesPerWalk);
 	}
 
-	/**
-	 * mIsMoving = true mCurrentAnimation = mAnimations.walkUp;
-	 */
 	public void moveUp()
 	{
-		throw new UnsupportedOperationException();
+		onChangedDirection();
+		mDirection = Directions.UP;
+		setCurrentAnimation(mAnimations.walkUp, mAnimations.numberOfFramesPerWalk);
 	}
 
-	/**
-	 * mIsMoving = true mCurrentAnimation = mAnimations.walkDown;
-	 */
 	public void moveDown()
 	{
-		throw new UnsupportedOperationException();
+		onChangedDirection();
+		mDirection = Directions.DOWN;
+		setCurrentAnimation(mAnimations.walkdown, mAnimations.numberOfFramesPerWalk);
 	}
 
-	/**
-	 * isMoving = false; Estamos parados por isso Drawable::mPlayAnimation =
-	 * false
-	 */
 	public void stop()
 	{
-		throw new UnsupportedOperationException();
+		onStop();
+		mDirection = Directions.NONE;
+		setCurrentAnimation(mAnimations.die, mAnimations.numberOfFramesDying);
 	}
 
-	/**
-	 * Actualiza o animation ticks. mas apenas se
-	 */
+
 	public void update()
 	{
 		super.update();
+		
+		// Actualiza a posição
 	}
 
 	protected abstract void onChangedDirection();
 
 	protected abstract void onStop();
-
-	protected abstract void onMove();
 }

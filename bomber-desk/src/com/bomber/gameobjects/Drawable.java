@@ -14,9 +14,9 @@ public class Drawable extends GameObject {
 	private Animation mCurrentAnimation;
 	private short mNumberOfAnimationFrames = 1;
 
-	public void setCurrentAnimation(Animation _anim, short _duration)
+	public void setCurrentAnimation(Animation _anim, short _numberOfFrames)
 	{
-		mNumberOfAnimationFrames = _duration;
+		mNumberOfAnimationFrames = _numberOfFrames;
 		mCurrentAnimation = _anim;
 		mAnimationTicks = 0;
 		mLooped = false;
