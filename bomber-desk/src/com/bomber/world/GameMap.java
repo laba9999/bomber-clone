@@ -3,6 +3,7 @@ package com.bomber.world;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
@@ -31,7 +32,6 @@ public class GameMap {
 	public ArrayList<Tile> mTilesMap = new ArrayList<Tile>();
 
 	public short mWidth;
-	public short mHeight;
 
 	public GameMap() {
 		mImutableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.WALKABLE));
@@ -39,42 +39,61 @@ public class GameMap {
 		mTilesBeingDestroyed = new ObjectsPool<Tile>((short) 0, null);
 
 	}
-	
-	public void addTile(short _linha, short _coluna, short _type, Animation _anim)
+
+	/**
+	 * Adiciona um novo tile ao mapa.
+	 * 
+	 * @param _line
+	 *            Posição vertical no mapa.
+	 * @param _col
+	 *            Posição horizontal no mapa.
+	 * @param _type
+	 *            Tipo de tile a adicionar.
+	 * @param _anim
+	 *            Inclui o frame do tile normal e a sua destruição.
+	 */
+	public void addTile(short _line, short _col, short _type, Animation _anim)
 	{
 		Tile tmpTile;
-		
-		if( _type == Tile.WALKABLE || _type == Tile.COLLIDABLE)
+
+		if (_type == Tile.WALKABLE || _type == Tile.COLLIDABLE)
 			tmpTile = mImutableTiles.getFreeObject();
 		else
 			tmpTile = mDestroyableTiles.getFreeObject();
-		
+
+		tmpTile.mType = _type;
+		tmpTile.setCurrentAnimation(_anim, (short) 8);
+		tmpTile.mPositionInArray = _line * mWidth + _col;
 	}
-	public void reset(short _width, short _height)
+
+	/**
+	 * A ser chamado de cada vez que é inicializado um novo nível.
+	 * @param _width A largura em tiles do novo mapa.
+	 */
+	public void reset(short _width)
 	{
 		mWidth = _width;
-		mHeight = _height;
-		
+
 		mImutableTiles.clear();
 		mDestroyableTiles.clear();
 	}
 
 	/**
-	 * Sempre que os 
+	 * Sempre que forem adicionados tiles este método deve ser usado para que o
+	 * array que vai ser apresentado seja actualizado.
 	 */
 	public void updateTilesForPresentation()
 	{
-		
-		for(int i = 0; i < mWidth; i++)
+		for (int i = 0; i < mWidth; i++)
 			mTilesMap.add(null);
-			
-		for(Tile tl : mImutableTiles)
+
+		for (Tile tl : mImutableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
-		
-		for(Tile tl : mDestroyableTiles)
+
+		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
 	}
-	
+
 	public void explodeTile(Tile _tile)
 	{
 		if (_tile.mType != Tile.DESTROYABLE)
@@ -98,9 +117,46 @@ public class GameMap {
 		}
 	}
 
-	public boolean objectIsCollidingWithAnyTile(GameObject _obj)
+	/**
+	 * 
+	 * @param _obj
+	 *            O objecto a verificar se está a colidir com um tile do tipo
+	 *            collidable.
+	 * @return Uma referência para o tile com o qual o objecto está a colidir ou
+	 *         Null se o objecto não estiver a colidir com nenhum tile.
+	 */
+	public Tile getTileCollidingWithObject(GameObject _obj)
 	{
-		return true;
+		//
+		// Verifica apenas os 4 tiles à volta
+		int testIdx;
+		int startIdx = calcTileIndex(_obj.mPosition);
+
+		// Cima
+		testIdx = calcTileIndex(startIdx, Directions.UP, (short) 1);
+		if (testIdx != startIdx)
+			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
+				return mTilesMap.get(testIdx);
+
+		// Baixo
+		testIdx = calcTileIndex(startIdx, Directions.DOWN, (short) 1);
+		if (testIdx != startIdx)
+			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
+				return mTilesMap.get(testIdx);
+
+		// Esquerda
+		testIdx = calcTileIndex(startIdx, Directions.LEFT, (short) 1);
+		if (testIdx != startIdx)
+			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
+				return mTilesMap.get(testIdx);
+
+		// Direita
+		testIdx = calcTileIndex(startIdx, Directions.RIGHT, (short) 1);
+		if (testIdx != startIdx)
+			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
+				return mTilesMap.get(testIdx);
+
+		return null;
 	}
 
 	public void update()
@@ -213,10 +269,10 @@ public class GameMap {
 	 */
 	public int calcTileIndex(Vector2 _position)
 	{
-		int x = (int) (_position.x / Tile.TILE_SIZE);
-		int y = (int) (_position.y / Tile.TILE_SIZE);
+		int col = (int) (_position.x / Tile.TILE_SIZE);
+		int line = (int) (_position.y / Tile.TILE_SIZE);
 
-		return y * mWidth + x;
+		return line * mWidth + col;
 	}
 
 	/**
@@ -287,13 +343,6 @@ public class GameMap {
 			}
 
 		}
-
-		// Verifica se não é devolvido um valor inválido
-		if (res < 0)
-			res = 0;
-
-		if (res > mTilesMap.size() - 1)
-			res = mTilesMap.size() - 1;
 
 		return res;
 	}
