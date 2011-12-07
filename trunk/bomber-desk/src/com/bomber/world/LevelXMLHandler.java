@@ -5,19 +5,21 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class LevelXMLHandler extends DefaultHandler {
-	// parsed values
-	public String mName;
-	public short mRows;
-	public short mColumns;
-	public short[][] mWalkableIDs;
-	public short[][] mCollidableIDs;
-	public short[][] mDestroyableIDs;
-	public short[][] mSpawnIDs;
+	
+	// parsed values go to Level
+	private Level mLevel;
+
 
 	// parsing helpers
 	private String mCurrentLayer = null;
 	private boolean mIsData = false;
 	private StringBuilder mText = new StringBuilder();
+
+	
+	
+	public LevelXMLHandler(Level _level) {
+		mLevel = _level;
+	}
 
 	public void startDocument() throws SAXException {
 		// TODO Auto-generated method stub
@@ -34,9 +36,9 @@ public class LevelXMLHandler extends DefaultHandler {
 
 		if (_qName.equals("tilemap")) {
 			
-			mName = _attributes.getValue("name");
-			mRows = Short.parseShort(_attributes.getValue("rows"));
-			mColumns = Short.parseShort(_attributes.getValue("columns"));
+			mLevel.mName = _attributes.getValue("name");
+			mLevel.mRows = Short.parseShort(_attributes.getValue("rows"));
+			mLevel.mColumns = Short.parseShort(_attributes.getValue("columns"));
 
 		} else if (_qName.equals("layer")) {
 			
@@ -68,7 +70,7 @@ public class LevelXMLHandler extends DefaultHandler {
 		int i = 0;
 		int j = 0;
 
-		short[][] parsedValues = new short[mRows][mColumns];
+		short[][] parsedValues = new short[mLevel.mRows][mLevel.mColumns];
 
 		// convert unidimensional String array to bidimensional short array
 		for (int k = 0; k < splitted.length; k++) {
@@ -77,7 +79,7 @@ public class LevelXMLHandler extends DefaultHandler {
 				parsedValues[i][j] = Short.parseShort(splitted[k]);
 
 				j++;
-				if (j == mColumns) {
+				if (j == mLevel.mColumns) {
 					// finished all columns -> next row
 					j = 0;
 					i++;
@@ -86,13 +88,13 @@ public class LevelXMLHandler extends DefaultHandler {
 		}
 
 		if (mCurrentLayer.equals("walkable")) {
-			mWalkableIDs = parsedValues;
+			mLevel.mWalkableIDs = parsedValues;
 		} else if (mCurrentLayer.equals("destroyables")) {
-			mDestroyableIDs = parsedValues;
+			mLevel.mDestroyableIDs = parsedValues;
 		} else if (mCurrentLayer.equals("spawns")) {
-			mSpawnIDs = parsedValues;
+			mLevel.mSpawnIDs = parsedValues;
 		} else if (mCurrentLayer.equals("collidables")) {
-			mCollidableIDs = parsedValues;
+			mLevel.mCollidableIDs = parsedValues;
 		}
 
 	}

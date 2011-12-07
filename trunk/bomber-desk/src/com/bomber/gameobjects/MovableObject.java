@@ -34,7 +34,7 @@ public abstract class MovableObject extends Drawable {
 	{
 		onChangedDirection();
 		mDirection = Directions.DOWN;
-		setCurrentAnimation(mAnimations.walkdown, mAnimations.numberOfFramesPerWalk);
+		setCurrentAnimation(mAnimations.walkDown, mAnimations.numberOfFramesPerWalk);
 	}
 
 	public void stop()

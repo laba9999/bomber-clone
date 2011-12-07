@@ -1,14 +1,12 @@
 package com.bomber.world;
 
-import java.util.HashMap;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 public class TilesetXMLHandler extends DefaultHandler {
-	//parsed values
-	public HashMap<Short, ImageTile> mImageTiles = new HashMap<Short, ImageTile>();
+	//parsed values go to Level
+	private Level mLevel;
 
 	//parsing helpers
 	private short mId;
@@ -16,6 +14,9 @@ public class TilesetXMLHandler extends DefaultHandler {
 	private boolean mFlipVertically;
 	private boolean mFlipHorizontally;
 	
+	public TilesetXMLHandler(Level _level) {
+		mLevel = _level;
+	}
 
 	@Override
 	public void endElement(String _uri, String _localName, String _qName)
@@ -24,7 +25,7 @@ public class TilesetXMLHandler extends DefaultHandler {
 		if(_qName.equals("imageTile")) {
 			
 			ImageTile temp = new ImageTile(mFile,mFlipHorizontally,mFlipHorizontally);
-			mImageTiles.put(mId, temp);
+			mLevel.mImageTiles.put(mId, temp);
 			
 		}
 

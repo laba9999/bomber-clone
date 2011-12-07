@@ -13,6 +13,6 @@ public class MovableObjectAnimation {
 	public Animation walkLeft;
 	public Animation walkRight;
 	public Animation walkUp;
-	public Animation walkdown;
+	public Animation walkDown;
 	public Animation die;
 }
