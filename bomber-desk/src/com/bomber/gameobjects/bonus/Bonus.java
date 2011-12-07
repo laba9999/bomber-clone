@@ -8,14 +8,4 @@ public abstract class Bonus extends Drawable {
 	public abstract void applyEffect(Player _player);
 
 	public abstract void removeEffect(Player _player);
-
-	/**
-	 * Baseado no tipo de bonus.
-	 */
-	@Override
-	public final boolean equals(Object _rhs)
-	{
-
-		return false;
-	}
 }

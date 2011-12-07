@@ -45,18 +45,9 @@ public class Drawable extends GameObject {
 	 */
 	public void reset()
 	{
-		super.reset();
-		
 		mNumberOfAnimationFrames = 0;
 		mCurrentAnimation = null;
 		mAnimationTicks = 0;
 		mLooped = false;
-	}
-
-	@Override
-	public boolean equals(Object _rhs)
-	{
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

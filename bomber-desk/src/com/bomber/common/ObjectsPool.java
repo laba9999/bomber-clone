@@ -75,7 +75,8 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 
 		// Obtem a posição onde vai ser inserido no array de objectos ocupados
 		T result = mFreeObjects.pop();
-
+		result.reset();
+		
 		// Actualiza o index do objecto para o libertar mais tarde
 		result.mIndex = insertPos;
 

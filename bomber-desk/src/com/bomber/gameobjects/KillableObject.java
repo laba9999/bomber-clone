@@ -2,24 +2,10 @@ package com.bomber.gameobjects;
 
 public abstract class KillableObject extends MovableObject {
 	protected boolean mIsDead = false;
-	
-	@Override
-	public void update()
-	{
-		super.update();
-		// TODO Auto-generated method stub
-		
-	}
 
-
-
-	/**
-	 *  
-	 */
 	public void kill()
 	{
 		mIsDead = true;
-		
 		onKill();
 	}
 
@@ -32,7 +18,7 @@ public abstract class KillableObject extends MovableObject {
 	 */
 	public void reset()
 	{
-		throw new UnsupportedOperationException();
+		mIsDead = false;
 	}
 
 	protected abstract void onKill();

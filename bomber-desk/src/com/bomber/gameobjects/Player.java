@@ -4,7 +4,7 @@ import com.bomber.common.ObjectsPool;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.world.GameWorld;
 
-public abstract class Player extends KillableObject {
+public class Player extends KillableObject {
 	public short mPointsMultiplier = 1;
 	public int mPoints = 0;
 	public String mPointsAsString;
@@ -57,15 +57,31 @@ public abstract class Player extends KillableObject {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * Baseado no deviceID
-	 */
 	@Override
-	public abstract boolean equals(Object _rhs);
+	protected void onMove()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
-	protected abstract void onChangedDirection();
+	@Override
+	protected void onKill()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
-	protected abstract void onStop();
+	@Override
+	protected void onChangedDirection()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
-	protected abstract void onKill();
+	@Override
+	protected void onStop()
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
