@@ -9,9 +9,7 @@ public class Tile extends Drawable {
 	
 	
 	public short mType;
-	
-	private boolean mIsDestroyed = false;
-	
+	public boolean mIsDestroyed = false;
 	
 
 	/**
@@ -20,15 +18,6 @@ public class Tile extends Drawable {
 	public void explode()
 	{
 		mIsDestroyed = true;
-		mAnimationTicks = 0;
 		// TODO: Actualizar a animação
-	}
-
-
-	@Override
-	public boolean equals(Object _rhs)
-	{
-		// TODO Auto-generated method stub
-		return false;
 	}
 }

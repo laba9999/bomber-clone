@@ -1,13 +1,10 @@
 package com.bomber.common;
 
-import java.security.InvalidParameterException;
-
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Monster;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
-import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.remote.Message;
 
 public class ObjectFactory {
@@ -32,14 +29,6 @@ public class ObjectFactory {
 		public Drawable onCreate()
 		{
 			return new Drawable();
-		}
-	}
-
-	public static class CreateMonster extends Factory<Monster> {
-
-		public Monster onCreate()
-		{
-			return new Monster();
 		}
 	}
 

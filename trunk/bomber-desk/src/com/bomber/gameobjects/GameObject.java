@@ -21,18 +21,9 @@ public abstract class GameObject extends PoolObject {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	public abstract boolean equals(Object _rhs);
-
-	/**
-	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.
-	 * Este método deve ser sempre chamar o seu super antes/depois de efectuar
-	 * mudanças numa classe derivada
-	 * 
-	 * mIsBeingDestroyed = false;
-	 */
-	public void reset()
+	public final boolean equals(Object _rhs)
 	{
-		throw new UnsupportedOperationException();
+		return ((GameObject)_rhs).mUUID == mUUID;
 	}
+
 }
