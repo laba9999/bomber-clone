@@ -29,14 +29,14 @@ public class WorldRenderer {
 	public void render()
 	{
 		Player localPlayer = mWorld.getLocalPlayer();
-
+/*
 		// Actualiza a posição da camera para seguir o local player
 		if (localPlayer.mPosition.y > mCamera.position.y)
 			mCamera.position.y = localPlayer.mPosition.y;
 
 		if (localPlayer.mPosition.x > mCamera.position.x)
 			mCamera.position.x = localPlayer.mPosition.x;
-
+*/
 		mCamera.update();
 		mBatch.setProjectionMatrix(mCamera.combined);
 

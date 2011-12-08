@@ -18,8 +18,7 @@ import org.xml.sax.XMLReader;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Tile;
 
-public class Level
-{
+public class Level {
 
 	/**
 	 * Serve também para fazer o reset.
@@ -36,7 +35,6 @@ public class Level
 	public static short[][] mSpawnIDs;
 
 	public static HashMap<Short, ImageTile> mImageTiles = new HashMap<Short, ImageTile>();
-
 
 	public static void loadLevel(String _levelID, GameWorld _world, short _howManyPlayers)
 	{
@@ -82,16 +80,16 @@ public class Level
 		}
 
 	}
-	
+
 	private static void flipMatrixVertically(short[][] _matrix)
 	{
-		int center = _matrix.length/2;
-		for(int i = 0; i< center;i++) {
+		int center = _matrix.length / 2;
+		for (int i = 0; i < center; i++)
+		{
 			short[] aux = _matrix[i];
 			_matrix[i] = _matrix[_matrix.length - i - 1];
-			_matrix[_matrix.length - i - 1] = aux;			
+			_matrix[_matrix.length - i - 1] = aux;
 		}
-		
 	}
 
 	private static void setupLevel(GameWorld _world)
@@ -140,7 +138,7 @@ public class Level
 		}
 
 		_world.mMap.updateTilesForPresentation();
-		
+
 	}
 
 	private static void setupSpawn(short _id, short _positionX, short _positionY, GameWorld _world)
@@ -151,21 +149,17 @@ public class Level
 		if (filename.equals("spawn_p1"))
 		{
 			_world.spawnPlayer("b_white", _positionY, _positionX);
-		}
-		else if (filename.equals("spawn_p2") && mNumberOfPlayers >= 2)
+		} else if (filename.equals("spawn_p2") && mNumberOfPlayers >= 2)
 		{
 			_world.spawnPlayer("b_red", _positionY, _positionX);
-		}
-		else if (filename.equals("spawn_p3") && mNumberOfPlayers >= 3)
+		} else if (filename.equals("spawn_p3") && mNumberOfPlayers >= 3)
 		{
 			_world.spawnPlayer("b_blue", _positionY, _positionX);
-		} 
-		else if (filename.equals("spawn_p4") && mNumberOfPlayers == 4)
+		} else if (filename.equals("spawn_p4") && mNumberOfPlayers == 4)
 		{
 			_world.spawnPlayer("b_green", _positionY, _positionX);
-		} 
-		else if(filename.contains("m_"))
-		{	
+		} else if (filename.contains("m_"))
+		{
 			// MONSTROS
 			String[] splitted = filename.split("_");
 			// ex: m_generic1_walk_0 tem monsterID m_generic1
