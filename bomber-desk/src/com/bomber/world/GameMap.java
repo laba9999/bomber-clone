@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
-import com.bomber.gameobjects.GameObject;
+import com.bomber.gameobjects.MovableObject;
 import com.bomber.gameobjects.Tile;
 
 /**
@@ -57,7 +58,7 @@ public class GameMap {
 		Tile tmpTile = mDestroyableTiles.getFreeObject();
 
 		tmpTile.mType = _type;
-		tmpTile.setCurrentAnimation(_anim, (short) 8);
+		tmpTile.setCurrentAnimation(_anim, (short) 8, false);
 		tmpTile.mPositionInArray = _line * mWidth + _col;
 		
 		//TODO : call updateTilesForPresentation???
@@ -88,7 +89,9 @@ public class GameMap {
 	}
 	/**
 	 * A ser chamado de cada vez que é inicializado um novo nível.
-	 * @param _width A largura em tiles do novo mapa.
+	 * 
+	 * @param _width
+	 *            A largura em tiles do novo mapa.
 	 */
 	public void reset(short _width)
 	{
@@ -142,41 +145,89 @@ public class GameMap {
 	 * @param _obj
 	 *            O objecto a verificar se está a colidir com um tile do tipo
 	 *            collidable.
-	 * @return Uma referência para o tile com o qual o objecto está a colidir ou
-	 *         Null se o objecto não estiver a colidir com nenhum tile.
+	 * @return O valor de overlap;
 	 */
-	public Tile getTileCollidingWithObject(GameObject _obj)
+	public boolean checkIfTileCollidingWithObject(MovableObject _obj, Vector2 _results, boolean _ignoreDestroyables)
 	{
+		final Rectangle bbTile = new Rectangle(0, 0, Tile.TILE_SIZE, Tile.TILE_SIZE);
+
+		_results.x = 0;
+		_results.y = 0;
 		//
 		// Verifica apenas os 4 tiles à volta
 		int testIdx;
 		int startIdx = calcTileIndex(_obj.mPosition);
 
-		// Cima
-		testIdx = calcTileIndex(startIdx, Directions.UP, (short) 1);
-		if (testIdx != startIdx)
-			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
-				return mTilesMap.get(testIdx);
+		Tile tmpTile;
+		Rectangle bbObj = _obj.getBoundingBox();
 
-		// Baixo
-		testIdx = calcTileIndex(startIdx, Directions.DOWN, (short) 1);
-		if (testIdx != startIdx)
-			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
-				return mTilesMap.get(testIdx);
+		switch (_obj.mDirection)
+		{
+		case Directions.UP:
+			testIdx = calcTileIndex(startIdx, Directions.UP, (short) 1);
+			if (testIdx != startIdx)
+			{
+				tmpTile = mTilesMap.get(testIdx);
 
-		// Esquerda
-		testIdx = calcTileIndex(startIdx, Directions.LEFT, (short) 1);
-		if (testIdx != startIdx)
-			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
-				return mTilesMap.get(testIdx);
+				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				{
+					bbTile.x = tmpTile.mPosition.x;
+					bbTile.y = tmpTile.mPosition.y;
+					if (bbObj.overlaps(bbTile))
+						_results.y = (bbTile.y + Tile.TILE_SIZE) - bbObj.y;
+				}
+			}
+			break;
+		case Directions.DOWN:
+			testIdx = calcTileIndex(startIdx, Directions.DOWN, (short) 1);
+			if (testIdx != startIdx)
+			{
+				tmpTile = mTilesMap.get(testIdx);
 
-		// Direita
-		testIdx = calcTileIndex(startIdx, Directions.RIGHT, (short) 1);
-		if (testIdx != startIdx)
-			if (_obj.getBoundingBox().overlaps(mTilesMap.get(testIdx).getBoundingBox()))
-				return mTilesMap.get(testIdx);
+				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				{
+					bbTile.x = tmpTile.mPosition.x;
+					bbTile.y = tmpTile.mPosition.y;
+					if (bbObj.overlaps(bbTile))
+						_results.y = bbTile.y - bbObj.y;
+				}
+			}
+			break;
 
-		return null;
+		case Directions.LEFT:
+			testIdx = calcTileIndex(startIdx, Directions.LEFT, (short) 1);
+			if (testIdx != startIdx)
+			{
+				tmpTile = mTilesMap.get(testIdx);
+
+				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				{
+					bbTile.x = tmpTile.mPosition.x;
+					bbTile.y = tmpTile.mPosition.y;
+					if (bbObj.overlaps(bbTile))
+						_results.x = (bbTile.x + Tile.TILE_SIZE) - bbObj.x;
+				}
+			}
+			break;
+
+		case Directions.RIGHT:
+			testIdx = calcTileIndex(startIdx, Directions.RIGHT, (short) 1);
+			if (testIdx != startIdx)
+			{
+				tmpTile = mTilesMap.get(testIdx);
+
+				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				{
+					bbTile.x = tmpTile.mPosition.x;
+					bbTile.y = tmpTile.mPosition.y;
+					if (bbObj.overlaps(bbTile))
+						_results.x = bbTile.x - bbObj.x;
+				}
+			}
+			break;
+		}
+
+		return ((_results.x == 0) && (_results.y == 0));
 	}
 
 	public void update()
@@ -398,6 +449,28 @@ public class GameMap {
 	{
 		int idx = calcTileIndex(_position);
 		idx = calcTileIndex(idx, _direction, _distance);
+
+		return mTilesMap.get(idx);
+	}
+	
+	
+	/**
+	 * Obtém o @link(Tile) mais próximo da posição providenciada, tendo em conta
+	 * uma direcção e uma distância.
+	 * 
+	 * @param _starIdx
+	 *            A posição no array onde iniciar a procura.
+	 * @param _direction
+	 *            A direcção do tipo @link(Directions) onde a procura será
+	 *            efectuada.
+	 * @param _distance
+	 *            A distância em número de @link(Tile)'s a somar ao à posição
+	 *            inicial.
+	 * @return Devolve o @link(Tile) calculado.
+	 */
+	public Tile getTile(int _starIdx, short _direction, short _distance)
+	{
+		int idx = calcTileIndex(_starIdx, _direction, _distance);
 
 		return mTilesMap.get(idx);
 	}

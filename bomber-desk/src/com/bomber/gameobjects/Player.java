@@ -5,41 +5,57 @@ import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.world.GameWorld;
 
 public class Player extends KillableObject {
-	public short mPointsMultiplier = 1;
+
 	public int mPoints = 0;
+
+	public String mName;
 	public String mPointsAsString;
-	public boolean mIsShieldActive = false;
+
 	public short mLives = 1;
+	public short mSpeedFactor = 1;
+	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 3;
 	public short mMaxSimultaneousBombs = 1;
+
+	public boolean mIsShieldActive = false;
 	public boolean mIsAbleToPushBombs = false;
-	public short mSpeedFactor = 1;
+
 	/**
 	 * Inicializado com o máximo de bonus que podem estar activos ao mesmo
 	 * tempo, 3.
 	 */
 	public ObjectsPool<Bonus> mActiveBonus;
-	public String mName;
 	/**
 	 * Efeitos que devem ser desenhados por cima do jogador, bonus e splash da
 	 * água...
 	 */
 	public ObjectsPool<Drawable> mEffects;
-	public GameWorld mWorld;
-	
+
+	public Player(GameWorld _world) {
+		mWorld = _world;
+	}
+
 	@Override
 	public void update()
 	{
 		super.update();
-		
-		if(mIsDead)
+
+		if (mIsDead)
 		{
-			// TODO: Verificar se chegou ao ultimo frame da animação
-			// e se sim remover-se da lista
-			mWorld.mPlayers.releaseObject(this);
+			if (mLooped)
+				mWorld.mPlayers.releaseObject(this);
+			return;
 		}
+
+		if (!mIsMoving)
+			return;
+
+		// Executa o movimento
+		move(mSpeed * mSpeedFactor);
+		checkTileCollisions(false);
+		checkBombCollisions();
 	}
-	
+
 	/**
 	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.
 	 * Este método deve ser sempre chamar o seu super antes/depois de efectuar
@@ -61,20 +77,20 @@ public class Player extends KillableObject {
 	protected void onKill()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onChangedDirection()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onStop()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

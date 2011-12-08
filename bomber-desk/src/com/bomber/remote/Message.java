@@ -25,8 +25,8 @@ public class Message extends PoolObject {
 	 * um dos RemoteEventType
 	 */
 	public short remoteEventType;
-	public Vector2 valVector2_0;
-	private Vector2 valVector2_1;
+	public Vector2 valVector2_0 = new Vector2();
+	private Vector2 valVector2_1 = new Vector2();
 	public short valShort;
 	public int valInt;
 	public String valString;
