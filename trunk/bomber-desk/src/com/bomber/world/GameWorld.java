@@ -20,7 +20,8 @@ import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.remote.Message;
 import com.bomber.remote.RemoteConnections;
 
-public class GameWorld {
+public class GameWorld
+{
 	public ObjectsPool<Monster> mMonsters;
 	public ObjectsPool<Bonus> mSpawnedBonus;
 	public ObjectsPool<Player> mPlayers;
@@ -35,8 +36,9 @@ public class GameWorld {
 	public Clock mClock;
 
 	private String mCurrentLevelName;
-	
-	public GameWorld(short _gameType, String _starLevelName) {
+
+	public GameWorld(short _gameType, String _starLevelName)
+	{
 
 		mGameType = _gameType;
 
@@ -52,33 +54,45 @@ public class GameWorld {
 		else if (_gameType == GameType.CTF || _gameType == GameType.DEADMATCH)
 			nPlayers = 2;
 
-		mPlayers = new ObjectsPool<Player>((short) nPlayers, new ObjectFactory.CreatePlayer(this));
+		mPlayers = new ObjectsPool<Player>((short) nPlayers,
+				new ObjectFactory.CreatePlayer(this));
 
 		// Assumimos que cada player vai poder colocar em termos médios 2 bombas
 		// de cada vez
 		short nBombs = (short) (2 * nPlayers);
-		mBombs = new ObjectsPool<Bomb>(nBombs, new ObjectFactory.CreateBomb(this));
+		mBombs = new ObjectsPool<Bomb>(nBombs, new ObjectFactory.CreateBomb(
+				this));
 
 		// Assumimos que cada bomba vai ter um poder de explosão médio de 3,
 		// como são 4 direcções possiveis temos 12 "explosões" por bomba.
 		short nExplosions = (short) (12 * nBombs);
-		mExplosions = new ObjectsPool<Drawable>(nExplosions, new ObjectFactory.CreateExplosion());
-	
-	
+		mExplosions = new ObjectsPool<Drawable>(nExplosions,
+				new ObjectFactory.CreateExplosion());
+
 		// Lê o nivel
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
 	}
 
-	public void spawnMonster(short _type, short _line, short _col)
+	public void spawnMonster(String _type, short _line, short _col)
 	{
-		Monster tmpMonster = ObjectFactory.CreateMonter.create(_type, this);
+		Monster tmpMonster = ObjectFactory.CreateMonster.create(this);
 		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE;
 		tmpMonster.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
-		
+		tmpMonster.mAnimations = Assets.mMonsters.get(_type);
 		mMonsters.addObject(tmpMonster);
 	}
-	
+
+	public void spawnPlayer(String _type, short _line, short _col)
+	{
+		Player tmpPlayer = ObjectFactory.CreatePlayer.create(this);
+
+		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE;
+		tmpPlayer.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
+		tmpPlayer.mAnimations = Assets.mPlayers.get(_type);
+		mPlayers.addObject(tmpPlayer);
+	}
+
 	/**
 	 * Chamado pelas bombas. Obtem o tamanho que a explosão terá para cada uma
 	 * das direcções baseada no mExplosionSize da bomba e na distância aos tiles
@@ -96,77 +110,95 @@ public class GameWorld {
 
 		createExplosionComponents(_bomb);
 	}
-	
+
 	private void createExplosionComponents(Bomb _bomb)
 	{
 		// Adiciona a explosão central
-				Drawable tmpExplosion = mExplosions.getFreeObject();
-				tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_center"), (short) 4, true);
+		Drawable tmpExplosion = mExplosions.getFreeObject();
+		tmpExplosion.setCurrentAnimation(
+				Assets.mExplosions.get("xplode_center"), (short) 4, true);
 
+		//
+		// Para cada um dos lados, calcula o tamanho da explosão e adiciona
+		for (short i = Directions.UP; i <= Directions.RIGHT; i++)
+		{
+			Tile tmpTile;
+			int startIdx = mMap.calcTileIndex(_bomb.mPosition);
+			int distance = mMap.getDistanceToNext(_bomb.mBombPower,
+					_bomb.mPosition, i, Tile.COLLIDABLE, Tile.DESTROYABLE);
+			if (distance >= 0)
+			{
 				//
-				// Para cada um dos lados, calcula o tamanho da explosão e adiciona
-				for (short i = Directions.UP; i <= Directions.RIGHT; i++)
+				// Foi encontrado um tile..
+
+				// Obtem o tile
+				tmpTile = mMap.getTile(startIdx, i, (short) distance);
+
+				// Se o tile é destrutivel, explode-o
+				if (tmpTile.mType == Tile.DESTROYABLE)
+					mMap.explodeTile(tmpTile);
+
+				// Cria os restantes componentes da explosão, não incluindo o
+				// central e o tile encontrado
+				for (short c = 1; c < distance; c++)
 				{
-					Tile tmpTile;
-					int startIdx = mMap.calcTileIndex(_bomb.mPosition);
-					int distance = mMap.getDistanceToNext(_bomb.mBombPower, _bomb.mPosition, i, Tile.COLLIDABLE, Tile.DESTROYABLE);
-					if (distance >= 0)
-					{
-						//
-						// Foi encontrado um tile..
+					tmpTile = mMap.getTile(startIdx, i, c);
+					tmpExplosion = mExplosions.getFreeObject();
+					tmpExplosion.mPosition = tmpTile.mPosition;
 
-						// Obtem o tile
-						tmpTile = mMap.getTile(startIdx, i, (short) distance);
-
-						// Se o tile é destrutivel, explode-o
-						if (tmpTile.mType == Tile.DESTROYABLE)
-							mMap.explodeTile(tmpTile);
-
-						// Cria os restantes componentes da explosão, não incluindo o
-						// central e o tile encontrado
-						for (short c = 1; c < distance; c++)
-						{
-							tmpTile = mMap.getTile(startIdx, i, c);
-							tmpExplosion = mExplosions.getFreeObject();
-							tmpExplosion.mPosition = tmpTile.mPosition;
-
-							if (i == Directions.LEFT || i == Directions.RIGHT)
-								tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_hor"), (short) 4, true);
-							else
-								tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_vert"), (short) 4, true);
-						}
-
-					} else
-					{
-						//
-						// Não foi encontrado um tile
-
-						// Cria os restantes componentes da explosão, não incluindo o
-						// central e a ponta
-						for (short c = 1; c < _bomb.mBombPower; c++)
-						{
-							tmpTile = mMap.getTile(startIdx, i, c);
-							tmpExplosion = mExplosions.getFreeObject();
-							tmpExplosion.mPosition = tmpTile.mPosition;
-
-							if (i == Directions.LEFT || i == Directions.RIGHT)
-								tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_hor"), (short) 4, true);
-							else
-								tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_vert"), (short) 4, true);
-						}
-
-						// Adiciona a ponta
-						if (i == Directions.LEFT)
-							tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_left"), (short) 4, true);
-						else if (i == Directions.RIGHT)
-							tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_right"), (short) 4, true);
-						else if (i == Directions.UP)
-							tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_up"), (short) 4, true);
-						else if (i == Directions.DOWN)
-							tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_down"), (short) 4, true);
-					}
-
+					if (i == Directions.LEFT || i == Directions.RIGHT)
+						tmpExplosion.setCurrentAnimation(
+								Assets.mExplosions.get("explode_hor"),
+								(short) 4, true);
+					else
+						tmpExplosion.setCurrentAnimation(
+								Assets.mExplosions.get("explode_vert"),
+								(short) 4, true);
 				}
+
+			} else
+			{
+				//
+				// Não foi encontrado um tile
+
+				// Cria os restantes componentes da explosão, não incluindo o
+				// central e a ponta
+				for (short c = 1; c < _bomb.mBombPower; c++)
+				{
+					tmpTile = mMap.getTile(startIdx, i, c);
+					tmpExplosion = mExplosions.getFreeObject();
+					tmpExplosion.mPosition = tmpTile.mPosition;
+
+					if (i == Directions.LEFT || i == Directions.RIGHT)
+						tmpExplosion.setCurrentAnimation(
+								Assets.mExplosions.get("explode_hor"),
+								(short) 4, true);
+					else
+						tmpExplosion.setCurrentAnimation(
+								Assets.mExplosions.get("explode_vert"),
+								(short) 4, true);
+				}
+
+				// Adiciona a ponta
+				if (i == Directions.LEFT)
+					tmpExplosion.setCurrentAnimation(
+							Assets.mExplosions.get("explode_tip_left"),
+							(short) 4, true);
+				else if (i == Directions.RIGHT)
+					tmpExplosion.setCurrentAnimation(
+							Assets.mExplosions.get("explode_tip_right"),
+							(short) 4, true);
+				else if (i == Directions.UP)
+					tmpExplosion.setCurrentAnimation(
+							Assets.mExplosions.get("explode_tip_up"),
+							(short) 4, true);
+				else if (i == Directions.DOWN)
+					tmpExplosion.setCurrentAnimation(
+							Assets.mExplosions.get("explode_tip_down"),
+							(short) 4, true);
+			}
+
+		}
 	}
 
 	/**
@@ -183,7 +215,8 @@ public class GameWorld {
 		tmpBomb.mBombPower = _bombPower;
 	}
 
-	public boolean checkIfBombCollidingWithObject(MovableObject _obj, Vector2 _results)
+	public boolean checkIfBombCollidingWithObject(MovableObject _obj,
+			Vector2 _results)
 	{
 		_results.x = 0;
 		_results.y = 0;

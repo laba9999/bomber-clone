@@ -14,9 +14,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 import com.bomber.common.Assets;
-import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
-import com.bomber.gameobjects.monsters.Monster;
 
 public class Level
 {
@@ -40,14 +38,14 @@ public class Level
 	public static void main(String[] args)
 	{ // TODO: delete this
 		Level l = new Level();
-		l.loadLevel("level1", null,(short) 1);
+		l.loadLevel("level1", null, (short) 1);
 	}
 
 	public static void loadLevel(String _levelID, GameWorld _world,
 			short _howManyPlayers)
 	{
 		mNumberOfPlayers = _howManyPlayers;
-		
+
 		try
 		{
 
@@ -90,7 +88,7 @@ public class Level
 		// setup do nivel
 		_world.mMap.reset(mColumns);
 
-		// carrega Assets das tiles
+		// carrega Assets
 		for (short i = 0; i < mColumns; i++)
 		{
 			for (short j = 0; j < mRows; j++)
@@ -130,7 +128,7 @@ public class Level
 				id = mSpawnIDs[i][j];
 				if (id != 0)
 				{
-					setupSpawns(id, j, i, _world);
+					setupSpawn(id, j, i, _world);
 				}
 
 			}
@@ -140,60 +138,42 @@ public class Level
 
 	}
 
-	private static void setupSpawns(short _id, short _positionX,
+	private static void setupSpawn(short _id, short _positionX,
 			short _positionY, GameWorld _world)
 	{
-		ImageTile temp = mImageTiles.get(_id);
-	
-		
-		//BOMBERMANS
-		if (temp.mImageFile.equals("spawn_p1"))
+		String filename = mImageTiles.get(_id).mImageFile;
+
+		// BOMBERMANS
+		if (filename.equals("spawn_p1"))
 		{
-			Player p = _world.mPlayers.getFreeObject();
-			p.mPosition.set(_positionX, _positionY);
-			p.mAnimations = Assets.mPlayers.get("b_white");
-		}
-		else if (temp.mImageFile.equals("spawn_p2") && mNumberOfPlayers >= 2)
+			_world.spawnPlayer("b_white", _positionY, _positionX);
+		} else if (filename.equals("spawn_p2") && mNumberOfPlayers >= 2)
 		{
-			Player p = _world.mPlayers.getFreeObject();
-			p.mPosition.set(_positionX, _positionY);
-			p.mAnimations = Assets.mPlayers.get("b_red");
-		}
-		else if (temp.mImageFile.equals("spawn_p3") && mNumberOfPlayers >= 3)
+			_world.spawnPlayer("b_red", _positionY, _positionX);
+		} else if (filename.equals("spawn_p3") && mNumberOfPlayers >= 3)
 		{
-			Player p = _world.mPlayers.getFreeObject();
-			p.mPosition.set(_positionX, _positionY);
-			p.mAnimations = Assets.mPlayers.get("/b_blue");
-		}
-		else if (temp.mImageFile.equals("spawn_p4") && mNumberOfPlayers == 4)
+			_world.spawnPlayer("b_blue", _positionY, _positionX);
+		} else if (filename.equals("spawn_p4") && mNumberOfPlayers == 4)
 		{
-			Player p = _world.mPlayers.getFreeObject();
-			p.mPosition.set(_positionX, _positionY);
-			p.mAnimations = Assets.mPlayers.get("b_green");
-		}
-		else
-		{//MONSTROS
-			
-			String[] splitted = temp.mImageFile.split("_");			
-			// ex: m_generic1_walk_0  tem monsterID m_generic1
+			_world.spawnPlayer("b_green", _positionY, _positionX);
+		} else
+		{// MONSTROS
+			String[] splitted = filename.split("_");
+			// ex: m_generic1_walk_0 tem monsterID m_generic1
 			String monsterID = splitted[0] + "_" + splitted[1];
-			
-			if(monsterID.contains("m_generic"))
-			{ //se é um monstro genérico
-				Assets.loadGenericMonster(monsterID);				
-			}
-			else
+
+			if (monsterID.contains("m_generic"))
+			{ // se é um monstro genérico
+				Assets.loadGenericMonster(monsterID);
+			} else
 			{
 				Assets.loadNormalMonster(monsterID);
 			}
-			
-			_world.spawnMonster(Monster.getTypeFromString(monsterID),_positionY,_positionX);
-			
+
+			_world.spawnMonster(monsterID, _positionY, _positionX);
+
 		}
 
-
 	}
-	
-	
 
 }
