@@ -67,9 +67,18 @@ public class GameWorld {
 	
 		// Lê o nivel
 		mCurrentLevelName = _starLevelName;
-		Level.loadLevel(_starLevelName, this);
+		Level.loadLevel(_starLevelName, this, nPlayers);
 	}
 
+	public void spawnMonster(short _type, short _line, short _col)
+	{
+		Monster tmpMonster = ObjectFactory.CreateMonter.create(_type, this);
+		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE;
+		tmpMonster.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
+		
+		mMonsters.addObject(tmpMonster);
+	}
+	
 	/**
 	 * Chamado pelas bombas. Obtem o tamanho que a explosão terá para cada uma
 	 * das direcções baseada no mExplosionSize da bomba e na distância aos tiles
