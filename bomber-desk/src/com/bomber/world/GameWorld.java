@@ -102,9 +102,9 @@ public class GameWorld {
 		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE;
 		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE;
 		
-		tmpMonster.mAnimations = Assets.mMonsters.get(_type);
+		tmpMonster.setMovableAnimations(Assets.mMonsters.get(_type));
 		
-		tmpMonster.mInfo = MonsterInfo.getFlagsFromType(_type);
+		tmpMonster.mInfo = MonsterInfo.getInfoFromType(_type);
 	}
 
 	public void spawnPlayer(String _type, short _line, short _col)
@@ -114,7 +114,7 @@ public class GameWorld {
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE;
 		tmpPlayer.mPosition.y = _line *Tile.TILE_SIZE;
 
-		tmpPlayer.mAnimations = Assets.mPlayers.get(_type);
+		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
 	}
 
 	/**

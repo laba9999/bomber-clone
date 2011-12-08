@@ -9,7 +9,7 @@ public abstract class KillableObject extends MovableObject {
 	{
 		mIsDead = true;
 		mDirection = Directions.NONE;
-		setCurrentAnimation(mAnimations.die, mAnimations.numberOfFramesDying, true);
+		setCurrentAnimation(mMovableAnimations.die, mMovableAnimations.numberOfFramesDying, true);
 		onKill();
 	}
 
