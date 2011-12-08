@@ -7,7 +7,7 @@ import com.bomber.gameobjects.Player;
 import com.bomber.world.GameWorld;
 
 public abstract class Monster extends KillableObject {
-	public static final HashMap<Short, String> mType = new HashMap<Short, String>();
+	public static HashMap<String, Short> TYPE = null;
 	
 	public static final short GENERIC1 = 0;
 	public static final short GENERIC2 = 1;
@@ -45,23 +45,30 @@ public abstract class Monster extends KillableObject {
 
 	public abstract void interactWithPlayer(Player _player);
 	
-	public static void setTypes()
+	public static short getTypeFromString(String _str)
 	{
-		
-		mType.put(GENERIC1,"generic/m_generic1");
-		mType.put(GENERIC2,"generic/m_generic2");
-		mType.put(GENERIC3,"generic/m_generic3");
-		mType.put(GENERIC4,"generic/m_generic4");
-		mType.put(GENERIC5,"generic/m_generic5");
-		mType.put(GENERIC6,"generic/m_generic6");
-		mType.put(GENERIC7,"generic/m_generic7");
-		mType.put(GENERIC8,"generic/m_generic8");
-		mType.put(GENERIC9,"generic/m_generic9");
-		mType.put(GENERIC10,"generic/m_generic10");
-		mType.put(NORMAL1, "normal/m_1");
-		mType.put(NORMAL2, "normal/m_2");
-		mType.put(NORMAL3, "normal/m_3");
-		mType.put(NORMAL4, "normal/m_4");
-		mType.put(NORMAL5, "normal/m_5");
+		if(null == TYPE) 
+		{
+			TYPE = new HashMap<String, Short>();
+			TYPE.put("m_generic1", GENERIC1);
+			TYPE.put("m_generic2", GENERIC2);
+			TYPE.put("m_generic3", GENERIC3);
+			TYPE.put("m_generic4", GENERIC4);
+			TYPE.put("m_generic5", GENERIC5);
+			TYPE.put("m_generic6", GENERIC6);
+			TYPE.put("m_generic7", GENERIC7);
+			TYPE.put("m_generic8", GENERIC8);
+			TYPE.put("m_generic9", GENERIC9);
+			TYPE.put("m_generic10", GENERIC10);
+			TYPE.put("m_1", NORMAL1);
+			TYPE.put("m_2", NORMAL2);
+			TYPE.put("m_3", NORMAL3);
+			TYPE.put("m_4", NORMAL4);
+			TYPE.put("m_5", NORMAL5);
+		}
+		return TYPE.get(_str);
 	}
+		
+	
+		
 }
