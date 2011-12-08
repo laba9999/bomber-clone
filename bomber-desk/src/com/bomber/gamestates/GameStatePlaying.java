@@ -20,6 +20,6 @@ public class GameStatePlaying extends GameState {
 
 	public void present(float _interpolation)
 	{
-		throw new UnsupportedOperationException();
+		mGameScreen.mWorldRenderer.render();
 	}
 }

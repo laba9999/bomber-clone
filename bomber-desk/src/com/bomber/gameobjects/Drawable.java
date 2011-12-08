@@ -17,6 +17,7 @@ public class Drawable extends GameObject {
 	{
 		mNumberOfAnimationFrames = _numberOfFrames;
 		mCurrentAnimation = _anim;
+		mCurrentFrame = _anim.getKeyFrame(0, false);
 		mLoopAnimation = _loop;
 		mAnimationTicks = 0;
 		mLooped = false;

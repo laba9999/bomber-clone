@@ -40,7 +40,10 @@ public class ObjectsPoolIterator<T extends PoolObject> implements Iterator<T> {
 		{
 			next = mContainer.get(i);
 			if (next != null)
+			{
 				mIndex = ++i;
+				break;
+			}
 		}
 
 		return next;

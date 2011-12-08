@@ -2,6 +2,7 @@ package com.bomber.world;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -61,8 +62,8 @@ public class GameMap {
 		tmpTile.mType = _type;
 		tmpTile.setCurrentAnimation(_anim, (short) 8, false);
 		tmpTile.mPositionInArray = _line * mWidth + _col;
-		
-		//TODO : call updateTilesForPresentation???
+	
+		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line *Tile.TILE_SIZE);
 	}
 
 	/**
@@ -85,9 +86,10 @@ public class GameMap {
 		tmpTile.mLoopAnimation = false;
 		tmpTile.mPositionInArray = _line * mWidth + _col;
 		
+		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line *Tile.TILE_SIZE);
+		
 		if(tmpTile.mPositionInArray > mWidth*mHeight)
 			throw new InvalidParameterException();
-
 	}
 	
 	/**
@@ -115,7 +117,7 @@ public class GameMap {
 		
 		for (int i = 0; i < mWidth*mHeight; i++)
 			mTilesMap.add(null);
-
+		
 		for (Tile tl : mImutableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
 
@@ -349,7 +351,12 @@ public class GameMap {
 		int col = (int) (_position.x / Tile.TILE_SIZE);
 		int line = (int) (_position.y / Tile.TILE_SIZE);
 
-		return line * mWidth + col;
+		int res = line * mWidth + col;
+		
+		if( res > mTilesMap.size())
+			throw new InvalidParameterException();
+		
+		return res;
 	}
 
 	/**

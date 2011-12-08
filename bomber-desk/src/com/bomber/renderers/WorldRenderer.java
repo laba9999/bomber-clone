@@ -2,6 +2,7 @@ package com.bomber.renderers;
 
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bomber.common.Assets;
@@ -19,8 +20,10 @@ public class WorldRenderer {
 
 	public WorldRenderer(SpriteBatch _batch, GameWorld _world) {
 		mWorld = _world;
-		mCamera = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-		mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
+		mCamera = new OrthographicCamera(800, 480);
+		//mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
+		mCamera.position.set(800 / 2, 480 / 2, 0);
+		
 		mBatch = _batch;
 	}
 

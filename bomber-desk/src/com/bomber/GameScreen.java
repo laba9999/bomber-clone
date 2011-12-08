@@ -16,7 +16,7 @@ public class GameScreen implements ApplicationListener {
 
 	public GameWorld mWorld;
 	public GameState mGameState;
-	
+
 	SpriteBatch mBatcher;
 	OrthographicCamera mUICamera;
 	public WorldRenderer mWorldRenderer;
@@ -29,7 +29,7 @@ public class GameScreen implements ApplicationListener {
 		Assets.loadAssets();
 		mWorld = new GameWorld(GameType.CAMPAIGN, "level1");
 		mGameState = new GameStatePlaying(this);
-		
+
 		mBatcher = new SpriteBatch();
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 	}
@@ -46,22 +46,18 @@ public class GameScreen implements ApplicationListener {
 	{
 		int loops;
 		float interpolation;
-		boolean game_is_running = true;
 		long next_game_tick = System.nanoTime();
 
-		while (game_is_running)
+		loops = 0;
+		while (System.nanoTime() > next_game_tick && loops < MAX_FRAMESKIP)
 		{
-			loops = 0;
-			while (System.nanoTime() > next_game_tick && loops < MAX_FRAMESKIP)
-			{
-				mGameState.update();
-				next_game_tick += SKIP_TICKS;
-				loops++;
-			}
-
-			interpolation = (System.nanoTime() + SKIP_TICKS - next_game_tick) / SKIP_TICKS;
-			mGameState.present(interpolation);
+			mGameState.update();
+			next_game_tick += SKIP_TICKS;
+			loops++;
 		}
+
+		interpolation = (System.nanoTime() + SKIP_TICKS - next_game_tick) / SKIP_TICKS;
+		mGameState.present(interpolation);
 	}
 
 	@Override
