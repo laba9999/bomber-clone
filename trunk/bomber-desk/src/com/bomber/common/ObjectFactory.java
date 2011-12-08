@@ -2,17 +2,25 @@ package com.bomber.common;
 
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
-import com.bomber.gameobjects.Monster;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
+import com.bomber.gameobjects.bonus.Bonus;
+import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.remote.Message;
+import com.bomber.world.GameWorld;
 
 public class ObjectFactory {
 	public static class CreatePlayer extends Factory<Player> {
 
+		GameWorld mWorld;
+
+		public CreatePlayer(GameWorld _world) {
+			mWorld = _world;
+		}
+
 		public Player onCreate()
 		{
-			return new Player();
+			return new Player(mWorld);
 		}
 	}
 
@@ -40,15 +48,21 @@ public class ObjectFactory {
 
 	public static class CreateBomb extends Factory<Bomb> {
 
+		GameWorld mWorld;
+
+		public CreateBomb(GameWorld _world) {
+			mWorld = _world;
+		}
+
 		public Bomb onCreate()
 		{
-			return new Bomb();
+			return new Bomb(mWorld);
 		}
 	}
 
 	public static class CreateMonter {
 
-		public static Monster create(short _monsterType)
+		public static Monster create(short _monsterType, GameWorld _world)
 		{
 			Monster tmpMonster = null;
 			switch (_monsterType)
@@ -63,6 +77,26 @@ public class ObjectFactory {
 				tmpMonster.mUUID = Utils.getNextUUID();
 
 			return tmpMonster;
+		}
+	}
+
+	public static class CreateBonus {
+
+		public static Bonus create(short _bonusType, GameWorld _world)
+		{
+			Bonus tmpBonus = null;
+			switch (_bonusType)
+			{
+			// TODO: Adicionar a criação dos vários tipos de bonus...
+			// default:
+			// throw new
+			// InvalidParameterException("Tipo de bonus desconhecido");
+			}
+
+			if (null != tmpBonus)
+				tmpBonus.mUUID = Utils.getNextUUID();
+
+			return tmpBonus;
 		}
 	}
 

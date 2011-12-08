@@ -3,23 +3,31 @@ package com.bomber.gameobjects;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-
 public class Drawable extends GameObject {
 
 	public boolean mLoopAnimation;
 	public boolean mLooped = false;
 	public TextureRegion mCurrentFrame;
-	
-	private int mAnimationTicks = 0;
+
+	protected int mAnimationTicks = 0;
 	private Animation mCurrentAnimation;
 	private short mNumberOfAnimationFrames = 1;
 
-	public void setCurrentAnimation(Animation _anim, short _numberOfFrames)
+	public void setCurrentAnimation(Animation _anim, short _numberOfFrames, boolean _loop)
 	{
 		mNumberOfAnimationFrames = _numberOfFrames;
 		mCurrentAnimation = _anim;
+		mLoopAnimation = _loop;
 		mAnimationTicks = 0;
 		mLooped = false;
+
+	}
+
+	public void stopCurrentAnimation()
+	{
+		mAnimationTicks = 0;
+		mLoopAnimation = false;
+		mCurrentFrame = mCurrentAnimation.getKeyFrame(mAnimationTicks, false);
 	}
 
 	/**
@@ -30,7 +38,7 @@ public class Drawable extends GameObject {
 	{
 		if (!mLoopAnimation)
 			return;
-		
+
 		mAnimationTicks++;
 		mCurrentFrame = mCurrentAnimation.getKeyFrame(mAnimationTicks, true);
 

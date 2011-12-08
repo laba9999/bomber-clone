@@ -10,8 +10,6 @@ public abstract class PoolObject {
 	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.
 	 * Este método deve ser sempre chamar o seu super antes/depois de efectuar
 	 * mudanças numa classe derivada
-	 * 
-	 * mIsBeingDestroyed = false;
 	 */
 	public abstract void reset();
 }
