@@ -8,17 +8,11 @@ public class LevelXMLHandler extends DefaultHandler
 {
 
 	// valores extraídos vão para o Level
-	private Level mLevel;
-
 	// auxiliares
 	private String mCurrentLayer = null;
 	private boolean mIsData = false;
 	private StringBuilder mText = new StringBuilder();
 
-	public LevelXMLHandler(Level _level)
-	{
-		mLevel = _level;
-	}
 
 	@Override
 	public void startElement(String _uri, String _localName, String _qName,
@@ -28,9 +22,9 @@ public class LevelXMLHandler extends DefaultHandler
 		if (_qName.equals("tilemap"))
 		{
 
-			mLevel.mName = _attributes.getValue("name");
-			mLevel.mRows = Short.parseShort(_attributes.getValue("rows"));
-			mLevel.mColumns = Short.parseShort(_attributes.getValue("columns"));
+			Level.mName = _attributes.getValue("name");
+			Level.mRows = Short.parseShort(_attributes.getValue("rows"));
+			Level.mColumns = Short.parseShort(_attributes.getValue("columns"));
 
 		} else if (_qName.equals("layer"))
 		{
@@ -67,7 +61,7 @@ public class LevelXMLHandler extends DefaultHandler
 		int i = 0;
 		int j = 0;
 
-		short[][] parsedValues = new short[mLevel.mRows][mLevel.mColumns];
+		short[][] parsedValues = new short[Level.mRows][Level.mColumns];
 
 		// converte array unidimensional de String para array bidimensional de
 		// short
@@ -79,7 +73,7 @@ public class LevelXMLHandler extends DefaultHandler
 				parsedValues[i][j] = Short.parseShort(splitted[k]);
 
 				j++;
-				if (j == mLevel.mColumns)
+				if (j == Level.mColumns)
 				{
 					// terminou todas as colunas -> proxima linha
 					j = 0;
@@ -90,16 +84,16 @@ public class LevelXMLHandler extends DefaultHandler
 
 		if (mCurrentLayer.equals("walkable"))
 		{
-			mLevel.mWalkableIDs = parsedValues;
+			Level.mWalkableIDs = parsedValues;
 		} else if (mCurrentLayer.equals("destroyables"))
 		{
-			mLevel.mDestroyableIDs = parsedValues;
+			Level.mDestroyableIDs = parsedValues;
 		} else if (mCurrentLayer.equals("spawns"))
 		{
-			mLevel.mSpawnIDs = parsedValues;
+			Level.mSpawnIDs = parsedValues;
 		} else if (mCurrentLayer.equals("collidables"))
 		{
-			mLevel.mCollidableIDs = parsedValues;
+			Level.mCollidableIDs = parsedValues;
 		}
 
 	}
