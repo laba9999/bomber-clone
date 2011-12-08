@@ -17,6 +17,7 @@ import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.monsters.Monster;
+import com.bomber.gameobjects.monsters.MonsterInfo;
 import com.bomber.remote.Message;
 import com.bomber.remote.RemoteConnections;
 
@@ -100,8 +101,10 @@ public class GameWorld {
 		Monster tmpMonster = mMonsters.getFreeObject();
 		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE;
 		tmpMonster.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
-
+		
 		tmpMonster.mAnimations = Assets.mMonsters.get(_type);
+		
+		tmpMonster.mInfo = MonsterInfo.getFlagsFromType(_type);
 	}
 
 	public void spawnPlayer(String _type, short _line, short _col)

@@ -78,7 +78,7 @@ public abstract class MovableObject extends Drawable {
 
 	protected void checkTileCollisions(boolean _ignoreDestroyables)
 	{
-		mJustCollided = mWorld.mMap.checkIfTileCollidingWithObject(this, mCollision, false);
+		mJustCollided = mWorld.mMap.checkIfTileCollidingWithObject(this, mCollision, _ignoreDestroyables);
 
 		if(!mJustCollided)
 			return;
