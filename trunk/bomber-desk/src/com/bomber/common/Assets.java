@@ -109,13 +109,13 @@ public class Assets
 		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_");
 
 		// load walkdown animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_down_");
+		movableAnimation.walkDown = loadAnimation(_id + "_walk_down_");
 
 		// load walkleft animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_left_");
+		movableAnimation.walkLeft = loadAnimation(_id + "_walk_left_");
 
 		// load walkright animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_right_");
+		movableAnimation.walkRight = loadAnimation(_id + "_walk_right_");
 
 		movableAnimation.numberOfFramesDying = _dieFrames;
 		movableAnimation.numberOfFramesPerWalk = _walkFrames;
