@@ -1,5 +1,6 @@
 package com.bomber.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.MassData;
 import com.bomber.gameobjects.MovableObjectAnimation;
 
 /**
@@ -90,8 +92,9 @@ public class Assets
 	}
 
 	/**
-	 * Carrega animations de GameObjects com estados _die_ , _walk_up_ ,
-	 * _walk_down_ , _walk_left e _walk_right Útil para Players e Monsters
+	 * Cria MovableObjectAnimation com Animations de GameObjects com estados
+	 * _die_ , _walk_up_ , _walk_down_ , _walk_left e _walk_right. Útil para
+	 * Players e Monsters
 	 */
 	private static MovableObjectAnimation loadCompositeMovableObjectAnimation(
 			String _id, short _dieFrames, short _walkFrames)
@@ -172,6 +175,10 @@ public class Assets
 
 	}
 
+	/**
+	 * Cria MovableObjectAnimation de monstros genéricos com Animations _die_ e
+	 * _walk_.
+	 */
 	private static MovableObjectAnimation loadGenericMonsterMovableObjectAnimations(
 			String _id)
 	{
@@ -222,13 +229,16 @@ public class Assets
 
 	public static void loadDestroyableTile(String _id)
 	{
-		mDestroyableTiles.put(_id, loadAnimation(_id));
+		mDestroyableTiles.put(_id, loadAnimation(_id + "_destroy_"));
 	}
 
 	public static void loadNonDestroyableTile(String _id,
 			boolean _flipHorizontally, boolean _flipVertically)
 	{
-		TextureRegion r = mAtlas.findRegion(_id);
+		// _id = "tiles_2" : ignorando 6 chars, temos o index
+		int tileIndex = Integer.parseInt(_id.substring(6));
+
+		TextureRegion r = mAtlas.findRegion("tiles_", tileIndex);
 		// TODO : verificar se não há engano nestes parametros
 		r.flip(_flipVertically, _flipHorizontally);
 		mNonDestroyableTiles.put(_id, r);

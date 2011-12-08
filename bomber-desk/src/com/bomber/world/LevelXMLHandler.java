@@ -7,10 +7,10 @@ import org.xml.sax.helpers.DefaultHandler;
 public class LevelXMLHandler extends DefaultHandler
 {
 
-	// parsed values go to Level
+	// valores extraídos vão para o Level
 	private Level mLevel;
 
-	// parsing helpers
+	// auxiliares
 	private String mCurrentLayer = null;
 	private boolean mIsData = false;
 	private StringBuilder mText = new StringBuilder();
@@ -18,17 +18,6 @@ public class LevelXMLHandler extends DefaultHandler
 	public LevelXMLHandler(Level _level)
 	{
 		mLevel = _level;
-	}
-
-	public void startDocument() throws SAXException
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void endDocument() throws SAXException
-	{
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -64,7 +53,7 @@ public class LevelXMLHandler extends DefaultHandler
 		if (_qName.equals("data"))
 		{
 			parseDataTagText();
-			// cleanup
+			// clean up
 			mText.delete(0, mText.length());
 			mIsData = false;
 		}
@@ -72,7 +61,7 @@ public class LevelXMLHandler extends DefaultHandler
 
 	private void parseDataTagText()
 	{
-		// split by non digits
+		// separa dados através de separados não numérico
 		String[] splitted = mText.toString().split("\\D");
 
 		int i = 0;
@@ -80,7 +69,8 @@ public class LevelXMLHandler extends DefaultHandler
 
 		short[][] parsedValues = new short[mLevel.mRows][mLevel.mColumns];
 
-		// convert unidimensional String array to bidimensional short array
+		// converte array unidimensional de String para array bidimensional de
+		// short
 		for (int k = 0; k < splitted.length; k++)
 		{
 			if (!splitted[k].equals(""))
@@ -91,7 +81,7 @@ public class LevelXMLHandler extends DefaultHandler
 				j++;
 				if (j == mLevel.mColumns)
 				{
-					// finished all columns -> next row
+					// terminou todas as colunas -> proxima linha
 					j = 0;
 					i++;
 				}
@@ -121,7 +111,8 @@ public class LevelXMLHandler extends DefaultHandler
 
 		if (mIsData)
 		{
-			// append whole text so it can be handled at endElement
+			// append o texto extraído para que possa ser tratado apenas no
+			// endElement()
 			mText.append(new String(ch, start, length));
 		}
 

@@ -68,53 +68,8 @@ public class Level
 			inputStream = new FileInputStream(file);
 			reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
-
-			// setup do nivel
-			_world.mMap.reset(mColumns);
-
-			// carrega Assets das tiles
-			for (short i = 0; i < mColumns; i++)
-			{
-				for (short j = 0; j < mRows; j++)
-				{
-
-					ImageTile temp;
-
-					short id = mWalkableIDs[i][j];
-					if (id != 0)
-					{
-						temp = mImageTiles.get(id);
-						Assets.loadNonDestroyableTile(temp.mImageFile,
-								temp.mFlipHorizontally, temp.mFlipVertically);
-						_world.mMap.addNonDestroyableTile(j, i, Tile.WALKABLE,
-								Assets.mNonDestroyableTiles
-										.get(temp.mImageFile));
-					}
-
-					id = mCollidableIDs[i][j];
-					if (id != 0)
-					{
-						temp = mImageTiles.get(id);
-						Assets.loadNonDestroyableTile(temp.mImageFile,
-								temp.mFlipHorizontally, temp.mFlipVertically);
-						_world.mMap.addNonDestroyableTile(j, i,
-								Tile.COLLIDABLE, Assets.mNonDestroyableTiles
-										.get(temp.mImageFile));
-					}
-
-					id = mDestroyableIDs[i][j];
-					if (id != 0)
-					{
-						temp = mImageTiles.get(id);
-						Assets.loadDestroyableTile(temp.mImageFile);
-						_world.mMap.addDestroyableTile(j, i, Tile.COLLIDABLE,
-								Assets.mDestroyableTiles.get(temp.mImageFile));
-					}
-
-				}
-			}
-
-			// TODO : tratar mSpawns
+			
+			setupLevel(_world);
 
 		} catch (Exception e)
 		{
@@ -123,4 +78,55 @@ public class Level
 		}
 
 	}
+
+	private void setupLevel(GameWorld _world)
+	{
+		// setup do nivel
+		_world.mMap.reset(mColumns);
+
+		// carrega Assets das tiles
+		for (short i = 0; i < mColumns; i++)
+		{
+			for (short j = 0; j < mRows; j++)
+			{
+
+				ImageTile temp;
+
+				short id = mWalkableIDs[i][j];
+				if (id != 0)
+				{
+					temp = mImageTiles.get(id);
+					Assets.loadNonDestroyableTile(temp.mImageFile,
+							temp.mFlipHorizontally, temp.mFlipVertically);
+					_world.mMap.addNonDestroyableTile(j, i, Tile.WALKABLE,
+							Assets.mNonDestroyableTiles.get(temp.mImageFile));
+				}
+
+				id = mCollidableIDs[i][j];
+				if (id != 0)
+				{
+					temp = mImageTiles.get(id);
+					Assets.loadNonDestroyableTile(temp.mImageFile,
+							temp.mFlipHorizontally, temp.mFlipVertically);
+					_world.mMap.addNonDestroyableTile(j, i, Tile.COLLIDABLE,
+							Assets.mNonDestroyableTiles.get(temp.mImageFile));
+				}
+
+				id = mDestroyableIDs[i][j];
+				if (id != 0)
+				{
+					temp = mImageTiles.get(id);
+					Assets.loadDestroyableTile(temp.mImageFile);
+					_world.mMap.addDestroyableTile(j, i, Tile.COLLIDABLE,
+							Assets.mDestroyableTiles.get(temp.mImageFile));
+				}
+
+			}
+		}
+		
+		// TODO : tratar mSpawns
+
+		
+	}
+
 }
