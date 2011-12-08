@@ -15,10 +15,9 @@ import com.bomber.gameobjects.MovableObjectAnimation;
  * @author Filipe
  * 
  */
-public class Assets
-{
+public class Assets {
 	private static final float FRAME_DURATION = 0.3f;
-	private static final String ATLAS_FILE = "assets/atlas.txt";
+	private static final String ATLAS_FILE = "packer.txt";
 
 	public static TextureAtlas mAtlas;
 	public static HashMap<String, MovableObjectAnimation> mMonsters;
@@ -51,6 +50,14 @@ public class Assets
 
 	public static void loadAssets()
 	{
+		mPlayers = new HashMap<String, MovableObjectAnimation>();
+		mPlayersHeads = new HashMap<String, TextureRegion>();
+		mBonus = new HashMap<String, Animation>();
+		mExplosions = new HashMap<String, Animation>();
+		mMonsters = new HashMap<String, MovableObjectAnimation>();
+		mNonDestroyableTiles = new HashMap<String, TextureRegion>();
+		mDestroyableTiles = new HashMap<String, Animation>();
+		
 		loadAtlas();
 		loadPlayerAnimations();
 		loadPlayersHeads();
@@ -164,7 +171,6 @@ public class Assets
 
 	private static void loadPlayersHeads()
 	{
-
 		TextureRegion r = mAtlas.findRegion("face_white");
 		mPlayersHeads.put("face_white", r);
 
@@ -181,7 +187,6 @@ public class Assets
 
 	private static void loadBonus()
 	{
-
 		mBonus.put("bonus_bomb", loadAnimation("bonus_bomb_"));
 		mBonus.put("bonus_hand", loadAnimation("bonus_hand_"));
 		mBonus.put("bonus_life", loadAnimation("bonus_life_"));

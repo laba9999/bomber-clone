@@ -43,6 +43,9 @@ public class Player extends KillableObject {
 	public Player(GameWorld _world) {
 		mWorld = _world;
 		mUUID = Utils.getNextUUID();
+
+		mEffects = new ObjectsPool<Drawable>((short) 0, null);
+		mActiveBonus = new ObjectsPool<Bonus>((short) 0, null);
 	}
 
 	public static short getColorFromString(String _key)
@@ -91,7 +94,16 @@ public class Player extends KillableObject {
 	 */
 	public void reset()
 	{
-		throw new UnsupportedOperationException();
+		mPoints = 0;
+		mEffects.clear();
+		mActiveBonus.clear();
+
+		mIsShieldActive = false;
+		mIsAbleToPushBombs = false;
+
+		mLives = 1;
+		mSpeedFactor = 1;
+		mPointsMultiplier = 1;
 	}
 
 	public String getPoints()
