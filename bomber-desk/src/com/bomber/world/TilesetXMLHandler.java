@@ -7,7 +7,6 @@ import org.xml.sax.helpers.DefaultHandler;
 public class TilesetXMLHandler extends DefaultHandler
 {
 	// parsed values go to Level
-	private Level mLevel;
 
 	// parsing helpers
 	private short mId;
@@ -15,10 +14,6 @@ public class TilesetXMLHandler extends DefaultHandler
 	private boolean mFlipVertically;
 	private boolean mFlipHorizontally;
 
-	public TilesetXMLHandler(Level _level)
-	{
-		mLevel = _level;
-	}
 
 	@Override
 	public void endElement(String _uri, String _localName, String _qName)
@@ -30,7 +25,7 @@ public class TilesetXMLHandler extends DefaultHandler
 
 			ImageTile temp = new ImageTile(mFile, mFlipHorizontally,
 					mFlipHorizontally);
-			mLevel.mImageTiles.put(mId, temp);
+			Level.mImageTiles.put(mId, temp);
 
 		}
 

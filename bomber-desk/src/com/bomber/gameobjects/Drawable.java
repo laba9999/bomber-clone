@@ -23,6 +23,7 @@ public class Drawable extends GameObject {
 	}
 
 	/**
+	 * Actualiza o animation ticks. mas apenas se mLoopAnimation = true
 	 * Actualiza o animation ticks. mas apenas se o mLoopAnimation = true
 	 */
 	public void update()
@@ -42,6 +43,7 @@ public class Drawable extends GameObject {
 	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.
 	 * Este método deve ser sempre chamar o seu super antes/depois de efectuar
 	 * mudanças numa classe derivada
+	 * 
 	 */
 	public void reset()
 	{

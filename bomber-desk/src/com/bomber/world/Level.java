@@ -23,23 +23,23 @@ public class Level
 	 * Serve também para fazer o reset.
 	 */
 
-	public String mName;
-	public short mRows;
-	public short mColumns;
-	public short[][] mWalkableIDs;
-	public short[][] mCollidableIDs;
-	public short[][] mDestroyableIDs;
-	public short[][] mSpawnIDs;
+	public static String mName;
+	public static short mRows;
+	public static short mColumns;
+	public static short[][] mWalkableIDs;
+	public static short[][] mCollidableIDs;
+	public static short[][] mDestroyableIDs;
+	public static short[][] mSpawnIDs;
 
-	public HashMap<Short, ImageTile> mImageTiles = new HashMap<Short, ImageTile>();
+	public static HashMap<Short, ImageTile> mImageTiles = new HashMap<Short, ImageTile>();
 
 	public static void main(String[] args)
 	{ // TODO: delete this
 		Level l = new Level();
-		l.loadLevel(1, null);
+		l.loadLevel("level1", null);
 	}
 
-	public void loadLevel(int _levelID, GameWorld _world)
+	public static void loadLevel(String _levelID, GameWorld _world)
 	{
 		// TODO: use _levelID
 
@@ -52,19 +52,19 @@ public class Level
 			XMLReader xmlReader = parser.getXMLReader();
 
 			// parse level xml file
-			LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler(this);
+			LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler();
 
 			xmlReader.setContentHandler(myLevelXMLHandler);
-			File file = new File(".\\levels\\level1\\level1.xml");
+			File file = new File(".\\levels\\"+ _levelID + "\\" + _levelID + ".xml");
 			InputStream inputStream = new FileInputStream(file);
 			Reader reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
 
 			// parse tileset xml file
-			TilesetXMLHandler myTilesetXMLHandler = new TilesetXMLHandler(this);
+			TilesetXMLHandler myTilesetXMLHandler = new TilesetXMLHandler();
 
 			xmlReader.setContentHandler(myTilesetXMLHandler);
-			file = new File(".\\levels\\level1\\tileset.xml");
+			file = new File(".\\levels\\" + _levelID + "\\tileset.xml");
 			inputStream = new FileInputStream(file);
 			reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
@@ -79,7 +79,7 @@ public class Level
 
 	}
 
-	private void setupLevel(GameWorld _world)
+	private static void setupLevel(GameWorld _world)
 	{
 		// setup do nivel
 		_world.mMap.reset(mColumns);
