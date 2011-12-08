@@ -126,7 +126,6 @@ public class Level
 			}
 		}
 
-		
 		_world.mMap.updateTilesForPresentation();
 		
 	}
@@ -170,7 +169,6 @@ public class Level
 			_world.spawnMonster(monsterID, _positionY, _positionX);
 
 		}
-
 	}
 
 }

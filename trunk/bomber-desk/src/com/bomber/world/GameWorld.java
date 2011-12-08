@@ -100,7 +100,7 @@ public class GameWorld {
 	{
 		Monster tmpMonster = mMonsters.getFreeObject();
 		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE;
-		tmpMonster.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
+		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE;
 		
 		tmpMonster.mAnimations = Assets.mMonsters.get(_type);
 		
@@ -112,7 +112,7 @@ public class GameWorld {
 		Player tmpPlayer = mPlayers.getFreeObject();
 
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE;
-		tmpPlayer.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
+		tmpPlayer.mPosition.y = _line *Tile.TILE_SIZE;
 
 		tmpPlayer.mAnimations = Assets.mPlayers.get(_type);
 	}
