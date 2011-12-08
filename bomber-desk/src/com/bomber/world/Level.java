@@ -98,7 +98,7 @@ public class Level
 				{
 					temp = mImageTiles.get(id);
 					Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
-					_world.mMap.addNonDestroyableTile(j, i, Tile.WALKABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
+					_world.mMap.addNonDestroyableTile(i, j, Tile.WALKABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
 				}
 
 				id = mCollidableIDs[i][j];
@@ -106,7 +106,7 @@ public class Level
 				{
 					temp = mImageTiles.get(id);
 					Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
-					_world.mMap.addNonDestroyableTile(j, i, Tile.COLLIDABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
+					_world.mMap.addNonDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
 				}
 
 				id = mDestroyableIDs[i][j];
@@ -114,13 +114,13 @@ public class Level
 				{
 					temp = mImageTiles.get(id);
 					Assets.loadDestroyableTile(temp.mImageFile);
-					_world.mMap.addDestroyableTile(j, i, Tile.COLLIDABLE, Assets.mDestroyableTiles.get(temp.mImageFile));
+					_world.mMap.addDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mDestroyableTiles.get(temp.mImageFile));
 				}
 
 				id = mSpawnIDs[i][j];
 				if (id != 0)
 				{
-					setupSpawn(id, j, i, _world);
+					setupSpawn(id, i, j, _world);
 				}
 
 			}
