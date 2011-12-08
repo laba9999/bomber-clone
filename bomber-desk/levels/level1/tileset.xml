@@ -6,14 +6,14 @@
 <tilesetFile version="1.0.0" animations="0" tiles="23">
 	<tiles>
 		<imageTile id="1" width="40" height="40">
-			<image file="tiles_0.png"/>
+			<image file="tiles_1.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="2" width="40" height="40">
-			<image file="tiles_1.png"/>
+			<image file="tiles_0.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
