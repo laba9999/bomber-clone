@@ -6,12 +6,11 @@ public class GameStatePlaying extends GameState {
 
 	public GameStatePlaying(GameScreen _gameScreen) {
 		super(_gameScreen);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void update()
 	{
-		throw new UnsupportedOperationException();
+		mGameScreen.mWorld.update();
 	}
 
 	public void parseInput()

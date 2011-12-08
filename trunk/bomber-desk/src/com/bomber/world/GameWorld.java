@@ -20,8 +20,7 @@ import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.remote.Message;
 import com.bomber.remote.RemoteConnections;
 
-public class GameWorld
-{
+public class GameWorld {
 	public ObjectsPool<Monster> mMonsters;
 	public ObjectsPool<Bonus> mSpawnedBonus;
 	public ObjectsPool<Player> mPlayers;
@@ -37,17 +36,16 @@ public class GameWorld
 
 	private String mCurrentLevelName;
 
-
 	public GameWorld(short _gameType, String _starLevelName) {
 
 		mGameType = _gameType;
 
-		// Os bonus têm que ser adicionados manualmente porque
-		// existem vários tipos
+		// Os bonus têm que ser adicionados manualmente porque existem vários
+		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
 
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
-		
+
 		// O numero de players vai variar consoante o tipo de jogo
 		short nPlayers = 4;
 		if (_gameType == GameType.CAMPAIGN)
@@ -55,7 +53,7 @@ public class GameWorld
 		else if (_gameType == GameType.CTF || _gameType == GameType.DEADMATCH)
 			nPlayers = 2;
 
-		mPlayers = new ObjectsPool<Player>((short) nPlayers,new ObjectFactory.CreatePlayer(this));
+		mPlayers = new ObjectsPool<Player>((short) nPlayers, new ObjectFactory.CreatePlayer(this));
 
 		// Assumimos que cada player vai poder colocar em termos médios 2 bombas
 		// de cada vez
@@ -68,11 +66,12 @@ public class GameWorld
 
 		mExplosions = new ObjectsPool<Drawable>(nExplosions, new ObjectFactory.CreateExplosion());
 
+		mMap = new GameMap();
+
 		// Lê o nivel
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
 	}
-
 
 	public Player getLocalPlayer()
 	{
@@ -103,10 +102,7 @@ public class GameWorld
 		tmpMonster.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
 
 		tmpMonster.mAnimations = Assets.mMonsters.get(_type);
-
-		mMonsters.addObject(tmpMonster);
 	}
-
 
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
@@ -114,10 +110,8 @@ public class GameWorld
 
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE;
 		tmpPlayer.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
-		
+
 		tmpPlayer.mAnimations = Assets.mPlayers.get(_type);
-		
-		mPlayers.addObject(tmpPlayer);
 	}
 
 	/**
@@ -223,8 +217,7 @@ public class GameWorld
 		tmpBomb.mBombPower = _bombPower;
 	}
 
-	public boolean checkIfBombCollidingWithObject(MovableObject _obj,
-			Vector2 _results)
+	public boolean checkIfBombCollidingWithObject(MovableObject _obj, Vector2 _results)
 	{
 		_results.x = 0;
 		_results.y = 0;
