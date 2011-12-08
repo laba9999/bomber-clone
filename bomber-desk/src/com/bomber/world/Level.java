@@ -127,8 +127,9 @@ public class Level
 			}
 		}
 
-		// TODO : tratar mSpawns
-
+		
+		_world.mMap.updateTilesForPresentation();
+		
 	}
 
 	private static void setupSpawn(short _id, short _positionX, short _positionY, GameWorld _world)
