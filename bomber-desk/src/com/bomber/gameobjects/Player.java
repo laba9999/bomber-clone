@@ -1,10 +1,16 @@
 package com.bomber.gameobjects;
 
+import java.util.HashMap;
+
 import com.bomber.common.ObjectsPool;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.world.GameWorld;
 
 public class Player extends KillableObject {
+	public static HashMap<String, Short> COLORS = null;
+	public static final short WHITE = 0;
+	public static final short RED = 1;
+	public static final short BLUE = 1;
 
 	public int mPoints = 0;
 
@@ -16,6 +22,7 @@ public class Player extends KillableObject {
 	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 3;
 	public short mMaxSimultaneousBombs = 1;
+	public short mColor;
 
 	public boolean mIsShieldActive = false;
 	public boolean mIsAbleToPushBombs = false;
@@ -33,6 +40,21 @@ public class Player extends KillableObject {
 
 	public Player(GameWorld _world) {
 		mWorld = _world;
+	}
+
+	public static short getColorFromString(String _key)
+	{
+		if (COLORS == null)
+		{
+			COLORS = new HashMap<String, Short>();
+
+			COLORS.put("white/b_white", (short) 0);
+			COLORS.put("blue/b_blue", (short) 1);
+			COLORS.put("green/b_green", (short) 2);
+			COLORS.put("red/b_red", (short) 3);
+		}
+
+		return COLORS.get(_key);
 	}
 
 	@Override
