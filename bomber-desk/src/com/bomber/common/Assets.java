@@ -55,7 +55,6 @@ public class Assets
 	{
 		loadAtlas();
 		loadPlayerAnimations();
-		loadMonsterAnimations();
 		loadPlayersHeads();
 		loadExplosions();
 		loadBonus();
@@ -69,27 +68,25 @@ public class Assets
 	}
 
 	private static void loadPlayerAnimations()
-	{
-
+	{ 
 		short dieFrames = 10;
 		short walkFrames = 3;
 
-		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(
-				"b_white", dieFrames, walkFrames);
+		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation("b_white", dieFrames, walkFrames);
 		mPlayers.put("b_white", temp);
 
 		temp = loadCompositeMovableObjectAnimation("b_red", dieFrames,
 				walkFrames);
 		mPlayers.put("b_red", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_blue", dieFrames,
-				walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_blue", dieFrames,walkFrames);
 		mPlayers.put("b_blue", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_green", dieFrames,
-				walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_green", dieFrames,walkFrames);
 		mPlayers.put("b_green", temp);
 	}
+
+
 
 	/**
 	 * Cria MovableObjectAnimation com Animations de GameObjects com estados
@@ -134,45 +131,21 @@ public class Assets
 
 	}
 
-	private static void loadMonsterAnimations()
-	{
 
-		// load normal monsters
+	public static void loadGenericMonster(String _id)
+	{
+		MovableObjectAnimation temp = loadGenericMonsterMovableObjectAnimations(_id);
+		mMonsters.put(_id, temp);
+	}
+
+	public static void loadNormalMonster(String _id)
+	{
 		short dieFrames = 6;
 		short walkFrames = 3;
 
-		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(
-				"m_1", dieFrames, walkFrames);
-		mMonsters.put("m_1", temp);
-
-		temp = loadCompositeMovableObjectAnimation("m_2", dieFrames, walkFrames);
-		mMonsters.put("m_2", temp);
-
-		temp = loadCompositeMovableObjectAnimation("m_3", dieFrames, walkFrames);
-		mMonsters.put("m_3", temp);
-
-		temp = loadCompositeMovableObjectAnimation("m_4blue", dieFrames,
-				walkFrames);
-		mMonsters.put("m_4blue", temp);
-
-		temp = loadCompositeMovableObjectAnimation("m_4green", dieFrames,
-				walkFrames);
-		mMonsters.put("m_4green", temp);
-
-		// load generic monsters
-		temp = loadGenericMonsterMovableObjectAnimations("m_generic1");
-		mMonsters.put("m_generic1", temp);
-		temp = loadGenericMonsterMovableObjectAnimations("m_generic2");
-		mMonsters.put("m_generic2", temp);
-		temp = loadGenericMonsterMovableObjectAnimations("m_generic3");
-		mMonsters.put("m_generic3", temp);
-		temp = loadGenericMonsterMovableObjectAnimations("m_generic4");
-		mMonsters.put("m_generic4", temp);
-		temp = loadGenericMonsterMovableObjectAnimations("m_generic5");
-		mMonsters.put("m_generic5", temp);
-		temp = loadGenericMonsterMovableObjectAnimations("m_generic6");
-		mMonsters.put("m_generic6", temp);
-
+		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(_id,
+				dieFrames, walkFrames);
+		mMonsters.put(_id, temp);
 	}
 
 	/**
@@ -224,7 +197,7 @@ public class Assets
 		mBonus.put("bonus_potion", loadAnimation("bonus_potion_"));
 		mBonus.put("bonus_shield", loadAnimation("bonus_shield_"));
 		mBonus.put("bonus_speed", loadAnimation("bonus_speed_"));
-		mBonus.put("bonus_start", loadAnimation("bonus_start_"));
+		mBonus.put("bonus_star", loadAnimation("bonus_star_"));
 	}
 
 	public static void loadDestroyableTile(String _id)
