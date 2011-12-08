@@ -41,8 +41,7 @@ public class Level
 		l.loadLevel("level1", null, (short) 1);
 	}
 
-	public static void loadLevel(String _levelID, GameWorld _world,
-			short _howManyPlayers)
+	public static void loadLevel(String _levelID, GameWorld _world, short _howManyPlayers)
 	{
 		mNumberOfPlayers = _howManyPlayers;
 
@@ -58,8 +57,7 @@ public class Level
 			LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler();
 
 			xmlReader.setContentHandler(myLevelXMLHandler);
-			File file = new File(".\\levels\\" + _levelID + "\\" + _levelID
-					+ ".xml");
+			File file = new File(".\\levels\\" + _levelID + "\\" + _levelID + ".xml");
 			InputStream inputStream = new FileInputStream(file);
 			Reader reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
@@ -100,20 +98,16 @@ public class Level
 				if (id != 0)
 				{
 					temp = mImageTiles.get(id);
-					Assets.loadNonDestroyableTile(temp.mImageFile,
-							temp.mFlipHorizontally, temp.mFlipVertically);
-					_world.mMap.addNonDestroyableTile(j, i, Tile.WALKABLE,
-							Assets.mNonDestroyableTiles.get(temp.mImageFile));
+					Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
+					_world.mMap.addNonDestroyableTile(j, i, Tile.WALKABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
 				}
 
 				id = mCollidableIDs[i][j];
 				if (id != 0)
 				{
 					temp = mImageTiles.get(id);
-					Assets.loadNonDestroyableTile(temp.mImageFile,
-							temp.mFlipHorizontally, temp.mFlipVertically);
-					_world.mMap.addNonDestroyableTile(j, i, Tile.COLLIDABLE,
-							Assets.mNonDestroyableTiles.get(temp.mImageFile));
+					Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
+					_world.mMap.addNonDestroyableTile(j, i, Tile.COLLIDABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
 				}
 
 				id = mDestroyableIDs[i][j];
@@ -121,8 +115,7 @@ public class Level
 				{
 					temp = mImageTiles.get(id);
 					Assets.loadDestroyableTile(temp.mImageFile);
-					_world.mMap.addDestroyableTile(j, i, Tile.COLLIDABLE,
-							Assets.mDestroyableTiles.get(temp.mImageFile));
+					_world.mMap.addDestroyableTile(j, i, Tile.COLLIDABLE, Assets.mDestroyableTiles.get(temp.mImageFile));
 				}
 
 				id = mSpawnIDs[i][j];
@@ -138,8 +131,7 @@ public class Level
 
 	}
 
-	private static void setupSpawn(short _id, short _positionX,
-			short _positionY, GameWorld _world)
+	private static void setupSpawn(short _id, short _positionX, short _positionY, GameWorld _world)
 	{
 		String filename = mImageTiles.get(_id).mImageFile;
 
