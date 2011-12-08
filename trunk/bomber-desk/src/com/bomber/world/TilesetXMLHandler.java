@@ -49,7 +49,9 @@ public class TilesetXMLHandler extends DefaultHandler
 		} else if (_qName.equals("image"))
 		{
 
-			mFile = _attributes.getValue("file");
+			String[] splittedFileName = _attributes.getValue("file").split(".png");
+			//ignora ".png"
+			mFile = splittedFileName[0];
 
 		} else if (_qName.equals("flip"))
 		{
