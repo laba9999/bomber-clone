@@ -1,5 +1,6 @@
 package com.bomber.common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,7 +16,8 @@ import com.bomber.gameobjects.MovableObjectAnimation;
  * @author Filipe
  * 
  */
-public class Assets {
+public class Assets
+{
 	private static final float FRAME_DURATION = 0.3f;
 	private static final String ATLAS_FILE = "packer.txt";
 
@@ -57,7 +59,7 @@ public class Assets {
 		mMonsters = new HashMap<String, MovableObjectAnimation>();
 		mNonDestroyableTiles = new HashMap<String, TextureRegion>();
 		mDestroyableTiles = new HashMap<String, Animation>();
-		
+
 		loadAtlas();
 		loadPlayerAnimations();
 		loadPlayersHeads();
@@ -198,7 +200,19 @@ public class Assets {
 
 	public static void loadDestroyableTile(String _id)
 	{
-		mDestroyableTiles.put(_id, loadAnimation(_id + "_destroy_"));
+		short destroyingFrames = 6;
+		ArrayList<TextureRegion> regions = new ArrayList<TextureRegion>();
+
+		TextureRegion r = mAtlas.findRegion(_id);
+		regions.add(r);
+
+		for (int i = 0; i < destroyingFrames; i++)
+		{
+			r = mAtlas.findRegion(_id + "_destroy_", i);
+			regions.add(r);
+		}
+
+		mDestroyableTiles.put(_id, new Animation(FRAME_DURATION, regions));
 	}
 
 	public static void loadNonDestroyableTile(String _id, boolean _flipHorizontally, boolean _flipVertically)
