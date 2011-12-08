@@ -1,5 +1,6 @@
 package com.bomber.world;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -32,7 +33,7 @@ public class GameMap {
 
 	public ArrayList<Tile> mTilesMap = new ArrayList<Tile>();
 
-	public short mWidth;
+	public short mWidth, mHeight;
 
 	public GameMap() {
 		mImutableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.WALKABLE));
@@ -83,9 +84,10 @@ public class GameMap {
 		tmpTile.mCurrentFrame = _texture;
 		tmpTile.mLoopAnimation = false;
 		tmpTile.mPositionInArray = _line * mWidth + _col;
-		//TODO : call updateTilesForPresentation ???
-
 		
+		if(tmpTile.mPositionInArray > mWidth*mHeight)
+			throw new InvalidParameterException();
+
 	}
 	
 	/**
@@ -94,9 +96,10 @@ public class GameMap {
 	 * @param _width
 	 *            A largura em tiles do novo mapa.
 	 */
-	public void reset(short _width)
+	public void reset(short _width, short _height)
 	{
 		mWidth = _width;
+		mHeight = _height;
 
 		mImutableTiles.clear();
 		mDestroyableTiles.clear();
@@ -108,7 +111,9 @@ public class GameMap {
 	 */
 	public void updateTilesForPresentation()
 	{
-		for (int i = 0; i < mWidth; i++)
+		mTilesMap.clear();
+		
+		for (int i = 0; i < mWidth*mHeight; i++)
 			mTilesMap.add(null);
 
 		for (Tile tl : mImutableTiles)
