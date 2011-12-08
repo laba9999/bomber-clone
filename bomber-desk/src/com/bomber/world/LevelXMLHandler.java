@@ -13,10 +13,8 @@ public class LevelXMLHandler extends DefaultHandler
 	private boolean mIsData = false;
 	private StringBuilder mText = new StringBuilder();
 
-
 	@Override
-	public void startElement(String _uri, String _localName, String _qName,
-			Attributes _attributes) throws SAXException
+	public void startElement(String _uri, String _localName, String _qName, Attributes _attributes) throws SAXException
 	{
 
 		if (_qName.equals("tilemap"))
@@ -40,8 +38,7 @@ public class LevelXMLHandler extends DefaultHandler
 	}
 
 	@Override
-	public void endElement(String _uri, String _localName, String _qName)
-			throws SAXException
+	public void endElement(String _uri, String _localName, String _qName) throws SAXException
 	{
 
 		if (_qName.equals("data"))
@@ -99,8 +96,7 @@ public class LevelXMLHandler extends DefaultHandler
 	}
 
 	@Override
-	public void characters(char[] ch, int start, int length)
-			throws SAXException
+	public void characters(char[] ch, int start, int length) throws SAXException
 	{
 
 		if (mIsData)

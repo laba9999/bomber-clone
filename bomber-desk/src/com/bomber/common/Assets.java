@@ -66,33 +66,29 @@ public class Assets
 	}
 
 	private static void loadPlayerAnimations()
-	{ 
+	{
 		short dieFrames = 10;
 		short walkFrames = 3;
 
 		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation("b_white", dieFrames, walkFrames);
 		mPlayers.put("b_white", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_red", dieFrames,
-				walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_red", dieFrames, walkFrames);
 		mPlayers.put("b_red", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_blue", dieFrames,walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_blue", dieFrames, walkFrames);
 		mPlayers.put("b_blue", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_green", dieFrames,walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_green", dieFrames, walkFrames);
 		mPlayers.put("b_green", temp);
 	}
-
-
 
 	/**
 	 * Cria MovableObjectAnimation com Animations de GameObjects com estados
 	 * _die_ , _walk_up_ , _walk_down_ , _walk_left e _walk_right. Útil para
 	 * Players e Monsters
 	 */
-	private static MovableObjectAnimation loadCompositeMovableObjectAnimation(
-			String _id, short _dieFrames, short _walkFrames)
+	private static MovableObjectAnimation loadCompositeMovableObjectAnimation(String _id, short _dieFrames, short _walkFrames)
 	{
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
@@ -129,7 +125,6 @@ public class Assets
 
 	}
 
-
 	public static void loadGenericMonster(String _id)
 	{
 		MovableObjectAnimation temp = loadGenericMonsterMovableObjectAnimations(_id);
@@ -141,8 +136,7 @@ public class Assets
 		short dieFrames = 6;
 		short walkFrames = 3;
 
-		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(_id,
-				dieFrames, walkFrames);
+		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(_id, dieFrames, walkFrames);
 		mMonsters.put(_id, temp);
 	}
 
@@ -150,8 +144,7 @@ public class Assets
 	 * Cria MovableObjectAnimation de monstros genéricos com Animations _die_ e
 	 * _walk_.
 	 */
-	private static MovableObjectAnimation loadGenericMonsterMovableObjectAnimations(
-			String _id)
+	private static MovableObjectAnimation loadGenericMonsterMovableObjectAnimations(String _id)
 	{
 		short dieFrames = 6;
 		short walkFrames = 3;
@@ -203,8 +196,7 @@ public class Assets
 		mDestroyableTiles.put(_id, loadAnimation(_id + "_destroy_"));
 	}
 
-	public static void loadNonDestroyableTile(String _id,
-			boolean _flipHorizontally, boolean _flipVertically)
+	public static void loadNonDestroyableTile(String _id, boolean _flipHorizontally, boolean _flipVertically)
 	{
 		// _id = "tiles_2" : ignorando 6 chars, temos o index
 		int tileIndex = Integer.parseInt(_id.substring(6));
