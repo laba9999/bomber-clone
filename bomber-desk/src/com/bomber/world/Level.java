@@ -87,9 +87,9 @@ public class Level
 		_world.mMap.reset(mColumns);
 
 		// carrega Assets
-		for (short i = 0; i < mColumns; i++)
+		for (short i = 0; i < mRows; i++)
 		{
-			for (short j = 0; j < mRows; j++)
+			for (short j = 0; j < mColumns; j++)
 			{
 
 				ImageTile temp;
