@@ -1,5 +1,6 @@
 package com.bomber.world;
 
+import java.awt.BufferCapabilities.FlipContents;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.lwjgl.util.vector.Matrix;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -35,11 +37,6 @@ public class Level
 
 	public static HashMap<Short, ImageTile> mImageTiles = new HashMap<Short, ImageTile>();
 
-	public static void main(String[] args)
-	{ // TODO: delete this
-		Level l = new Level();
-		l.loadLevel("level1", null, (short) 1);
-	}
 
 	public static void loadLevel(String _levelID, GameWorld _world, short _howManyPlayers)
 	{
@@ -71,6 +68,11 @@ public class Level
 			reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
 
+			flipMatrixVertically(mWalkableIDs);
+			flipMatrixVertically(mCollidableIDs);
+			flipMatrixVertically(mDestroyableIDs);
+			flipMatrixVertically(mSpawnIDs);
+
 			setupLevel(_world);
 
 		} catch (Exception e)
@@ -79,6 +81,17 @@ public class Level
 			e.printStackTrace();
 		}
 
+	}
+	
+	private static void flipMatrixVertically(short[][] _matrix)
+	{
+		int center = _matrix.length/2;
+		for(int i = 0; i< center;i++) {
+			short[] aux = _matrix[i];
+			_matrix[i] = _matrix[_matrix.length - i - 1];
+			_matrix[_matrix.length - i - 1] = aux;			
+		}
+		
 	}
 
 	private static void setupLevel(GameWorld _world)
