@@ -1,5 +1,6 @@
 package com.bomber.gameobjects;
 
+import com.bomber.common.Utils;
 import com.bomber.world.GameWorld;
 
 /**
@@ -13,6 +14,7 @@ public class Bomb extends MovableObject {
 
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
+		mUUID = Utils.getNextUUID();
 	}
 
 	@Override

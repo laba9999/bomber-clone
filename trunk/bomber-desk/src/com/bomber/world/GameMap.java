@@ -87,6 +87,7 @@ public class GameMap {
 
 		
 	}
+	
 	/**
 	 * A ser chamado de cada vez que é inicializado um novo nível.
 	 * 

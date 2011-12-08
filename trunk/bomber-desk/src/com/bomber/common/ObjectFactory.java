@@ -60,23 +60,16 @@ public class ObjectFactory {
 		}
 	}
 
-	public static class CreateMonter {
+	public static class CreateMonster extends Factory<Monster> {
+		GameWorld mWorld;
 
-		public static Monster create(short _monsterType, GameWorld _world)
+		public CreateMonster(GameWorld _world) {
+			mWorld = _world;
+		}
+
+		public Monster onCreate()
 		{
-			Monster tmpMonster = null;
-			switch (_monsterType)
-			{
-			// TODO: Adicionar a criação dos vários tipos de monstro...
-			// default:
-			// throw new
-			// InvalidParameterException("Tipo de monstro desconhecido");
-			}
-
-			if (null != tmpMonster)
-				tmpMonster.mUUID = Utils.getNextUUID();
-
-			return tmpMonster;
+			return new Monster(mWorld);
 		}
 	}
 

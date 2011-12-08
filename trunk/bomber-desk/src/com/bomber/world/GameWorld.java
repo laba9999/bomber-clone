@@ -37,16 +37,17 @@ public class GameWorld
 
 	private String mCurrentLevelName;
 
-	public GameWorld(short _gameType, String _starLevelName)
-	{
+
+	public GameWorld(short _gameType, String _starLevelName) {
 
 		mGameType = _gameType;
 
-		// Os monstros e os bonus têm que ser adicionados manualmente porque
+		// Os bonus têm que ser adicionados manualmente porque
 		// existem vários tipos
-		mMonsters = new ObjectsPool<Monster>((short) 0, null);
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
 
+		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
+		
 		// O numero de players vai variar consoante o tipo de jogo
 		short nPlayers = 4;
 		if (_gameType == GameType.CAMPAIGN)
@@ -54,42 +55,68 @@ public class GameWorld
 		else if (_gameType == GameType.CTF || _gameType == GameType.DEADMATCH)
 			nPlayers = 2;
 
-		mPlayers = new ObjectsPool<Player>((short) nPlayers,
-				new ObjectFactory.CreatePlayer(this));
+		mPlayers = new ObjectsPool<Player>((short) nPlayers,new ObjectFactory.CreatePlayer(this));
 
 		// Assumimos que cada player vai poder colocar em termos médios 2 bombas
 		// de cada vez
 		short nBombs = (short) (2 * nPlayers);
-		mBombs = new ObjectsPool<Bomb>(nBombs, new ObjectFactory.CreateBomb(
-				this));
+		mBombs = new ObjectsPool<Bomb>(nBombs, new ObjectFactory.CreateBomb(this));
 
 		// Assumimos que cada bomba vai ter um poder de explosão médio de 3,
 		// como são 4 direcções possiveis temos 12 "explosões" por bomba.
 		short nExplosions = (short) (12 * nBombs);
-		mExplosions = new ObjectsPool<Drawable>(nExplosions,
-				new ObjectFactory.CreateExplosion());
+
+		mExplosions = new ObjectsPool<Drawable>(nExplosions, new ObjectFactory.CreateExplosion());
 
 		// Lê o nivel
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
 	}
 
+
+	public Player getLocalPlayer()
+	{
+		Player localPlayer = null;
+
+		for (Player p : mPlayers)
+			if (p.mColor == Player.WHITE)
+			{
+				localPlayer = p;
+				break;
+			}
+
+		return localPlayer;
+	}
+
+	public void reset()
+	{
+		mMonsters.clear();
+		mSpawnedBonus.clear();
+		mBombs.clear();
+		mExplosions.clear();
+	}
+
 	public void spawnMonster(String _type, short _line, short _col)
 	{
-		Monster tmpMonster = ObjectFactory.CreateMonster.create(this);
+		Monster tmpMonster = mMonsters.getFreeObject();
 		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE;
 		tmpMonster.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
+
 		tmpMonster.mAnimations = Assets.mMonsters.get(_type);
+
 		mMonsters.addObject(tmpMonster);
 	}
 
+
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
-		Player tmpPlayer = ObjectFactory.CreatePlayer.create(this);
+		Player tmpPlayer = mPlayers.getFreeObject();
 
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE;
 		tmpPlayer.mPosition.y = _line * mMap.mWidth * Tile.TILE_SIZE;
+		
 		tmpPlayer.mAnimations = Assets.mPlayers.get(_type);
+		
 		mPlayers.addObject(tmpPlayer);
 	}
 
@@ -114,9 +141,9 @@ public class GameWorld
 	private void createExplosionComponents(Bomb _bomb)
 	{
 		// Adiciona a explosão central
+
 		Drawable tmpExplosion = mExplosions.getFreeObject();
-		tmpExplosion.setCurrentAnimation(
-				Assets.mExplosions.get("xplode_center"), (short) 4, true);
+		tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_center"), (short) 4, true);
 
 		//
 		// Para cada um dos lados, calcula o tamanho da explosão e adiciona
@@ -124,8 +151,7 @@ public class GameWorld
 		{
 			Tile tmpTile;
 			int startIdx = mMap.calcTileIndex(_bomb.mPosition);
-			int distance = mMap.getDistanceToNext(_bomb.mBombPower,
-					_bomb.mPosition, i, Tile.COLLIDABLE, Tile.DESTROYABLE);
+			int distance = mMap.getDistanceToNext(_bomb.mBombPower, _bomb.mPosition, i, Tile.COLLIDABLE, Tile.DESTROYABLE);
 			if (distance >= 0)
 			{
 				//
@@ -147,15 +173,10 @@ public class GameWorld
 					tmpExplosion.mPosition = tmpTile.mPosition;
 
 					if (i == Directions.LEFT || i == Directions.RIGHT)
-						tmpExplosion.setCurrentAnimation(
-								Assets.mExplosions.get("explode_hor"),
-								(short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_hor"), (short) 4, true);
 					else
-						tmpExplosion.setCurrentAnimation(
-								Assets.mExplosions.get("explode_vert"),
-								(short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_vert"), (short) 4, true);
 				}
-
 			} else
 			{
 				//
@@ -170,34 +191,21 @@ public class GameWorld
 					tmpExplosion.mPosition = tmpTile.mPosition;
 
 					if (i == Directions.LEFT || i == Directions.RIGHT)
-						tmpExplosion.setCurrentAnimation(
-								Assets.mExplosions.get("explode_hor"),
-								(short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_hor"), (short) 4, true);
 					else
-						tmpExplosion.setCurrentAnimation(
-								Assets.mExplosions.get("explode_vert"),
-								(short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_vert"), (short) 4, true);
 				}
 
 				// Adiciona a ponta
 				if (i == Directions.LEFT)
-					tmpExplosion.setCurrentAnimation(
-							Assets.mExplosions.get("explode_tip_left"),
-							(short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_left"), (short) 4, true);
 				else if (i == Directions.RIGHT)
-					tmpExplosion.setCurrentAnimation(
-							Assets.mExplosions.get("explode_tip_right"),
-							(short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_right"), (short) 4, true);
 				else if (i == Directions.UP)
-					tmpExplosion.setCurrentAnimation(
-							Assets.mExplosions.get("explode_tip_up"),
-							(short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_up"), (short) 4, true);
 				else if (i == Directions.DOWN)
-					tmpExplosion.setCurrentAnimation(
-							Assets.mExplosions.get("explode_tip_down"),
-							(short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_down"), (short) 4, true);
 			}
-
 		}
 	}
 
