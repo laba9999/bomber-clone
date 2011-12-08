@@ -84,14 +84,13 @@ public class Level
 	private static void setupLevel(GameWorld _world)
 	{
 		// setup do nivel
-		_world.mMap.reset(mColumns);
+		_world.mMap.reset(mColumns, mRows);
 
 		// carrega Assets
 		for (short i = 0; i < mRows; i++)
 		{
 			for (short j = 0; j < mColumns; j++)
 			{
-
 				ImageTile temp;
 
 				short id = mWalkableIDs[i][j];
