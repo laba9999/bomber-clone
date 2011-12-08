@@ -86,9 +86,6 @@ public class GameWorld {
 		mBombs.releaseObject(_bomb);
 
 		createExplosionComponents(_bomb);
-		
-		
-		
 	}
 	
 	private void createExplosionComponents(Bomb _bomb)
