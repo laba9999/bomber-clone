@@ -10,17 +10,22 @@ public abstract class MovableObject extends Drawable {
 	public GameWorld mWorld;
 	public boolean mIsMoving = false;
 	public boolean mJustCollided = false;
-	public MovableObjectAnimation mAnimations;
+	public MovableObjectAnimation mMovableAnimations;
 
 	private final Vector2 mCollision = new Vector2();
 
+	public void setMovableAnimations(MovableObjectAnimation _anim)
+	{
+		mMovableAnimations = _anim;
+		setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, false);
+	}
 	public void moveLeft()
 	{
 		mIsMoving = true;
 		if (mDirection != Directions.LEFT)
 		{
 			mDirection = Directions.LEFT;
-			setCurrentAnimation(mAnimations.walkLeft, mAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkLeft, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
 
 		onChangedDirection();
@@ -32,7 +37,7 @@ public abstract class MovableObject extends Drawable {
 		if (mDirection != Directions.RIGHT)
 		{
 			mDirection = Directions.RIGHT;
-			setCurrentAnimation(mAnimations.walkRight, mAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkRight, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
 
 		onChangedDirection();
@@ -44,7 +49,7 @@ public abstract class MovableObject extends Drawable {
 		if (mDirection != Directions.UP)
 		{
 			mDirection = Directions.UP;
-			setCurrentAnimation(mAnimations.walkUp, mAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkUp, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
 
 		onChangedDirection();
@@ -56,7 +61,7 @@ public abstract class MovableObject extends Drawable {
 		if (mDirection != Directions.DOWN)
 		{
 			mDirection = Directions.DOWN;
-			setCurrentAnimation(mAnimations.walkDown, mAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
 
 		onChangedDirection();

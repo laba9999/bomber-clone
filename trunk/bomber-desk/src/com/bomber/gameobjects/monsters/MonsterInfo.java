@@ -17,7 +17,7 @@ public class MonsterInfo
 		mAbleToFly = _ableToFly;
 	}
 	
-	public static MonsterInfo getFlagsFromType(String _type)
+	public static MonsterInfo getInfoFromType(String _type)
 	{
 		if(TYPES == null)
 		{
