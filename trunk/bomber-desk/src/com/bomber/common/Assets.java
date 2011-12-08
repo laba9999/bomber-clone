@@ -200,10 +200,14 @@ public class Assets
 
 	public static void loadDestroyableTile(String _id)
 	{
-		short destroyingFrames = 6;
+		short destroyingFrames = 7;
 		ArrayList<TextureRegion> regions = new ArrayList<TextureRegion>();
 
-		TextureRegion r = mAtlas.findRegion(_id);
+		// parte "tiles_2" em "tiles" e "2"
+		String[] splittedId = _id.split("_");
+		short tileNumber = Short.parseShort(splittedId[1]);
+		
+		TextureRegion r = mAtlas.findRegion("tiles_",tileNumber);
 		regions.add(r);
 
 		for (int i = 0; i < destroyingFrames; i++)
