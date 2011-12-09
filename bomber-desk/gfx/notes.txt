@@ -1,0 +1,14 @@
+sprites bónus +/- 3963
+
+Bónus : Bombas simultaneas;
+	Explosão potente;
+	Velocidade extra;
+	Vida extra;
+	Escudo;
+	Empurra bomba;
+	Invencibilidade;
+
+
+WAKE LOCK
+BEST PRACTICES
+POOL CLASS
