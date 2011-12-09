@@ -32,16 +32,21 @@ public class Monster extends KillableObject
 			return;
 		}
 
+		
+		// Efectua movimento
+		move(mSpeed);
+						
+		checkTileCollisions(mInfo.mAbleToFly);
+		//checkBombCollisions();
+
+		
 		// verifica se colidiu
 		if (mJustCollided)
 		{
 			mDirection = getAnyOtherDirection(mDirection);
 		}
 
-		// Efectua movimento
-		move(mSpeed);
-		checkTileCollisions(mInfo.mAbleToFly);
-		checkBombCollisions();
+	
 
 	}
 

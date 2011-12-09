@@ -102,9 +102,8 @@ public class GameWorld {
 
 		tmpMonster.setMovableAnimations(Assets.mMonsters.get(_type));
 
-		short xDisplacement = (short) (Tile.TILE_SIZE - tmpMonster.mCurrentFrame.getRegionWidth() / 2);
-		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE + xDisplacement;
-		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE;
+		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
+		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
 
 		tmpMonster.mInfo = MonsterInfo.getInfoFromType(_type);
 	}
@@ -115,9 +114,8 @@ public class GameWorld {
 
 		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
 
-		short xDisplacement = (short) (Tile.TILE_SIZE - tmpPlayer.mCurrentFrame.getRegionWidth() / 2);
-		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + xDisplacement;
-		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE;
+		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
+		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
 	}
 
 	/**
@@ -252,7 +250,7 @@ public class GameWorld {
 			}
 		}
 
-		return ((_results.x == 0) && (_results.y == 0));
+		return !((_results.x == 0) && (_results.y == 0));
 	}
 
 	public void update()

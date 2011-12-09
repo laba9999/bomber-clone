@@ -66,7 +66,7 @@ public class Assets
 		loadExplosions();
 		loadBonus();
 		loadBomb();
-		// loadUI();
+		loadUI();
 	}
 
 	private static void loadAtlas()
@@ -246,13 +246,13 @@ public class Assets
 	private static void loadUI()
 	{
 		// TODO : definir o IDs para estes componentes
-		mMainScreen = mAtlas.findRegion("TO BE DEFINED");
-		mSoundButton = loadAnimation("TO BE DEFINED");
-		mPauseButtons.put("TO BE DEFINED", mAtlas.findRegion("TO BE DEFINED"));
-		mControllerBar = mAtlas.findRegion("TO BE DEFINED");
-		mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
-		mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
-		mFont = new BitmapFont(Gdx.files.internal("TO BE DEFINED"), false);
+//		mMainScreen = mAtlas.findRegion("TO BE DEFINED");
+//		mSoundButton = loadAnimation("TO BE DEFINED");
+//		mPauseButtons.put("TO BE DEFINED", mAtlas.findRegion("TO BE DEFINED"));
+//		mControllerBar = mAtlas.findRegion("TO BE DEFINED");
+//		mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
+//		mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
+		// = new BitmapFont(Gdx.files.internal("assets/fonts/white_14.fnt"),Gdx.files.internal("assets/fonts/white_14.fnt"), false);
 
 	}
 

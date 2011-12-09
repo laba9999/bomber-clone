@@ -61,7 +61,7 @@ public class GameMap {
 
 		tmpTile.mType = _type;
 		tmpTile.setCurrentAnimation(_anim, (short) 8, false);
-		tmpTile.mPositionInArray = _line * mWidth + _col;
+		tmpTile.mPositionInArray = (mHeight-(_line+1))*mWidth  + _col;
 	
 		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line *Tile.TILE_SIZE);
 	}
@@ -84,11 +84,11 @@ public class GameMap {
 		tmpTile.mType = _type;
 		tmpTile.mCurrentFrame = _texture;
 		tmpTile.mLoopAnimation = false;
-		tmpTile.mPositionInArray = _line * mWidth + _col;
+		tmpTile.mPositionInArray =(mHeight-(_line+1)) *mWidth+ _col;
 		
-		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line *Tile.TILE_SIZE);
+		tmpTile.mPosition.set(_col * Tile.TILE_SIZE , _line *Tile.TILE_SIZE );
 		
-		if(tmpTile.mPositionInArray > mWidth*mHeight)
+		if(tmpTile.mPositionInArray > mWidth*mHeight  )
 			throw new InvalidParameterException();
 	}
 	
@@ -177,12 +177,13 @@ public class GameMap {
 			{
 				tmpTile = mTilesMap.get(testIdx);
 
-				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				if ((tmpTile.mType == Tile.DESTROYABLE && !_ignoreDestroyables)||tmpTile.mType == Tile.COLLIDABLE)
 				{
 					bbTile.x = tmpTile.mPosition.x;
 					bbTile.y = tmpTile.mPosition.y;
 					if (bbObj.overlaps(bbTile))
-						_results.y = (bbTile.y + Tile.TILE_SIZE) - bbObj.y;
+						_results.y =  bbTile.y -(bbObj.y + Tile.TILE_SIZE);
+						
 				}
 			}
 			break;
@@ -192,12 +193,12 @@ public class GameMap {
 			{
 				tmpTile = mTilesMap.get(testIdx);
 
-				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				if ((tmpTile.mType == Tile.DESTROYABLE && !_ignoreDestroyables)||tmpTile.mType == Tile.COLLIDABLE)
 				{
 					bbTile.x = tmpTile.mPosition.x;
 					bbTile.y = tmpTile.mPosition.y;
 					if (bbObj.overlaps(bbTile))
-						_results.y = bbTile.y - bbObj.y;
+						_results.y = (bbTile.y + Tile.TILE_SIZE) - bbObj.y;
 				}
 			}
 			break;
@@ -208,7 +209,7 @@ public class GameMap {
 			{
 				tmpTile = mTilesMap.get(testIdx);
 
-				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				if ((tmpTile.mType == Tile.DESTROYABLE && !_ignoreDestroyables)||tmpTile.mType == Tile.COLLIDABLE)
 				{
 					bbTile.x = tmpTile.mPosition.x;
 					bbTile.y = tmpTile.mPosition.y;
@@ -224,18 +225,18 @@ public class GameMap {
 			{
 				tmpTile = mTilesMap.get(testIdx);
 
-				if (!(_ignoreDestroyables && tmpTile.mType == Tile.DESTROYABLE))
+				if ((tmpTile.mType == Tile.DESTROYABLE && !_ignoreDestroyables)||tmpTile.mType == Tile.COLLIDABLE)
 				{
 					bbTile.x = tmpTile.mPosition.x;
 					bbTile.y = tmpTile.mPosition.y;
 					if (bbObj.overlaps(bbTile))
-						_results.x = bbTile.x - bbObj.x;
+						_results.x = bbTile.x - (bbObj.x + Tile.TILE_SIZE);
 				}
 			}
 			break;
 		}
 
-		return ((_results.x == 0) && (_results.y == 0));
+		return !((_results.x == 0) && (_results.y == 0));
 	}
 
 	public void update()
@@ -351,7 +352,7 @@ public class GameMap {
 		int col = (int) (_position.x / Tile.TILE_SIZE);
 		int line = (int) (_position.y / Tile.TILE_SIZE);
 
-		int res = line * mWidth + col;
+		int res = (mHeight-(line+1)) *mWidth+ col;
 		
 		if( res > mTilesMap.size())
 			throw new InvalidParameterException();
@@ -413,10 +414,10 @@ public class GameMap {
 			break;
 
 		case Directions.RIGHT:
-			// Obtem a linha inicial
+			// Obtem a coluna inicial
 			currentY = _startIndex / mWidth;
 
-			res -= _distance;
+			res += _distance;
 
 			// Verifica a linha após o movimento
 			finalY = res / mWidth;
