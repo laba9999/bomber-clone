@@ -20,10 +20,10 @@
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="3" width="40" height="40">
-			<image file="tiles_143.png"/>
+			<image file="tiles_144.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
-			<flip vertically="true" horizontally="false"/>
+			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="4" width="40" height="40">
