@@ -79,7 +79,7 @@ public class LevelXMLHandler extends DefaultHandler
 			}
 		}
 
-		if (mCurrentLayer.equals("walkable"))
+		if (mCurrentLayer.equals("walkables"))
 		{
 			Level.mWalkableIDs = parsedValues;
 		} else if (mCurrentLayer.equals("destroyables"))

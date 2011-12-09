@@ -34,7 +34,7 @@ public class Level {
 	public static short[][] mDestroyableIDs;
 	public static short[][] mSpawnIDs;
 
-	public static HashMap<Short, ImageTile> mImageTiles = new HashMap<Short, ImageTile>();
+	public static HashMap<Short, String> mImageTiles = new HashMap<Short, String>();
 
 	public static void loadLevel(String _levelID, GameWorld _world, short _howManyPlayers)
 	{
@@ -102,30 +102,30 @@ public class Level {
 		{
 			for (short j = 0; j < mColumns; j++)
 			{
-				ImageTile temp;
+				String filename;
 
 				short id = mWalkableIDs[i][j];
 				if (id != 0)
 				{
-					temp = mImageTiles.get(id);
-					Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
-					_world.mMap.addNonDestroyableTile(i, j, Tile.WALKABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
+					filename = mImageTiles.get(id);
+					Assets.loadNonDestroyableTile(filename);
+					_world.mMap.addNonDestroyableTile(i, j, Tile.WALKABLE, Assets.mNonDestroyableTiles.get(filename));
 				}
 
 				id = mCollidableIDs[i][j];
 				if (id != 0)
 				{
-					temp = mImageTiles.get(id);
-					Assets.loadNonDestroyableTile(temp.mImageFile, temp.mFlipHorizontally, temp.mFlipVertically);
-					_world.mMap.addNonDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mNonDestroyableTiles.get(temp.mImageFile));
+					filename = mImageTiles.get(id);
+					Assets.loadNonDestroyableTile(filename);
+					_world.mMap.addNonDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mNonDestroyableTiles.get(filename));
 				}
 
 				id = mDestroyableIDs[i][j];
 				if (id != 0)
 				{
-					temp = mImageTiles.get(id);
-					Assets.loadDestroyableTile(temp.mImageFile);
-					_world.mMap.addDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mDestroyableTiles.get(temp.mImageFile));
+					filename = mImageTiles.get(id);
+					Assets.loadDestroyableTile(filename);
+					_world.mMap.addDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mDestroyableTiles.get(filename));
 				}
 
 				id = mSpawnIDs[i][j];
@@ -143,7 +143,7 @@ public class Level {
 
 	private static void setupSpawn(short _id, short _positionX, short _positionY, GameWorld _world)
 	{
-		String filename = mImageTiles.get(_id).mImageFile;
+		String filename = mImageTiles.get(_id);
 
 		// BOMBERMANS
 		if (filename.equals("spawn_p1"))
