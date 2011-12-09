@@ -20,7 +20,7 @@ public class WorldRenderer {
 	public WorldRenderer(SpriteBatch _batch, GameWorld _world) {
 		mWorld = _world;
 		mCamera = new OrthographicCamera(800, 480);
-		//mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
+		mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 		mCamera.position.set(800 / 2, 480 / 2, 0);
 		
 		mBatch = _batch;
@@ -29,14 +29,14 @@ public class WorldRenderer {
 	public void render()
 	{
 		Player localPlayer = mWorld.getLocalPlayer();
-/*
+
 		// Actualiza a posição da camera para seguir o local player
 		if (localPlayer.mPosition.y > mCamera.position.y)
 			mCamera.position.y = localPlayer.mPosition.y;
 
 		if (localPlayer.mPosition.x > mCamera.position.x)
 			mCamera.position.x = localPlayer.mPosition.x;
-*/
+
 		mCamera.update();
 		mBatch.setProjectionMatrix(mCamera.combined);
 
