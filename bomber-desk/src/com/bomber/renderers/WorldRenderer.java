@@ -11,8 +11,8 @@ import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.world.GameWorld;
 
 public class WorldRenderer {
-	static final float FRUSTUM_WIDTH = 10;
-	static final float FRUSTUM_HEIGHT = 15;
+	static final float FRUSTUM_WIDTH = 800;
+	static final float FRUSTUM_HEIGHT = 480;
 
 	GameWorld mWorld;
 	OrthographicCamera mCamera;
@@ -20,9 +20,9 @@ public class WorldRenderer {
 
 	public WorldRenderer(SpriteBatch _batch, GameWorld _world) {
 		mWorld = _world;
-		mCamera = new OrthographicCamera(800, 480);
+		mCamera = new OrthographicCamera(FRUSTUM_WIDTH,FRUSTUM_HEIGHT);
 		mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
-		mCamera.position.set(800 / 2, 480 / 2, 0);
+		//mCamera.position.set(800 / 2, 480 / 2, 0);
 		
 		mBatch = _batch;
 	}
@@ -33,7 +33,7 @@ public class WorldRenderer {
 
 		// Actualiza a posição da camera para seguir o local player
 		if (localPlayer.mPosition.y > mCamera.position.y)
-			mCamera.position.y = localPlayer.mPosition.y;
+			mCamera.position.y = localPlayer.mPosition.y-100;
 
 		if (localPlayer.mPosition.x > mCamera.position.x)
 			mCamera.position.x = localPlayer.mPosition.x;
