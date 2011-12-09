@@ -1,0 +1,298 @@
+c.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+star/bonus_star_
+  rotate: false
+  xy: 2, 2
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 5
+shield/bonus_shield_
+  rotate: false
+  xy: 102, 168
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+shield/bonus_shield_
+  rotate: false
+  xy: 202, 118
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+speed/bonus_speed_
+  rotate: false
+  xy: 202, 68
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+hand/bonus_hand_
+  rotate: false
+  xy: 2, 334
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+shield/bonus_shield_
+  rotate: false
+  xy: 2, 184
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+potion/bonus_potion_
+  rotate: false
+  xy: 152, 218
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+speed/bonus_speed_
+  rotate: false
+  xy: 2, 134
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+life/bonus_life_
+  rotate: false
+  xy: 202, 268
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+hand/bonus_hand_
+  rotate: false
+  xy: 52, 318
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+bomb/bonus_bomb_
+  rotate: false
+  xy: 152, 318
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+speed/bonus_speed_
+  rotate: false
+  xy: 152, 68
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+star/bonus_star_
+  rotate: false
+  xy: 2, 68
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 0
+life/bonus_life_
+  rotate: false
+  xy: 202, 218
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+potion/bonus_potion_
+  rotate: false
+  xy: 2, 234
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+potion/bonus_potion_
+  rotate: false
+  xy: 102, 218
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+speed/bonus_speed_
+  rotate: false
+  xy: 52, 118
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+hand/bonus_hand_
+  rotate: false
+  xy: 2, 434
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+bomb/bonus_bomb_
+  rotate: false
+  xy: 102, 318
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+star/bonus_star_
+  rotate: false
+  xy: 202, 2
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 1
+potion/bonus_potion_
+  rotate: false
+  xy: 52, 218
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+life/bonus_life_
+  rotate: false
+  xy: 102, 268
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+hand/bonus_hand_
+  rotate: false
+  xy: 52, 418
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+bomb/bonus_bomb_
+  rotate: false
+  xy: 102, 368
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+star/bonus_star_
+  rotate: false
+  xy: 152, 2
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 2
+potion/bonus_potion_
+  rotate: false
+  xy: 202, 168
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+shield/bonus_shield_
+  rotate: false
+  xy: 152, 118
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+life/bonus_life_
+  rotate: false
+  xy: 152, 268
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+bomb/bonus_bomb_
+  rotate: false
+  xy: 202, 318
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+hand/bonus_hand_
+  rotate: false
+  xy: 52, 368
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
+star/bonus_star_
+  rotate: false
+  xy: 102, 2
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 3
+potion/bonus_potion_
+  rotate: false
+  xy: 152, 168
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+shield/bonus_shield_
+  rotate: false
+  xy: 102, 118
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+speed/bonus_speed_
+  rotate: false
+  xy: 102, 68
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+life/bonus_life_
+  rotate: false
+  xy: 52, 268
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+bomb/bonus_bomb_
+  rotate: false
+  xy: 152, 368
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 0
+star/bonus_star_
+  rotate: false
+  xy: 52, 2
+  size: 48, 64
+  orig: 48, 64
+  offset: 0, 0
+  index: 4
+shield/bonus_shield_
+  rotate: false
+  xy: 52, 168
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 2
+speed/bonus_speed_
+  rotate: false
+  xy: 52, 68
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 5
+hand/bonus_hand_
+  rotate: false
+  xy: 2, 384
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 4
+life/bonus_life_
+  rotate: false
+  xy: 2, 284
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 3
+bomb/bonus_bomb_
+  rotate: false
+  xy: 102, 418
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: 1
