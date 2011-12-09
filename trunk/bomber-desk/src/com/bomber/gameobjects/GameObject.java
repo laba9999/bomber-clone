@@ -36,7 +36,7 @@ public abstract class GameObject extends PoolObject {
 
 	public Vector2 drawingPoint()
 	{
-		mDrawingPoint.set(mPosition.x - Tile.TILE_SIZE_HALF, mPosition.y);
+		mDrawingPoint.set(mPosition.x - Tile.TILE_SIZE_HALF, mPosition.y- Tile.TILE_SIZE_HALF);
 		return mDrawingPoint;
 	}
 

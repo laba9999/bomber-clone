@@ -3,8 +3,10 @@ package com.bomber.renderers;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.monsters.Monster;
@@ -55,6 +57,7 @@ public class WorldRenderer {
 
 	private void renderTiles()
 	{
+		
 		List<Tile> map = mWorld.mMap.mTilesMap;
 		mBatch.begin();
 		for (int i = 0; i < map.size(); i++)
@@ -88,6 +91,7 @@ public class WorldRenderer {
 		{
 			Vector2 drawingPoint = p.drawingPoint();
 			mBatch.draw(p.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+			//mBatch.draw(Assets.mAtlas.findRegion("tiles_",123), p.getBoundingBox().x, p.getBoundingBox().y, p.getBoundingBox().width, p.getBoundingBox().height);
 		}
 		mBatch.end();
 	}
@@ -98,7 +102,11 @@ public class WorldRenderer {
 		for(Monster m : mWorld.mMonsters)
 		{
 			Vector2 drawingPoint = m.drawingPoint();
+			drawingPoint.x+= (Tile.TILE_SIZE- m.mCurrentFrame.getRegionWidth())/2;
 			mBatch.draw(m.mCurrentFrame,drawingPoint.x, drawingPoint.y);
+			
+			//mBatch.draw(Assets.mAtlas.findRegion("tiles_",123), m.getBoundingBox().x, m.getBoundingBox().y, m.getBoundingBox().width, m.getBoundingBox().height);
+			
 		}
 		mBatch.end();
 	}
