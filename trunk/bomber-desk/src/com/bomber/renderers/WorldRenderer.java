@@ -37,12 +37,12 @@ public class WorldRenderer {
 		
 		Player localPlayer = mWorld.getLocalPlayer();
 		GLCommon gl = Gdx.gl;
-		gl.glClearColor(1, 0, 0, 1);
+		gl.glClearColor(0, 0, 0, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
 		// Actualiza a posição da camera para seguir o local player
 		if (localPlayer.mPosition.y > mCamera.position.y)
-			mCamera.position.y = localPlayer.mPosition.y-100;
+			mCamera.position.y = (int)localPlayer.mPosition.y-100;
 
 		if (localPlayer.mPosition.x > mCamera.position.x)
 			mCamera.position.x = localPlayer.mPosition.x;
@@ -62,8 +62,6 @@ public class WorldRenderer {
 		renderPlayers();
 		renderMonsters();
 		renderFPS();
-
-		
 	}
 
 	private void renderFPS() 
@@ -76,7 +74,7 @@ public class WorldRenderer {
 	
 	private void renderTiles()
 	{
-		
+	
 		List<Tile> map = mWorld.mMap.mTilesMap;
 		mBatch.begin();
 		for (int i = 0; i < map.size(); i++)
@@ -109,6 +107,7 @@ public class WorldRenderer {
 		for(Player p : mWorld.mPlayers)
 		{
 			Vector2 drawingPoint = p.drawingPoint();
+			drawingPoint.x+= (Tile.TILE_SIZE- p.mCurrentFrame.getRegionWidth())/2;
 			mBatch.draw(p.mCurrentFrame, drawingPoint.x, drawingPoint.y);
 			//mBatch.draw(Assets.mAtlas.findRegion("tiles_",123), p.getBoundingBox().x, p.getBoundingBox().y, p.getBoundingBox().width, p.getBoundingBox().height);
 		}
@@ -125,7 +124,6 @@ public class WorldRenderer {
 			mBatch.draw(m.mCurrentFrame,drawingPoint.x, drawingPoint.y);
 			
 			//mBatch.draw(Assets.mAtlas.findRegion("tiles_",123), m.getBoundingBox().x, m.getBoundingBox().y, m.getBoundingBox().width, m.getBoundingBox().height);
-			
 		}
 		mBatch.end();
 	}
