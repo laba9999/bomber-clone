@@ -99,11 +99,13 @@ public class GameWorld {
 	public void spawnMonster(String _type, short _line, short _col)
 	{
 		Monster tmpMonster = mMonsters.getFreeObject();
-		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE;
-		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE;
-		
+
 		tmpMonster.setMovableAnimations(Assets.mMonsters.get(_type));
-		
+
+		short xDisplacement = (short) (Tile.TILE_SIZE - tmpMonster.mCurrentFrame.getRegionWidth() / 2);
+		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE + xDisplacement;
+		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE;
+
 		tmpMonster.mInfo = MonsterInfo.getInfoFromType(_type);
 	}
 
@@ -111,10 +113,11 @@ public class GameWorld {
 	{
 		Player tmpPlayer = mPlayers.getFreeObject();
 
-		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE;
-		tmpPlayer.mPosition.y = _line *Tile.TILE_SIZE;
-
 		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
+
+		short xDisplacement = (short) (Tile.TILE_SIZE - tmpPlayer.mCurrentFrame.getRegionWidth() / 2);
+		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + xDisplacement;
+		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE;
 	}
 
 	/**

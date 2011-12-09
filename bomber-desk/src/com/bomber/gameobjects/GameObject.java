@@ -6,6 +6,7 @@ import com.bomber.common.PoolObject;
 
 public abstract class GameObject extends PoolObject {
 	public Vector2 mPosition = new Vector2();
+	private Vector2 mDrawingPoint = new Vector2();
 	private Rectangle mBoudingBox = new Rectangle(0, 0, Tile.TILE_SIZE, Tile.TILE_SIZE);
 	public int mUUID;
 
@@ -27,10 +28,16 @@ public abstract class GameObject extends PoolObject {
 
 	public Rectangle getBoundingBox()
 	{
-		mBoudingBox.x = mPosition.x - Tile.TILE_SIZE/2;
-		mBoudingBox.y = mPosition.y - Tile.TILE_SIZE/2;
+		mBoudingBox.x = mPosition.x - Tile.TILE_SIZE_HALF;
+		mBoudingBox.y = mPosition.y - Tile.TILE_SIZE_HALF;
 
 		return mBoudingBox;
+	}
+
+	public Vector2 drawingPoint()
+	{
+		mDrawingPoint.set(mPosition.x - Tile.TILE_SIZE_HALF, mPosition.y);
+		return mDrawingPoint;
 	}
 
 }
