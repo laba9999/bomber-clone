@@ -102,6 +102,8 @@ public class GameWorld {
 
 		tmpMonster.setMovableAnimations(Assets.mMonsters.get(_type));
 
+		tmpMonster.mLoopAnimation = true;
+		
 		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
 		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
 
