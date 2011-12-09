@@ -219,14 +219,11 @@ public class Assets
 		mDestroyableTiles.put(_id, new Animation(FRAME_DURATION, regions));
 	}
 
-	public static void loadNonDestroyableTile(String _id, boolean _flipHorizontally, boolean _flipVertically)
+	public static void loadNonDestroyableTile(String _id)
 	{
-		// _id = "tiles_2" : ignorando 6 chars, temos o index
-		int tileIndex = Integer.parseInt(_id.substring(6));
-
+		String[] splitted = _id.split("_");
+		int tileIndex = Integer.parseInt(splitted[1]);
 		TextureRegion r = mAtlas.findRegion("tiles_", tileIndex);
-		// TODO : verificar se não há engano nestes parametros
-		r.flip(_flipVertically, _flipHorizontally);
 		mNonDestroyableTiles.put(_id, r);
 	}
 
