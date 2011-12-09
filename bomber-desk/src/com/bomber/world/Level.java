@@ -131,7 +131,7 @@ public class Level {
 				id = mSpawnIDs[i][j];
 				if (id != 0)
 				{
-					setupSpawn(id, i, j, _world);
+					setupSpawn(id, j, i, _world);
 				}
 
 			}
