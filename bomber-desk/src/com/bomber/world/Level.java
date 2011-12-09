@@ -83,6 +83,9 @@ public class Level {
 
 	private static void flipMatrixVertically(short[][] _matrix)
 	{
+		if( _matrix == null)
+			_matrix = _matrix;
+		
 		int center = _matrix.length / 2;
 		for (int i = 0; i < center; i++)
 		{

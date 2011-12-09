@@ -172,6 +172,7 @@ public class GameMap {
 		switch (_obj.mDirection)
 		{
 		case Directions.UP:
+			// Directamente acima
 			testIdx = calcTileIndex(startIdx, Directions.UP, (short) 1);
 			if (testIdx != startIdx)
 			{
@@ -183,6 +184,37 @@ public class GameMap {
 					bbTile.y = tmpTile.mPosition.y;
 					if (bbObj.overlaps(bbTile))
 						_results.y =  bbTile.y -(bbObj.y + Tile.TILE_SIZE);
+						
+				}
+			}
+			// Acima / Esquerda
+			testIdx = calcTileIndex(testIdx, Directions.LEFT, (short) 1);
+			if (testIdx != startIdx)
+			{
+				tmpTile = mTilesMap.get(testIdx);
+
+				if ((tmpTile.mType == Tile.DESTROYABLE && !_ignoreDestroyables)||tmpTile.mType == Tile.COLLIDABLE)
+				{
+					bbTile.x = tmpTile.mPosition.x;
+					bbTile.y = tmpTile.mPosition.y;
+					if (bbObj.overlaps(bbTile))
+						_results.x = (bbTile.x + Tile.TILE_SIZE) - bbObj.x;
+						
+				}
+			}
+			
+			// Acima / Direita
+			testIdx = calcTileIndex(testIdx, Directions.RIGHT, (short) 2);
+			if (testIdx != startIdx)
+			{
+				tmpTile = mTilesMap.get(testIdx);
+
+				if ((tmpTile.mType == Tile.DESTROYABLE && !_ignoreDestroyables)||tmpTile.mType == Tile.COLLIDABLE)
+				{
+					bbTile.x = tmpTile.mPosition.x;
+					bbTile.y = tmpTile.mPosition.y;
+					if (bbObj.overlaps(bbTile))
+						_results.x = bbTile.x - (bbObj.x + Tile.TILE_SIZE);
 						
 				}
 			}
@@ -239,6 +271,32 @@ public class GameMap {
 		return !((_results.x == 0) && (_results.y == 0));
 	}
 
+	private short testCollision(short _playerTileIdx, short _tileIdx, Rectangle _objBB, short _direction)
+	{
+		
+		if( _playerTileIdx == _tileIdx)
+			return 0;
+	/*	
+		Tile tmpTile;
+		switch(_direction)
+		{
+		case Directions.UP:
+			tmpTile = mTilesMap.get(_tileIdx);
+
+			if ((tmpTile.mType == Tile.DESTROYABLE && !_ignoreDestroyables)||tmpTile.mType == Tile.COLLIDABLE)
+			{
+				bbTile.x = tmpTile.mPosition.x;
+				bbTile.y = tmpTile.mPosition.y;
+				if (bbObj.overlaps(bbTile))
+					_results.y =  bbTile.y -(bbObj.y + Tile.TILE_SIZE);
+					
+			}
+		}
+		*/
+		return 0;
+	}
+	
+	
 	public void update()
 	{
 		// Verifica se algum dos tiles que foram destruidos já terminaram a

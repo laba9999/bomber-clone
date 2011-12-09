@@ -5,7 +5,7 @@ import com.bomber.common.Directions;
 import com.bomber.world.GameWorld;
 
 public abstract class MovableObject extends Drawable {
-	public float mSpeed = 1f;
+	public float mSpeed = 0.5f;
 	public short mDirection;
 	public GameWorld mWorld;
 	public boolean mIsMoving = false;

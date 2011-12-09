@@ -19,7 +19,7 @@ import com.bomber.gameobjects.MovableObjectAnimation;
  */
 public class Assets
 {
-	private static final float FRAME_DURATION = 0.3f;
+	private static final float FRAME_DURATION = 100f;
 	private static final String ATLAS_FILE = "atlas.txt";
 
 	public static TextureAtlas mAtlas;
