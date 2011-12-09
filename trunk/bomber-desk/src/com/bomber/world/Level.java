@@ -1,6 +1,5 @@
 package com.bomber.world;
 
-import java.awt.BufferCapabilities.FlipContents;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -8,13 +7,14 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 
+import javax.annotation.Resources;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.lwjgl.util.vector.Matrix;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import com.badlogic.gdx.Gdx;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Tile;
 
@@ -50,10 +50,10 @@ public class Level {
 
 			// parse level xml file
 			LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler();
-
+			
 			xmlReader.setContentHandler(myLevelXMLHandler);
-			File file = new File(".\\levels\\" + _levelID + "\\" + _levelID + ".xml");
-			InputStream inputStream = new FileInputStream(file);
+		    InputStream inputStream = Gdx.files.internal("levels/" + _levelID + "/" + _levelID + ".xml").read();
+
 			Reader reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
 
@@ -61,8 +61,8 @@ public class Level {
 			TilesetXMLHandler myTilesetXMLHandler = new TilesetXMLHandler();
 
 			xmlReader.setContentHandler(myTilesetXMLHandler);
-			file = new File(".\\levels\\" + _levelID + "\\tileset.xml");
-			inputStream = new FileInputStream(file);
+
+			inputStream = Gdx.files.internal("levels/" + _levelID + "/tileset.xml").read();
 			reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
 
