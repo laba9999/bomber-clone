@@ -21,6 +21,10 @@ public class GameScreen implements ApplicationListener {
 	OrthographicCamera mUICamera;
 	public WorldRenderer mWorldRenderer;
 
+	long next_game_tick = System.nanoTime();
+	long start = System.nanoTime();
+	long end = System.nanoTime();
+	long cycles = 0;
 	@Override
 	public void create()
 	{
@@ -46,11 +50,18 @@ public class GameScreen implements ApplicationListener {
 	{
 		int loops;
 		float interpolation;
-		long next_game_tick = System.nanoTime();
 
 		loops = 0;
 		while (System.nanoTime() > next_game_tick && loops < MAX_FRAMESKIP)
 		{
+			cycles++;
+			if( System.nanoTime() - start > 1000*1000*100)
+			{
+				System.out.println(String.valueOf(cycles));
+				cycles = 0;
+				
+				start = System.nanoTime();
+			}
 			mGameState.update();
 			next_game_tick += SKIP_TICKS;
 			loops++;
