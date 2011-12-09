@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.monsters.Monster;
@@ -84,7 +85,10 @@ public class WorldRenderer {
 	{
 		mBatch.begin();
 		for(Player p : mWorld.mPlayers)
-			mBatch.draw(p.mCurrentFrame, p.mPosition.x, p.mPosition.y);
+		{
+			Vector2 drawingPoint = p.drawingPoint();
+			mBatch.draw(p.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+		}
 		mBatch.end();
 	}
 	
@@ -92,7 +96,10 @@ public class WorldRenderer {
 	{
 		mBatch.begin();
 		for(Monster m : mWorld.mMonsters)
-			mBatch.draw(m.mCurrentFrame, m.mPosition.x, m.mPosition.y);
+		{
+			Vector2 drawingPoint = m.drawingPoint();
+			mBatch.draw(m.mCurrentFrame,drawingPoint.x, drawingPoint.y);
+		}
 		mBatch.end();
 	}
 	

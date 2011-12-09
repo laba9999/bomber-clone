@@ -4,6 +4,7 @@ import com.bomber.common.Utils;
 
 public class Tile extends Drawable {
 	public static final short TILE_SIZE = 47;
+	public static final short TILE_SIZE_HALF = TILE_SIZE /2;
 	public static final short WALKABLE = 0;
 	public static final short DESTROYABLE = 1;
 	public static final short COLLIDABLE = 2;
