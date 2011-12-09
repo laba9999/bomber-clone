@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -252,8 +253,11 @@ public class Assets
 //		mControllerBar = mAtlas.findRegion("TO BE DEFINED");
 //		mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
 //		mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
-		// = new BitmapFont(Gdx.files.internal("assets/fonts/white_14.fnt"),Gdx.files.internal("assets/fonts/white_14.fnt"), false);
+		mFont = new BitmapFont();
+		mFont.setColor(Color.BLACK);
+		mFont.setScale(2);
 
+		
 	}
 
 }

@@ -2,6 +2,9 @@ package com.bomber.renderers;
 
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -31,8 +34,12 @@ public class WorldRenderer {
 
 	public void render()
 	{
+		
 		Player localPlayer = mWorld.getLocalPlayer();
-
+		GLCommon gl = Gdx.gl;
+		gl.glClearColor(1, 0, 0, 1);
+		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		
 		// Actualiza a posição da camera para seguir o local player
 		if (localPlayer.mPosition.y > mCamera.position.y)
 			mCamera.position.y = localPlayer.mPosition.y-100;
@@ -42,6 +49,7 @@ public class WorldRenderer {
 
 		mCamera.update();
 		mBatch.setProjectionMatrix(mCamera.combined);
+		
 
 		// Apresenta os GFX's espectaculares, e tem que ser por esta ordem
 		mBatch.disableBlending();
@@ -53,8 +61,19 @@ public class WorldRenderer {
 		renderExplosions();
 		renderPlayers();
 		renderMonsters();
+		renderFPS();
+
+		
 	}
 
+	private void renderFPS() 
+	{
+		mBatch.begin();
+		Integer fps = Gdx.graphics.getFramesPerSecond();
+		Assets.mFont.draw(mBatch, fps.toString(), 100 ,650);
+		mBatch.end();
+	}
+	
 	private void renderTiles()
 	{
 		
