@@ -3,7 +3,7 @@
 <!-- This file is used to describe all the tiles and animations. -->
 <!-- This file is common for all the maps in the project. -->
 
-<tilesetFile version="1.0.0" animations="0" tiles="20">
+<tilesetFile version="1.0.0" animations="0" tiles="19">
 	<tiles>
 		<imageTile id="1" width="40" height="40">
 			<image file="tiles_123.png"/>
@@ -20,10 +20,10 @@
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="3" width="40" height="40">
-			<image file="tiles_143.png"/>
+			<image file="tiles_144.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
-			<flip vertically="true" horizontally="false"/>
+			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="4" width="40" height="40">
@@ -41,104 +41,97 @@
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="6" width="40" height="40">
-			<image file="tiles_144.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="7" width="40" height="40">
 			<image file="tiles_127.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="8" width="40" height="40">
+		<imageTile id="7" width="40" height="40">
 			<image file="tiles_128.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="9" width="40" height="40">
+		<imageTile id="8" width="40" height="40">
 			<image file="tiles_130.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="10" width="40" height="40">
+		<imageTile id="9" width="40" height="40">
 			<image file="tiles_140.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="11" width="40" height="40">
+		<imageTile id="10" width="40" height="40">
 			<image file="tiles_126.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="12" width="40" height="40">
+		<imageTile id="11" width="40" height="40">
 			<image file="tiles_131.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="13" width="40" height="40">
+		<imageTile id="12" width="40" height="40">
 			<image file="tiles_138.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="14" width="40" height="40">
+		<imageTile id="13" width="40" height="40">
 			<image file="tiles_137.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="15" width="40" height="40">
+		<imageTile id="14" width="40" height="40">
 			<image file="tiles_134.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="16" width="40" height="40">
+		<imageTile id="15" width="40" height="40">
 			<image file="tiles_125.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="17" width="40" height="40">
+		<imageTile id="16" width="40" height="40">
 			<image file="spawn_p1.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="18" width="40" height="40">
+		<imageTile id="17" width="40" height="40">
 			<image file="spawn_p3.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="19" width="40" height="40">
+		<imageTile id="18" width="40" height="40">
 			<image file="spawn_p2.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="20" width="40" height="40">
+		<imageTile id="19" width="40" height="40">
 			<image file="spawn_p4.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
