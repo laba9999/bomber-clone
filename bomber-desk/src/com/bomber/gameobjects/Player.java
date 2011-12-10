@@ -86,7 +86,7 @@ public class Player extends KillableObject {
 
 		// Executa o movimento
 		move(mSpeed * mSpeedFactor);
-		checkTileCollisions(false);
+		checkMapCollisions(false);
 		// checkBombCollisions();
 	}
 

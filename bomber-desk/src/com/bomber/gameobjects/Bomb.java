@@ -25,7 +25,7 @@ public class Bomb extends KillableObject {
 		super.update();
 
 		if (mAnimationTicks >= mTicksToExplode || mIsDead)
-			mWorld.createExplosion(this);
+			mWorld.spawnExplosion(this);
 	}
 
 	@Override

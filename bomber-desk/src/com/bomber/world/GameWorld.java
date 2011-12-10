@@ -11,6 +11,7 @@ import com.bomber.common.Assets;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
+import com.bomber.common.Utils;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.MovableObject;
@@ -143,17 +144,24 @@ public class GameWorld {
 		
 	}
 
-	/**
-	 * Chamado pelas bombas. Obtem o tamanho que a explosão terá para cada uma
-	 * das direcções baseada no mExplosionSize da bomba e na distância aos tiles
-	 * do tipo COLLIDABLE ou DESTROYABLE obtida atraves do getDistanceToNext da
-	 * classe GameMap.
-	 * 
-	 * Cria os objecto drawable baseado nos limites calculados, um por cada um
-	 * dos componentes da explosão. Verifica se não há jogadores, monstros ou
-	 * tiles afetcados pela explosão.
-	 */
-	public void createExplosion(Bomb _bomb)
+	public void spawnBomb(short _bombPower, Vector2 _playerPosition)
+	{
+		Tile tmpTile = mMap.getTile(_playerPosition);
+		if (tmpTile.mContainsBomb)
+			return;
+
+		Bomb tmpBomb = mBombs.getFreeObject();
+
+		tmpTile.mContainsBomb = true;
+		tmpBomb.mContainer = tmpTile;
+
+		// Actualiza os atributos
+		tmpBomb.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
+		tmpBomb.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
+		tmpBomb.mBombPower = _bombPower;
+	}
+
+	public void spawnExplosion(Bomb _bomb)
 	{
 		// Remove a bomba da pool de bombas activas
 		mBombs.releaseObject(_bomb);
@@ -185,12 +193,12 @@ public class GameWorld {
 
 		// TODO : descomentar
 		// Verifica os players
-//		for (Player p : mPlayers)
-//		{
-//			idx = mMap.calcTileIndex(p.mPosition);
-//			if (idx == _tile.mPositionInArray)
-//				p.kill();
-//		}
+		// for (Player p : mPlayers)
+		// {
+		// idx = mMap.calcTileIndex(p.mPosition);
+		// if (idx == _tile.mPositionInArray)
+		// p.kill();
+		// }
 	}
 
 	private void createExplosionComponents(Bomb _bomb)
@@ -285,28 +293,7 @@ public class GameWorld {
 		}
 	}
 
-	/**
-	 * Chamado pelos players Utiliza o getNearestMap da classe GameMap para
-	 * obter o tile onde a bomba deverá ser colocada. Adiciona a bomba ao mapa.
-	 */
-	public void spawnBomb(short _bombPower, Vector2 _playerPosition)
-	{
-		Tile tmpTile = mMap.getTile(_playerPosition);
-		if (tmpTile.mContainsBomb)
-			return;
-
-		Bomb tmpBomb = mBombs.getFreeObject();
-
-		tmpTile.mContainsBomb = true;
-		tmpBomb.mContainer = tmpTile;
-
-		// Actualiza os atributos
-		tmpBomb.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
-		tmpBomb.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
-		tmpBomb.mBombPower = _bombPower;
-	}
-
-	public boolean checkIfBombCollidingWithObject(MovableObject _obj, Vector2 _results)
+	public boolean checkIfObjectCollidingWithBomb(MovableObject _obj, Vector2 _results)
 	{
 		_results.x = 0;
 		_results.y = 0;
@@ -315,16 +302,16 @@ public class GameWorld {
 		for (Bomb b : mBombs)
 		{
 			Rectangle bbBomb = b.getBoundingBox();
-			if (!bbObj.overlaps(bbBomb))
+			if (Utils.rectsOverlap(bbBomb, bbObj))
 				continue;
 
 			switch (_obj.mDirection)
 			{
 			case Directions.UP:
-				_results.y = (bbBomb.y + Tile.TILE_SIZE) - bbObj.y;
+				_results.y = bbBomb.y - bbObj.y + Tile.TILE_SIZE;
 				break;
 			case Directions.DOWN:
-				_results.y = bbBomb.y - bbObj.y;
+				_results.y = bbBomb.y + Tile.TILE_SIZE - bbObj.y;
 				break;
 			case Directions.LEFT:
 				_results.x = (bbBomb.x + Tile.TILE_SIZE) - bbObj.x;

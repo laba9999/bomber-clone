@@ -5,15 +5,29 @@ import com.bomber.common.Directions;
 import com.bomber.world.GameWorld;
 
 public abstract class MovableObject extends Drawable {
+
 	public float mSpeed = 0.5f;
 	public short mDirection;
 	public GameWorld mWorld;
-	public boolean mIsMoving = false;
-	public boolean mJustCollided = false;
+	
+	protected boolean mIsMoving = false;
+	protected boolean mJustCollided= false;
+	
 	public MovableObjectAnimation mMovableAnimations;
 
+	
 	private final Vector2 mCollision = new Vector2();
 
+	@Override
+	public void reset()
+	{
+		mIsMoving = false;
+		mJustCollided = false;
+
+		
+		super.reset();
+	}
+	
 	public void setMovableAnimations(MovableObjectAnimation _anim)
 	{
 		mMovableAnimations = _anim;
@@ -85,9 +99,9 @@ public abstract class MovableObject extends Drawable {
 
 	}
 
-	protected void checkTileCollisions(boolean _ignoreDestroyables)
+	protected void checkMapCollisions(boolean _ignoreDestroyables)
 	{
-		mJustCollided = mWorld.mMap.checkIfTileCollidingWithObject(this, mCollision, _ignoreDestroyables);
+		mJustCollided = mWorld.mMap.checkForCollisions(this, mCollision, _ignoreDestroyables);
 
 		if(!mJustCollided)
 			return;
@@ -96,16 +110,6 @@ public abstract class MovableObject extends Drawable {
 		mPosition.y += mCollision.y;
 	}
 
-	protected void checkBombCollisions()
-	{
-		mJustCollided = mWorld.checkIfBombCollidingWithObject(this, mCollision);
-		
-		if(!mJustCollided)
-			return;
-		
-		mPosition.x += mCollision.x;
-		mPosition.y += mCollision.y;	
-	}
 
 	public void stop()
 	{
