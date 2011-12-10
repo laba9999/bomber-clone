@@ -2,12 +2,12 @@ package com.bomber.world;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
@@ -29,6 +29,7 @@ import com.bomber.gameobjects.Tile;
  * 
  */
 public class GameMap {
+
 	private ObjectsPool<Tile> mImutableTiles;
 	private ObjectsPool<Tile> mDestroyableTiles;
 	public ObjectsPool<Tile> mTilesBeingDestroyed;
@@ -45,7 +46,6 @@ public class GameMap {
 
 	}
 
-	
 	/**
 	 * Adiciona um novo tile Destroyable ao mapa.
 	 * 
@@ -69,7 +69,6 @@ public class GameMap {
 
 		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
 	}
-	
 
 	/**
 	 * Adiciona um novo tile NonDestroyable ao mapa.
@@ -172,58 +171,43 @@ public class GameMap {
 	 *            verificação.
 	 * @return True se for detectada uma colisão, False caso contrário.
 	 */
-	public boolean checkForCollisions(MovableObject _obj, Vector2 _results, boolean _ignoreDestroyables)
+	public void checkForCollisions(MovableObject _obj, Collision _results, boolean _ignoreDestroyables)
 	{
-		final float allowedOverlap = 10.0f;
 
-		_results.x = 0;
-		_results.y = 0;
+		_results.reset();
 
 		int testIdx;
 		int startIdx = calcTileIndex(_obj.mPosition);
 
 		Rectangle bbObj = _obj.getBoundingBox();
-
-		Tile tmpTile;
-		float valueOverlaped;
 		switch (_obj.mDirection)
 		{
 		case Directions.UP:
 
 			// Imediatamente acima
 			testIdx = calcTileIndex(startIdx, Directions.UP, (short) 1);
-			_results.y = testCollision(startIdx, testIdx, bbObj, Directions.UP, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.UP, _ignoreDestroyables);
 
-			if (_results.y != 0)
+			if (_results.mType != Collision.NONE)
 				break;
 
 			// Acima esquerda
 			testIdx = calcTileIndex(testIdx, Directions.LEFT, (short) 1);
-			_results.y = testCollision(startIdx, testIdx, bbObj, Directions.UP, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.UP, _ignoreDestroyables);
 
-			if (_results.y != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = (tmpTile.mPosition.x + Tile.TILE_SIZE) - bbObj.x;
-				if (valueOverlaped < allowedOverlap)
-					_results.x = valueOverlaped;
-
+				checkAllowedOverlapX(_results, bbObj, testIdx, Directions.LEFT);
 				break;
 			}
 
 			// Acima direita
 			testIdx = calcTileIndex(testIdx, Directions.RIGHT, (short) 2);
-			_results.y = testCollision(startIdx, testIdx, bbObj, Directions.UP, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.UP, _ignoreDestroyables);
 
-			if (_results.y != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = tmpTile.mPosition.x - (bbObj.x + Tile.TILE_SIZE);
-				if (valueOverlaped < allowedOverlap)
-					_results.x = valueOverlaped;
-
+				checkAllowedOverlapX(_results, bbObj, testIdx, Directions.RIGHT);
 				break;
 			}
 			break;
@@ -232,38 +216,28 @@ public class GameMap {
 
 			// Imediatamente abaixo
 			testIdx = calcTileIndex(startIdx, Directions.DOWN, (short) 1);
-			_results.y = testCollision(startIdx, testIdx, bbObj, Directions.DOWN, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.DOWN, _ignoreDestroyables);
 
-			if (_results.y != 0)
+			if (_results.mType != Collision.NONE)
 				break;
 
 			// Abaixo esquerda
 			testIdx = calcTileIndex(testIdx, Directions.LEFT, (short) 1);
-			_results.y = testCollision(startIdx, testIdx, bbObj, Directions.DOWN, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.DOWN, _ignoreDestroyables);
 
-			if (_results.y != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = (tmpTile.mPosition.x + Tile.TILE_SIZE) - bbObj.x;
-				if (valueOverlaped < allowedOverlap)
-					_results.x = valueOverlaped;
-
+				checkAllowedOverlapX(_results, bbObj, testIdx, Directions.LEFT);
 				break;
 			}
 
 			// Abaixo direita
 			testIdx = calcTileIndex(testIdx, Directions.RIGHT, (short) 2);
-			_results.y = testCollision(startIdx, testIdx, bbObj, Directions.DOWN, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.DOWN, _ignoreDestroyables);
 
-			if (_results.y != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = tmpTile.mPosition.x - (bbObj.x + Tile.TILE_SIZE);
-				if (valueOverlaped < allowedOverlap)
-					_results.x = valueOverlaped;
-
+				checkAllowedOverlapX(_results, bbObj, testIdx, Directions.RIGHT);
 				break;
 			}
 			break;
@@ -272,38 +246,28 @@ public class GameMap {
 
 			// Imediatamente esquerda
 			testIdx = calcTileIndex(startIdx, Directions.LEFT, (short) 1);
-			_results.x = testCollision(startIdx, testIdx, bbObj, Directions.LEFT, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.LEFT, _ignoreDestroyables);
 
-			if (_results.x != 0)
+			if (_results.mType != Collision.NONE)
 				break;
 
 			// Esquerda acima
 			testIdx = calcTileIndex(testIdx, Directions.UP, (short) 1);
-			_results.x = testCollision(startIdx, testIdx, bbObj, Directions.LEFT, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.LEFT, _ignoreDestroyables);
 
-			if (_results.x != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = tmpTile.mPosition.y - (bbObj.y + Tile.TILE_SIZE);
-				if (valueOverlaped < allowedOverlap)
-					_results.y = valueOverlaped;
-
+				checkAllowedOverlapY(_results, bbObj, testIdx, Directions.UP);
 				break;
 			}
 
 			// Esquerda abaixo
 			testIdx = calcTileIndex(testIdx, Directions.DOWN, (short) 2);
-			_results.x = testCollision(startIdx, testIdx, bbObj, Directions.LEFT, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.LEFT, _ignoreDestroyables);
 
-			if (_results.x != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = (tmpTile.mPosition.y + Tile.TILE_SIZE) - bbObj.y;
-				if (valueOverlaped < allowedOverlap)
-					_results.y = valueOverlaped;
-
+				checkAllowedOverlapY(_results, bbObj, testIdx, Directions.DOWN);
 				break;
 			}
 			break;
@@ -312,62 +276,87 @@ public class GameMap {
 
 			// Imediatamente direita
 			testIdx = calcTileIndex(startIdx, Directions.RIGHT, (short) 1);
-			_results.x = testCollision(startIdx, testIdx, bbObj, Directions.RIGHT, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.RIGHT, _ignoreDestroyables);
 
-			if (_results.x != 0)
+			if (_results.mType != Collision.NONE)
 				break;
 
 			// Direita acima
 			testIdx = calcTileIndex(testIdx, Directions.UP, (short) 1);
-			_results.x = testCollision(startIdx, testIdx, bbObj, Directions.RIGHT, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.RIGHT, _ignoreDestroyables);
 
-			if (_results.x != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = tmpTile.mPosition.y - (bbObj.y + Tile.TILE_SIZE);
-				if (valueOverlaped < allowedOverlap)
-					_results.y = valueOverlaped;
-
+				checkAllowedOverlapY(_results, bbObj, testIdx, Directions.UP);
 				break;
 			}
 
 			// Direita abaixo
 			testIdx = calcTileIndex(testIdx, Directions.DOWN, (short) 2);
-			_results.x = testCollision(startIdx, testIdx, bbObj, Directions.RIGHT, _ignoreDestroyables);
+			testCollision(startIdx, testIdx, _results, bbObj, Directions.RIGHT, _ignoreDestroyables);
 
-			if (_results.x != 0)
+			if (_results.mType != Collision.NONE)
 			{
-				// Verifica se está muito longe de poder passar
-				tmpTile = mTilesMap.get(testIdx);
-				valueOverlaped = (tmpTile.mPosition.y + Tile.TILE_SIZE) - bbObj.y;
-				if (valueOverlaped < allowedOverlap)
-					_results.y = valueOverlaped;
-
+				checkAllowedOverlapY(_results, bbObj, testIdx, Directions.DOWN);
 				break;
 			}
 			break;
 		}
-
-		return !((_results.x == 0) && (_results.y == 0));
 	}
 
-	private float testCollision(int _playerTileIdx, int _tileIdx, Rectangle _objBB, short _direction, boolean _ignoreDestroyables)
+	private void checkAllowedOverlapX(Collision _result, Rectangle _objBB, int testIdx, short _direction)
+	{
+		if (_direction != Directions.LEFT && _direction != Directions.RIGHT)
+			throw new InvalidParameterException("Esta direcção não deve ser passada a este método");
+
+		// Verifica se está muito longe de poder passar
+		Tile tmpTile = mTilesMap.get(testIdx);
+
+		float valueOverlaped;
+		if (_direction == Directions.LEFT)
+			valueOverlaped = (tmpTile.mPosition.x + Tile.TILE_SIZE) - _objBB.x;
+		else
+			valueOverlaped = tmpTile.mPosition.x - (_objBB.x + Tile.TILE_SIZE);
+
+		if (valueOverlaped < Collision.ALLOWED_OVERLAP)
+			_result.mAmounts.x = valueOverlaped;
+	}
+
+	private void checkAllowedOverlapY(Collision _result, Rectangle _objBB, int testIdx, short _direction)
+	{
+		if (_direction != Directions.UP && _direction != Directions.DOWN)
+			throw new InvalidParameterException("Esta direcção não deve ser passada a este método");
+
+		// Verifica se está muito longe de poder passar
+		Tile tmpTile = mTilesMap.get(testIdx);
+
+		float valueOverlaped;
+		if (_direction == Directions.UP)
+			valueOverlaped = tmpTile.mPosition.y - (_objBB.y + Tile.TILE_SIZE);
+		else
+			valueOverlaped = (tmpTile.mPosition.y + Tile.TILE_SIZE) - _objBB.y;
+
+		if (valueOverlaped < Collision.ALLOWED_OVERLAP)
+			_result.mAmounts.y = valueOverlaped;
+	}
+
+	private void testCollision(int _playerTileIdx, int _tileIdx, Collision _result, Rectangle _objBB, short _direction, boolean _ignoreDestroyables)
 	{
 		final Rectangle bbTile = new Rectangle(0, 0, Tile.TILE_SIZE, Tile.TILE_SIZE);
 
 		if (_playerTileIdx == _tileIdx)
-			return 0;
+			return;
 
 		Tile tmpTile = mTilesMap.get(_tileIdx);
-		if ((tmpTile.mType == Tile.DESTROYABLE && _ignoreDestroyables) )
-			return 0;
 		
-		if((tmpTile.mContainsBomb && _ignoreDestroyables))
-			return 0;
-		
-		if( tmpTile.mType != Tile.COLLIDABLE && tmpTile.mType != Tile.DESTROYABLE && !tmpTile.mContainsBomb)
-			return 0;
+		if ((tmpTile.mType == Tile.DESTROYABLE && _ignoreDestroyables))
+			return;
+
+		if ((tmpTile.mContainsBomb && _ignoreDestroyables))
+			return;
+
+		if (tmpTile.mType != Tile.COLLIDABLE && tmpTile.mType != Tile.DESTROYABLE && !tmpTile.mContainsBomb)
+			return;
 
 		// Actualiza a posição da bounding box do tile
 		bbTile.x = tmpTile.mPosition.x;
@@ -375,22 +364,23 @@ public class GameMap {
 
 		// Verifica se existe colisão
 		if (!Utils.rectsOverlap(_objBB, bbTile))
-			return 0;
+			return;
 
+		if (tmpTile.mType == Tile.COLLIDABLE || tmpTile.mType == Tile.DESTROYABLE)
+			_result.mType = Collision.TILE;
+		else if (tmpTile.mContainsBomb)
+			_result.mType = Collision.BOMB;
+		
 		// Devolve o valor overlapped baseado na direcção do objecto
 		if (_direction == Directions.UP)
-			return bbTile.y - (_objBB.y + Tile.TILE_SIZE);
+			_result.mAmounts.y = bbTile.y - (_objBB.y + Tile.TILE_SIZE);
 		else if (_direction == Directions.DOWN)
-			return (bbTile.y + Tile.TILE_SIZE) - _objBB.y;
+			_result.mAmounts.y = (bbTile.y + Tile.TILE_SIZE) - _objBB.y;
 		else if (_direction == Directions.LEFT)
-			return (bbTile.x + Tile.TILE_SIZE) - _objBB.x;
+			_result.mAmounts.x = (bbTile.x + Tile.TILE_SIZE) - _objBB.x;
 		else if (_direction == Directions.RIGHT)
-			return bbTile.x - (_objBB.x + Tile.TILE_SIZE);
-
-		return 0;
+			_result.mAmounts.x = bbTile.x - (_objBB.x + Tile.TILE_SIZE);
 	}
-
-
 
 	public void update()
 	{
@@ -463,7 +453,7 @@ public class GameMap {
 				if (tmpTile.mType == _tileTypes[c])
 				{
 					found = true;
-					idx = i+1;
+					idx = i + 1;
 					break;
 				}
 			}

@@ -58,4 +58,11 @@ public class Bomb extends KillableObject {
 		
 	}
 
+	@Override
+	protected boolean onMapCollision(short _collisionType)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

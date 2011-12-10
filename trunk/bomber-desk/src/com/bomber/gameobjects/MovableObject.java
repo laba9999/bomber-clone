@@ -1,6 +1,9 @@
 package com.bomber.gameobjects;
 
+import javax.print.attribute.standard.Chromaticity;
+
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.world.GameWorld;
 
@@ -9,22 +12,16 @@ public abstract class MovableObject extends Drawable {
 	public float mSpeed = 0.5f;
 	public short mDirection;
 	public GameWorld mWorld;
-	
-	protected boolean mIsMoving = false;
-	protected boolean mJustCollided= false;
-	
+	public boolean mIgnoreDestroyables;
 	public MovableObjectAnimation mMovableAnimations;
 
-	
-	private final Vector2 mCollision = new Vector2();
+	public boolean mIsMoving = false;
+	private final Collision mCollision = new Collision();
 
 	@Override
 	public void reset()
 	{
 		mIsMoving = false;
-		mJustCollided = false;
-
-		
 		super.reset();
 	}
 	
@@ -85,38 +82,59 @@ public abstract class MovableObject extends Drawable {
 		onChangedDirection();
 	}
 
-	protected void move(float _amount)
+	private void move()
 	{
 		// Actualiza a posição
 		if (mDirection == Directions.LEFT)
-			mPosition.x -= _amount;
+			mPosition.x -= mSpeed;
 		else if (mDirection == Directions.RIGHT)
-			mPosition.x += _amount;
+			mPosition.x += mSpeed;
 		else if (mDirection == Directions.UP)
-			mPosition.y += _amount;
+			mPosition.y += mSpeed;
 		else if (mDirection == Directions.DOWN)
-			mPosition.y -= _amount;
+			mPosition.y -= mSpeed;
 
 	}
 
-	protected void checkMapCollisions(boolean _ignoreDestroyables)
+	private void checkMapCollisions()
 	{
-		mJustCollided = mWorld.mMap.checkForCollisions(this, mCollision, _ignoreDestroyables);
+		mWorld.mMap.checkForCollisions(this, mCollision, mIgnoreDestroyables);
 
-		if(!mJustCollided)
+		if(mCollision.mType == Collision.NONE)
 			return;
 		
-		mPosition.x += mCollision.x;
-		mPosition.y += mCollision.y;
+		if( onMapCollision(mCollision.mType))
+			mCollision.removeOverlap(mPosition);
 	}
 
-
+	@Override
+	public void update()
+	{
+		// Actualiza a animação
+		super.update();
+		
+		if(!mIsMoving)
+			return;
+		
+		move();
+		checkMapCollisions();
+	}
+	
 	public void stop()
 	{
 		mIsMoving = false;
 		onStop();
 	}
 
+	/**
+	 * 
+	 * @return True em caso de se pretender retirar o valor overlaped p.e
+	 *         colisão do player com tiles. False se não se pretende retirar o
+	 *         valor overlaped p.e colisão do tipo BOMB com um player com bonus
+	 *         "Empurra bombas" activo.
+	 */
+	protected abstract boolean onMapCollision(short _collisionType);
+	
 	protected abstract void onChangedDirection();
 
 	protected abstract void onStop();
