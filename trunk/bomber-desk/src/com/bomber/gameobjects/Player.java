@@ -2,6 +2,8 @@ package com.bomber.gameobjects;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.bomber.common.Collision;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.bonus.Bonus;
@@ -20,7 +22,7 @@ public class Player extends KillableObject {
 	public String mPointsAsString;
 
 	public short mLives = 1;
-	public short mSpeedFactor = 1;
+	public float mSpeedFactor = 1;
 	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 1;
 	public short mMaxSimultaneousBombs = 1;
@@ -80,8 +82,27 @@ public class Player extends KillableObject {
 				mWorld.mPlayers.releaseObject(this);
 			return;
 		}
+		checkBonusCollision();
 	}
 
+	private void checkBonusCollision()
+	{
+		for(Bonus bonus : mWorld.mSpawnedBonus)
+		{
+			Rectangle playerRectangle = getBoundingBox();
+			Rectangle bonusRectangle = bonus.getBoundingBox();
+			
+			float bonusX = bonusRectangle.x + Tile.TILE_SIZE_HALF;
+			float bonusY = bonusRectangle.y + Tile.TILE_SIZE_HALF;
+		
+			if(playerRectangle.contains(bonusX,bonusY))
+			{
+				bonus.applyEffect(this);		
+				mWorld.mSpawnedBonus.releaseObject(bonus);
+			}
+			
+		}
+	}
 	/**
 	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.
 	 * Este método deve ser sempre chamar o seu super antes/depois de efectuar
@@ -132,6 +153,7 @@ public class Player extends KillableObject {
 	@Override
 	protected boolean onMapCollision(short _collisionType)
 	{
+
 		// TODO Auto-generated method stub
 		return true;
 	}
