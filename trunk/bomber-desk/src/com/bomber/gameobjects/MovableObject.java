@@ -21,49 +21,52 @@ public abstract class MovableObject extends Drawable {
 	}
 	public void moveLeft()
 	{
-		mIsMoving = true;
-		if (mDirection != Directions.LEFT)
+		
+		if (mDirection != Directions.LEFT || !mIsMoving)
 		{
 			mDirection = Directions.LEFT;
 			setCurrentAnimation(mMovableAnimations.walkLeft, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
+		
+		mIsMoving = true;
 
 		onChangedDirection();
 	}
 
 	public final void moveRight()
 	{
-		mIsMoving = true;
-		if (mDirection != Directions.RIGHT)
+
+		if (mDirection != Directions.RIGHT|| !mIsMoving)
 		{
 			mDirection = Directions.RIGHT;
 			setCurrentAnimation(mMovableAnimations.walkRight, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
 
+		mIsMoving = true;
 		onChangedDirection();
 	}
 
 	public void moveUp()
 	{
-		mIsMoving = true;
-		if (mDirection != Directions.UP)
+
+		if (mDirection != Directions.UP|| !mIsMoving)
 		{
 			mDirection = Directions.UP;
 			setCurrentAnimation(mMovableAnimations.walkUp, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
-
+		mIsMoving = true;
 		onChangedDirection();
 	}
 
 	public void moveDown()
 	{
-		mIsMoving = true;
-		if (mDirection != Directions.DOWN)
+
+		if (mDirection != Directions.DOWN|| !mIsMoving)
 		{
 			mDirection = Directions.DOWN;
 			setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, true);
 		}
-
+		mIsMoving = true;
 		onChangedDirection();
 	}
 

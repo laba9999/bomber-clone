@@ -28,8 +28,8 @@ public class GameScreen implements ApplicationListener {
 	@Override
 	public void create()
 	{
-		mUICamera = new OrthographicCamera(800, 480);
-		mUICamera.position.set(800 / 2, 480 / 2, 0);
+		mUICamera = new OrthographicCamera(400, 240);
+		mUICamera.position.set(400 / 2, 240 / 2, 0);
 		Assets.loadAssets();
 		mWorld = new GameWorld(GameType.CAMPAIGN, "level1");
 		mGameState = new GameStatePlaying(this);
