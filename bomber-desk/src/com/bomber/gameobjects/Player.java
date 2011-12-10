@@ -80,14 +80,6 @@ public class Player extends KillableObject {
 				mWorld.mPlayers.releaseObject(this);
 			return;
 		}
-
-		if (!mIsMoving)
-			return;
-
-		// Executa o movimento
-		move(mSpeed * mSpeedFactor);
-		checkMapCollisions(false);
-		// checkBombCollisions();
 	}
 
 	/**
@@ -135,5 +127,12 @@ public class Player extends KillableObject {
 	{
 		if (!mIsDead)
 			stopCurrentAnimation();
+	}
+
+	@Override
+	protected boolean onMapCollision(short _collisionType)
+	{
+		// TODO Auto-generated method stub
+		return true;
 	}
 }

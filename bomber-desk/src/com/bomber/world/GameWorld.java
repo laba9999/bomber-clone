@@ -135,13 +135,13 @@ public class GameWorld {
 	}
 
 	public void spawnBonus(short _type, short _line, short _col)
-	{	
+	{
 
 		Bonus tmpBonus = new ObjectFactory.CreateBonus().create(_type);
 		mSpawnedBonus.addObject(tmpBonus);
 		tmpBonus.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpBonus.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-		
+
 	}
 
 	public void spawnBomb(short _bombPower, Vector2 _playerPosition)

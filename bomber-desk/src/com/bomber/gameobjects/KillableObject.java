@@ -7,7 +7,7 @@ public abstract class KillableObject extends MovableObject {
 
 	protected boolean mIsDead = false;
 
-	public void kill()
+	final public void kill()
 	{
 		if(mIsDead)
 			return;
