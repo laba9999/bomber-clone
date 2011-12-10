@@ -18,7 +18,7 @@ import com.bomber.gameobjects.MovableObjectAnimation;
  * 
  */
 public class Assets {
-	private static final float PLAYER_FRAME_DURATION = 50f;
+	private static final float PLAYER_FRAME_DURATION = 35f;
 	private static final float NORMAL_MONSTER_FRAME_DURATION = 100f;
 	private static final float BONUS_FRAME_DURATION = 100f;
 	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 100f;
