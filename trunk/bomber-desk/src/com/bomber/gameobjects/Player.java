@@ -166,6 +166,7 @@ public class Player extends KillableObject {
 			// TODO : descomentar:
 			// if(mIsAbleToPushBombs)
 			// {
+
 					pushBombAhead();
 			// }
 		}
