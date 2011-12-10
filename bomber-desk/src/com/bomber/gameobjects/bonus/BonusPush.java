@@ -4,28 +4,25 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 
-public class BonusPush extends Bonus {
+public class BonusPush extends TemporaryBonus {
 
 	public BonusPush()
 	{
-		super();
+		super(2050);
+		
 		Animation anim = Assets.mBonus.get("bonus_hand");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true, true);
 	}
 	
-    public void update()
-    {
-        super.update();
-    }
     
-    
-	public void applyEffect(Player _player)
+	public void onApplyEffect()
 	{
-		_player.mIsAbleToPushBombs = true;
+		mAffectedPlayer.mIsAbleToPushBombs = true;
 	}
 
-	public void removeEffect(Player _player)
+	@Override
+	public void onRemoveEffect()
 	{
-		_player.mIsAbleToPushBombs = false;
+		mAffectedPlayer.mIsAbleToPushBombs = false;
 	}
 }

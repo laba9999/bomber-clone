@@ -5,8 +5,13 @@ import com.bomber.gameobjects.Player;
 
 public abstract class Bonus extends Drawable {
 	public static final short NUMBER_OF_ANIMATION_FRAMES = 6;
-	
-	public abstract void applyEffect(Player _player);
 
-	public abstract void removeEffect(Player _player);
+	public abstract void applyEffect(Player _player);
+	
+	@Override
+	public void update()
+	{
+		// Actualiza a animação
+		super.update();
+	}
 }

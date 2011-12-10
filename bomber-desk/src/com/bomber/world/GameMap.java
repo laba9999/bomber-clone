@@ -61,13 +61,13 @@ public class GameMap {
 	public void addDestroyableTile(short _line, short _col, Animation _anim)
 	{
 
-		Tile tmpTile = mDestroyableTiles.getFreeObject();
-
-		tmpTile.mType = Tile.DESTROYABLE;
-		tmpTile.setCurrentAnimation(_anim, (short) 8, false, false);
-		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
-
-		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
+//		Tile tmpTile = mDestroyableTiles.getFreeObject();
+//
+//		tmpTile.mType = Tile.DESTROYABLE;
+//		tmpTile.setCurrentAnimation(_anim, (short) 8, false, false);
+//		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
+//
+//		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
 	}
 
 	/**

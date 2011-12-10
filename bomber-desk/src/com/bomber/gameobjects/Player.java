@@ -22,7 +22,6 @@ public class Player extends KillableObject {
 	public String mPointsAsString;
 
 	public short mLives = 1;
-	public float mSpeedFactor = 1;
 	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 1;
 	public short mMaxSimultaneousBombs = 1;
@@ -82,14 +81,19 @@ public class Player extends KillableObject {
 				mWorld.mPlayers.releaseObject(this);
 			return;
 		}
+		
 		checkBonusCollision();
+		
+		// Actualiza os bonus activos
+		for(Bonus b :mActiveBonus)
+			b.update();
 	}
 
 	private void checkBonusCollision()
 	{
+		Rectangle playerRectangle = getBoundingBox();
 		for(Bonus bonus : mWorld.mSpawnedBonus)
 		{
-			Rectangle playerRectangle = getBoundingBox();
 			Rectangle bonusRectangle = bonus.getBoundingBox();
 			
 			float bonusX = bonusRectangle.x + Tile.TILE_SIZE_HALF;
@@ -97,8 +101,9 @@ public class Player extends KillableObject {
 		
 			if(playerRectangle.contains(bonusX,bonusY))
 			{
-				bonus.applyEffect(this);		
+				bonus.applyEffect(this);
 				mWorld.mSpawnedBonus.releaseObject(bonus);
+				mActiveBonus.addObject(bonus);
 			}
 			
 		}
@@ -120,7 +125,6 @@ public class Player extends KillableObject {
 		mIsAbleToPushBombs = false;
 
 		mLives = 1;
-		mSpeedFactor = 1;
 		mPointsMultiplier = 1;
 	}
 
