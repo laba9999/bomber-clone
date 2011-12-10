@@ -17,8 +17,8 @@ public class GameScreen implements ApplicationListener {
 	public GameWorld mWorld;
 	public GameState mGameState;
 
-	SpriteBatch mBatcher;
-	OrthographicCamera mUICamera;
+	public SpriteBatch mBatcher;
+	public OrthographicCamera mUICamera;
 	public WorldRenderer mWorldRenderer;
 
 	int mLoops;
@@ -28,14 +28,17 @@ public class GameScreen implements ApplicationListener {
 	@Override
 	public void create()
 	{
-		mUICamera = new OrthographicCamera(400, 240);
-		mUICamera.position.set(400 / 2, 240 / 2, 0);
+		mUICamera = new OrthographicCamera(800, 480);
+		mUICamera.position.set(800 / 2, 480 / 2, 0);
+		mUICamera.update();
+		
 		Assets.loadAssets();
 		mWorld = new GameWorld(GameType.CAMPAIGN, "level1");
-		mGameState = new GameStatePlaying(this);
 
 		mBatcher = new SpriteBatch();
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
+		
+		mGameState = new GameStatePlaying(this);
 	}
 
 	@Override

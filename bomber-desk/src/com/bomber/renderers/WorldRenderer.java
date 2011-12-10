@@ -31,7 +31,6 @@ public class WorldRenderer {
 		mBatch = _batch;
 
 		mCamera = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-		mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 	}
 
 	public void render()
