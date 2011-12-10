@@ -134,16 +134,13 @@ public class GameWorld {
 	}
 
 	public void spawnBonus(short _type, short _line, short _col)
-	{
-		Bonus tmpBonus = ObjectFactory.CreateBonus.create(_type);
-		String animationKey = BonusTypes.getAnimationKeyFromType(_type);
-		Animation anim = Assets.mBonus.get(animationKey);
+	{	
 
+		Bonus tmpBonus = new ObjectFactory.CreateBonus().create(_type);
 		mSpawnedBonus.addObject(tmpBonus);
-		tmpBonus.setCurrentAnimation(anim, Bonus.NUMBER_OF_ANIMATION_FRAMES, true, true);
 		tmpBonus.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpBonus.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-
+		
 	}
 
 	/**
