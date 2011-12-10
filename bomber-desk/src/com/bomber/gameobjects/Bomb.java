@@ -1,11 +1,8 @@
 package com.bomber.gameobjects;
 
-import java.util.Iterator;
-
 import com.bomber.common.Assets;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
-import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.world.GameMap;
 import com.bomber.world.GameWorld;
 
@@ -70,16 +67,18 @@ public class Bomb extends KillableObject {
 			int objTileIdx = mWorld.mMap.calcTileIndex(m.mPosition);
 			if (objTileIdx == _forbiddenTileIdx)
 			{
-				if (m.mDirection == mDirection)
+				Tile tmpTile;
+				if (m.mDirection == mDirection && m.mIsMoving)
 				{
-					// Centra a bomba no tile em que o ocjecto com o qual
+					// Centra a bomba no tile em que o objecto com o qual
 					// colidimos está actualmente
-					Tile tmpTile = mWorld.mMap.getTile(mPosition);
+					tmpTile = mWorld.mMap.getTile(m.mPosition);
 					mPosition.set(tmpTile.mPosition.x + Tile.TILE_SIZE_HALF, tmpTile.mPosition.y + Tile.TILE_SIZE_HALF);
 				} else
 				{
 					// Centra a bomba no tile em que está actualmente
-					mPosition.set(mContainer.mPosition.x + Tile.TILE_SIZE_HALF, mContainer.mPosition.y + Tile.TILE_SIZE_HALF);
+					tmpTile = mWorld.mMap.getTile(mPosition);
+					mPosition.set(tmpTile.mPosition.x + Tile.TILE_SIZE_HALF, tmpTile.mPosition.y + Tile.TILE_SIZE_HALF);
 				}
 
 				stop();
@@ -112,6 +111,7 @@ public class Bomb extends KillableObject {
 	@Override
 	protected void onStop()
 	{
+		mSpeed = 0.0f;
 		mContainer = mWorld.mMap.getTile(mPosition);
 		mContainer.mContainsBomb = true;
 
