@@ -6,16 +6,16 @@ public class BonusPush extends Bonus {
 
 	public void update()
 	{
-		throw new UnsupportedOperationException();
+		super.update();
 	}
 
 	public void applyEffect(Player _player)
 	{
-		throw new UnsupportedOperationException();
+		_player.mIsAbleToPushBombs = true;
 	}
 
 	public void removeEffect(Player _player)
 	{
-		throw new UnsupportedOperationException();
+		_player.mIsAbleToPushBombs = false;
 	}
 }

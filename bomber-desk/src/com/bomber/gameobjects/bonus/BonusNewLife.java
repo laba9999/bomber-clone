@@ -6,16 +6,16 @@ public class BonusNewLife extends Bonus {
 
 	public void update()
 	{
-		throw new UnsupportedOperationException();
+		super.update();
 	}
 
 	public void applyEffect(Player _player)
 	{
-		throw new UnsupportedOperationException();
+		_player.mLives += 1;
 	}
 
 	public void removeEffect(Player _player)
 	{
-		throw new UnsupportedOperationException();
+		_player.mLives -= 1;
 	}
 }

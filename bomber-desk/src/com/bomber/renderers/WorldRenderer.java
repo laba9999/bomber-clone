@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
+import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.world.GameMap;
 import com.bomber.world.GameWorld;
@@ -95,7 +96,16 @@ public class WorldRenderer {
 
 	private void renderBonus()
 	{
-
+		mBatch.begin();
+		for(Bonus b : mWorld.mSpawnedBonus)
+		{
+		
+			Vector2 drawingPoint = b.drawingPoint();
+			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
+			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+			
+		}
+		mBatch.end();
 	}
 
 	private void renderBombs()

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class MonsterInfo
 {
-	public static HashMap<String, MonsterInfo> TYPES = null;
+	private static HashMap<String, MonsterInfo> TYPES = null;
 	
 	public int mPointsValue;
 	public boolean mAbleToKill;

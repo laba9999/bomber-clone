@@ -1,10 +1,19 @@
 package com.bomber.common;
 
+import java.security.InvalidParameterException;
+
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.bonus.Bonus;
+import com.bomber.gameobjects.bonus.BonusBombCount;
+import com.bomber.gameobjects.bonus.BonusDoublePoints;
+import com.bomber.gameobjects.bonus.BonusExplosionSize;
+import com.bomber.gameobjects.bonus.BonusNewLife;
+import com.bomber.gameobjects.bonus.BonusPush;
+import com.bomber.gameobjects.bonus.BonusShield;
+import com.bomber.gameobjects.bonus.BonusSpeed;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.remote.Message;
 import com.bomber.world.GameWorld;
@@ -76,14 +85,33 @@ public class ObjectFactory {
 	public static class CreateBonus {
 
 		public static Bonus create(short _bonusType, GameWorld _world)
-		{
+		{ //TODO : _world para????
 			Bonus tmpBonus = null;
 			switch (_bonusType)
 			{
-			// TODO: Adicionar a criação dos vários tipos de bonus...
-			// default:
-			// throw new
-			// InvalidParameterException("Tipo de bonus desconhecido");
+			case 0:
+				tmpBonus = new BonusDoublePoints();
+				break;
+			case 1:
+				tmpBonus = new BonusNewLife();
+				break;
+			case 2:
+				tmpBonus = new BonusExplosionSize();
+				break;
+			case 3:
+				tmpBonus = new BonusBombCount();
+				break;
+			case 4:
+				tmpBonus = new BonusShield();
+				break;
+			case 5:
+				tmpBonus = new BonusSpeed();
+				break;
+			case 6:
+				tmpBonus = new BonusPush();
+				break;
+			default:
+				throw new InvalidParameterException("Tipo de bonus desconhecido");
 			}
 
 			if (null != tmpBonus)

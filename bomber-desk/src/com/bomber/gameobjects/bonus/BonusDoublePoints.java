@@ -6,16 +6,16 @@ public class BonusDoublePoints extends Bonus {
 
 	public void update()
 	{
-		throw new UnsupportedOperationException();
+		super.update();
 	}
 
 	public void applyEffect(Player _player)
 	{
-		throw new UnsupportedOperationException();
+		_player.mPointsMultiplier *= 2;
 	}
 
 	public void removeEffect(Player _player)
 	{
-		throw new UnsupportedOperationException();
+		_player.mPointsMultiplier /= 2;
 	}
 }
