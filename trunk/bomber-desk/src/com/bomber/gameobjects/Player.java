@@ -8,7 +8,7 @@ import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.world.GameWorld;
 
 public class Player extends KillableObject {
-	public static HashMap<String, Short> COLORS = null;
+	private static HashMap<String, Short> COLORS = null;
 	public static final short WHITE = 0;
 	public static final short BLUE = 1;
 	public static final short GREEN = 2;

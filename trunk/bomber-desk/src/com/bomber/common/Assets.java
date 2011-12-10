@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bomber.gameobjects.MovableObjectAnimation;
+import com.bomber.gameobjects.bonus.Bonus;
 
 /**
  * @author Filipe
@@ -20,7 +21,7 @@ import com.bomber.gameobjects.MovableObjectAnimation;
 public class Assets {
 	private static final float PLAYER_FRAME_DURATION = 35f;
 	private static final float NORMAL_MONSTER_FRAME_DURATION = 100f;
-	private static final float BONUS_FRAME_DURATION = 100f;
+	private static final float BONUS_FRAME_DURATION = 35f;
 	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 100f;
 	private static final float BOMB_FRAME_DURATION = 100f;
 	private static final float TILE_EXPLOSION_FRAME_DURATION = 100f;
@@ -196,13 +197,34 @@ public class Assets {
 
 	private static void loadBonus()
 	{
-		mBonus.put("bonus_bomb", loadAnimation("bonus_bomb_", BONUS_FRAME_DURATION));
-		mBonus.put("bonus_hand", loadAnimation("bonus_hand_", BONUS_FRAME_DURATION));
-		mBonus.put("bonus_life", loadAnimation("bonus_life_", BONUS_FRAME_DURATION));
-		mBonus.put("bonus_potion", loadAnimation("bonus_potion_", BONUS_FRAME_DURATION));
-		mBonus.put("bonus_shield", loadAnimation("bonus_shield_", BONUS_FRAME_DURATION));
-		mBonus.put("bonus_speed", loadAnimation("bonus_speed_", BONUS_FRAME_DURATION));
-		mBonus.put("bonus_star", loadAnimation("bonus_star_", BONUS_FRAME_DURATION));
+		mBonus.put("bonus_bomb", loadBackloopingAnimation("bonus_bomb_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonus.put("bonus_hand", loadBackloopingAnimation("bonus_hand_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonus.put("bonus_life", loadBackloopingAnimation("bonus_life_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonus.put("bonus_potion", loadBackloopingAnimation("bonus_potion_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonus.put("bonus_shield", loadBackloopingAnimation("bonus_shield_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonus.put("bonus_speed", loadBackloopingAnimation("bonus_speed_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonus.put("bonus_star", loadBackloopingAnimation("bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+	}
+	
+	private static Animation loadBackloopingAnimation(String _id, short _howManyFrames, float _frameDuration)
+	{
+		ArrayList<TextureRegion> regions = new ArrayList<TextureRegion>();
+		
+		TextureRegion r = new TextureRegion();
+		
+		for(int i = 0 ; i < _howManyFrames; i++)
+		{
+			regions.add(mAtlas.findRegion(_id,i));
+		}
+		
+		for(int i = _howManyFrames - 1; i > 1; i--)
+		{
+			regions.add(mAtlas.findRegion(_id,i));
+		}
+		
+		
+		return new Animation(_frameDuration, regions);		
+		
 	}
 
 	public static void loadDestroyableTile(String _id)

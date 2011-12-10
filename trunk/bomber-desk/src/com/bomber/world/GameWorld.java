@@ -2,6 +2,7 @@ package com.bomber.world;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.GameType;
@@ -16,6 +17,7 @@ import com.bomber.gameobjects.MovableObject;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.bonus.Bonus;
+import com.bomber.gameobjects.bonus.BonusTypes;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
 import com.bomber.remote.Message;
@@ -46,7 +48,14 @@ public class GameWorld {
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
-
+		//TODO : delete
+		spawnBonus(BonusTypes.BOMB_POWER,(short) 5,(short) 6);
+		spawnBonus(BonusTypes.BOMB_COUNT,(short) 6,(short) 6);
+		spawnBonus(BonusTypes.DOUBLE_POINTS,(short) 7,(short) 6);
+		spawnBonus(BonusTypes.LIFE,(short) 8,(short) 6);
+		spawnBonus(BonusTypes.PUSH,(short) 9,(short) 6);
+		spawnBonus(BonusTypes.SHIELD,(short) 10,(short) 6);
+		spawnBonus(BonusTypes.SPEED,(short) 11,(short) 6);
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
 		// O numero de players vai variar consoante o tipo de jogo
@@ -123,6 +132,20 @@ public class GameWorld {
 		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 	}
 
+	public void spawnBonus(short _type, short _line, short _col)
+	{	
+
+		//Bonus tmpBonus = mSpawnedBonus.getFreeObject();
+		Bonus tmpBonus = new ObjectFactory.CreateBonus().create(_type,this);
+		mSpawnedBonus.addObject(tmpBonus);
+		String animationKey = BonusTypes.getAnimationKeyFromType(_type);
+		Animation anim = Assets.mBonus.get(animationKey);
+		tmpBonus.setCurrentAnimation(anim, Bonus.NUMBER_OF_ANIMATION_FRAMES, true);
+		tmpBonus.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+		tmpBonus.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+
+		
+	}
 	/**
 	 * Chamado pelas bombas. Obtem o tamanho que a explosão terá para cada uma
 	 * das direcções baseada no mExplosionSize da bomba e na distância aos tiles
@@ -264,6 +287,7 @@ public class GameWorld {
 		updatePlayers();
 		updateMonsters();
 		updateExplosions();
+		updateBonus();
 	}
 
 	public void updateMonsters()
@@ -289,6 +313,12 @@ public class GameWorld {
 	{
 		for (Drawable ex : mExplosions)
 			ex.update();
+	}
+	
+	public void updateBonus()
+	{
+		for (Bonus b : mSpawnedBonus)
+			b.update();
 	}
 
 	public void parseGameMessage(Message _msg)
