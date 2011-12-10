@@ -4,6 +4,7 @@ import com.bomber.GameScreen;
 
 public class GameStateLoading extends GameState {
 
+
 	public GameStateLoading(GameScreen _gameScreen) {
 		super(_gameScreen);
 		// TODO Auto-generated constructor stub
