@@ -21,8 +21,8 @@ import com.bomber.gameobjects.bonus.Bonus;
 public class Assets {
 	private static final float PLAYER_FRAME_DURATION = 35f;
 	private static final float NORMAL_MONSTER_FRAME_DURATION = 100f;
-	private static final float BONUS_FRAME_DURATION = 35f;
-	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 100f;
+	private static final float BONUS_FRAME_DURATION = 50f;
+	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 200f;
 	private static final float BOMB_FRAME_DURATION = 100f;
 	private static final float TILE_EXPLOSION_FRAME_DURATION = 100f;
 	private static final float GENERIC_MONSTER_FRAME_DURATION = 200f;
@@ -293,8 +293,8 @@ public class Assets {
 	private static void loadExplosions()
 	{
 		mExplosions.put("xplode_center", loadAnimation("xplode_center_", BOMB_EXPLOSIONS_FRAME_DURATION));
-		mExplosions.put("xplode_mid_hor", loadAnimation("xplode_mid_hor_", BOMB_EXPLOSIONS_FRAME_DURATION));
-		mExplosions.put("xplode_mid_ver", loadAnimation("xplode_mid_ver_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_mid_hor", loadAnimation("xplode_hor_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_mid_ver", loadAnimation("xplode_vert_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		mExplosions.put("xplode_tip_down", loadAnimation("xplode_tip_down_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		mExplosions.put("xplode_tip_left", loadAnimation("xplode_tip_left_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		mExplosions.put("xplode_tip_right", loadAnimation("xplode_tip_right_", BOMB_EXPLOSIONS_FRAME_DURATION));
@@ -303,7 +303,7 @@ public class Assets {
 
 	private static void loadBomb()
 	{
-		mBomb = loadAnimation("bomb_",BOMB_FRAME_DURATION);
+		mBomb = loadAnimation("bomb_orig_",BOMB_FRAME_DURATION);
 	}
 
 	private static void loadUI()

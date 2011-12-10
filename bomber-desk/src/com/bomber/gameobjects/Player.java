@@ -48,6 +48,10 @@ public class Player extends KillableObject {
 		mActiveBonus = new ObjectsPool<Bonus>((short) 0, null);
 	}
 
+	public void dropBomb()
+	{
+		mWorld.addBomb(mBombExplosionSize, mPosition);
+	}
 	public static short getColorFromString(String _key)
 	{
 		if (COLORS == null)
@@ -82,7 +86,7 @@ public class Player extends KillableObject {
 		// Executa o movimento
 		move(mSpeed * mSpeedFactor);
 		checkTileCollisions(false);
-		checkBombCollisions();
+		//checkBombCollisions();
 	}
 
 	/**

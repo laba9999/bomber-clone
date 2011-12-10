@@ -33,7 +33,6 @@ public class Drawable extends GameObject {
 
 	/**
 	 * Actualiza o animation ticks. mas apenas se mLoopAnimation = true
-	 * Actualiza o animation ticks. mas apenas se o mLoopAnimation = true
 	 */
 	public void update()
 	{

@@ -18,7 +18,7 @@ public abstract class GameObject extends PoolObject {
 	@Override
 	public final int hashCode()
 	{
-		throw new UnsupportedOperationException();
+		return mUUID;
 	}
 
 	public final boolean equals(Object _rhs)

@@ -467,6 +467,7 @@ public class GameMap {
 				if (tmpTile.mType == _tileTypes[c])
 				{
 					found = true;
+					idx = i;
 					break;
 				}
 			}

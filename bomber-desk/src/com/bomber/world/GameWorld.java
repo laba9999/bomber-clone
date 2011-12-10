@@ -161,24 +161,29 @@ public class GameWorld {
 		// Remove a bomba da pool de bombas activas
 		mBombs.releaseObject(_bomb);
 
+		_bomb.mContainer.mContainsBomb = false;
+
 		createExplosionComponents(_bomb);
 	}
 
 	private void createExplosionComponents(Bomb _bomb)
 	{
 		// Adiciona a explosão central
-
 		Drawable tmpExplosion = mExplosions.getFreeObject();
 		tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_center"), (short) 4, true);
+		
+		Tile tmpTile = mMap.getTile(_bomb.mContainer.mPosition);
+		tmpExplosion.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
+		tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
+		
 
 		//
 		// Para cada um dos lados, calcula o tamanho da explosão e adiciona
 		for (short i = Directions.UP; i <= Directions.RIGHT; i++)
 		{
-			Tile tmpTile;
-			int startIdx = mMap.calcTileIndex(_bomb.mPosition);
+			int startIdx = _bomb.mContainer.mPositionInArray;
 			int distance = mMap.getDistanceToNext(_bomb.mBombPower, _bomb.mPosition, i, Tile.COLLIDABLE, Tile.DESTROYABLE);
-			if (distance >= 0)
+			if (distance >= 0 && distance < _bomb.mBombPower)
 			{
 				//
 				// Foi encontrado um tile..
@@ -192,16 +197,17 @@ public class GameWorld {
 
 				// Cria os restantes componentes da explosão, não incluindo o
 				// central e o tile encontrado
-				for (short c = 1; c < distance; c++)
+				for (short c = 1; c <= distance; c++)
 				{
 					tmpTile = mMap.getTile(startIdx, i, c);
 					tmpExplosion = mExplosions.getFreeObject();
-					tmpExplosion.mPosition = tmpTile.mPosition;
-
+					tmpExplosion.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
+					tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
+					
 					if (i == Directions.LEFT || i == Directions.RIGHT)
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_hor"), (short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_hor"), (short) 4, true);
 					else
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_vert"), (short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_ver"), (short) 4, true);
 				}
 			} else
 			{
@@ -214,23 +220,29 @@ public class GameWorld {
 				{
 					tmpTile = mMap.getTile(startIdx, i, c);
 					tmpExplosion = mExplosions.getFreeObject();
-					tmpExplosion.mPosition = tmpTile.mPosition;
+					tmpExplosion.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
+					tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
 
 					if (i == Directions.LEFT || i == Directions.RIGHT)
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_hor"), (short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_hor"), (short) 4, true);
 					else
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_vert"), (short) 4, true);
+						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_ver"), (short) 4, true);
 				}
 
+				tmpTile = mMap.getTile(startIdx, i, _bomb.mBombPower);
+				tmpExplosion = mExplosions.getFreeObject();
+				tmpExplosion.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
+				tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
+				
 				// Adiciona a ponta
 				if (i == Directions.LEFT)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_left"), (short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_left"), (short) 4, true);
 				else if (i == Directions.RIGHT)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_right"), (short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_right"), (short) 4, true);
 				else if (i == Directions.UP)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_up"), (short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_up"), (short) 4, true);
 				else if (i == Directions.DOWN)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("explode_tip_down"), (short) 4, true);
+					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_down"), (short) 4, true);
 			}
 		}
 	}
@@ -242,10 +254,17 @@ public class GameWorld {
 	public void addBomb(short _bombPower, Vector2 _playerPosition)
 	{
 		Tile tmpTile = mMap.getTile(_playerPosition);
+		if (tmpTile.mContainsBomb)
+			return;
+
 		Bomb tmpBomb = mBombs.getFreeObject();
 
+		tmpTile.mContainsBomb = true;
+		tmpBomb.mContainer = tmpTile;
+
 		// Actualiza os atributos
-		tmpBomb.mPosition = tmpTile.mPosition;
+		tmpBomb.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
+		tmpBomb.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
 		tmpBomb.mBombPower = _bombPower;
 	}
 
@@ -312,7 +331,11 @@ public class GameWorld {
 	public void updateExplosions()
 	{
 		for (Drawable ex : mExplosions)
+		{
 			ex.update();
+			if (ex.mLooped)
+				mExplosions.releaseObject(ex);
+		}
 	}
 	
 	public void updateBonus()
