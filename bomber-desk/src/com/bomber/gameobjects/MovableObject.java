@@ -93,7 +93,6 @@ public abstract class MovableObject extends Drawable {
 			mPosition.y += mSpeed;
 		else if (mDirection == Directions.DOWN)
 			mPosition.y -= mSpeed;
-
 	}
 
 	private void checkMapCollisions()

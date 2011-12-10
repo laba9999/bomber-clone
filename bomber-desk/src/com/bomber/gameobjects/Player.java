@@ -41,7 +41,7 @@ public class Player extends KillableObject {
 	 * água...
 	 */
 	public ObjectsPool<Drawable> mEffects;
-
+	
 	public Player(GameWorld _world) {
 		mWorld = _world;
 		mUUID = Utils.getNextUUID();
@@ -52,7 +52,8 @@ public class Player extends KillableObject {
 
 	public void dropBomb()
 	{
-		mWorld.spawnBomb(mBombExplosionSize, mPosition);
+		 mWorld.spawnBomb(mBombExplosionSize, mPosition);
+
 	}
 
 	public static short getColorFromString(String _key)
@@ -61,10 +62,10 @@ public class Player extends KillableObject {
 		{
 			COLORS = new HashMap<String, Short>();
 
-			COLORS.put("white/b_white", (short) 0);
-			COLORS.put("blue/b_blue", (short) 1);
-			COLORS.put("green/b_green", (short) 2);
-			COLORS.put("red/b_red", (short) 3);
+			COLORS.put("b_white", (short) 0);
+			COLORS.put("b_blue", (short) 1);
+			COLORS.put("b_green", (short) 2);
+			COLORS.put("b_red", (short) 3);
 
 		}
 
@@ -82,33 +83,35 @@ public class Player extends KillableObject {
 				mWorld.mPlayers.releaseObject(this);
 			return;
 		}
-		
+
+		// Verifica se colidiu com algum bónus
 		checkBonusCollision();
-		
+
 		// Actualiza os bonus activos
-		for(Bonus b :mActiveBonus)
+		for (Bonus b : mActiveBonus)
 			b.update();
 	}
 
 	private void checkBonusCollision()
 	{
 		Rectangle playerRectangle = getBoundingBox();
-		for(Bonus bonus : mWorld.mSpawnedBonus)
+		for (Bonus bonus : mWorld.mSpawnedBonus)
 		{
 			Rectangle bonusRectangle = bonus.getBoundingBox();
-			
+
 			float bonusX = bonusRectangle.x + Tile.TILE_SIZE_HALF;
 			float bonusY = bonusRectangle.y + Tile.TILE_SIZE_HALF;
-		
-			if(playerRectangle.contains(bonusX,bonusY))
+
+			if (playerRectangle.contains(bonusX, bonusY))
 			{
 				bonus.applyEffect(this);
 				mWorld.mSpawnedBonus.releaseObject(bonus);
 				mActiveBonus.addObject(bonus);
 			}
-			
+
 		}
 	}
+
 	/**
 	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.
 	 * Este método deve ser sempre chamar o seu super antes/depois de efectuar
@@ -158,64 +161,63 @@ public class Player extends KillableObject {
 	@Override
 	protected boolean onMapCollision(short _collisionType)
 	{
-		if(_collisionType == Collision.BOMB)
+		if (_collisionType == Collision.BOMB)
 		{
-			//TODO : descomentar:
-//			if(mIsAbleToPushBombs) 
-//			{
-				pushBombAhead();
-//			}
+			// TODO : descomentar:
+			// if(mIsAbleToPushBombs)
+			// {
+					pushBombAhead();
+			// }
 		}
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
+
 	private void pushBombAhead()
 	{
 		Rectangle whereBombShouldBe = getBoundingBox();
-		
-		switch(mDirection)
+
+		switch (mDirection)
 		{
-			case Directions.UP:
-				whereBombShouldBe.setY(whereBombShouldBe.getY() + Tile.TILE_SIZE);
-				break;
-			case Directions.DOWN:
-				whereBombShouldBe.setY(whereBombShouldBe.getY() - Tile.TILE_SIZE);
-				break;
-			case Directions.LEFT:
-				whereBombShouldBe.setX(whereBombShouldBe.getX() - Tile.TILE_SIZE);					
-				break;
-			case Directions.RIGHT:
-				whereBombShouldBe.setX(whereBombShouldBe.getX() + Tile.TILE_SIZE);
-				break;
+		case Directions.UP:
+			whereBombShouldBe.setY(whereBombShouldBe.getY() + Tile.TILE_SIZE);
+			break;
+		case Directions.DOWN:
+			whereBombShouldBe.setY(whereBombShouldBe.getY() - Tile.TILE_SIZE);
+			break;
+		case Directions.LEFT:
+			whereBombShouldBe.setX(whereBombShouldBe.getX() - Tile.TILE_SIZE);
+			break;
+		case Directions.RIGHT:
+			whereBombShouldBe.setX(whereBombShouldBe.getX() + Tile.TILE_SIZE);
+			break;
 		}
 
-		
-		for(Bomb bomb : mWorld.mBombs)
+		for (Bomb bomb : mWorld.mBombs)
 		{
 			float x = bomb.mPosition.x;
 			float y = bomb.mPosition.y;
-			
-			if(whereBombShouldBe.contains(x, y))
+
+			if (whereBombShouldBe.contains(x, y))
 			{
-				switch(mDirection)
+				switch (mDirection)
 				{
-					case Directions.UP:
-						bomb.moveUp();
-						break;
-					case Directions.DOWN:
-						bomb.moveDown();
-						break;
-					case Directions.LEFT:
-						bomb.moveLeft();				
-						break;
-					case Directions.RIGHT:
-						bomb.moveRight();
-						break;
+				case Directions.UP:
+					bomb.moveUp();
+					break;
+				case Directions.DOWN:
+					bomb.moveDown();
+					break;
+				case Directions.LEFT:
+					bomb.moveLeft();
+					break;
+				case Directions.RIGHT:
+					bomb.moveRight();
+					break;
 				}
-				
+
 			}
 		}
-
 	}
+
 }
