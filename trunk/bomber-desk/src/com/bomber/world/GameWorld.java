@@ -76,6 +76,7 @@ public class GameWorld {
 		mMap = new GameMap();
 
 		// Lê o nivel
+		nPlayers = 2;
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
 	}
@@ -122,7 +123,7 @@ public class GameWorld {
 		Player tmpPlayer = mPlayers.getFreeObject();
 
 		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
-
+		tmpPlayer.mColor = Player.getColorFromString(_type);
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 	}
@@ -135,11 +136,11 @@ public class GameWorld {
 		tmpBonus.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 	}
 
-	public void spawnBomb(short _bombPower, Vector2 _playerPosition)
+	public boolean spawnBomb(short _bombPower, Vector2 _playerPosition)
 	{
 		Tile tmpTile = mMap.getTile(_playerPosition);
 		if (tmpTile.mContainsBomb)
-			return;
+			return false;
 
 		Bomb tmpBomb = mBombs.getFreeObject();
 
@@ -150,6 +151,8 @@ public class GameWorld {
 		tmpBomb.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
 		tmpBomb.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
 		tmpBomb.mBombPower = _bombPower;
+		
+		return true;
 	}
 
 	public void spawnExplosion(Bomb _bomb)

@@ -60,7 +60,7 @@ public class Monster extends KillableObject {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
 	protected boolean onMapCollision(short _collisionType)
 	{
@@ -201,5 +201,7 @@ public class Monster extends KillableObject {
 
 		return newDirection;
 	}
+
+
 
 }
