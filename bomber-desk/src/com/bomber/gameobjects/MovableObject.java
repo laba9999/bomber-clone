@@ -19,6 +19,7 @@ public abstract class MovableObject extends Drawable {
 		mMovableAnimations = _anim;
 		setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, false);
 	}
+	
 	public void moveLeft()
 	{
 		

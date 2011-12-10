@@ -3,8 +3,8 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.physics.box2d.World;
 import com.bomber.GameScreen;
+import com.bomber.gameobjects.Player;
 
 public class GameStatePlaying extends GameState {
 
@@ -21,20 +21,21 @@ public class GameStatePlaying extends GameState {
 
 	public void parseInput()
 	{
+		Player localPlayer = mGameScreen.mWorld.getLocalPlayer();
 		if (Gdx.app.getType() != Application.ApplicationType.Android)
 		{
 			
 			if (Gdx.input.isKeyPressed(Keys.LEFT))
-				mGameScreen.mWorld.getLocalPlayer().moveLeft();
+				localPlayer.moveLeft();
 			
 			else if (Gdx.input.isKeyPressed(Keys.RIGHT))
-				mGameScreen.mWorld.getLocalPlayer().moveRight();
+				localPlayer.moveRight();
 			else if (Gdx.input.isKeyPressed(Keys.DOWN))
-				mGameScreen.mWorld.getLocalPlayer().moveDown();
+				localPlayer.moveDown();
 			else if (Gdx.input.isKeyPressed(Keys.UP))
-				mGameScreen.mWorld.getLocalPlayer().moveUp();
+				localPlayer.moveUp();
 			else 
-				mGameScreen.mWorld.getLocalPlayer().stop();
+				localPlayer.stop();
 		}
 	}
 

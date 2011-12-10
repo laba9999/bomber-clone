@@ -28,6 +28,8 @@ public class GameWorld {
 	public ObjectsPool<Bomb> mBombs;
 	public ObjectsPool<Drawable> mExplosions;
 
+	private Player mLocalPlayer = null;
+
 	private short mGameType;
 	public boolean mIsPVPGame;
 	public GameMap mMap;
@@ -76,16 +78,17 @@ public class GameWorld {
 
 	public Player getLocalPlayer()
 	{
-		Player localPlayer = null;
+		if (mLocalPlayer != null)
+			return mLocalPlayer;
 
 		for (Player p : mPlayers)
 			if (p.mColor == Player.WHITE)
 			{
-				localPlayer = p;
+				mLocalPlayer = p;
 				break;
 			}
 
-		return localPlayer;
+		return mLocalPlayer;
 	}
 
 	public void reset()
@@ -103,9 +106,9 @@ public class GameWorld {
 		tmpMonster.setMovableAnimations(Assets.mMonsters.get(_type));
 
 		tmpMonster.mLoopAnimation = true;
-		
-		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
-		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
+
+		tmpMonster.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 
 		tmpMonster.mInfo = MonsterInfo.getInfoFromType(_type);
 	}
@@ -116,8 +119,8 @@ public class GameWorld {
 
 		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
 
-		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
-		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE+ Tile.TILE_SIZE_HALF;
+		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 	}
 
 	/**
