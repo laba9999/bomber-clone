@@ -30,7 +30,7 @@ import com.bomber.gameobjects.Tile;
 public class GameMap {
 	private ObjectsPool<Tile> mImutableTiles;
 	private ObjectsPool<Tile> mDestroyableTiles;
-	private ObjectsPool<Tile> mTilesBeingDestroyed;
+	public ObjectsPool<Tile> mTilesBeingDestroyed;
 
 	public ArrayList<Tile> mTilesMap = new ArrayList<Tile>();
 
@@ -44,6 +44,7 @@ public class GameMap {
 
 	}
 
+	
 	/**
 	 * Adiciona um novo tile Destroyable ao mapa.
 	 * 
@@ -56,16 +57,16 @@ public class GameMap {
 	 * @param _anim
 	 *            Inclui o frame do tile normal e a sua destruição.
 	 */
-	public void addDestroyableTile(short _line, short _col, short _type, Animation _anim)
+	public void addDestroyableTile(short _line, short _col, Animation _anim)
 	{
 
-//		Tile tmpTile = mDestroyableTiles.getFreeObject();
-//
-//		tmpTile.mType = _type;
-//		tmpTile.setCurrentAnimation(_anim, (short) 8, false);
-//		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
-//
-//		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
+		Tile tmpTile = mDestroyableTiles.getFreeObject();
+
+		tmpTile.mType = Tile.DESTROYABLE;
+		tmpTile.setCurrentAnimation(_anim, (short) 8, false, false);
+		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
+
+		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
 	}
 	
 
@@ -86,7 +87,7 @@ public class GameMap {
 		Tile tmpTile = mImutableTiles.getFreeObject();
 		tmpTile.mType = _type;
 		tmpTile.mCurrentFrame = _texture;
-		tmpTile.mLoopAnimation = false;
+		tmpTile.mPlayAnimation = false;
 		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
 
 		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
@@ -358,7 +359,9 @@ public class GameMap {
 			return 0;
 
 		Tile tmpTile = mTilesMap.get(_tileIdx);
-		if ((tmpTile.mType == Tile.DESTROYABLE && _ignoreDestroyables) || tmpTile.mType != Tile.COLLIDABLE)
+		if ((tmpTile.mType == Tile.DESTROYABLE && _ignoreDestroyables) )
+			return 0;
+		if( tmpTile.mType != Tile.COLLIDABLE && tmpTile.mType != Tile.DESTROYABLE)
 			return 0;
 
 		// Actualiza a posição da bounding box do tile
@@ -467,7 +470,7 @@ public class GameMap {
 				if (tmpTile.mType == _tileTypes[c])
 				{
 					found = true;
-					idx = i;
+					idx = i+1;
 					break;
 				}
 			}

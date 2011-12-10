@@ -8,15 +8,15 @@ import com.bomber.world.GameWorld;
  * A bomba quando rebenta chama o metodo respectivo no GameWorld, que faz todas
  * as verificações e só depois cria a explosão.
  */
-public class Bomb extends MovableObject {
+public class Bomb extends KillableObject {
 
-	private static final int mTicksToExplode = 1000; // 25/sec = 3secs;
-	public short mBombPower = 3;
+	private static final int mTicksToExplode = 1050; // 350/sec = 3secs;
+	public short mBombPower;
 	public Tile mContainer = null;
+
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
 		mUUID = Utils.getNextUUID();
-		
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class Bomb extends MovableObject {
 	{
 		super.update();
 
-		if (mAnimationTicks >= mTicksToExplode)
+		if (mAnimationTicks >= mTicksToExplode || mIsDead)
 			mWorld.createExplosion(this);
 	}
 
@@ -32,8 +32,9 @@ public class Bomb extends MovableObject {
 	public void reset()
 	{
 		super.reset();
-		setCurrentAnimation(Assets.mBomb, (short) 3, true);
-		mContainer=null;
+		setCurrentAnimation(Assets.mBomb, (short) 3, true, true);
+		mContainer = null;
+		mIsDead = false;
 	}
 
 	@Override
@@ -48,6 +49,13 @@ public class Bomb extends MovableObject {
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	protected void onKill()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

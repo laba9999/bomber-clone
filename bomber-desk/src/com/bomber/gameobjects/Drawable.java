@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Drawable extends GameObject {
 
-	public boolean mLoopAnimation;
+	public boolean mPlayAnimation;
+	public boolean mAutoRepeat;
 	public boolean mLooped = false;
 	public TextureRegion mCurrentFrame;
 
@@ -13,21 +14,21 @@ public class Drawable extends GameObject {
 	private Animation mCurrentAnimation;
 	private short mNumberOfAnimationFrames = 1;
 
-	public void setCurrentAnimation(Animation _anim, short _numberOfFrames, boolean _loop)
+	public void setCurrentAnimation(Animation _anim, short _numberOfFrames, boolean _play, boolean _autoRepeat)
 	{
 		mNumberOfAnimationFrames = _numberOfFrames;
 		mCurrentAnimation = _anim;
 		mCurrentFrame = _anim.getKeyFrame(0, false);
-		mLoopAnimation = _loop;
+		mPlayAnimation = _play;
 		mAnimationTicks = 0;
 		mLooped = false;
-
+		mAutoRepeat = _autoRepeat;
 	}
 
 	public void stopCurrentAnimation()
 	{
 		mAnimationTicks = 0;
-		mLoopAnimation = false;
+		mPlayAnimation = false;
 		mCurrentFrame = mCurrentAnimation.getKeyFrame(mAnimationTicks, false);
 	}
 
@@ -36,15 +37,21 @@ public class Drawable extends GameObject {
 	 */
 	public void update()
 	{
-		if (!mLoopAnimation)
+		if (!mPlayAnimation || (mLooped && !mAutoRepeat))
 			return;
 
 		mAnimationTicks++;
-		mCurrentFrame = mCurrentAnimation.getKeyFrame(mAnimationTicks, true);
 
 		// Verifica se a animação já deu a volta
-		if (!mLooped && (mAnimationTicks > mCurrentAnimation.frameDuration * mNumberOfAnimationFrames))
+		if (!mLooped && (mAnimationTicks >= mCurrentAnimation.frameDuration * mNumberOfAnimationFrames))
+		{
 			mLooped = true;
+			
+			if(!mAutoRepeat)
+				return;
+		}
+		
+		mCurrentFrame = mCurrentAnimation.getKeyFrame(mAnimationTicks, true);
 	}
 
 	/**
@@ -59,5 +66,6 @@ public class Drawable extends GameObject {
 		mCurrentAnimation = null;
 		mAnimationTicks = 0;
 		mLooped = false;
+		mAutoRepeat = false;
 	}
 }

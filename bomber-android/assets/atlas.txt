@@ -499,6 +499,13 @@ m_generic9_die_
   orig: 36, 40
   offset: 0, 0
   index: 3
+b_starts_
+  rotate: false
+  xy: 155, 2
+  size: 64, 39
+  orig: 64, 39
+  offset: 0, 0
+  index: 0
 b_white_die_
   rotate: false
   xy: 952, 113
@@ -2711,13 +2718,6 @@ bonus_speed_
   orig: 47, 47
   offset: 0, 0
   index: 1
-b_white_die_
-  rotate: false
-  xy: 82, 2
-  size: 71, 41
-  orig: 71, 41
-  offset: 0, 0
-  index: 9
 bonus_life_
   rotate: false
   xy: 100, 858
@@ -3446,6 +3446,13 @@ tiles_207_destroy_
   orig: 47, 47
   offset: 0, 0
   index: 4
+b_starts_
+  rotate: false
+  xy: 82, 2
+  size: 71, 41
+  orig: 71, 41
+  offset: 0, 0
+  index: 1
 tiles_
   rotate: false
   xy: 737, 703
@@ -3887,13 +3894,6 @@ bonus_life_
   orig: 47, 47
   offset: 0, 0
   index: 5
-b_white_die_
-  rotate: false
-  xy: 155, 2
-  size: 64, 39
-  orig: 64, 39
-  offset: 0, 0
-  index: 8
 m_generic8_walk_
   rotate: false
   xy: 41, 1305

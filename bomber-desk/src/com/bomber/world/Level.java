@@ -128,7 +128,7 @@ public class Level {
 				{
 					filename = mImageTiles.get(id);
 					Assets.loadDestroyableTile(filename);
-					_world.mMap.addDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mDestroyableTiles.get(filename));
+					_world.mMap.addDestroyableTile(i, j, Assets.mDestroyableTiles.get(filename));
 				}
 
 				id = mSpawnIDs[i][j];

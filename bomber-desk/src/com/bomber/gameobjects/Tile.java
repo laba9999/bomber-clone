@@ -28,6 +28,6 @@ public class Tile extends Drawable {
 		if (mType != DESTROYABLE)
 			return;
 
-		// TODO: Actualizar a animação
+		mPlayAnimation = true;
 	}
 }

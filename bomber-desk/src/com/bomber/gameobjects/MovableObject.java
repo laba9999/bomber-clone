@@ -17,7 +17,7 @@ public abstract class MovableObject extends Drawable {
 	public void setMovableAnimations(MovableObjectAnimation _anim)
 	{
 		mMovableAnimations = _anim;
-		setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, false);
+		setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, false, true);
 	}
 	
 	public void moveLeft()
@@ -26,7 +26,7 @@ public abstract class MovableObject extends Drawable {
 		if (mDirection != Directions.LEFT || !mIsMoving)
 		{
 			mDirection = Directions.LEFT;
-			setCurrentAnimation(mMovableAnimations.walkLeft, mMovableAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkLeft, mMovableAnimations.numberOfFramesPerWalk, true, true);
 		}
 		
 		mIsMoving = true;
@@ -40,7 +40,7 @@ public abstract class MovableObject extends Drawable {
 		if (mDirection != Directions.RIGHT|| !mIsMoving)
 		{
 			mDirection = Directions.RIGHT;
-			setCurrentAnimation(mMovableAnimations.walkRight, mMovableAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkRight, mMovableAnimations.numberOfFramesPerWalk, true, true);
 		}
 
 		mIsMoving = true;
@@ -53,7 +53,7 @@ public abstract class MovableObject extends Drawable {
 		if (mDirection != Directions.UP|| !mIsMoving)
 		{
 			mDirection = Directions.UP;
-			setCurrentAnimation(mMovableAnimations.walkUp, mMovableAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkUp, mMovableAnimations.numberOfFramesPerWalk, true, true);
 		}
 		mIsMoving = true;
 		onChangedDirection();
@@ -65,7 +65,7 @@ public abstract class MovableObject extends Drawable {
 		if (mDirection != Directions.DOWN|| !mIsMoving)
 		{
 			mDirection = Directions.DOWN;
-			setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, true);
+			setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, true, true);
 		}
 		mIsMoving = true;
 		onChangedDirection();
@@ -110,7 +110,6 @@ public abstract class MovableObject extends Drawable {
 	public void stop()
 	{
 		mIsMoving = false;
-		stopCurrentAnimation();
 		onStop();
 	}
 
