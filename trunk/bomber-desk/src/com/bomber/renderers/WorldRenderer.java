@@ -51,6 +51,7 @@ public class WorldRenderer {
 
 		mBatch.enableBlending();
 		renderBonus();
+		renderTilesExplosions();
 		renderBombs();
 		renderExplosions();
 		renderPlayers();
@@ -96,16 +97,25 @@ public class WorldRenderer {
 		mBatch.end();
 	}
 
+	private void renderTilesExplosions()
+	{
+		mBatch.begin();
+		for (Tile t : mWorld.mMap.mTilesBeingDestroyed)
+			mBatch.draw(t.mCurrentFrame, t.mPosition.x, t.mPosition.y);
+
+		mBatch.end();
+	}
+
 	private void renderBonus()
 	{
 		mBatch.begin();
-		for(Bonus b : mWorld.mSpawnedBonus)
+		for (Bonus b : mWorld.mSpawnedBonus)
 		{
-		
+
 			Vector2 drawingPoint = b.drawingPoint();
 			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
 			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
-			
+
 		}
 		mBatch.end();
 	}

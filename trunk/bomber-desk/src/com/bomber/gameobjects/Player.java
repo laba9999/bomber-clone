@@ -22,7 +22,7 @@ public class Player extends KillableObject {
 	public short mLives = 1;
 	public short mSpeedFactor = 1;
 	public short mPointsMultiplier = 1;
-	public short mBombExplosionSize = 3;
+	public short mBombExplosionSize = 1;
 	public short mMaxSimultaneousBombs = 1;
 	public short mColor;
 
@@ -50,8 +50,9 @@ public class Player extends KillableObject {
 
 	public void dropBomb()
 	{
-		mWorld.addBomb(mBombExplosionSize, mPosition);
+		mWorld.spawnBomb(mBombExplosionSize, mPosition);
 	}
+
 	public static short getColorFromString(String _key)
 	{
 		if (COLORS == null)
@@ -86,7 +87,7 @@ public class Player extends KillableObject {
 		// Executa o movimento
 		move(mSpeed * mSpeedFactor);
 		checkTileCollisions(false);
-		//checkBombCollisions();
+		// checkBombCollisions();
 	}
 
 	/**
@@ -132,7 +133,7 @@ public class Player extends KillableObject {
 	@Override
 	protected void onStop()
 	{
-		// TODO Auto-generated method stub
-
+		if (!mIsDead)
+			stopCurrentAnimation();
 	}
 }

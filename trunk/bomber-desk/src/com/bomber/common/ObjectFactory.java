@@ -18,7 +18,7 @@ import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.remote.Message;
 import com.bomber.world.GameWorld;
 
-public class ObjectFactory {
+public final class ObjectFactory {
 	public static class CreatePlayer extends Factory<Player> {
 
 		GameWorld mWorld;
@@ -84,8 +84,8 @@ public class ObjectFactory {
 
 	public static class CreateBonus {
 
-		public static Bonus create(short _bonusType, GameWorld _world)
-		{ //TODO : _world para????
+		public static Bonus create(short _bonusType)
+		{ 
 			Bonus tmpBonus = null;
 			switch (_bonusType)
 			{
