@@ -17,9 +17,15 @@ import com.bomber.gameobjects.MovableObjectAnimation;
  * @author Filipe
  * 
  */
-public class Assets
-{
-	private static final float FRAME_DURATION = 100f;
+public class Assets {
+	private static final float PLAYER_FRAME_DURATION = 50f;
+	private static final float NORMAL_MONSTER_FRAME_DURATION = 100f;
+	private static final float BONUS_FRAME_DURATION = 100f;
+	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 100f;
+	private static final float BOMB_FRAME_DURATION = 100f;
+	private static final float TILE_EXPLOSION_FRAME_DURATION = 100f;
+	private static final float GENERIC_MONSTER_FRAME_DURATION = 200f;
+	
 	private static final String ATLAS_FILE = "atlas.txt";
 
 	public static TextureAtlas mAtlas;
@@ -78,18 +84,18 @@ public class Assets
 	private static void loadPlayerAnimations()
 	{
 		short dieFrames = 10;
-		short walkFrames = 3;
+		short walkFrames = 4;
 
-		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation("b_white", dieFrames, walkFrames);
+		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation("b_white", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
 		mPlayers.put("b_white", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_red", dieFrames, walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_red", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
 		mPlayers.put("b_red", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_blue", dieFrames, walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_blue", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
 		mPlayers.put("b_blue", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_green", dieFrames, walkFrames);
+		temp = loadCompositeMovableObjectAnimation("b_green", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
 		mPlayers.put("b_green", temp);
 	}
 
@@ -98,25 +104,25 @@ public class Assets
 	 * _die_ , _walk_up_ , _walk_down_ , _walk_left e _walk_right. Útil para
 	 * Players e Monsters
 	 */
-	private static MovableObjectAnimation loadCompositeMovableObjectAnimation(String _id, short _dieFrames, short _walkFrames)
+	private static MovableObjectAnimation loadCompositeMovableObjectAnimation(String _id, short _dieFrames, short _walkFrames, float _frameDuration)
 	{
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation
-		movableAnimation.die = loadAnimation(_id + "_die_");
+		movableAnimation.die = loadAnimation(_id + "_die_", _frameDuration);
 
 		// load walkup animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_");
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_", _frameDuration);
 
 		// load walkdown animation
-		movableAnimation.walkDown = loadAnimation(_id + "_walk_down_");
+		movableAnimation.walkDown = loadAnimation(_id + "_walk_down_", _frameDuration);
 
 		// load walkleft animation
-		movableAnimation.walkLeft = loadAnimation(_id + "_walk_left_");
+		movableAnimation.walkLeft = loadAnimation(_id + "_walk_left_", _frameDuration);
 
 		// load walkright animation
-		movableAnimation.walkRight = loadAnimation(_id + "_walk_right_");
+		movableAnimation.walkRight = loadAnimation(_id + "_walk_right_", _frameDuration);
 
 		movableAnimation.numberOfFramesDying = _dieFrames;
 		movableAnimation.numberOfFramesPerWalk = _walkFrames;
@@ -127,11 +133,11 @@ public class Assets
 	/**
 	 * Carrega animação identificada por _id Ex : loadAnimation("b_white_die_");
 	 */
-	private static Animation loadAnimation(String _id)
+	private static Animation loadAnimation(String _id, float _frameDuration)
 	{
 		List<AtlasRegion> regions = mAtlas.findRegions(_id);
 
-		return new Animation(FRAME_DURATION, regions);
+		return new Animation(_frameDuration, regions);
 
 	}
 
@@ -146,7 +152,7 @@ public class Assets
 		short dieFrames = 6;
 		short walkFrames = 3;
 
-		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(_id, dieFrames, walkFrames);
+		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(_id, dieFrames, walkFrames, NORMAL_MONSTER_FRAME_DURATION);
 		mMonsters.put(_id, temp);
 	}
 
@@ -160,8 +166,8 @@ public class Assets
 		short walkFrames = 3;
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
-		movableAnimation.die = loadAnimation(_id + "_die_");
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_");
+		movableAnimation.die = loadAnimation(_id + "_die_", GENERIC_MONSTER_FRAME_DURATION);
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_", GENERIC_MONSTER_FRAME_DURATION);
 		movableAnimation.walkDown = movableAnimation.walkUp;
 		movableAnimation.walkLeft = movableAnimation.walkUp;
 		movableAnimation.walkRight = movableAnimation.walkUp;
@@ -190,13 +196,13 @@ public class Assets
 
 	private static void loadBonus()
 	{
-		mBonus.put("bonus_bomb", loadAnimation("bonus_bomb_"));
-		mBonus.put("bonus_hand", loadAnimation("bonus_hand_"));
-		mBonus.put("bonus_life", loadAnimation("bonus_life_"));
-		mBonus.put("bonus_potion", loadAnimation("bonus_potion_"));
-		mBonus.put("bonus_shield", loadAnimation("bonus_shield_"));
-		mBonus.put("bonus_speed", loadAnimation("bonus_speed_"));
-		mBonus.put("bonus_star", loadAnimation("bonus_star_"));
+		mBonus.put("bonus_bomb", loadAnimation("bonus_bomb_", BONUS_FRAME_DURATION));
+		mBonus.put("bonus_hand", loadAnimation("bonus_hand_", BONUS_FRAME_DURATION));
+		mBonus.put("bonus_life", loadAnimation("bonus_life_", BONUS_FRAME_DURATION));
+		mBonus.put("bonus_potion", loadAnimation("bonus_potion_", BONUS_FRAME_DURATION));
+		mBonus.put("bonus_shield", loadAnimation("bonus_shield_", BONUS_FRAME_DURATION));
+		mBonus.put("bonus_speed", loadAnimation("bonus_speed_", BONUS_FRAME_DURATION));
+		mBonus.put("bonus_star", loadAnimation("bonus_star_", BONUS_FRAME_DURATION));
 	}
 
 	public static void loadDestroyableTile(String _id)
@@ -207,8 +213,8 @@ public class Assets
 		// parte "tiles_2" em "tiles" e "2"
 		String[] splittedId = _id.split("_");
 		short tileNumber = Short.parseShort(splittedId[1]);
-		
-		TextureRegion r = mAtlas.findRegion("tiles_",tileNumber);
+
+		TextureRegion r = mAtlas.findRegion("tiles_", tileNumber);
 		regions.add(r);
 
 		for (int i = 0; i < destroyingFrames; i++)
@@ -217,7 +223,7 @@ public class Assets
 			regions.add(r);
 		}
 
-		mDestroyableTiles.put(_id, new Animation(FRAME_DURATION, regions));
+		mDestroyableTiles.put(_id, new Animation(TILE_EXPLOSION_FRAME_DURATION, regions));
 	}
 
 	public static void loadNonDestroyableTile(String _id)
@@ -230,34 +236,34 @@ public class Assets
 
 	private static void loadExplosions()
 	{
-		mExplosions.put("xplode_center", loadAnimation("xplode_center_"));
-		mExplosions.put("xplode_mid_hor", loadAnimation("xplode_mid_hor_"));
-		mExplosions.put("xplode_mid_ver", loadAnimation("xplode_mid_ver_"));
-		mExplosions.put("xplode_tip_down", loadAnimation("xplode_tip_down_"));
-		mExplosions.put("xplode_tip_left", loadAnimation("xplode_tip_left_"));
-		mExplosions.put("xplode_tip_right", loadAnimation("xplode_tip_right_"));
-		mExplosions.put("xplode_tip_up", loadAnimation("xplode_tip_up_"));
+		mExplosions.put("xplode_center", loadAnimation("xplode_center_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_mid_hor", loadAnimation("xplode_mid_hor_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_mid_ver", loadAnimation("xplode_mid_ver_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_tip_down", loadAnimation("xplode_tip_down_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_tip_left", loadAnimation("xplode_tip_left_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_tip_right", loadAnimation("xplode_tip_right_", BOMB_EXPLOSIONS_FRAME_DURATION));
+		mExplosions.put("xplode_tip_up", loadAnimation("xplode_tip_up_", BOMB_EXPLOSIONS_FRAME_DURATION));
 	}
 
 	private static void loadBomb()
 	{
-		mBomb = loadAnimation("bomb_");
+		mBomb = loadAnimation("bomb_",BOMB_FRAME_DURATION);
 	}
 
 	private static void loadUI()
 	{
 		// TODO : definir o IDs para estes componentes
-//		mMainScreen = mAtlas.findRegion("TO BE DEFINED");
-//		mSoundButton = loadAnimation("TO BE DEFINED");
-//		mPauseButtons.put("TO BE DEFINED", mAtlas.findRegion("TO BE DEFINED"));
-//		mControllerBar = mAtlas.findRegion("TO BE DEFINED");
-//		mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
-//		mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
+		// mMainScreen = mAtlas.findRegion("TO BE DEFINED");
+		// mSoundButton = loadAnimation("TO BE DEFINED");
+		// mPauseButtons.put("TO BE DEFINED",
+		// mAtlas.findRegion("TO BE DEFINED"));
+		// mControllerBar = mAtlas.findRegion("TO BE DEFINED");
+		// mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
+		// mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
 		mFont = new BitmapFont();
 		mFont.setColor(Color.BLACK);
 		mFont.setScale(2);
 
-		
 	}
 
 }

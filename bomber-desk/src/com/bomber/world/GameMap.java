@@ -58,16 +58,16 @@ public class GameMap {
 	 */
 	public void addDestroyableTile(short _line, short _col, short _type, Animation _anim)
 	{
-		/*
-		 * Tile tmpTile = mDestroyableTiles.getFreeObject();
-		 * 
-		 * tmpTile.mType = _type; tmpTile.setCurrentAnimation(_anim, (short) 8,
-		 * false); tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth +
-		 * _col;
-		 * 
-		 * tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
-		 */
+
+//		Tile tmpTile = mDestroyableTiles.getFreeObject();
+//
+//		tmpTile.mType = _type;
+//		tmpTile.setCurrentAnimation(_anim, (short) 8, false);
+//		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
+//
+//		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
 	}
+	
 
 	/**
 	 * Adiciona um novo tile NonDestroyable ao mapa.
@@ -108,7 +108,7 @@ public class GameMap {
 
 		mWidthPixels = mWidth * Tile.TILE_SIZE;
 		mHeightPixels = mHeight * Tile.TILE_SIZE;
-		
+
 		mImutableTiles.clear();
 		mDestroyableTiles.clear();
 	}
@@ -155,11 +155,20 @@ public class GameMap {
 	}
 
 	/**
+	 * Verifica colisões entre um dado objecto e os tiles do mapa. Por forma a
+	 * facilitar o controlo dos jogadores é verificado se o overlap existente é
+	 * minimo e se sim ajusta as coordenadas por forma a ser possivel o jogador
+	 * continuar caminho.
 	 * 
 	 * @param _obj
-	 *            O objecto a verificar se está a colidir com um tile do tipo
-	 *            collidable.
-	 * @return O valor de overlap;
+	 *            O Objecto a testar com colisões
+	 * @param _results
+	 *            As quantidades de overlap nos componentes (x,y)
+	 * 
+	 * @param _ignoreDestroyables
+	 *            Se os tiles destroyable devem ser não incluidos na
+	 *            verificação.
+	 * @return True se for detectada uma colisão, False caso contrário.
 	 */
 	public boolean checkIfTileCollidingWithObject(MovableObject _obj, Vector2 _results, boolean _ignoreDestroyables)
 	{
