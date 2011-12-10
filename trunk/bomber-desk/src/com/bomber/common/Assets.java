@@ -46,7 +46,7 @@ public class Assets {
 	public static HashMap<String, Animation> mDestroyableTiles;
 	public static HashMap<String, Animation> mExplosions;
 
-	public static Animation mBomb;
+	public static MovableObjectAnimation mBomb;
 	public static TextureRegion mMainScreen;
 	public static Animation mSoundButton;
 	public static HashMap<String, TextureRegion> mPauseButtons;
@@ -307,9 +307,19 @@ public class Assets {
 
 	private static void loadBomb()
 	{
-		mBomb = loadAnimation("bomb_orig_",BOMB_FRAME_DURATION);
+		
+		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
+		//a animação die é mesmo necessária porque bombas matam bombas
+		movableAnimation.die = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walkUp = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walkDown = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walkLeft = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walkRight = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.numberOfFramesPerWalk = 4;
+		mBomb = movableAnimation;
 	}
 
+	
 	private static void loadUI()
 	{
 		// TODO : definir o IDs para estes componentes

@@ -1,8 +1,8 @@
 package com.bomber.world;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.GameType;
@@ -50,14 +50,6 @@ public class GameWorld {
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
 
-		// TODO : delete
-		spawnBonus(BonusTypes.BOMB_POWER, (short) 5, (short) 6);
-		spawnBonus(BonusTypes.BOMB_COUNT, (short) 6, (short) 6);
-		spawnBonus(BonusTypes.DOUBLE_POINTS, (short) 7, (short) 6);
-		spawnBonus(BonusTypes.LIFE, (short) 8, (short) 6);
-		spawnBonus(BonusTypes.PUSH, (short) 9, (short) 6);
-		spawnBonus(BonusTypes.SHIELD, (short) 10, (short) 6);
-		spawnBonus(BonusTypes.SPEED, (short) 11, (short) 6);
 		
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
@@ -333,6 +325,8 @@ public class GameWorld {
 		updateMonsters();
 		updateExplosions();
 		updateBonus();
+		
+		spawnBonusRandomly();
 	}
 
 	private void updateMonsters()
@@ -369,6 +363,74 @@ public class GameWorld {
 		for (Bonus b : mSpawnedBonus)
 			b.update();
 	}
+	
+	public void spawnBonusRandomly()
+	{
+		
+		if(checkReachedMaximumSimultaneousBonus() == true)
+			return;
+		
+		//TODO: indicar seed		
+		Random randomGenerator = new Random();
+		int spawningProbability = 1;
+		int ticks = 100;	
+		
+		int rnd = randomGenerator.nextInt(ticks);
+		
+		if(rnd <= spawningProbability)
+		{
+			
+			short col;
+			short lin;	
+			Tile tileAtPosition = null;
+			boolean positionIsntAvailable = false;
+			
+			do
+			{				
+				//gera posição aleatória
+				col = (short) randomGenerator.nextInt(mMap.mWidth);
+				lin = (short) randomGenerator.nextInt(mMap.mHeight);
+				
+				float colInPixels = col * Tile.TILE_SIZE;				
+				float linInPixels = lin * Tile.TILE_SIZE;
+				
+				//verifica se o tile na posição gerada é walkable
+				tileAtPosition = mMap.getTile(new Vector2(colInPixels,linInPixels));				
+				positionIsntAvailable = tileAtPosition.mType != Tile.WALKABLE;
+				
+				//verifica se já existe um bonus na posição
+				for(Bonus bonus : mSpawnedBonus)
+				{
+					if(bonus.mPosition.x == colInPixels + Tile.TILE_SIZE_HALF && bonus.mPosition.y == linInPixels + Tile.TILE_SIZE_HALF)
+						positionIsntAvailable = true;
+				}				
+				
+			}while(positionIsntAvailable);		
+
+			spawnBonus(BonusTypes.getRandom(), lin, col);
+		}	
+		
+	}
+	
+	public boolean checkReachedMaximumSimultaneousBonus()
+	{
+		//TODO : ajustar valor
+		// PROBLEMA : Dependendo deste valor, o cilco do método spawnBonusRandomly pode tornar-se infitito.
+		// Isto acontece quando maxSimultaneousBonus > Número de tiles walkables do nível intacto.
+		int maxSimultaneousBonus = 30;	
+		
+		int howManyBonus = 0;	
+		
+		for(Bonus bonus : mSpawnedBonus)
+			howManyBonus++;
+
+		if(howManyBonus == maxSimultaneousBonus)
+			return true;
+		else
+			return false;
+		
+	}
+	
 
 	public void parseGameMessage(Message _msg)
 	{

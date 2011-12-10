@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.common.Collision;
+import com.bomber.common.Directions;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.bonus.Bonus;
@@ -157,8 +158,64 @@ public class Player extends KillableObject {
 	@Override
 	protected boolean onMapCollision(short _collisionType)
 	{
-
+		if(_collisionType == Collision.BOMB)
+		{
+			//TODO : descomentar:
+//			if(mIsAbleToPushBombs) 
+//			{
+				pushBombAhead();
+//			}
+		}
 		// TODO Auto-generated method stub
 		return true;
+	}
+	
+	private void pushBombAhead()
+	{
+		Rectangle whereBombShouldBe = getBoundingBox();
+		
+		switch(mDirection)
+		{
+			case Directions.UP:
+				whereBombShouldBe.setY(whereBombShouldBe.getY() + Tile.TILE_SIZE);
+				break;
+			case Directions.DOWN:
+				whereBombShouldBe.setY(whereBombShouldBe.getY() - Tile.TILE_SIZE);
+				break;
+			case Directions.LEFT:
+				whereBombShouldBe.setX(whereBombShouldBe.getX() - Tile.TILE_SIZE);					
+				break;
+			case Directions.RIGHT:
+				whereBombShouldBe.setX(whereBombShouldBe.getX() + Tile.TILE_SIZE);
+				break;
+		}
+
+		
+		for(Bomb bomb : mWorld.mBombs)
+		{
+			float x = bomb.mPosition.x;
+			float y = bomb.mPosition.y;
+			
+			if(whereBombShouldBe.contains(x, y))
+			{
+				switch(mDirection)
+				{
+					case Directions.UP:
+						bomb.moveUp();
+						break;
+					case Directions.DOWN:
+						bomb.moveDown();
+						break;
+					case Directions.LEFT:
+						bomb.moveLeft();				
+						break;
+					case Directions.RIGHT:
+						bomb.moveRight();
+						break;
+				}
+				
+			}
+		}
+
 	}
 }
