@@ -84,53 +84,53 @@ public class Assets {
 
 	private static void loadPlayerAnimations()
 	{
-		short dieFrames = 10;
-		short walkFrames = 4;
 
-		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation("b_white", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
+
+		MovableObjectAnimation temp = loadPlayerMovableObjectAnimation("b_white");
 		mPlayers.put("b_white", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_red", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
+		temp = loadPlayerMovableObjectAnimation("b_red");
 		mPlayers.put("b_red", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_blue", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
+		temp = loadPlayerMovableObjectAnimation("b_blue");
 		mPlayers.put("b_blue", temp);
 
-		temp = loadCompositeMovableObjectAnimation("b_green", dieFrames, walkFrames, PLAYER_FRAME_DURATION);
+		temp = loadPlayerMovableObjectAnimation("b_green");
 		mPlayers.put("b_green", temp);
 	}
 
+	
 	/**
-	 * Cria MovableObjectAnimation com Animations de GameObjects com estados
-	 * _die_ , _walk_up_ , _walk_down_ , _walk_left e _walk_right. Útil para
-	 * Players e Monsters
+	 * Cria MovableObjectAnimation com Animations de Players
 	 */
-	private static MovableObjectAnimation loadCompositeMovableObjectAnimation(String _id, short _dieFrames, short _walkFrames, float _frameDuration)
+	private static MovableObjectAnimation loadPlayerMovableObjectAnimation(String _id)
 	{
-
+		short dieFrames = 10;
+		short walkFrames = 4;
+		
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation
-		movableAnimation.die = loadAnimation(_id + "_die_", _frameDuration);
+		movableAnimation.die = loadAnimation(_id + "_die_", PLAYER_FRAME_DURATION);
 
 		// load walkup animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_", _frameDuration);
+		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_", PLAYER_FRAME_DURATION);
 
 		// load walkdown animation
-		movableAnimation.walkDown = loadAnimation(_id + "_walk_down_", _frameDuration);
+		movableAnimation.walkDown = loadAnimation(_id + "_walk_down_", PLAYER_FRAME_DURATION);
 
 		// load walkleft animation
-		movableAnimation.walkLeft = loadAnimation(_id + "_walk_left_", _frameDuration);
+		movableAnimation.walkLeft = loadAnimation(_id + "_walk_left_", PLAYER_FRAME_DURATION);
 
 		// load walkright animation
-		movableAnimation.walkRight = loadAnimation(_id + "_walk_right_", _frameDuration);
+		movableAnimation.walkRight = loadAnimation(_id + "_walk_right_", PLAYER_FRAME_DURATION);
 
-		movableAnimation.numberOfFramesDying = _dieFrames;
-		movableAnimation.numberOfFramesPerWalk = _walkFrames;
+		movableAnimation.numberOfFramesDying = dieFrames;
+		movableAnimation.numberOfFramesPerWalk = walkFrames;
 
 		return movableAnimation;
 	}
-
+	
 	/**
 	 * Carrega animação identificada por _id Ex : loadAnimation("b_white_die_");
 	 */
@@ -141,6 +141,47 @@ public class Assets {
 		return new Animation(_frameDuration, regions);
 
 	}
+	
+	public static void loadNormalMonster(String _id)
+	{
+		MovableObjectAnimation temp = loadNormalMonsterMovableObjectAnimation(_id);
+		mMonsters.put(_id, temp);
+	}
+	
+	
+	/**
+	 * Cria MovableObjectAnimation com Animations de Monsters
+	 */
+	private static MovableObjectAnimation loadNormalMonsterMovableObjectAnimation(String _id)
+	{
+
+		short dieFrames = 6;
+		short walkFrames = 3;
+		
+		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
+
+		// load die animation
+		movableAnimation.die = loadAnimation(_id + "_die_", NORMAL_MONSTER_FRAME_DURATION);
+
+		// load walkup animation
+		movableAnimation.walkUp = loadBackloopingAnimation(_id + "_walk_up_", walkFrames, NORMAL_MONSTER_FRAME_DURATION);
+
+		// load walkdown animation
+		movableAnimation.walkDown = loadBackloopingAnimation(_id + "_walk_down_", walkFrames, NORMAL_MONSTER_FRAME_DURATION);
+
+		// load walkleft animation
+		movableAnimation.walkLeft = loadBackloopingAnimation(_id + "_walk_left_", walkFrames, NORMAL_MONSTER_FRAME_DURATION);
+
+		// load walkright animation
+		movableAnimation.walkRight = loadBackloopingAnimation(_id + "_walk_right_", walkFrames, NORMAL_MONSTER_FRAME_DURATION);
+
+		movableAnimation.numberOfFramesDying = dieFrames;
+		movableAnimation.numberOfFramesPerWalk = walkFrames;
+
+		return movableAnimation;
+	}
+
+
 
 	public static void loadGenericMonster(String _id)
 	{
@@ -148,18 +189,11 @@ public class Assets {
 		mMonsters.put(_id, temp);
 	}
 
-	public static void loadNormalMonster(String _id)
-	{
-		short dieFrames = 6;
-		short walkFrames = 3;
 
-		MovableObjectAnimation temp = loadCompositeMovableObjectAnimation(_id, dieFrames, walkFrames, NORMAL_MONSTER_FRAME_DURATION);
-		mMonsters.put(_id, temp);
-	}
 
 	/**
-	 * Cria MovableObjectAnimation de monstros genéricos com Animations _die_ e
-	 * _walk_.
+	 * Cria MovableObjectAnimation de monstros genéricos 
+	 * 
 	 */
 	private static MovableObjectAnimation loadGenericMonsterMovableObjectAnimations(String _id)
 	{
@@ -168,7 +202,7 @@ public class Assets {
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 		movableAnimation.die = loadAnimation(_id + "_die_", GENERIC_MONSTER_FRAME_DURATION);
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_", GENERIC_MONSTER_FRAME_DURATION);
+		movableAnimation.walkUp = loadBackloopingAnimation(_id + "_walk_", walkFrames, GENERIC_MONSTER_FRAME_DURATION);
 		movableAnimation.walkDown = movableAnimation.walkUp;
 		movableAnimation.walkLeft = movableAnimation.walkUp;
 		movableAnimation.walkRight = movableAnimation.walkUp;
@@ -217,7 +251,7 @@ public class Assets {
 			regions.add(mAtlas.findRegion(_id,i));
 		}
 		
-		for(int i = _howManyFrames - 1; i > 1; i--)
+		for(int i = _howManyFrames - 2; i > 0; i--)
 		{
 			regions.add(mAtlas.findRegion(_id,i));
 		}
