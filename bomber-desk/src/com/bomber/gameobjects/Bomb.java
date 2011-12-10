@@ -32,7 +32,8 @@ public class Bomb extends KillableObject {
 	public void reset()
 	{
 		super.reset();
-		setCurrentAnimation(Assets.mBomb, (short) 3, true, true);
+		setMovableAnimations(Assets.mBomb);
+		mPlayAnimation = true;
 		mContainer = null;
 		mIsDead = false;
 	}
