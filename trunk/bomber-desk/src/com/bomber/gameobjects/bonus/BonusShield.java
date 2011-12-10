@@ -4,27 +4,23 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 
-public class BonusShield extends Bonus {
+public class BonusShield extends TemporaryBonus {
 
 	public BonusShield()
 	{
-		super();
+		super(2050);
+		
 		Animation anim = Assets.mBonus.get("bonus_shield");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true, true);
 	}
 
-    public void update()
-    {
-        super.update();
-    }
-    
-	public void applyEffect(Player _player)
+	public void onApplyEffect()
 	{
-		_player.mIsShieldActive = true;
+		mAffectedPlayer.mIsShieldActive = true;
 	}
 
-	public void removeEffect(Player _player)
+	public void onRemoveEffect()
 	{
-		_player.mIsShieldActive = false;
+		mAffectedPlayer.mIsShieldActive = false;
 	}
 }

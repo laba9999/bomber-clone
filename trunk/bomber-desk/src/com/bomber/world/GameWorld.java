@@ -58,6 +58,7 @@ public class GameWorld {
 		spawnBonus(BonusTypes.PUSH, (short) 9, (short) 6);
 		spawnBonus(BonusTypes.SHIELD, (short) 10, (short) 6);
 		spawnBonus(BonusTypes.SPEED, (short) 11, (short) 6);
+		
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
 		// O numero de players vai variar consoante o tipo de jogo
@@ -136,12 +137,10 @@ public class GameWorld {
 
 	public void spawnBonus(short _type, short _line, short _col)
 	{
-
-		Bonus tmpBonus = new ObjectFactory.CreateBonus().create(_type);
+		Bonus tmpBonus = ObjectFactory.CreateBonus.create(_type);
 		mSpawnedBonus.addObject(tmpBonus);
 		tmpBonus.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpBonus.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-
 	}
 
 	public void spawnBomb(short _bombPower, Vector2 _playerPosition)
@@ -336,26 +335,26 @@ public class GameWorld {
 		updateBonus();
 	}
 
-	public void updateMonsters()
+	private void updateMonsters()
 	{
 		for (Monster m : mMonsters)
 			m.update();
 	}
 
-	public void updatePlayers()
+	private void updatePlayers()
 	{
 		for (Player p : mPlayers)
 			p.update();
 	}
 
-	public void updateBombs()
+	private void updateBombs()
 	{
 		for (Bomb b : mBombs)
 			b.update();
 
 	}
 
-	public void updateExplosions()
+	private void updateExplosions()
 	{
 		for (Drawable ex : mExplosions)
 		{
@@ -365,7 +364,7 @@ public class GameWorld {
 		}
 	}
 
-	public void updateBonus()
+	private void updateBonus()
 	{
 		for (Bonus b : mSpawnedBonus)
 			b.update();
