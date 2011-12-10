@@ -6,13 +6,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.monsters.Monster;
+import com.bomber.world.GameMap;
 import com.bomber.world.GameWorld;
 
 public class WorldRenderer {
@@ -20,41 +20,32 @@ public class WorldRenderer {
 	static final float FRUSTUM_HEIGHT = 480;
 
 	GameWorld mWorld;
-	OrthographicCamera mCamera;
 	SpriteBatch mBatch;
+	OrthographicCamera mCamera;
 
 	public WorldRenderer(SpriteBatch _batch, GameWorld _world) {
 		mWorld = _world;
-		mCamera = new OrthographicCamera(FRUSTUM_WIDTH,FRUSTUM_HEIGHT);
-		mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
-		//mCamera.position.set(800 / 2, 480 / 2, 0);
-		
 		mBatch = _batch;
+
+		mCamera = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+		mCamera.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
 	}
 
 	public void render()
 	{
-		
-		Player localPlayer = mWorld.getLocalPlayer();
+
+		// TODO: retirar quando já não for necessário para ver os FPS
 		GLCommon gl = Gdx.gl;
-		gl.glClearColor(0, 0, 0, 1);
+		gl.glClearColor(1, 0, 0, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+
 		// Actualiza a posição da camera para seguir o local player
-		if (localPlayer.mPosition.y > mCamera.position.y)
-			mCamera.position.y = (int)localPlayer.mPosition.y-100;
+		updateCameraPosition();
 
-		if (localPlayer.mPosition.x > mCamera.position.x)
-			mCamera.position.x = localPlayer.mPosition.x;
-
-		mCamera.update();
-		mBatch.setProjectionMatrix(mCamera.combined);
-		
-
-		// Apresenta os GFX's espectaculares, e tem que ser por esta ordem
+		// Apresenta os GFX's espectaculares (tem que ser por esta ordem!)
 		mBatch.disableBlending();
 		renderTiles();
-		
+
 		mBatch.enableBlending();
 		renderBonus();
 		renderBombs();
@@ -64,17 +55,34 @@ public class WorldRenderer {
 		renderFPS();
 	}
 
-	private void renderFPS() 
+	private void updateCameraPosition()
+	{
+		GameMap map = mWorld.mMap;
+		Vector2 localPlayerPos = mWorld.getLocalPlayer().mPosition;
+
+		mCamera.position.y = (int) localPlayerPos.y - 10;
+		mCamera.position.y = java.lang.Math.min(mCamera.position.y, map.mHeightPixels - Tile.TILE_SIZE * 4);
+		mCamera.position.y = java.lang.Math.max(mCamera.position.y, Tile.TILE_SIZE * 4);
+
+		mCamera.position.x = (int) localPlayerPos.x - 10;
+		mCamera.position.x = java.lang.Math.min(mCamera.position.x, map.mWidthPixels - Tile.TILE_SIZE * 8);
+		mCamera.position.x = java.lang.Math.max(mCamera.position.x, Tile.TILE_SIZE * 8);
+
+		mCamera.update();
+
+		mBatch.setProjectionMatrix(mCamera.combined);
+	}
+
+	private void renderFPS()
 	{
 		mBatch.begin();
 		Integer fps = Gdx.graphics.getFramesPerSecond();
-		Assets.mFont.draw(mBatch, fps.toString(), 100 ,650);
+		Assets.mFont.draw(mBatch, fps.toString(), 100, 650);
 		mBatch.end();
 	}
-	
+
 	private void renderTiles()
 	{
-	
 		List<Tile> map = mWorld.mMap.mTilesMap;
 		mBatch.begin();
 		for (int i = 0; i < map.size(); i++)
@@ -87,46 +95,48 @@ public class WorldRenderer {
 
 	private void renderBonus()
 	{
-		
-		
+
 	}
-	
+
 	private void renderBombs()
 	{
-		
+
 	}
-	
+
 	private void renderExplosions()
 	{
-		
+
 	}
-	
+
 	private void renderPlayers()
 	{
 		mBatch.begin();
-		for(Player p : mWorld.mPlayers)
+		for (Player p : mWorld.mPlayers)
 		{
 			Vector2 drawingPoint = p.drawingPoint();
-			drawingPoint.x+= (Tile.TILE_SIZE- p.mCurrentFrame.getRegionWidth())/2;
+			drawingPoint.x += (Tile.TILE_SIZE - p.mCurrentFrame.getRegionWidth()) / 2;
 			mBatch.draw(p.mCurrentFrame, drawingPoint.x, drawingPoint.y);
-			//mBatch.draw(Assets.mAtlas.findRegion("tiles_",123), p.getBoundingBox().x, p.getBoundingBox().y, p.getBoundingBox().width, p.getBoundingBox().height);
+			// mBatch.draw(Assets.mAtlas.findRegion("tiles_",123),
+			// p.getBoundingBox().x, p.getBoundingBox().y,
+			// p.getBoundingBox().width, p.getBoundingBox().height);
 		}
 		mBatch.end();
 	}
-	
+
 	private void renderMonsters()
 	{
 		mBatch.begin();
-		for(Monster m : mWorld.mMonsters)
+		for (Monster m : mWorld.mMonsters)
 		{
 			Vector2 drawingPoint = m.drawingPoint();
-			drawingPoint.x+= (Tile.TILE_SIZE- m.mCurrentFrame.getRegionWidth())/2;
-			mBatch.draw(m.mCurrentFrame,drawingPoint.x, drawingPoint.y);
-			
-			//mBatch.draw(Assets.mAtlas.findRegion("tiles_",123), m.getBoundingBox().x, m.getBoundingBox().y, m.getBoundingBox().width, m.getBoundingBox().height);
+			drawingPoint.x += (Tile.TILE_SIZE - m.mCurrentFrame.getRegionWidth()) / 2;
+			mBatch.draw(m.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+
+			// mBatch.draw(Assets.mAtlas.findRegion("tiles_",123),
+			// m.getBoundingBox().x, m.getBoundingBox().y,
+			// m.getBoundingBox().width, m.getBoundingBox().height);
 		}
 		mBatch.end();
 	}
-	
 
 }
