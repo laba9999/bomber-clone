@@ -11,6 +11,7 @@ public class Tile extends Drawable {
 	public static final short PORTAL = 3;
 
 
+	public boolean mContainsBomb = false;
 	public short mType;
 	public int mPositionInArray;
 

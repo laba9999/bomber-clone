@@ -1,5 +1,6 @@
 package com.bomber.gameobjects;
 
+import com.bomber.common.Assets;
 import com.bomber.common.Utils;
 import com.bomber.world.GameWorld;
 
@@ -9,12 +10,13 @@ import com.bomber.world.GameWorld;
  */
 public class Bomb extends MovableObject {
 
-	private static final int mTicksToExplode = 75; // 25/sec = 3secs;
+	private static final int mTicksToExplode = 1000; // 25/sec = 3secs;
 	public short mBombPower = 3;
-
+	public Tile mContainer = null;
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
 		mUUID = Utils.getNextUUID();
+		
 	}
 
 	@Override
@@ -30,7 +32,8 @@ public class Bomb extends MovableObject {
 	public void reset()
 	{
 		super.reset();
-
+		setCurrentAnimation(Assets.mBomb, (short) 3, true);
+		mContainer=null;
 	}
 
 	@Override

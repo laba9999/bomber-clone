@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Assets;
+import com.bomber.gameobjects.Bomb;
+import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.bonus.Bonus;
@@ -110,12 +112,26 @@ public class WorldRenderer {
 
 	private void renderBombs()
 	{
-
+		mBatch.begin();
+		for (Bomb b : mWorld.mBombs)
+		{
+			Vector2 drawingPoint = b.drawingPoint();
+			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
+			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+		}
+		mBatch.end();
 	}
 
 	private void renderExplosions()
 	{
-
+		mBatch.begin();
+		for (Drawable b : mWorld.mExplosions)
+		{
+			Vector2 drawingPoint = b.drawingPoint();
+			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
+			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+		}
+		mBatch.end();
 	}
 
 	private void renderPlayers()
