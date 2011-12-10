@@ -32,8 +32,7 @@ public class Monster extends KillableObject {
 		// Efectua movimento
 		move(mSpeed);
 
-		checkTileCollisions(mInfo.mAbleToFly);
-		// checkBombCollisions();
+		checkMapCollisions(mInfo.mAbleToFly);
 
 		// verifica se colidiu
 		if (mJustCollided) {

@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
+import com.bomber.common.Utils;
 import com.bomber.gameobjects.MovableObject;
 import com.bomber.gameobjects.Tile;
 
@@ -171,7 +172,7 @@ public class GameMap {
 	 *            verificação.
 	 * @return True se for detectada uma colisão, False caso contrário.
 	 */
-	public boolean checkIfTileCollidingWithObject(MovableObject _obj, Vector2 _results, boolean _ignoreDestroyables)
+	public boolean checkForCollisions(MovableObject _obj, Vector2 _results, boolean _ignoreDestroyables)
 	{
 		final float allowedOverlap = 10.0f;
 
@@ -361,7 +362,11 @@ public class GameMap {
 		Tile tmpTile = mTilesMap.get(_tileIdx);
 		if ((tmpTile.mType == Tile.DESTROYABLE && _ignoreDestroyables) )
 			return 0;
-		if( tmpTile.mType != Tile.COLLIDABLE && tmpTile.mType != Tile.DESTROYABLE)
+		
+		if((tmpTile.mContainsBomb && _ignoreDestroyables))
+			return 0;
+		
+		if( tmpTile.mType != Tile.COLLIDABLE && tmpTile.mType != Tile.DESTROYABLE && !tmpTile.mContainsBomb)
 			return 0;
 
 		// Actualiza a posição da bounding box do tile
@@ -369,7 +374,7 @@ public class GameMap {
 		bbTile.y = tmpTile.mPosition.y;
 
 		// Verifica se existe colisão
-		if (!overlaps(_objBB, bbTile))
+		if (!Utils.rectsOverlap(_objBB, bbTile))
 			return 0;
 
 		// Devolve o valor overlapped baseado na direcção do objecto
@@ -385,19 +390,7 @@ public class GameMap {
 		return 0;
 	}
 
-	public boolean overlaps(Rectangle r1, Rectangle r2)
-	{
-		if (r2.x >= r1.x + r1.width)
-			return false;
-		if (r2.x + r2.width <= r1.x)
-			return false;
-		if (r2.y >= r1.y + r1.height)
-			return false;
-		if (r2.y + r2.height <= r1.y)
-			return false;
 
-		return true;
-	}
 
 	public void update()
 	{
