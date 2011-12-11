@@ -25,6 +25,10 @@ public class GameScreen implements ApplicationListener {
 	float mInterpolation;
 	long mNextGameTick;
 
+	long startTime;
+	static public Integer ticksPerSecond;
+	int ticksPerSecondCounter;
+	
 	@Override
 	public void create()
 	{
@@ -54,6 +58,14 @@ public class GameScreen implements ApplicationListener {
 		mLoops = 0;
 		while (System.nanoTime() > mNextGameTick && mLoops < MAX_FRAMESKIP)
 		{
+			ticksPerSecondCounter++;
+			if((System.nanoTime() - startTime) > 1000000000)
+			{
+				ticksPerSecond = ticksPerSecondCounter;
+				ticksPerSecondCounter = 0;
+				startTime = System.nanoTime();
+			}
+			
 			mGameState.update();
 			mNextGameTick += SKIP_TICKS;
 			mLoops++;

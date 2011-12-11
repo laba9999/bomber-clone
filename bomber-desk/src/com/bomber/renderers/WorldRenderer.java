@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
@@ -56,6 +57,7 @@ public class WorldRenderer {
 		renderPlayers();
 		renderMonsters();
 		renderFPS();
+		renderTicks();
 	}
 
 	private void updateCameraPosition()
@@ -81,6 +83,13 @@ public class WorldRenderer {
 		mBatch.begin();
 		Integer fps = Gdx.graphics.getFramesPerSecond();
 		Assets.mFont.draw(mBatch, fps.toString(), 100, 650);
+		mBatch.end();
+	}
+	
+	private void renderTicks()
+	{
+		mBatch.begin();
+		Assets.mFont.draw(mBatch, GameScreen.ticksPerSecond.toString(), 300, 650);
 		mBatch.end();
 	}
 
