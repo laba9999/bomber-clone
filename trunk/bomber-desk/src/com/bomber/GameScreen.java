@@ -10,8 +10,8 @@ import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
 public class GameScreen implements ApplicationListener {
-	final int TICKS_PER_SECOND = 25;
-	final float SKIP_TICKS = 1000 / TICKS_PER_SECOND;
+	final int TICKS_PER_SECOND = 100;
+	final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
 	final int MAX_FRAMESKIP = 5;
 
 	public GameWorld mWorld;
@@ -43,6 +43,8 @@ public class GameScreen implements ApplicationListener {
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 		
 		mGameState = new GameStatePlaying(this);
+		
+		mNextGameTick = System.nanoTime();
 	}
 
 	@Override
