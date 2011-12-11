@@ -49,7 +49,6 @@ public class GameWorld {
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
-
 		
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 

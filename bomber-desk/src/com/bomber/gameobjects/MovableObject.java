@@ -1,15 +1,12 @@
 package com.bomber.gameobjects;
 
-import javax.print.attribute.standard.Chromaticity;
-
-import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.world.GameWorld;
 
 public abstract class MovableObject extends Drawable {
 
-	public float mSpeed = 0.5f;
+	public float mSpeed = 1f;
 	public short mDirection;
 	public GameWorld mWorld;
 	public boolean mIgnoreDestroyables;

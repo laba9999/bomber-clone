@@ -15,6 +15,7 @@ public class BonusSpeed extends Bonus {
 	@Override
 	public void applyEffect(Player _player)
 	{
+		_player.mSpeedFactor++;
 		_player.mSpeed += 0.25;
 	}
 }

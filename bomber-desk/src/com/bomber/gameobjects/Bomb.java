@@ -16,7 +16,7 @@ public class Bomb extends KillableObject {
 	public Tile mContainer = null;
 
 	private int mTicksSinceDrop = 0;
-	private static final int mTicksToExplode = 1050; // 350/sec = 3secs;
+	private static final int mTicksToExplode = 300; // 100/sec = 3secs;
 
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
@@ -105,7 +105,7 @@ public class Bomb extends KillableObject {
 	protected void onChangedDirection()
 	{
 		mContainer.mContainsBomb = false;
-		mSpeed = 2.5f;
+		mSpeed = 3.5f;
 	}
 
 	@Override

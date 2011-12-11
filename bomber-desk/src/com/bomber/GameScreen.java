@@ -10,25 +10,41 @@ import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
 public class GameScreen implements ApplicationListener {
-	final int TICKS_PER_SECOND = 100;
-	final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
-	final int MAX_FRAMESKIP = 5;
+
+	private final int MAX_FRAMESKIP = 5;
+	private final int TICKS_PER_SECOND = 100;
+	private final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
+
+	private int mLoops;
+	private long startTime;
+	private long mNextGameTick;
+	private float mInterpolation;
+	private int ticksPerSecondCounter;
 
 	public GameWorld mWorld;
-	public GameState mGameState;
-
 	public SpriteBatch mBatcher;
 	public OrthographicCamera mUICamera;
 	public WorldRenderer mWorldRenderer;
 
-	int mLoops;
-	float mInterpolation;
-	long mNextGameTick;
+	public static Integer ticksPerSecond = 100;
 
-	long startTime;
-	static public Integer ticksPerSecond;
-	int ticksPerSecondCounter;
-	
+	private GameState mGameState;
+	private long mLastGameStateChangeTime = System.currentTimeMillis();
+
+	public GameState getGameState()
+	{
+		return mGameState;
+	}
+
+	public void setGameState(GameState _newGameState)
+	{
+		if (System.currentTimeMillis() - mLastGameStateChangeTime < 250)
+			return;
+
+		mGameState = _newGameState;
+		mLastGameStateChangeTime = System.currentTimeMillis();
+	}
+
 	@Override
 	public void create()
 	{
@@ -40,9 +56,9 @@ public class GameScreen implements ApplicationListener {
 
 		mBatcher = new SpriteBatch();
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
-		
+
 		mGameState = new GameStatePlaying(this);
-		
+
 		mNextGameTick = System.nanoTime();
 	}
 
@@ -60,13 +76,14 @@ public class GameScreen implements ApplicationListener {
 		while (System.nanoTime() > mNextGameTick && mLoops < MAX_FRAMESKIP)
 		{
 			ticksPerSecondCounter++;
-			if((System.nanoTime() - startTime) > 1000000000)
+			if ((System.nanoTime() - startTime) > 1000000000)
 			{
 				ticksPerSecond = ticksPerSecondCounter;
 				ticksPerSecondCounter = 0;
 				startTime = System.nanoTime();
+				break;
 			}
-			
+
 			mGameState.update();
 			mNextGameTick += SKIP_TICKS;
 			mLoops++;

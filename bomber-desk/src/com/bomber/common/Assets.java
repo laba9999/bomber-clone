@@ -21,16 +21,16 @@ import com.bomber.gameobjects.bonus.Bonus;
  * 
  */
 public class Assets {
-	private static final float PLAYER_WALK_FRAME_DURATION = 35f;
+	private static final float PLAYER_WALK_FRAME_DURATION = 15f;
 	private static final float PLAYER_DIE_FRAME_DURATION = 50f;
-	private static final float BONUS_FRAME_DURATION = 50f;
-	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 35f;
-	private static final float BOMB_FRAME_DURATION = 100f;
+	private static final float BONUS_FRAME_DURATION = 15f;
+	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 15f;
+	private static final float BOMB_FRAME_DURATION = 50f;
 	private static final float TILE_EXPLOSION_FRAME_DURATION = 15;
 	private static final float N_MONSTER_WALK_FRAME_DURATION = 100f;
 	private static final float N_MONSTER_DIE_WALK_FRAME_DURATION = 100f;
-	private static final float G_MONSTER_WALK_FRAME_DURATION = 200f;
-	private static final float G_MONSTER_DIE_FRAME_DURATION = 100f;
+	private static final float G_MONSTER_WALK_FRAME_DURATION = 100f;
+	private static final float G_MONSTER_DIE_FRAME_DURATION = 30f;
 	
 	private static final String ATLAS_FILE = "atlas.txt";
 

@@ -18,6 +18,7 @@ public class Player extends KillableObject {
 	public static final short RED = 3;
 
 	public int mPoints = 0;
+	private int mLastTickPoints = -1;
 
 	public String mName;
 	public String mPointsAsString;
@@ -26,6 +27,7 @@ public class Player extends KillableObject {
 	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 1;
 	public short mMaxSimultaneousBombs = 1;
+	public short mSpeedFactor = 1;
 	public short mColor;
 
 	public boolean mIsShieldActive = false;
@@ -59,17 +61,19 @@ public class Player extends KillableObject {
 
 	public String getPointsAsString()
 	{
-		String points = new Integer(mPoints).toString();
-		StringBuffer ret = new StringBuffer();
+		if( mPoints == mLastTickPoints)
+			return mPointsAsString;
 		
-		for(int i = ret.length(); i < 6; i++)
-		{
+		String points = new Integer(mPoints).toString();
+		StringBuilder ret = new StringBuilder();
+		
+		for(int i = points.length(); i < 6; i++)
 			ret.append(0);
-		}
 		
 		ret.append(points);
 
-		return ret.toString();		
+		mPointsAsString = ret.toString();
+		return mPointsAsString;
 	}
 	
 	public static short getColorFromString(String _key)
