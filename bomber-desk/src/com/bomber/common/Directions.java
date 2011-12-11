@@ -1,5 +1,7 @@
 package com.bomber.common;
 
+import java.util.Random;
+
 public class Directions {
 	public static final short NONE = -1;
 	public static final short UP = 0;
@@ -15,5 +17,100 @@ public class Directions {
 		if( _direction == RIGHT) return LEFT;
 		
 		return NONE;
+	}
+	
+	public static short getPerpendicularDirection(Random _randomGenerator, short _actualDirection)
+	{
+		short randomValue = (short) _randomGenerator.nextInt(2);
+		short newDirection = 0;
+
+		if (_actualDirection == Directions.DOWN || _actualDirection == Directions.UP)
+		{
+			if (randomValue == 0)
+				newDirection = Directions.LEFT;
+			else
+				newDirection = Directions.RIGHT;
+
+		} else
+		{
+			if (randomValue == 0)
+				newDirection = Directions.UP;
+			else
+				newDirection = Directions.DOWN;
+		}
+
+		return newDirection;
+	}
+	
+	/*
+	 * Retorna aleatóriamente qualquer direcção diferente da actual;
+	 */
+	public static short getAnyOtherDirection(Random _randomGenerator, short _actualDirection)
+	{
+		short randomValue = (short) _randomGenerator.nextInt(3);
+
+		short newDirection = 0;
+
+		switch (_actualDirection)
+		{
+		case Directions.DOWN:
+			switch (randomValue)
+			{
+			case 0:
+				newDirection = Directions.UP;
+				break;
+			case 1:
+				newDirection = Directions.LEFT;
+				break;
+			case 2:
+				newDirection = Directions.RIGHT;
+				break;
+			}
+			break;
+		case Directions.UP:
+			switch (randomValue)
+			{
+			case 0:
+				newDirection = Directions.DOWN;
+				break;
+			case 1:
+				newDirection = Directions.LEFT;
+				break;
+			case 2:
+				newDirection = Directions.RIGHT;
+				break;
+			}
+			break;
+		case Directions.LEFT:
+			switch (randomValue)
+			{
+			case 0:
+				newDirection = Directions.UP;
+				break;
+			case 1:
+				newDirection = Directions.DOWN;
+				break;
+			case 2:
+				newDirection = Directions.RIGHT;
+				break;
+			}
+			break;
+		case Directions.RIGHT:
+			switch (randomValue)
+			{
+			case 0:
+				newDirection = Directions.UP;
+				break;
+			case 1:
+				newDirection = Directions.LEFT;
+				break;
+			case 2:
+				newDirection = Directions.DOWN;
+				break;
+			}
+			break;
+		}
+
+		return newDirection;
 	}
 }

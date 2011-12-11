@@ -10,9 +10,7 @@ public class MovableObjectAnimation {
 	public short numberOfFramesPerWalk;
 	public short numberOfFramesDying;
 	
-	public Animation walkLeft;
-	public Animation walkRight;
-	public Animation walkUp;
-	public Animation walkDown;
+	public Animation walk[] = new Animation[4];
+	
 	public Animation die;
 }

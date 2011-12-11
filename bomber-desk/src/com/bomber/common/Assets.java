@@ -23,15 +23,15 @@ import com.bomber.gameobjects.bonus.Bonus;
 public class Assets {
 	private static final float PLAYER_WALK_FRAME_DURATION = 15f;
 	private static final float PLAYER_DIE_FRAME_DURATION = 50f;
-	private static final float BONUS_FRAME_DURATION = 15f;
-	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 15f;
+	private static final float BONUS_FRAME_DURATION = 10f;
+	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 10f;
 	private static final float BOMB_FRAME_DURATION = 50f;
 	private static final float TILE_EXPLOSION_FRAME_DURATION = 15;
 	private static final float N_MONSTER_WALK_FRAME_DURATION = 100f;
 	private static final float N_MONSTER_DIE_WALK_FRAME_DURATION = 100f;
-	private static final float G_MONSTER_WALK_FRAME_DURATION = 100f;
+	private static final float G_MONSTER_WALK_FRAME_DURATION = 30f;
 	private static final float G_MONSTER_DIE_FRAME_DURATION = 30f;
-	
+
 	private static final String ATLAS_FILE = "atlas.txt";
 
 	public static TextureAtlas mAtlas;
@@ -90,7 +90,6 @@ public class Assets {
 	private static void loadPlayerAnimations()
 	{
 
-
 		MovableObjectAnimation temp = loadPlayerMovableObjectAnimation("b_white");
 		mPlayers.put("b_white", temp);
 
@@ -104,7 +103,6 @@ public class Assets {
 		mPlayers.put("b_green", temp);
 	}
 
-	
 	/**
 	 * Cria MovableObjectAnimation com Animations de Players
 	 */
@@ -112,30 +110,30 @@ public class Assets {
 	{
 		short dieFrames = 8;
 		short walkFrames = 4;
-		
+
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation
 		movableAnimation.die = loadAnimation(_id + "_die_", PLAYER_DIE_FRAME_DURATION);
 
 		// load walkup animation
-		movableAnimation.walkUp = loadAnimation(_id + "_walk_up_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.UP] = loadAnimation(_id + "_walk_up_", PLAYER_WALK_FRAME_DURATION);
 
 		// load walkdown animation
-		movableAnimation.walkDown = loadAnimation(_id + "_walk_down_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.DOWN] = loadAnimation(_id + "_walk_down_", PLAYER_WALK_FRAME_DURATION);
 
 		// load walkleft animation
-		movableAnimation.walkLeft = loadAnimation(_id + "_walk_left_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.LEFT] = loadAnimation(_id + "_walk_left_", PLAYER_WALK_FRAME_DURATION);
 
 		// load walkright animation
-		movableAnimation.walkRight = loadAnimation(_id + "_walk_right_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.RIGHT] = loadAnimation(_id + "_walk_right_", PLAYER_WALK_FRAME_DURATION);
 
 		movableAnimation.numberOfFramesDying = dieFrames;
 		movableAnimation.numberOfFramesPerWalk = walkFrames;
 
 		return movableAnimation;
 	}
-	
+
 	/**
 	 * Carrega animação identificada por _id Ex : loadAnimation("b_white_die_");
 	 */
@@ -146,14 +144,13 @@ public class Assets {
 		return new Animation(_frameDuration, regions);
 
 	}
-	
+
 	public static void loadNormalMonster(String _id)
 	{
 		MovableObjectAnimation temp = loadNormalMonsterMovableObjectAnimation(_id);
 		mMonsters.put(_id, temp);
 	}
-	
-	
+
 	/**
 	 * Cria MovableObjectAnimation com Animations de Monsters
 	 */
@@ -162,23 +159,23 @@ public class Assets {
 
 		short dieFrames = 6;
 		short walkFrames = 3;
-		
+
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation
 		movableAnimation.die = loadAnimation(_id + "_die_", N_MONSTER_DIE_WALK_FRAME_DURATION);
 
 		// load walkup animation
-		movableAnimation.walkUp = loadBackloopingAnimation(_id + "_walk_up_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.UP] = loadBackloopingAnimation(_id + "_walk_up_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
 
 		// load walkdown animation
-		movableAnimation.walkDown = loadBackloopingAnimation(_id + "_walk_down_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.DOWN] = loadBackloopingAnimation(_id + "_walk_down_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
 
 		// load walkleft animation
-		movableAnimation.walkLeft = loadBackloopingAnimation(_id + "_walk_left_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.LEFT] = loadBackloopingAnimation(_id + "_walk_left_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
 
 		// load walkright animation
-		movableAnimation.walkRight = loadBackloopingAnimation(_id + "_walk_right_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.RIGHT] = loadBackloopingAnimation(_id + "_walk_right_", walkFrames, N_MONSTER_WALK_FRAME_DURATION);
 
 		movableAnimation.numberOfFramesDying = dieFrames;
 		movableAnimation.numberOfFramesPerWalk = walkFrames;
@@ -186,18 +183,14 @@ public class Assets {
 		return movableAnimation;
 	}
 
-
-
 	public static void loadGenericMonster(String _id)
 	{
 		MovableObjectAnimation temp = loadGenericMonsterMovableObjectAnimations(_id);
 		mMonsters.put(_id, temp);
 	}
 
-
-
 	/**
-	 * Cria MovableObjectAnimation de monstros genéricos 
+	 * Cria MovableObjectAnimation de monstros genéricos
 	 * 
 	 */
 	private static MovableObjectAnimation loadGenericMonsterMovableObjectAnimations(String _id)
@@ -207,10 +200,10 @@ public class Assets {
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 		movableAnimation.die = loadAnimation(_id + "_die_", G_MONSTER_DIE_FRAME_DURATION);
-		movableAnimation.walkUp = loadBackloopingAnimation(_id + "_walk_", walkFrames, G_MONSTER_WALK_FRAME_DURATION);
-		movableAnimation.walkDown = movableAnimation.walkUp;
-		movableAnimation.walkLeft = movableAnimation.walkUp;
-		movableAnimation.walkRight = movableAnimation.walkUp;
+		movableAnimation.walk[Directions.UP] = loadBackloopingAnimation(_id + "_walk_", walkFrames, G_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.DOWN] = movableAnimation.walk[Directions.UP];
+		movableAnimation.walk[Directions.LEFT] = movableAnimation.walk[Directions.UP];
+		movableAnimation.walk[Directions.RIGHT] = movableAnimation.walk[Directions.UP];
 
 		movableAnimation.numberOfFramesDying = dieFrames;
 		movableAnimation.numberOfFramesPerWalk = walkFrames;
@@ -244,26 +237,25 @@ public class Assets {
 		mBonus.put("bonus_speed", loadBackloopingAnimation("bonus_speed_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 		mBonus.put("bonus_star", loadBackloopingAnimation("bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 	}
-	
+
 	private static Animation loadBackloopingAnimation(String _id, short _howManyFrames, float _frameDuration)
 	{
 		ArrayList<TextureRegion> regions = new ArrayList<TextureRegion>();
-		
+
 		TextureRegion r = new TextureRegion();
-		
-		for(int i = 0 ; i < _howManyFrames; i++)
+
+		for (int i = 0; i < _howManyFrames; i++)
 		{
-			regions.add(mAtlas.findRegion(_id,i));
+			regions.add(mAtlas.findRegion(_id, i));
 		}
-		
-		for(int i = _howManyFrames - 2; i > 0; i--)
+
+		for (int i = _howManyFrames - 2; i > 0; i--)
 		{
-			regions.add(mAtlas.findRegion(_id,i));
+			regions.add(mAtlas.findRegion(_id, i));
 		}
-		
-		
-		return new Animation(_frameDuration, regions);		
-		
+
+		return new Animation(_frameDuration, regions);
+
 	}
 
 	public static void loadDestroyableTile(String _id)
@@ -309,19 +301,18 @@ public class Assets {
 
 	private static void loadBomb()
 	{
-		
+
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
-		//a animação die é mesmo necessária porque bombas matam bombas
+		// a animação die é mesmo necessária porque bombas matam bombas
 		movableAnimation.die = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walkUp = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walkDown = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walkLeft = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walkRight = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.UP] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.DOWN] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.LEFT] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.RIGHT] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
 		movableAnimation.numberOfFramesPerWalk = 4;
 		mBomb = movableAnimation;
 	}
 
-	
 	private static void loadUI()
 	{
 		// TODO : definir o IDs para estes componentes
@@ -331,10 +322,10 @@ public class Assets {
 		// mAtlas.findRegion("TO BE DEFINED"));
 		Texture t = new Texture(Gdx.files.internal("controller.png"));
 		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		 mControllerBar = new TextureRegion(t);
+		mControllerBar = new TextureRegion(t);
 		// mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
 		// mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
-		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"),false);
+		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);
 		mFont.setScale(1);
 

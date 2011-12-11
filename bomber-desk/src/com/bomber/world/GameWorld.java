@@ -205,44 +205,24 @@ public class GameWorld {
 
 		// TODO : descomentar
 		// Verifica os players
-//		for (Player p : mPlayers)
-//		{
-//			objTileIdx = mMap.calcTileIndex(p.mPosition);
-//			if (objTileIdx == _tile.mPositionInArray)
-//			{
-//				p.kill();
-//				continue;
-//			}
-//
-//		}
+		// for (Player p : mPlayers)
+		// {
+		// objTileIdx = mMap.calcTileIndex(p.mPosition);
+		// if (objTileIdx == _tile.mPositionInArray)
+		// {
+		// p.kill();
+		// continue;
+		// }
+		//
+		// }
 	}
 
 	private <T extends MovableObject> boolean objectCloseToExplosion(Tile _tile, T _obj, int _objTileIdx, short _direction)
 	{
 		int idxTile = mMap.calcTileIndex(_tile.mPositionInArray, _direction, (short) 1);
 		if (_objTileIdx == idxTile)
-		{
-			
-			return true;/*
-			// Está a vir nesta direcção?
-			if (_obj.mDirection == Directions.getInverseDirection(_direction))
-			{
+			return true;
 
-				// Está num point of no return?
-				float dist = Tile.TILE_SIZE_HALF;
-				if (_direction == Directions.UP)
-					dist = _obj.mPosition.y - (_tile.mPosition.y + Tile.TILE_SIZE_HALF);
-				else if (_direction == Directions.DOWN)
-					dist = _tile.mPosition.y - _obj.mPosition.y;
-				else if (_direction == Directions.LEFT)
-					dist = _tile.mPosition.x - _obj.mPosition.x;
-				else if (_direction == Directions.RIGHT)
-					dist = _obj.mPosition.x - (_tile.mPosition.x + Tile.TILE_SIZE_HALF);
-
-				if (dist < Tile.TILE_SIZE)
-					return true;
-			}*/
-		}
 		return false;
 	}
 
