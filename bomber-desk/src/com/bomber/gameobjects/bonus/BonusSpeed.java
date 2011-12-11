@@ -17,12 +17,12 @@ public class BonusSpeed extends TemporaryBonus {
 	@Override
 	public void onRemoveEffect()
 	{
-		mAffectedPlayer.mSpeed /= 2;
+		mAffectedPlayer.mSpeed -= 1;
 	}
 
 	@Override
 	public void onApplyEffect()
 	{
-		mAffectedPlayer.mSpeed *= 2;
+		mAffectedPlayer.mSpeed += 1;
 	}
 }

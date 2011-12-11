@@ -35,7 +35,6 @@ public class GameScreen implements ApplicationListener {
 		mUICamera = new OrthographicCamera(800, 480);
 		mUICamera.position.set(800 / 2, 480 / 2, 0);
 		mUICamera.update();
-		
 		Assets.loadAssets();
 		mWorld = new GameWorld(GameType.CAMPAIGN, "level1");
 
