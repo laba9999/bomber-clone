@@ -69,13 +69,13 @@ public class Bomb extends KillableObject {
 			if (objTileIdx == _forbiddenTileIdx)
 			{
 				Tile tmpTile;
-				if (m.mDirection == mDirection && m.mIsMoving)
+				/*if (m.mDirection == mDirection && m.mIsMoving)
 				{
 					// Centra a bomba no tile em que o objecto com o qual
 					// colidimos está actualmente
 					tmpTile = mWorld.mMap.getTile(m.mPosition);
 					mPosition.set(tmpTile.mPosition.x + Tile.TILE_SIZE_HALF, tmpTile.mPosition.y + Tile.TILE_SIZE_HALF);
-				} else
+				} else*/
 
 				stop();
 				return true;
@@ -124,9 +124,8 @@ public class Bomb extends KillableObject {
 	}
 
 	@Override
-	protected boolean onMapCollision(short _collisionType)
+	protected void onMapCollision(short _collisionType)
 	{
 		stop();
-		return true;
 	}
 }

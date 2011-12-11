@@ -179,7 +179,7 @@ public class Player extends KillableObject {
 	}
 
 	@Override
-	protected boolean onMapCollision(short _collisionType)
+	protected void onMapCollision(short _collisionType)
 	{
 		if (_collisionType == Collision.BOMB)
 		{
@@ -191,7 +191,6 @@ public class Player extends KillableObject {
 			// }
 		}
 		// TODO Auto-generated method stub
-		return true;
 	}
 
 	private void pushBombAhead()

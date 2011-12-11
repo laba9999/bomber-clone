@@ -62,10 +62,9 @@ public class Monster extends KillableObject {
 	}
 	
 	@Override
-	protected boolean onMapCollision(short _collisionType)
+	protected void onMapCollision(short _collisionType)
 	{
 		mDirection = getAnyOtherDirection(mDirection);
-		return true;
 	}
 
 	private void decideToTurn()
