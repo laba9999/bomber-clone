@@ -72,7 +72,7 @@ public class GameWorld {
 
 		mExplosions = new ObjectsPool<Drawable>(nExplosions, new ObjectFactory.CreateExplosion());
 
-		mMap = new GameMap();
+		mMap = new GameMap(this);
 
 		// Lê o nivel
 		nPlayers = 2;
