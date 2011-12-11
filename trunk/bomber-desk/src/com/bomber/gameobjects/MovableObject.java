@@ -99,8 +99,8 @@ public abstract class MovableObject extends Drawable {
 		if(mCollision.mType == Collision.NONE)
 			return;
 		
-		if( onMapCollision(mCollision.mType))
 			mCollision.removeOverlap(mPosition);
+			 onMapCollision(mCollision.mType);
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public abstract class MovableObject extends Drawable {
 	 *         valor overlaped p.e colisão do tipo BOMB com um player com bonus
 	 *         "Empurra bombas" activo.
 	 */
-	protected abstract boolean onMapCollision(short _collisionType);
+	protected abstract void onMapCollision(short _collisionType);
 	
 	protected abstract void onChangedDirection();
 
