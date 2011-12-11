@@ -43,7 +43,7 @@ public class GameWorld {
 	private String mCurrentLevelName;
 
 	public GameWorld(short _gameType, String _starLevelName) {
-
+		
 		mGameType = _gameType;
 
 		// Os bonus têm que ser adicionados manualmente porque existem vários
@@ -79,6 +79,10 @@ public class GameWorld {
 		nPlayers = 2;
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
+		
+		mClock = new Clock();
+		mClock.reset(1, 0);
+		mClock.start();
 	}
 
 	public Player getLocalPlayer()

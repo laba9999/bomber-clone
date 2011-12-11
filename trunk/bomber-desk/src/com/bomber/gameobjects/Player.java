@@ -49,6 +49,7 @@ public class Player extends KillableObject {
 		mEffects = new ObjectsPool<Drawable>((short) 0, null);
 		mActiveBonus = new ObjectsPool<Bonus>((short) 0, null);
 	}
+	
 
 	public void dropBomb()
 	{
@@ -56,6 +57,21 @@ public class Player extends KillableObject {
 
 	}
 
+	public String getPointsAsString()
+	{
+		String points = new Integer(mPoints).toString();
+		StringBuffer ret = new StringBuffer();
+		
+		for(int i = ret.length(); i < 6; i++)
+		{
+			ret.append(0);
+		}
+		
+		ret.append(points);
+
+		return ret.toString();		
+	}
+	
 	public static short getColorFromString(String _key)
 	{
 		if (COLORS == null)

@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -327,12 +329,14 @@ public class Assets {
 		// mSoundButton = loadAnimation("TO BE DEFINED");
 		// mPauseButtons.put("TO BE DEFINED",
 		// mAtlas.findRegion("TO BE DEFINED"));
-		// mControllerBar = mAtlas.findRegion("TO BE DEFINED");
+		Texture t = new Texture(Gdx.files.internal("controller.png"));
+		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		 mControllerBar = new TextureRegion(t);
 		// mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
 		// mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
-		mFont = new BitmapFont();
-		mFont.setColor(Color.BLACK);
-		mFont.setScale(2);
+		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"),false);
+		mFont.setColor(Color.WHITE);
+		mFont.setScale(1);
 
 	}
 
