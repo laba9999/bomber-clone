@@ -1,16 +1,19 @@
 package com.bomber.input;
 
+import java.awt.PageAttributes.OriginType;
+
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.common.Directions;
 import com.bomber.gameobjects.Player;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.world.GameWorld;
 
-public class InputPlayingState extends Input {
+public class InputPlayingStateV2 extends Input {
 
 	private static final short INPUT_LEFT = 0;
 	private static final short INPUT_RIGHT = 1;
@@ -23,6 +26,15 @@ public class InputPlayingState extends Input {
 	private static final short INPUT_BOMB = 8;
 	private static final short INPUT_PAUSE = 9;
 
+	private short mOriginX = 0;
+	private short mOriginY = 0;
+	final short directionsXWidth = 50;
+	final short directionsXHeight = 60;
+	final short directionsYWidth = 60;
+	final short directionsYHeight = 50;
+	final short cornerWidht = directionsXWidth - 2;
+	final short cornerHeight = directionsYHeight - 2;
+
 	private static boolean mJustPlacedBomb = false;
 
 	private static int mDirectionsPointerIdx = -1;
@@ -31,23 +43,31 @@ public class InputPlayingState extends Input {
 
 	private GameWorld mGameWorld;
 
-	public InputPlayingState(GameState _gameState) {
+	public InputPlayingStateV2(GameState _gameState) {
 		super(_gameState);
 
 		// Inicializa as zonas de input para o android
 		mInputZones = new Rectangle[10];
-		mInputZones[INPUT_LEFT] = new Rectangle(0, 50, 45, 40);
-		mInputZones[INPUT_RIGHT] = new Rectangle(95, 50, 60, 40);
-		mInputZones[INPUT_UP] = new Rectangle(50, 95, 40, 45);
-		mInputZones[INPUT_DOWN] = new Rectangle(50, 0, 40, 45);
-		mInputZones[INPUT_LEFT_DOWN] = new Rectangle(0, 0, 48, 48);
-		mInputZones[INPUT_RIGHT_DOWN] = new Rectangle(92, 0, 60, 48);
-		mInputZones[INPUT_RIGHT_UP] = new Rectangle(92, 92, 60, 48);
-		mInputZones[INPUT_LEFT_UP] = new Rectangle(0, 92, 48, 48);
-		mInputZones[INPUT_BOMB] = new Rectangle(670, 20, 100, 100);
+
+		calcInputZonesForDPad();
+		mInputZones[INPUT_BOMB] = new Rectangle(640, 5, 150, 150);
 		mInputZones[INPUT_PAUSE] = new Rectangle(20, 410, 50, 50);
 
 		mGameWorld = _gameState.mGameScreen.mWorld;
+	}
+
+	private void calcInputZonesForDPad()
+	{
+		mInputZones[INPUT_LEFT_DOWN] = new Rectangle(mOriginX, mOriginY, cornerWidht, cornerHeight);
+		mInputZones[INPUT_DOWN] = new Rectangle(mOriginX + directionsXWidth, mOriginY, directionsYWidth, directionsYHeight);
+		mInputZones[INPUT_RIGHT_DOWN] = new Rectangle(mInputZones[INPUT_DOWN].x + directionsYWidth + 2, mOriginY, cornerWidht, cornerHeight);
+
+		mInputZones[INPUT_LEFT] = new Rectangle(mOriginX, mOriginY + directionsYHeight, directionsXWidth, directionsXHeight);
+		mInputZones[INPUT_RIGHT] = new Rectangle(mInputZones[INPUT_DOWN].x + directionsYWidth, mInputZones[INPUT_DOWN].y + directionsYHeight, directionsXWidth, directionsXHeight);
+
+		mInputZones[INPUT_LEFT_UP] = new Rectangle(mOriginX, mInputZones[INPUT_LEFT].y + directionsXHeight + 2, cornerWidht, cornerHeight);
+		mInputZones[INPUT_UP] = new Rectangle(mOriginX + directionsXWidth, mInputZones[INPUT_LEFT].y + directionsXHeight, directionsYWidth, directionsYHeight);
+		mInputZones[INPUT_RIGHT_UP] = new Rectangle(mInputZones[INPUT_RIGHT].x + 2, mInputZones[INPUT_UP].y + 2, cornerWidht, cornerHeight);
 	}
 
 	@Override
@@ -86,6 +106,9 @@ public class InputPlayingState extends Input {
 		{
 			mGameWorld.getLocalPlayer().stop();
 			mDirectionsPointerIdx = -1;
+			mOriginX =0;
+			mOriginY =0;
+			calcInputZonesForDPad();
 		}
 
 		if (mBombPointerIdx != -1 && !Gdx.input.isTouched(mBombPointerIdx))
@@ -115,76 +138,99 @@ public class InputPlayingState extends Input {
 			break;
 
 		case INPUT_LEFT_DOWN:
-			 deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 deltaY = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 
-			 if(deltaX + deltaY <1)
-				 return;
-			 
-			if (deltaX > deltaY)
-			//if (mLastDirectionalInput == INPUT_DOWN)
+			deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
+			deltaY = java.lang.Math.abs(Gdx.input.getDeltaY(mDirectionsPointerIdx));
+
+			if (deltaX + deltaY < 1)
+				return;
+
+			//if (deltaX > deltaY)
+				 if (mLastDirectionalInput == INPUT_DOWN)
 				mGameWorld.getLocalPlayer().moveLeft();
 			else
 				mGameWorld.getLocalPlayer().moveDown();
 			break;
 
 		case INPUT_RIGHT_DOWN:
-			 deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 deltaY = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 if(deltaX + deltaY <1)
-				 return;
-			if (deltaX > deltaY)
-			//if (mLastDirectionalInput == INPUT_DOWN)
+			deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
+			deltaY = java.lang.Math.abs(Gdx.input.getDeltaY(mDirectionsPointerIdx));
+			if (deltaX + deltaY < 1)
+				return;
+			//if (deltaX > deltaY)
+				 if (mLastDirectionalInput == INPUT_DOWN)
 				mGameWorld.getLocalPlayer().moveRight();
 			else
 				mGameWorld.getLocalPlayer().moveDown();
 			break;
 
 		case INPUT_RIGHT_UP:
-			
-			 deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 deltaY = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 if(deltaX + deltaY <1)
-				 return;
+
+			deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
+			deltaY = java.lang.Math.abs(Gdx.input.getDeltaY(mDirectionsPointerIdx));
+			if (deltaX + deltaY < 5)
+				return;
 			if (deltaX > deltaY)
-			//if (mLastDirectionalInput == INPUT_UP)
+				//if (mLastDirectionalInput == INPUT_UP)
 				mGameWorld.getLocalPlayer().moveRight();
 			else
 				mGameWorld.getLocalPlayer().moveUp();
 			break;
 
 		case INPUT_LEFT_UP:
-			 deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 deltaY = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
-			 if(deltaX + deltaY <1)
-				 return;
+			deltaX = java.lang.Math.abs(Gdx.input.getDeltaX(mDirectionsPointerIdx));
+			deltaY = java.lang.Math.abs(Gdx.input.getDeltaY(mDirectionsPointerIdx));
+			if (deltaX + deltaY < 5)
+				return;
 			if (deltaX > deltaY)
-			//if (mLastDirectionalInput == INPUT_UP)
+				// if (mLastDirectionalInput == INPUT_UP)
 				mGameWorld.getLocalPlayer().moveLeft();
 			else
 				mGameWorld.getLocalPlayer().moveUp();
 			break;
-			/*
-			default:
-				 deltaX = java.lang.Math.abs(Gdx.input.getDeltaX());
-				 deltaY = java.lang.Math.abs(Gdx.input.getDeltaY());
-				 
-				 if(deltaX > deltaY)
-				 {
-					 if(Gdx.input.getDeltaX() > 0)
-						 mGameWorld.getLocalPlayer().moveRight();
-					 else
-						 mGameWorld.getLocalPlayer().moveLeft();
-				 }else
-				 {
-					 if(Gdx.input.getDeltaY() > 0)
-						 mGameWorld.getLocalPlayer().moveDown();
-					 else
-						 mGameWorld.getLocalPlayer().moveUp();
-				 }*/
+		/*
+		 * default: deltaX = java.lang.Math.abs(Gdx.input.getDeltaX()); deltaY =
+		 * java.lang.Math.abs(Gdx.input.getDeltaY());
+		 * 
+		 * if(deltaX > deltaY) { if(Gdx.input.getDeltaX() > 0)
+		 * mGameWorld.getLocalPlayer().moveRight(); else
+		 * mGameWorld.getLocalPlayer().moveLeft(); }else {
+		 * if(Gdx.input.getDeltaY() > 0) mGameWorld.getLocalPlayer().moveDown();
+		 * else mGameWorld.getLocalPlayer().moveUp(); }
+		 */
 		}
 
 		mLastDirectionalInput = _zone;
+
+		float upMiddleX;
+		/*
+		 * switch (mGameWorld.getLocalPlayer().mDirection) { case Directions.UP:
+		 * upMiddleX = mInputZones[INPUT_UP].x + directionsYWidth / 2; deltaX =
+		 * mTouchPoint.x - upMiddleX; if (java.lang.Math.abs(deltaX) > 1)
+		 * mOriginX += deltaX; break; }
+		 */
+/*
+	//	if (_zone == INPUT_LEFT_DOWN || _zone == INPUT_RIGHT_DOWN || _zone == INPUT_LEFT_UP || _zone == INPUT_RIGHT_UP)
+		//{
+			float centerX = mOriginX + (((mInputZones[INPUT_RIGHT].x + directionsXWidth) - mOriginX) / 2);
+			float centerY = mOriginY + (((mInputZones[INPUT_UP].y + directionsYHeight) - mOriginY) / 2);
+
+			float centerDistX = mTouchPoint.x - centerX;
+			float centerDistY = mTouchPoint.y - centerY;
+
+			if ( centerDistX<2 && centerDistY <2)
+				return;
+			
+			mOriginX += centerDistX;
+			mOriginY += centerDistY;
+			
+			if( mOriginX < 0)
+				mOriginX = 0;
+			
+			if( mOriginY < 0)
+				mOriginY = 0;
+			
+			calcInputZonesForDPad();*/
+		//}
 	}
 
 	@Override
