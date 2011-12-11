@@ -215,28 +215,8 @@ public class Player extends KillableObject {
 
 		for (Bomb bomb : mWorld.mBombs)
 		{
-			float x = bomb.mPosition.x;
-			float y = bomb.mPosition.y;
-
-			if (whereBombShouldBe.contains(x, y))
-			{
-				switch (mDirection)
-				{
-				case Directions.UP:
-					bomb.moveUp();
-					break;
-				case Directions.DOWN:
-					bomb.moveDown();
-					break;
-				case Directions.LEFT:
-					bomb.moveLeft();
-					break;
-				case Directions.RIGHT:
-					bomb.moveRight();
-					break;
-				}
-
-			}
+			if (whereBombShouldBe.contains(bomb.mPosition.x, bomb.mPosition.y))
+				bomb.changeDirection(mDirection);
 		}
 	}
 

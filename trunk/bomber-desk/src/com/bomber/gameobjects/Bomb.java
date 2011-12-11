@@ -17,7 +17,7 @@ public class Bomb extends KillableObject {
 	public Tile mContainer = null;
 
 	private int mTicksSinceDrop = 0;
-	private static final int mTicksToExplode = 1000; // 100/sec = 3secs;
+	private static final int mTicksToExplode = 100; // 100/sec = 3secs;
 
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
@@ -68,15 +68,6 @@ public class Bomb extends KillableObject {
 			int objTileIdx = mWorld.mMap.calcTileIndex(m.mPosition);
 			if (objTileIdx == _forbiddenTileIdx)
 			{
-				Tile tmpTile;
-				/*if (m.mDirection == mDirection && m.mIsMoving)
-				{
-					// Centra a bomba no tile em que o objecto com o qual
-					// colidimos está actualmente
-					tmpTile = mWorld.mMap.getTile(m.mPosition);
-					mPosition.set(tmpTile.mPosition.x + Tile.TILE_SIZE_HALF, tmpTile.mPosition.y + Tile.TILE_SIZE_HALF);
-				} else*/
-
 				stop();
 				return true;
 			}
@@ -112,7 +103,6 @@ public class Bomb extends KillableObject {
 		mContainer.mContainsBomb = true;
 		
 		// Centra a bomba no tile em que está actualmente
-		mContainer = mWorld.mMap.getTile(mPosition);
 		mPosition.set(mContainer.mPosition.x + Tile.TILE_SIZE_HALF, mContainer.mPosition.y + Tile.TILE_SIZE_HALF);
 	}
 

@@ -21,60 +21,21 @@ public abstract class MovableObject extends Drawable {
 		mIsMoving = false;
 		super.reset();
 	}
-	
+
 	public void setMovableAnimations(MovableObjectAnimation _anim)
 	{
 		mMovableAnimations = _anim;
-		setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, false, true);
-	}
-	
-	public void moveLeft()
-	{
-		
-		if (mDirection != Directions.LEFT || !mIsMoving)
-		{
-			mDirection = Directions.LEFT;
-			setCurrentAnimation(mMovableAnimations.walkLeft, mMovableAnimations.numberOfFramesPerWalk, true, true);
-		}
-		
-		mIsMoving = true;
-
-		onChangedDirection();
+		setCurrentAnimation(mMovableAnimations.walk[Directions.DOWN], mMovableAnimations.numberOfFramesPerWalk, false, true);
 	}
 
-	public final void moveRight()
+	public void changeDirection(short _newDirection)
 	{
-
-		if (mDirection != Directions.RIGHT|| !mIsMoving)
+		if (mDirection != _newDirection || !mIsMoving)
 		{
-			mDirection = Directions.RIGHT;
-			setCurrentAnimation(mMovableAnimations.walkRight, mMovableAnimations.numberOfFramesPerWalk, true, true);
+			mDirection = _newDirection;
+			setCurrentAnimation(mMovableAnimations.walk[_newDirection], mMovableAnimations.numberOfFramesPerWalk, true, true);
 		}
 
-		mIsMoving = true;
-		onChangedDirection();
-	}
-
-	public void moveUp()
-	{
-
-		if (mDirection != Directions.UP|| !mIsMoving)
-		{
-			mDirection = Directions.UP;
-			setCurrentAnimation(mMovableAnimations.walkUp, mMovableAnimations.numberOfFramesPerWalk, true, true);
-		}
-		mIsMoving = true;
-		onChangedDirection();
-	}
-
-	public void moveDown()
-	{
-
-		if (mDirection != Directions.DOWN|| !mIsMoving)
-		{
-			mDirection = Directions.DOWN;
-			setCurrentAnimation(mMovableAnimations.walkDown, mMovableAnimations.numberOfFramesPerWalk, true, true);
-		}
 		mIsMoving = true;
 		onChangedDirection();
 	}
@@ -96,11 +57,11 @@ public abstract class MovableObject extends Drawable {
 	{
 		mWorld.mMap.checkForCollisions(this, mCollision, mIgnoreDestroyables);
 
-		if(mCollision.mType == Collision.NONE)
+		if (mCollision.mType == Collision.NONE)
 			return;
-		
-			mCollision.removeOverlap(mPosition);
-			 onMapCollision(mCollision.mType);
+
+		mCollision.removeOverlap(mPosition);
+		onMapCollision(mCollision.mType);
 	}
 
 	@Override
@@ -108,14 +69,14 @@ public abstract class MovableObject extends Drawable {
 	{
 		// Actualiza a animação
 		super.update();
-		
-		if(!mIsMoving)
+
+		if (!mIsMoving)
 			return;
-		
+
 		move();
 		checkMapCollisions();
 	}
-	
+
 	public void stop()
 	{
 		mIsMoving = false;
@@ -130,7 +91,7 @@ public abstract class MovableObject extends Drawable {
 	 *         "Empurra bombas" activo.
 	 */
 	protected abstract void onMapCollision(short _collisionType);
-	
+
 	protected abstract void onChangedDirection();
 
 	protected abstract void onStop();
