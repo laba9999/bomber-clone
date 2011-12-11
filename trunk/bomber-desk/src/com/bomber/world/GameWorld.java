@@ -43,13 +43,13 @@ public class GameWorld {
 	private String mCurrentLevelName;
 
 	public GameWorld(short _gameType, String _starLevelName) {
-		
+
 		mGameType = _gameType;
 
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
-		
+
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
 		// O numero de players vai variar consoante o tipo de jogo
@@ -78,7 +78,7 @@ public class GameWorld {
 		nPlayers = 2;
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
-		
+
 		mClock = new Clock();
 		mClock.reset(1, 0);
 		mClock.start();
@@ -154,7 +154,7 @@ public class GameWorld {
 		tmpBomb.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
 		tmpBomb.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
 		tmpBomb.mBombPower = _bombPower;
-		
+
 		return true;
 	}
 
@@ -173,14 +173,29 @@ public class GameWorld {
 
 	private void explodeObjects(Tile _tile)
 	{
-		int idx;
+		int objTileIdx;
 
 		// Verifica os monstros
 		for (Monster m : mMonsters)
 		{
-			idx = mMap.calcTileIndex(m.mPosition);
-			if (idx == _tile.mPositionInArray)
+			objTileIdx = mMap.calcTileIndex(m.mPosition);
+
+			// Verifica se estão no mesmo tile
+			if (objTileIdx == _tile.mPositionInArray)
+			{
 				m.kill();
+				continue;
+			}
+
+			// Verifica as proximidades
+			for (short i = Directions.UP; i <= Directions.RIGHT; i++)
+			{
+				if (objectCloseToExplosion(_tile, m, objTileIdx, Directions.UP))
+				{
+					m.kill();
+					continue;
+				}
+			}
 		}
 
 		// Verifica outras bombas
@@ -190,12 +205,45 @@ public class GameWorld {
 
 		// TODO : descomentar
 		// Verifica os players
-		// for (Player p : mPlayers)
-		// {
-		// idx = mMap.calcTileIndex(p.mPosition);
-		// if (idx == _tile.mPositionInArray)
-		// p.kill();
-		// }
+//		for (Player p : mPlayers)
+//		{
+//			objTileIdx = mMap.calcTileIndex(p.mPosition);
+//			if (objTileIdx == _tile.mPositionInArray)
+//			{
+//				p.kill();
+//				continue;
+//			}
+//
+//		}
+	}
+
+	private <T extends MovableObject> boolean objectCloseToExplosion(Tile _tile, T _obj, int _objTileIdx, short _direction)
+	{
+		int idxTile = mMap.calcTileIndex(_tile.mPositionInArray, _direction, (short) 1);
+		if (_objTileIdx == idxTile)
+		{
+			
+			return true;/*
+			// Está a vir nesta direcção?
+			if (_obj.mDirection == Directions.getInverseDirection(_direction))
+			{
+
+				// Está num point of no return?
+				float dist = Tile.TILE_SIZE_HALF;
+				if (_direction == Directions.UP)
+					dist = _obj.mPosition.y - (_tile.mPosition.y + Tile.TILE_SIZE_HALF);
+				else if (_direction == Directions.DOWN)
+					dist = _tile.mPosition.y - _obj.mPosition.y;
+				else if (_direction == Directions.LEFT)
+					dist = _tile.mPosition.x - _obj.mPosition.x;
+				else if (_direction == Directions.RIGHT)
+					dist = _obj.mPosition.x - (_tile.mPosition.x + Tile.TILE_SIZE_HALF);
+
+				if (dist < Tile.TILE_SIZE)
+					return true;
+			}*/
+		}
+		return false;
 	}
 
 	private void createExplosionComponents(Bomb _bomb)
@@ -331,8 +379,8 @@ public class GameWorld {
 		updateMonsters();
 		updateExplosions();
 		updateBonus();
-		
-		//spawnBonusRandomly();
+
+		// spawnBonusRandomly();
 	}
 
 	private void updateMonsters()
@@ -369,74 +417,75 @@ public class GameWorld {
 		for (Bonus b : mSpawnedBonus)
 			b.update();
 	}
-	
+
 	public void spawnBonusRandomly()
 	{
-		
-		if(checkReachedMaximumSimultaneousBonus() == true)
+
+		if (checkReachedMaximumSimultaneousBonus() == true)
 			return;
-		
-		//TODO: indicar seed		
+
+		// TODO: indicar seed
 		Random randomGenerator = new Random();
 		int spawningProbability = 1;
-		int ticks = 100;	
-		
+		int ticks = 100;
+
 		int rnd = randomGenerator.nextInt(ticks);
-		
-		if(rnd <= spawningProbability)
+
+		if (rnd <= spawningProbability)
 		{
-			
+
 			short col;
-			short lin;	
+			short lin;
 			Tile tileAtPosition = null;
 			boolean positionIsntAvailable = false;
-			
+
 			do
-			{				
-				//gera posição aleatória
+			{
+				// gera posição aleatória
 				col = (short) randomGenerator.nextInt(mMap.mWidth);
 				lin = (short) randomGenerator.nextInt(mMap.mHeight);
-				
-				float colInPixels = col * Tile.TILE_SIZE;				
+
+				float colInPixels = col * Tile.TILE_SIZE;
 				float linInPixels = lin * Tile.TILE_SIZE;
-				
-				//verifica se o tile na posição gerada é walkable
-				tileAtPosition = mMap.getTile(new Vector2(colInPixels,linInPixels));				
+
+				// verifica se o tile na posição gerada é walkable
+				tileAtPosition = mMap.getTile(new Vector2(colInPixels, linInPixels));
 				positionIsntAvailable = tileAtPosition.mType != Tile.WALKABLE;
-				
-				//verifica se já existe um bonus na posição
-				for(Bonus bonus : mSpawnedBonus)
+
+				// verifica se já existe um bonus na posição
+				for (Bonus bonus : mSpawnedBonus)
 				{
-					if(bonus.mPosition.x == colInPixels + Tile.TILE_SIZE_HALF && bonus.mPosition.y == linInPixels + Tile.TILE_SIZE_HALF)
+					if (bonus.mPosition.x == colInPixels + Tile.TILE_SIZE_HALF && bonus.mPosition.y == linInPixels + Tile.TILE_SIZE_HALF)
 						positionIsntAvailable = true;
-				}				
-				
-			}while(positionIsntAvailable);		
+				}
+
+			} while (positionIsntAvailable);
 
 			spawnBonus(BonusTypes.getRandom(), lin, col);
-		}	
-		
+		}
+
 	}
-	
+
 	public boolean checkReachedMaximumSimultaneousBonus()
 	{
-		//TODO : ajustar valor
-		// PROBLEMA : Dependendo deste valor, o cilco do método spawnBonusRandomly pode tornar-se infitito.
-		// Isto acontece quando maxSimultaneousBonus > Número de tiles walkables do nível intacto.
-		int maxSimultaneousBonus = 30;	
-		
-		int howManyBonus = 0;	
-		
-		for(Bonus bonus : mSpawnedBonus)
+		// TODO : ajustar valor
+		// PROBLEMA : Dependendo deste valor, o cilco do método
+		// spawnBonusRandomly pode tornar-se infitito.
+		// Isto acontece quando maxSimultaneousBonus > Número de tiles walkables
+		// do nível intacto.
+		int maxSimultaneousBonus = 30;
+
+		int howManyBonus = 0;
+
+		for (Bonus bonus : mSpawnedBonus)
 			howManyBonus++;
 
-		if(howManyBonus == maxSimultaneousBonus)
+		if (howManyBonus == maxSimultaneousBonus)
 			return true;
 		else
 			return false;
-		
+
 	}
-	
 
 	public void parseGameMessage(Message _msg)
 	{
