@@ -1,92 +1,34 @@
 package com.bomber.gamestates;
 
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
+import com.bomber.input.InputPlayingState;
 
 public class GameStatePlaying extends GameState {
 
-	private static final short INPUT_LEFT = 0;
-	private static final short INPUT_RIGHT = 1;
-	private static final short INPUT_UP = 2;
-	private static final short INPUT_DOWN = 3;
-	private static final short INPUT_BOMB = 4;
-	private static final short INPUT_PAUSE = 5;
-	
-	private static boolean mJustPlacedBomb = false;
-
-	private Rectangle[] mInputZones = new Rectangle[6];
-	
 	public GameStatePlaying(GameScreen _gameScreen) {
 		super(_gameScreen);
-		
-		
-		//Inicializa as zonas de input para o android
-		//mInputZones[INPUT_LEFT] = new Rectangle(0,0, )
+
+		mInput = new InputPlayingState(this);
 	}
 
 	public void update()
 	{
-		parseInput();
+		mInput.update();
 		mGameWorld.update();
 
 	}
 
-	public void parseInput()
-	{
-
-		if (Gdx.app.getType() != Application.ApplicationType.Android)
-			parseKeyboardInput();
-		else
-			parseTouchInput();
-	}
-
-	private void parseTouchInput()
-	{
-		if (!Gdx.input.justTouched())
-			return;
-
-		mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-		
-	}
-
-	private void parseKeyboardInput()
-	{
-		Player localPlayer = mGameWorld.getLocalPlayer();
-		if (Gdx.input.isKeyPressed(Keys.LEFT))
-			localPlayer.moveLeft();
-
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT))
-			localPlayer.moveRight();
-		else if (Gdx.input.isKeyPressed(Keys.DOWN))
-			localPlayer.moveDown();
-		else if (Gdx.input.isKeyPressed(Keys.UP))
-			localPlayer.moveUp();
-		else
-			localPlayer.stop();
-
-		if (Gdx.input.isKeyPressed(Keys.SPACE))
-		{
-			if (!mJustPlacedBomb)
-			{
-				localPlayer.dropBomb();
-				mJustPlacedBomb = true;
-			}
-		} else
-			mJustPlacedBomb = false;
-
-	}
 
 	public void present(float _interpolation)
 	{
 		mWorldRenderer.render();
 		mBatcher.setProjectionMatrix(mUICamera.combined);
+
 	
 		BitmapFont font = Assets.mFont;
 		Player player = mGameWorld.getLocalPlayer();
@@ -94,7 +36,7 @@ public class GameStatePlaying extends GameState {
 		mBatcher.begin();	
 		//desenha imagem do controller
 		mBatcher.draw(Assets.mControllerBar,0,0);
-		
+
 		//desenha nivel ao canto
 		font.draw(mBatcher,"LEVEL 1", 10 , 470);
 		
@@ -116,7 +58,7 @@ public class GameStatePlaying extends GameState {
 		value = (int) player.mMaxSimultaneousBombs;
 		font.draw(mBatcher, value.toString(), 440, 50);
 	
-		value = (int) player.mSpeed;
+		value = (int) player.mSpeedFactor;
 		font.draw(mBatcher, value.toString(), 540, 50);
 		
 		//desenha bonus ao canto
@@ -142,7 +84,13 @@ public class GameStatePlaying extends GameState {
 			x -= 57;	
 		}
 		
+		Rectangle[] zones = mInput.getZones();
+		for (int i = 0; i < zones.length; i++)
+			mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
+
+		
 		mBatcher.end();
+
 		
 		
 	}

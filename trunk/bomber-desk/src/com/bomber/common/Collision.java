@@ -8,7 +8,7 @@ public class Collision {
 	public static final short TILE = 1;
 	public static final short BOMB = 2;
 	
-	public static final float ALLOWED_OVERLAP = 10.0f;
+	public static final float ALLOWED_OVERLAP = 15.0f;
 
 	public Vector2 mAmounts = new Vector2();
 	public short mType;
