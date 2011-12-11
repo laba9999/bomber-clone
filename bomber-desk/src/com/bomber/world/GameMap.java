@@ -12,6 +12,7 @@ import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
+import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.MovableObject;
 import com.bomber.gameobjects.Tile;
 
@@ -39,7 +40,12 @@ public class GameMap {
 	public short mWidth, mHeight;
 	public int mWidthPixels, mHeightPixels;
 
-	public GameMap() {
+	GameWorld mWorld;
+	
+	public GameMap(GameWorld _gameWorld) {
+		
+		mWorld = _gameWorld;
+		
 		mImutableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.WALKABLE));
 		mDestroyableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.DESTROYABLE));
 		mTilesBeingDestroyed = new ObjectsPool<Tile>((short) 0, null);
@@ -369,7 +375,27 @@ public class GameMap {
 		if (tmpTile.mType == Tile.COLLIDABLE || tmpTile.mType == Tile.DESTROYABLE)
 			_result.mType = Collision.TILE;
 		else if (tmpTile.mContainsBomb)
-			_result.mType = Collision.BOMB;
+		{
+			// De certeza?
+			boolean found = false;
+			for(Bomb b : mWorld.mBombs)
+			{
+				if(b.mContainer.mPositionInArray == tmpTile.mPositionInArray)
+				{
+					_result.mType = Collision.BOMB;
+					found = true;
+					break;
+				}
+			}
+			
+			if(!found)
+			{
+				tmpTile.mContainsBomb = false;
+				return;
+			}
+			
+		}
+			
 		
 		// Devolve o valor overlapped baseado na direcção do objecto
 		if (_direction == Directions.UP)
