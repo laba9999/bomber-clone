@@ -5,7 +5,7 @@ import com.bomber.common.Directions;
 public abstract class KillableObject extends MovableObject {
 
 
-	protected boolean mIsDead = false;
+	public boolean mIsDead = false;
 
 	final public void kill()
 	{
