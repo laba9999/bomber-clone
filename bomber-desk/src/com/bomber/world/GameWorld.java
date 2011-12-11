@@ -332,7 +332,7 @@ public class GameWorld {
 		updateExplosions();
 		updateBonus();
 		
-		spawnBonusRandomly();
+		//spawnBonusRandomly();
 	}
 
 	private void updateMonsters()

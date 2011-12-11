@@ -1,6 +1,7 @@
 package com.bomber.gameobjects;
 
 import com.bomber.common.Assets;
+import com.bomber.common.Directions;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.world.GameMap;
@@ -16,7 +17,7 @@ public class Bomb extends KillableObject {
 	public Tile mContainer = null;
 
 	private int mTicksSinceDrop = 0;
-	private static final int mTicksToExplode = 300; // 100/sec = 3secs;
+	private static final int mTicksToExplode = 1000; // 100/sec = 3secs;
 
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
@@ -57,11 +58,11 @@ public class Bomb extends KillableObject {
 		}
 	}
 
-	private <T extends MovableObject> boolean checkCollisionsAgainstMovableObjects(ObjectsPool<T> pool, int _forbiddenTileIdx)
+	private <T extends KillableObject> boolean checkCollisionsAgainstMovableObjects(ObjectsPool<T> pool, int _forbiddenTileIdx)
 	{
-		for (MovableObject m : pool)
+		for (KillableObject m : pool)
 		{
-			if (m.mIgnoreDestroyables)
+			if (m.mIgnoreDestroyables || m.mIsDead)
 				continue;
 
 			int objTileIdx = mWorld.mMap.calcTileIndex(m.mPosition);
@@ -75,11 +76,6 @@ public class Bomb extends KillableObject {
 					tmpTile = mWorld.mMap.getTile(m.mPosition);
 					mPosition.set(tmpTile.mPosition.x + Tile.TILE_SIZE_HALF, tmpTile.mPosition.y + Tile.TILE_SIZE_HALF);
 				} else
-				{
-					// Centra a bomba no tile em que está actualmente
-					tmpTile = mWorld.mMap.getTile(mPosition);
-					mPosition.set(tmpTile.mPosition.x + Tile.TILE_SIZE_HALF, tmpTile.mPosition.y + Tile.TILE_SIZE_HALF);
-				}
 
 				stop();
 				return true;
@@ -98,6 +94,7 @@ public class Bomb extends KillableObject {
 		mContainer = null;
 		mIsDead = false;
 		mTicksSinceDrop = 0;
+		mDirection = Directions.NONE;
 		mSpeed = 0;
 	}
 
@@ -111,10 +108,12 @@ public class Bomb extends KillableObject {
 	@Override
 	protected void onStop()
 	{
-		mSpeed = 0.0f;
 		mContainer = mWorld.mMap.getTile(mPosition);
 		mContainer.mContainsBomb = true;
-
+		
+		// Centra a bomba no tile em que está actualmente
+		mContainer = mWorld.mMap.getTile(mPosition);
+		mPosition.set(mContainer.mPosition.x + Tile.TILE_SIZE_HALF, mContainer.mPosition.y + Tile.TILE_SIZE_HALF);
 	}
 
 	@Override
