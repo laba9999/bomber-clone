@@ -7,13 +7,15 @@ import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.input.InputPlayingState;
+import com.bomber.input.InputPlayingStateV2;
+import com.bomber.input.InputPlayingStateV3;
 
 public class GameStatePlaying extends GameState {
 
 	public GameStatePlaying(GameScreen _gameScreen) {
 		super(_gameScreen);
 
-		mInput = new InputPlayingState(this);
+		mInput = new InputPlayingStateV3(this);
 	}
 
 	public void update()
