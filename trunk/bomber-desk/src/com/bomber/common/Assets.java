@@ -28,7 +28,7 @@ public class Assets {
 	private static final float BONUS_FRAME_DURATION = 10f;
 	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 10f;
 	private static final float BOMB_FRAME_DURATION = 50f;
-	private static final float TILE_EXPLOSION_FRAME_DURATION = 15;
+	private static final float TILE_EXPLOSION_FRAME_DURATION = 5;
 	private static final float N_MONSTER_WALK_FRAME_DURATION = 100f;
 	private static final float N_MONSTER_DIE_WALK_FRAME_DURATION = 100f;
 	private static final float G_MONSTER_WALK_FRAME_DURATION = 30f;

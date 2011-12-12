@@ -8,7 +8,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
+
+import com.bomber.DebugSettings;
 import com.bomber.common.Assets;
+
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
@@ -69,7 +73,9 @@ public class GameMap {
 	 */
 	public void addDestroyableTile(short _line, short _col, Animation _anim)
 	{
-
+		if(!DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
+			return;
+		
 		Tile tmpTile = mDestroyableTiles.getFreeObject();
 
 		tmpTile.mType = Tile.DESTROYABLE;
@@ -689,6 +695,7 @@ public class GameMap {
 	
 	public Tile getRandomTileFromType(short _type) 
 	{
+		
 		if(_type > Tile.PORTAL || _type < Tile.WALKABLE)
 		{
 			throw new InvalidParameterException("Tipo inválido");
