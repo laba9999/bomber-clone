@@ -45,8 +45,7 @@ public class Bomb extends KillableObject {
 		{
 			// Verifica as colisões
 			GameMap map = mWorld.mMap;
-			int currentTileIdx = map.calcTileIndex(mPosition);
-			int forbiddenTileIdx = map.calcTileIndex(currentTileIdx, mDirection, (short) 1);
+			int forbiddenTileIdx = map.calcTileIndex(mPosition, mDirection, (short) 1);
 
 			// Contra monstros
 			if (checkCollisionsAgainstMovableObjects(mWorld.mMonsters, forbiddenTileIdx))
@@ -107,10 +106,9 @@ public class Bomb extends KillableObject {
 	}
 
 	@Override
-	protected void onKill()
+	protected boolean onKill()
 	{
-		// TODO Auto-generated method stub
-
+		return false;
 	}
 
 	@Override

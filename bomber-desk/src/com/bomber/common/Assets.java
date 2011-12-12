@@ -23,6 +23,8 @@ import com.bomber.gameobjects.bonus.Bonus;
 public class Assets {
 	private static final float PLAYER_WALK_FRAME_DURATION = 15f;
 	private static final float PLAYER_DIE_FRAME_DURATION = 50f;
+	private static final float PLAYER_SHIELD_FRAME_DURATION = 20f;
+	
 	private static final float BONUS_FRAME_DURATION = 10f;
 	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 10f;
 	private static final float BOMB_FRAME_DURATION = 50f;
@@ -39,6 +41,7 @@ public class Assets {
 	public static HashMap<String, MovableObjectAnimation> mPlayers;
 	public static HashMap<String, TextureRegion> mPlayersHeads;
 	public static HashMap<String, Animation> mBonus;
+	public static HashMap<String, Animation> mPlayerEffects;
 	public static HashMap<String, TextureRegion> mNonDestroyableTiles;
 
 	/**
@@ -54,18 +57,17 @@ public class Assets {
 	public static HashMap<String, TextureRegion> mPauseButtons;
 	public static TextureRegion mControllerBar;
 	/**
-	 * Usado no pause.
+	 * Usados no pause.
 	 */
 	public static TextureRegion mDarkGlass;
-	/**
-	 * Usado no pause.
-	 */
 	public static TextureRegion mPauseScreen;
+	
 	public static BitmapFont mFont;
 
 	public static void loadAssets()
 	{
 		mPlayers = new HashMap<String, MovableObjectAnimation>();
+		mPlayerEffects = new HashMap<String, Animation>();
 		mPlayersHeads = new HashMap<String, TextureRegion>();
 		mBonus = new HashMap<String, Animation>();
 		mExplosions = new HashMap<String, Animation>();
@@ -76,6 +78,7 @@ public class Assets {
 		loadAtlas();
 		loadPlayerAnimations();
 		loadPlayersHeads();
+		loadPlayerEffects();
 		loadExplosions();
 		loadBonus();
 		loadBomb();
@@ -103,6 +106,14 @@ public class Assets {
 		mPlayers.put("b_green", temp);
 	}
 
+	private static void loadPlayerEffects()
+	{
+		Animation shield = loadAnimation("shield_", PLAYER_SHIELD_FRAME_DURATION);
+		mPlayerEffects.put("shield", shield);
+		
+		// TODO : ler water splash
+	}
+	
 	/**
 	 * Cria MovableObjectAnimation com Animations de Players
 	 */
@@ -156,7 +167,6 @@ public class Assets {
 	 */
 	private static MovableObjectAnimation loadNormalMonsterMovableObjectAnimation(String _id)
 	{
-
 		short dieFrames = 6;
 		short walkFrames = 3;
 
@@ -242,20 +252,13 @@ public class Assets {
 	{
 		ArrayList<TextureRegion> regions = new ArrayList<TextureRegion>();
 
-		TextureRegion r = new TextureRegion();
-
 		for (int i = 0; i < _howManyFrames; i++)
-		{
 			regions.add(mAtlas.findRegion(_id, i));
-		}
-
+	
 		for (int i = _howManyFrames - 2; i > 0; i--)
-		{
 			regions.add(mAtlas.findRegion(_id, i));
-		}
-
+		
 		return new Animation(_frameDuration, regions);
-
 	}
 
 	public static void loadDestroyableTile(String _id)

@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
+import com.bomber.common.PlayerEffect;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Player;
@@ -85,7 +86,7 @@ public class WorldRenderer {
 		Assets.mFont.draw(mBatch, fps.toString(), 100, 650);
 		mBatch.end();
 	}
-	
+
 	private void renderTicks()
 	{
 		mBatch.begin();
@@ -160,6 +161,14 @@ public class WorldRenderer {
 			Vector2 drawingPoint = p.drawingPoint();
 			drawingPoint.x += (Tile.TILE_SIZE - p.mCurrentFrame.getRegionWidth()) / 2;
 			mBatch.draw(p.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+
+			// Desenha os efeitos
+			for (PlayerEffect ef : p.mEffects)
+			{
+				drawingPoint = ef.drawingPoint();
+				mBatch.draw(ef.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+			}
+
 			// mBatch.draw(Assets.mAtlas.findRegion("tiles_",123),
 			// p.getBoundingBox().x, p.getBoundingBox().y,
 			// p.getBoundingBox().width, p.getBoundingBox().height);

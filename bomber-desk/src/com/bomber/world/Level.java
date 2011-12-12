@@ -1,13 +1,10 @@
 package com.bomber.world;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
 
-import javax.annotation.Resources;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
@@ -83,9 +80,6 @@ public class Level {
 
 	private static void flipMatrixVertically(short[][] _matrix)
 	{
-		if( _matrix == null)
-			_matrix = _matrix;
-		
 		int center = _matrix.length / 2;
 		for (int i = 0; i < center; i++)
 		{

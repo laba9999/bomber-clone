@@ -205,16 +205,16 @@ public class GameWorld {
 
 		// TODO : descomentar
 		// Verifica os players
-		// for (Player p : mPlayers)
-		// {
-		// objTileIdx = mMap.calcTileIndex(p.mPosition);
-		// if (objTileIdx == _tile.mPositionInArray)
-		// {
-		// p.kill();
-		// continue;
-		// }
-		//
-		// }
+//		 for (Player p : mPlayers)
+//		 {
+//		 objTileIdx = mMap.calcTileIndex(p.mPosition);
+//		 if (objTileIdx == _tile.mPositionInArray)
+//		 {
+//		 p.kill();
+//		 continue;
+//		 }
+//		
+//		 }
 	}
 
 	private <T extends MovableObject> boolean objectCloseToExplosion(Tile _tile, T _obj, int _objTileIdx, short _direction)
@@ -360,7 +360,7 @@ public class GameWorld {
 		updateExplosions();
 		updateBonus();
 
-		// spawnBonusRandomly();
+		spawnBonusRandomly();
 	}
 
 	private void updateMonsters()

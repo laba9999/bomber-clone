@@ -9,6 +9,11 @@ public abstract class KillableObject extends MovableObject {
 
 	final public void kill()
 	{
+		boolean ignoreKill = onKill();
+		
+		if( ignoreKill )
+			return;
+		
 		if(mIsDead)
 			return;
 		
@@ -18,7 +23,6 @@ public abstract class KillableObject extends MovableObject {
 		if (mMovableAnimations != null)
 			setCurrentAnimation(mMovableAnimations.die, mMovableAnimations.numberOfFramesDying, true, false);
 		
-		onKill();
 	}
 
 	@Override
@@ -38,5 +42,5 @@ public abstract class KillableObject extends MovableObject {
 		mIsDead = false;
 	}
 
-	protected abstract void onKill();
+	protected abstract boolean onKill();
 }
