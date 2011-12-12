@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.gamestates.GameState;
-import com.bomber.gamestates.GameStatePaused;
 
 public class InputPausedState extends Input {
 	private static final short INPUT_CONTINUE = 0;

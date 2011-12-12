@@ -6,7 +6,7 @@ import com.bomber.common.PoolObject;
 
 public abstract class GameObject extends PoolObject {
 	public Vector2 mPosition = new Vector2();
-	private Vector2 mDrawingPoint = new Vector2();
+	protected Vector2 mDrawingPoint = new Vector2();
 	private Rectangle mBoudingBox = new Rectangle(0, 0, Tile.TILE_SIZE, Tile.TILE_SIZE);
 	public int mUUID;
 

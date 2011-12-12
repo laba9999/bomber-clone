@@ -84,9 +84,9 @@ public class Monster extends KillableObject {
 	}
 
 	@Override
-	protected void onKill()
+	protected boolean onKill()
 	{
-		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

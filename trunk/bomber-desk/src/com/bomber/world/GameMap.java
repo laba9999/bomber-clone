@@ -509,6 +509,15 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
+	
+	public int calcTileIndex(Vector2 _position, short _direction, short _distance)
+	{
+		int idx = calcTileIndex(_position);
+		idx = calcTileIndex(idx, _direction, _distance);
+		
+		return idx;
+	}
+	
 	/**
 	 * Tranforma uma posição 2D num index do array de tiles. Isto é feito
 	 * baseado no tamanho do tile e na largura do mapa.
