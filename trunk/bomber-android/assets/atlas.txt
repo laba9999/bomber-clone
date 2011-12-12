@@ -4,3962 +4,3990 @@ filter: Nearest,Nearest
 repeat: none
 b_white_walk_down_
   rotate: false
-  xy: 818, 857
+  xy: 830, 828
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 0
 m_generic7_die_
   rotate: false
-  xy: 621, 1010
+  xy: 868, 929
   size: 40, 45
   orig: 40, 45
   offset: 0, 0
   index: 1
 m_generic8_die_
   rotate: false
-  xy: 203, 1284
+  xy: 953, 1519
   size: 36, 45
   orig: 36, 45
   offset: 0, 0
   index: 3
 m_generic9_die_
   rotate: false
-  xy: 60, 116
+  xy: 291, 103
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 tiles_43_destroy_
   rotate: false
-  xy: 407, 324
+  xy: 861, 218
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 b_white_die_
   rotate: false
-  xy: 337, 2
+  xy: 310, 60
   size: 54, 56
   orig: 54, 56
   offset: 0, 0
   index: 3
 m_generic2_walk_
   rotate: false
-  xy: 275, 1090
+  xy: 969, 1171
   size: 39, 41
   orig: 39, 41
   offset: 0, 0
   index: 1
+go
+  rotate: false
+  xy: 2, 82
+  size: 78, 79
+  orig: 78, 79
+  offset: 0, 0
+  index: -1
 b_blue_walk_up_
   rotate: false
-  xy: 589, 846
+  xy: 97, 1114
   size: 44, 56
   orig: 44, 56
   offset: 0, 0
   index: 0
 b_blue_walk_die_
   rotate: false
-  xy: 617, 2
+  xy: 168, 144
   size: 54, 56
   orig: 54, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 952, 305
+  xy: 812, 218
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 45
 bonus_hand_
   rotate: false
-  xy: 247, 820
-  size: 47, 47
-  orig: 47, 47
+  xy: 835, 708
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 946, 452
+  xy: 802, 365
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 257
-tiles_84_destroy_
-  rotate: false
-  xy: 462, 274
-  size: 47, 47
-  orig: 47, 47
-  offset: 0, 0
-  index: 1
 m_4_walk_right_
   rotate: false
-  xy: 315, 1194
+  xy: 861, 1270
   size: 38, 49
   orig: 38, 49
   offset: 0, 0
   index: 0
+tiles_84_destroy_
+  rotate: false
+  xy: 151, 355
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: 1
 m_generic2_die_
   rotate: false
-  xy: 990, 213
+  xy: 274, 212
   size: 31, 41
   orig: 31, 41
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 309, 278
+  xy: 51, 405
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 84
 bomb_orig_
   rotate: false
-  xy: 52, 206
+  xy: 409, 213
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 2, 543
+  xy: 454, 458
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 270
 tiles_289_destroy_
   rotate: false
-  xy: 850, 367
+  xy: 354, 413
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 b_white_walk_left_
   rotate: false
-  xy: 198, 869
+  xy: 590, 744
   size: 46, 57
   orig: 46, 57
   offset: 0, 0
   index: 2
 b_red_walk_up_
   rotate: false
-  xy: 196, 986
+  xy: 341, 979
   size: 44, 56
   orig: 44, 56
   offset: 0, 0
   index: 0
 bonus_potion_
   rotate: false
-  xy: 786, 754
-  size: 47, 47
-  orig: 47, 47
+  xy: 195, 996
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 3
 m_generic3_die_
   rotate: false
-  xy: 995, 534
+  xy: 281, 175
   size: 26, 35
   orig: 26, 35
   offset: 0, 0
   index: 4
 m_generic5_die_
   rotate: false
-  xy: 517, 1111
+  xy: 515, 1193
   size: 39, 48
   orig: 39, 48
   offset: 0, 0
   index: 0
 tiles_43_destroy_
   rotate: false
-  xy: 100, 368
+  xy: 910, 271
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 tiles_2_destroy_
   rotate: false
-  xy: 347, 376
+  xy: 100, 486
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 247, 526
+  xy: 601, 499
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 213
 m_generic1_die_
   rotate: false
-  xy: 190, 101
+  xy: 58, 163
   size: 21, 36
   orig: 21, 36
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 260, 281
+  xy: 664, 254
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 7
 m_1_walk_up_
   rotate: false
-  xy: 435, 1264
+  xy: 719, 1286
   size: 38, 45
   orig: 38, 45
   offset: 0, 0
   index: 1
 m_generic8_walk_
   rotate: false
-  xy: 157, 1378
+  xy: 312, 1184
   size: 35, 42
   orig: 35, 42
   offset: 0, 0
   index: 1
 m_3_walk_down_
   rotate: false
-  xy: 83, 1210
+  xy: 851, 1321
   size: 38, 43
   orig: 38, 43
   offset: 0, 0
   index: 2
 xplode_tip_up_
   rotate: false
-  xy: 429, 110
+  xy: 309, 171
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 m_2_die_
   rotate: false
-  xy: 990, 170
+  xy: 988, 50
   size: 31, 41
   orig: 31, 41
   offset: 0, 0
   index: 3
 m_3_die_
   rotate: false
-  xy: 60, 83
+  xy: 291, 70
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 m_5_die_
   rotate: false
-  xy: 148, 944
+  xy: 344, 863
   size: 46, 54
   orig: 46, 54
   offset: 0, 0
   index: 1
 m_3_walk_up_
   rotate: false
-  xy: 588, 1238
+  xy: 598, 1174
   size: 39, 44
   orig: 39, 44
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 707, 307
+  xy: 606, 303
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 312
 m_generic7_walk_
   rotate: false
-  xy: 633, 1200
+  xy: 648, 1138
   size: 39, 44
   orig: 39, 44
   offset: 0, 0
   index: 0
 m_2_walk_up_
   rotate: false
-  xy: 655, 1098
+  xy: 615, 1079
   size: 40, 42
   orig: 40, 42
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 609, 258
+  xy: 307, 332
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 54
 tiles_
   rotate: false
-  xy: 541, 650
+  xy: 844, 659
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 130
 m_5_walk_up_
   rotate: false
-  xy: 697, 1103
+  xy: 902, 1008
   size: 39, 56
   orig: 39, 56
   offset: 0, 0
   index: 1
 bonus_shield_
   rotate: false
-  xy: 100, 809
-  size: 47, 47
-  orig: 47, 47
+  xy: 441, 916
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 5
 b_green_walk_left_
   rotate: false
-  xy: 442, 911
+  xy: 198, 883
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 0
 xplode_center_
   rotate: false
-  xy: 313, 163
+  xy: 866, 168
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 m_4_walk_up_
   rotate: false
-  xy: 84, 1152
+  xy: 721, 1228
   size: 38, 56
   orig: 38, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 198, 575
+  xy: 601, 548
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 206
 bonus_speed_
   rotate: false
-  xy: 296, 768
-  size: 47, 47
-  orig: 47, 47
+  xy: 683, 835
+  size: 45, 56
+  orig: 45, 56
   offset: 0, 0
   index: 2
 b_white_die_
   rotate: false
-  xy: 785, 55
+  xy: 599, 2
   size: 54, 49
   orig: 54, 49
   offset: 0, 0
   index: 6
 bonus_life_
   rotate: false
-  xy: 345, 817
-  size: 47, 47
-  orig: 47, 47
+  xy: 50, 1067
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 3
 m_1_walk_left_
   rotate: false
-  xy: 800, 973
+  xy: 672, 996
   size: 40, 45
   orig: 40, 45
   offset: 0, 0
   index: 1
 bonus_invencibility
   rotate: false
-  xy: 102, 254
-  size: 47, 63
-  orig: 47, 63
+  xy: 2, 1033
+  size: 46, 43
+  orig: 46, 43
   offset: 0, 0
   index: -1
 m_3_walk_left_
   rotate: false
-  xy: 193, 1044
+  xy: 788, 1131
   size: 39, 44
   orig: 39, 44
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 198, 477
+  xy: 802, 414
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 249
 m_generic1_walk_
   rotate: false
-  xy: 578, 1009
+  xy: 825, 886
   size: 41, 46
   orig: 41, 46
   offset: 0, 0
   index: 2
 tiles_84_destroy_
   rotate: false
-  xy: 822, 215
+  xy: 459, 262
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 m_1_walk_right_
   rotate: false
-  xy: 2, 1336
+  xy: 139, 1181
   size: 36, 43
   orig: 36, 43
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 345, 474
+  xy: 949, 408
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 25
 xplode_tip_down_
   rotate: false
-  xy: 579, 110
+  xy: 634, 106
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 tiles_289_destroy_
   rotate: false
-  xy: 396, 422
+  xy: 100, 535
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 737, 654
+  xy: 542, 647
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 127
 tiles_
   rotate: false
-  xy: 801, 362
+  xy: 405, 410
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 290
 xplode_tip_left_
   rotate: false
-  xy: 128, 154
+  xy: 58, 256
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 345, 670
+  xy: 247, 704
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 140
 tiles_248_destroy_
   rotate: false
-  xy: 603, 454
+  xy: 899, 467
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 149, 592
+  xy: 650, 548
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 205
 xplode_tip_right_
   rotate: false
-  xy: 213, 116
+  xy: 218, 236
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 m_generic6_die_
   rotate: false
-  xy: 376, 1320
+  xy: 930, 1404
   size: 37, 46
   orig: 37, 46
   offset: 0, 0
   index: 1
 m_generic8_die_
   rotate: false
-  xy: 2, 1471
+  xy: 991, 702
   size: 30, 33
   orig: 30, 33
   offset: 0, 0
   index: 5
 m_generic9_die_
   rotate: false
-  xy: 119, 1347
+  xy: 226, 1186
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
   index: 3
 b_starts_
   rotate: false
-  xy: 155, 2
+  xy: 169, 45
   size: 64, 39
   orig: 64, 39
   offset: 0, 0
   index: 0
 b_white_die_
   rotate: false
-  xy: 952, 113
+  xy: 878, 2
   size: 53, 55
   orig: 53, 55
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 805, 264
+  xy: 100, 437
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 tiles_125_destroy_
   rotate: false
-  xy: 394, 716
+  xy: 198, 785
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 b_white_walk_right_
   rotate: false
-  xy: 296, 866
+  xy: 2, 916
   size: 46, 57
   orig: 46, 57
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 2, 347
+  xy: 52, 356
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 98
 m_5_walk_left_
   rotate: false
-  xy: 693, 1161
+  xy: 756, 1033
   size: 39, 55
   orig: 39, 55
   offset: 0, 0
   index: 1
 b_blue_walk_up_
   rotate: false
-  xy: 906, 951
+  xy: 486, 987
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 2
 b_blue_walk_die_
   rotate: false
-  xy: 890, 162
+  xy: 822, 60
   size: 48, 56
   orig: 48, 56
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 952, 354
+  xy: 356, 364
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 304
 m_generic2_die_
   rotate: false
-  xy: 190, 101
+  xy: 58, 163
   size: 21, 36
   orig: 21, 36
   offset: 0, 0
   index: 5
 b_green_walk_right_
   rotate: false
-  xy: 246, 869
+  xy: 345, 805
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 724, 209
+  xy: 566, 206
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 86
 m_generic10_walk_
   rotate: false
-  xy: 715, 965
+  xy: 678, 951
   size: 41, 43
   orig: 41, 43
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 149, 445
+  xy: 654, 401
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 287
 bonus_bomb_
   rotate: false
-  xy: 492, 846
-  size: 47, 47
-  orig: 47, 47
+  xy: 393, 860
+  size: 46, 55
+  orig: 46, 55
   offset: 0, 0
   index: 1
 m_generic6_walk_
   rotate: false
-  xy: 758, 969
+  xy: 818, 934
   size: 40, 45
   orig: 40, 45
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 149, 690
+  xy: 149, 747
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 137
 b_blue_walk_down_
   rotate: false
-  xy: 440, 969
+  xy: 288, 1053
   size: 43, 55
   orig: 43, 55
   offset: 0, 0
   index: 2
 b_red_die_
   rotate: false
-  xy: 729, 2
+  xy: 2, 221
   size: 54, 54
   orig: 54, 54
   offset: 0, 0
   index: 3
 bonus_potion_
   rotate: false
-  xy: 688, 748
-  size: 47, 47
-  orig: 47, 47
+  xy: 294, 935
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 5
 xplode_vert_
   rotate: false
-  xy: 529, 60
+  xy: 584, 106
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 m_generic3_die_
   rotate: false
-  xy: 78, 1389
+  xy: 264, 1200
   size: 35, 42
   orig: 35, 42
   offset: 0, 0
   index: 2
 m_generic4_die_
   rotate: false
-  xy: 528, 1067
+  xy: 714, 1026
   size: 40, 42
   orig: 40, 42
   offset: 0, 0
   index: 0
 tiles_43_destroy_
   rotate: false
-  xy: 200, 330
+  xy: 812, 267
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 tiles_2_destroy_
   rotate: false
-  xy: 149, 396
+  xy: 2, 524
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 b_white_die_
   rotate: false
-  xy: 140, 101
+  xy: 534, 62
   size: 48, 51
   orig: 48, 51
   offset: 0, 0
   index: 4
 tiles_125_destroy_
   rotate: false
-  xy: 443, 715
+  xy: 247, 753
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 m_generic1_die_
   rotate: false
-  xy: 990, 213
+  xy: 274, 212
   size: 31, 41
   orig: 31, 41
   offset: 0, 0
   index: 3
 m_1_walk_down_
   rotate: false
-  xy: 385, 1037
+  xy: 972, 810
   size: 41, 47
   orig: 41, 47
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 443, 519
+  xy: 396, 508
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 226
 b_red_walk_left_
   rotate: false
-  xy: 51, 951
+  xy: 443, 801
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 528, 209
+  xy: 714, 174
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 91
 m_3_walk_down_
   rotate: false
-  xy: 715, 1010
+  xy: 770, 941
   size: 40, 45
   orig: 40, 45
   offset: 0, 0
   index: 0
 m_4_walk_left_
   rotate: false
-  xy: 476, 1068
+  xy: 706, 1070
   size: 39, 50
   orig: 39, 50
   offset: 0, 0
   index: 0
 tiles_166_destroy_
   rotate: false
-  xy: 149, 641
+  xy: 748, 601
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 560, 307
+  xy: 860, 316
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 40
 m_2_die_
   rotate: false
-  xy: 52, 149
+  xy: 58, 201
   size: 16, 30
   orig: 16, 30
   offset: 0, 0
   index: 5
 m_3_die_
   rotate: false
-  xy: 279, 1337
+  xy: 2, 1253
   size: 35, 43
   orig: 35, 43
   offset: 0, 0
   index: 3
 m_4_die_
   rotate: false
-  xy: 148, 944
+  xy: 344, 863
   size: 46, 54
   orig: 46, 54
   offset: 0, 0
   index: 1
 m_generic1_walk_
   rotate: false
-  xy: 242, 1276
+  xy: 915, 1495
   size: 36, 46
   orig: 36, 46
   offset: 0, 0
   index: 1
 m_generic2_die_
   rotate: false
-  xy: 258, 1195
+  xy: 941, 1361
   size: 38, 41
   orig: 38, 41
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 443, 617
+  xy: 699, 566
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 17
 spawn_p
   rotate: false
-  xy: 835, 710
+  xy: 247, 802
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 554, 405
+  xy: 347, 462
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 269
 tiles_
   rotate: false
-  xy: 2, 396
+  xy: 405, 312
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 56
 b_white_walk_left_
   rotate: false
-  xy: 245, 985
+  xy: 390, 977
   size: 44, 57
   orig: 44, 57
   offset: 0, 0
   index: 1
 m_3_walk_right_
   rotate: false
-  xy: 82, 1255
+  xy: 878, 1412
   size: 37, 44
   orig: 37, 44
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 247, 379
+  xy: 606, 352
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 297
 tiles_
   rotate: false
-  xy: 884, 619
+  xy: 543, 598
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 147
 b_green_walk_down_
   rotate: false
-  xy: 2, 1042
+  xy: 145, 1067
   size: 44, 56
   orig: 44, 56
   offset: 0, 0
   index: 0
 b_blue_walk_left_
   rotate: false
-  xy: 540, 904
+  xy: 387, 1036
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 788, 509
+  xy: 395, 557
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 208
 b_white_walk_up_
   rotate: false
-  xy: 681, 903
+  xy: 882, 772
   size: 43, 57
   orig: 43, 57
   offset: 0, 0
   index: 3
 bonus_speed_
   rotate: false
-  xy: 443, 764
-  size: 47, 47
-  orig: 47, 47
+  xy: 539, 860
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 4
 bonus_life_
   rotate: false
-  xy: 149, 837
-  size: 47, 47
-  orig: 47, 47
+  xy: 491, 812
+  size: 46, 55
+  orig: 46, 55
   offset: 0, 0
   index: 1
 b_blue_walk_right_
   rotate: false
-  xy: 635, 846
+  xy: 49, 1127
   size: 44, 56
   orig: 44, 56
   offset: 0, 0
   index: 1
 m_5_walk_right_
   rotate: false
-  xy: 570, 1102
+  xy: 474, 1139
   size: 39, 59
   orig: 39, 59
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 394, 520
+  xy: 346, 511
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 225
 m_5_walk_down_
   rotate: false
-  xy: 652, 1142
+  xy: 854, 1021
   size: 39, 56
   orig: 39, 56
   offset: 0, 0
   index: 1
 m_3_die_
   rotate: false
-  xy: 592, 1191
+  xy: 879, 1162
   size: 39, 45
   orig: 39, 45
   offset: 0, 0
   index: 0
 m_4_die_
   rotate: false
-  xy: 433, 1026
+  xy: 875, 831
   size: 41, 48
   orig: 41, 48
   offset: 0, 0
   index: 2
 m_5_die_
   rotate: false
-  xy: 76, 1433
+  xy: 734, 106
   size: 31, 26
   orig: 31, 26
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 445, 470
+  xy: 703, 419
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 253
 tiles_
   rotate: false
-  xy: 639, 699
+  xy: 443, 752
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 10
 b_green_walk_right_
   rotate: false
-  xy: 681, 846
+  xy: 2, 1138
   size: 44, 55
   orig: 44, 55
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 247, 428
+  xy: 403, 459
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 27
 tiles_
   rotate: false
-  xy: 639, 650
+  xy: 942, 702
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 129
+shield_
+  rotate: false
+  xy: 86, 2
+  size: 81, 80
+  orig: 81, 80
+  offset: 0, 0
+  index: 0
 tiles_248_destroy_
   rotate: false
-  xy: 247, 477
+  xy: 801, 463
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 b_red_die_
   rotate: false
-  xy: 729, 58
+  xy: 655, 2
   size: 54, 49
   orig: 54, 49
   offset: 0, 0
   index: 6
 xplode_hor_
   rotate: false
-  xy: 829, 165
+  xy: 867, 118
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 m_generic9_walk_
   rotate: false
-  xy: 424, 1127
+  xy: 895, 1066
   size: 39, 46
   orig: 39, 46
   offset: 0, 0
   index: 0
 m_generic6_die_
   rotate: false
-  xy: 2, 1381
+  xy: 92, 1230
   size: 35, 46
   orig: 35, 46
   offset: 0, 0
   index: 3
 m_generic7_die_
   rotate: false
-  xy: 60, 116
+  xy: 291, 103
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 m_generic9_die_
   rotate: false
-  xy: 48, 1067
+  xy: 780, 1177
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
   index: 1
 tiles_207_destroy_
   rotate: false
-  xy: 394, 569
+  xy: 100, 682
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 456, 372
+  xy: 249, 410
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 m_1_die_
   rotate: false
-  xy: 60, 116
+  xy: 291, 103
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 750, 458
+  xy: 552, 451
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 246
 bonus_star_
   rotate: false
-  xy: 479, 160
-  size: 47, 63
-  orig: 47, 63
+  xy: 788, 708
+  size: 45, 66
+  orig: 45, 66
   offset: 0, 0
   index: 5
 tiles_84_destroy_
   rotate: false
-  xy: 871, 220
+  xy: 409, 263
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 b_red_walk_down_
   rotate: false
-  xy: 908, 893
+  xy: 633, 932
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 100, 613
+  xy: 550, 549
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 20
 xplode_tip_down_
   rotate: false
-  xy: 629, 110
+  xy: 684, 106
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 bonus_throw
   rotate: false
-  xy: 51, 902
-  size: 47, 47
-  orig: 47, 47
+  xy: 138, 167
+  size: 28, 38
+  orig: 28, 38
   offset: 0, 0
   index: -1
 tiles_
   rotate: false
-  xy: 345, 425
+  xy: 2, 573
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 289
 bonus_bomb_
   rotate: false
-  xy: 884, 815
-  size: 47, 47
-  orig: 47, 47
+  xy: 733, 815
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 3
 m_generic3_walk_
   rotate: false
-  xy: 355, 1236
+  xy: 761, 1282
   size: 38, 45
   orig: 38, 45
   offset: 0, 0
   index: 2
 b_white_walk_down_
   rotate: false
-  xy: 726, 906
+  xy: 927, 807
   size: 43, 57
   orig: 43, 57
   offset: 0, 0
   index: 3
 b_red_die_
   rotate: false
-  xy: 78, 103
+  xy: 649, 53
   size: 48, 51
   orig: 48, 51
   offset: 0, 0
   index: 5
 xplode_vert_
   rotate: false
-  xy: 429, 60
+  xy: 416, 113
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 m_generic7_die_
   rotate: false
-  xy: 457, 1217
+  xy: 838, 1127
   size: 39, 45
   orig: 39, 45
   offset: 0, 0
   index: 0
 m_generic8_die_
   rotate: false
-  xy: 162, 1288
+  xy: 333, 1094
   size: 36, 45
   orig: 36, 45
   offset: 0, 0
   index: 2
 m_generic9_die_
   rotate: false
-  xy: 995, 495
+  xy: 281, 136
   size: 26, 37
   orig: 26, 37
   offset: 0, 0
   index: 4
 tiles_43_destroy_
   rotate: false
-  xy: 309, 327
+  xy: 910, 222
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 b_blue_walk_left_
   rotate: false
-  xy: 246, 927
+  xy: 50, 954
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 1
 b_white_die_
   rotate: false
-  xy: 897, 105
+  xy: 767, 52
   size: 53, 55
   orig: 53, 55
   offset: 0, 0
   index: 2
 m_generic2_walk_
   rotate: false
-  xy: 672, 1008
+  xy: 629, 990
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: 0
 tiles_125_destroy_
   rotate: false
-  xy: 933, 697
+  xy: 345, 707
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 345, 621
+  xy: 944, 555
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 167
 m_generic1_die_
   rotate: false
-  xy: 982, 877
+  xy: 918, 914
   size: 40, 46
   orig: 40, 46
   offset: 0, 0
   index: 1
 b_white_walk_right_
   rotate: false
-  xy: 394, 863
+  xy: 51, 895
   size: 46, 57
   orig: 46, 57
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 946, 501
+  xy: 699, 468
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 228
 tiles_
   rotate: false
-  xy: 737, 556
+  xy: 149, 698
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 180
 tiles_
   rotate: false
-  xy: 626, 160
+  xy: 616, 156
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 93
 m_2_walk_down_
   rotate: false
-  xy: 747, 1062
+  xy: 960, 955
   size: 40, 44
   orig: 40, 44
   offset: 0, 0
   index: 2
 m_2_walk_left_
   rotate: false
-  xy: 435, 1311
+  xy: 718, 1333
   size: 38, 44
   orig: 38, 44
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 149, 592
+  xy: 650, 548
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 245
 tiles_166_destroy_
   rotate: false
-  xy: 51, 706
+  xy: 895, 565
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 2, 445
+  xy: 959, 310
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 42
 m_generic2_die_
   rotate: false
-  xy: 197, 1374
+  xy: 360, 1181
   size: 35, 43
   orig: 35, 43
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 2, 837
+  xy: 739, 699
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 106
 tiles_
   rotate: false
-  xy: 247, 575
+  xy: 394, 606
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 19
 bomb_orig_
   rotate: false
-  xy: 2, 244
+  xy: 359, 216
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 149, 739
+  xy: 2, 867
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 123
 b_green_die_
   rotate: false
-  xy: 505, 2
+  xy: 82, 145
   size: 54, 56
   orig: 54, 56
   offset: 0, 0
   index: 1
 b_blue_walk_down_
   rotate: false
-  xy: 388, 980
+  xy: 239, 1082
   size: 43, 55
   orig: 43, 55
   offset: 0, 0
   index: 1
 bonus_shield_
   rotate: false
-  xy: 541, 748
-  size: 47, 47
-  orig: 47, 47
+  xy: 638, 754
+  size: 46, 55
+  orig: 46, 55
   offset: 0, 0
   index: 1
 b_green_walk_down_
   rotate: false
-  xy: 861, 922
+  xy: 584, 960
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 2
 tiles_2_destroy_
   rotate: false
-  xy: 100, 417
+  xy: 655, 303
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 543, 503
+  xy: 552, 500
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 212
 b_white_walk_up_
   rotate: false
-  xy: 773, 852
+  xy: 975, 751
   size: 43, 57
   orig: 43, 57
   offset: 0, 0
   index: 1
 m_generic1_die_
   rotate: false
-  xy: 995, 452
+  xy: 140, 124
   size: 26, 41
   orig: 26, 41
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 211, 281
+  xy: 615, 254
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 8
 m_generic8_walk_
   rotate: false
-  xy: 841, 1026
+  xy: 860, 976
   size: 40, 43
   orig: 40, 43
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 2, 690
+  xy: 444, 605
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 190
 tiles_166_destroy_
   rotate: false
-  xy: 198, 624
+  xy: 797, 561
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 m_2_die_
   rotate: false
-  xy: 218, 1195
+  xy: 950, 1270
   size: 38, 44
   orig: 38, 44
   offset: 0, 0
   index: 0
 m_4_die_
   rotate: false
-  xy: 76, 1433
+  xy: 734, 106
   size: 31, 26
   orig: 31, 26
   offset: 0, 0
   index: 4
 m_5_die_
   rotate: false
-  xy: 433, 1026
+  xy: 875, 831
   size: 41, 48
   orig: 41, 48
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 247, 722
+  xy: 591, 695
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 105
 tiles_
   rotate: false
-  xy: 100, 760
+  xy: 641, 646
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 12
 tiles_
   rotate: false
-  xy: 652, 405
+  xy: 247, 508
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 266
 b_red_walk_right_
   rotate: false
-  xy: 147, 1000
+  xy: 291, 995
   size: 44, 56
   orig: 44, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 756, 262
+  xy: 150, 404
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 51
 tiles_289_destroy_
   rotate: false
-  xy: 899, 374
+  xy: 298, 430
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 51, 755
+  xy: 51, 797
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 133
 bonus_shield_
   rotate: false
-  xy: 247, 771
-  size: 47, 47
-  orig: 47, 47
+  xy: 635, 874
+  size: 45, 56
+  orig: 45, 56
   offset: 0, 0
   index: 2
 tiles_248_destroy_
   rotate: false
-  xy: 51, 559
+  xy: 752, 454
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 m_generic3_walk_
   rotate: false
-  xy: 416, 1175
+  xy: 887, 1114
   size: 39, 46
   orig: 39, 46
   offset: 0, 0
   index: 1
 xplode_center_
   rotate: false
-  xy: 363, 163
+  xy: 916, 172
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 xplode_hor_
   rotate: false
-  xy: 729, 159
+  xy: 817, 118
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 tiles_207_destroy_
   rotate: false
-  xy: 492, 552
+  xy: 198, 638
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 m_generic6_die_
   rotate: false
-  xy: 60, 116
+  xy: 291, 103
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 m_generic7_die_
   rotate: false
-  xy: 990, 170
+  xy: 988, 50
   size: 31, 41
   orig: 31, 41
   offset: 0, 0
   index: 3
 m_generic8_die_
   rotate: false
-  xy: 498, 1256
+  xy: 698, 1122
   size: 39, 44
   orig: 39, 44
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 688, 699
+  xy: 394, 753
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 bonus_life_
   rotate: false
-  xy: 296, 817
-  size: 47, 47
-  orig: 47, 47
+  xy: 98, 1054
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 4
 m_5_walk_right_
   rotate: false
-  xy: 535, 962
+  xy: 264, 303
   size: 41, 56
   orig: 41, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 345, 523
+  xy: 247, 557
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 222
 m_4_walk_down_
   rotate: false
-  xy: 395, 1223
+  xy: 811, 1281
   size: 38, 49
   orig: 38, 49
   offset: 0, 0
   index: 0
 m_1_walk_left_
   rotate: false
-  xy: 81, 1301
+  xy: 236, 1139
   size: 36, 45
   orig: 36, 45
   offset: 0, 0
   index: 0
 m_2_walk_right_
   rotate: false
-  xy: 475, 1302
+  xy: 759, 1329
   size: 38, 44
   orig: 38, 44
   offset: 0, 0
   index: 0
 b_green_walk_up_
   rotate: false
-  xy: 490, 953
+  xy: 337, 1037
   size: 43, 55
   orig: 43, 55
   offset: 0, 0
   index: 1
 m_2_walk_left_
   rotate: false
-  xy: 234, 1089
+  xy: 597, 1220
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
   index: 1
 m_1_die_
   rotate: false
-  xy: 159, 1335
+  xy: 274, 1157
   size: 36, 41
   orig: 36, 41
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 652, 454
+  xy: 948, 506
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 248
 bonus_star_
   rotate: false
-  xy: 311, 213
-  size: 47, 63
-  orig: 47, 63
+  xy: 686, 770
+  size: 45, 63
+  orig: 45, 63
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 701, 405
+  xy: 198, 540
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 265
-tiles_84_destroy_
-  rotate: false
-  xy: 969, 256
-  size: 47, 47
-  orig: 47, 47
-  offset: 0, 0
-  index: 3
 m_4_walk_right_
   rotate: false
-  xy: 984, 571
+  xy: 984, 1061
   size: 38, 60
   orig: 38, 60
   offset: 0, 0
   index: 2
+tiles_84_destroy_
+  rotate: false
+  xy: 307, 283
+  size: 47, 47
+  orig: 47, 47
+  offset: 0, 0
+  index: 3
 tiles_
   rotate: false
-  xy: 100, 564
+  xy: 100, 633
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 22
 face_green
   rotate: false
-  xy: 2, 83
+  xy: 426, 2
   size: 56, 56
   orig: 56, 56
   offset: 0, 0
   index: -1
 tiles_289_destroy_
   rotate: false
-  xy: 296, 425
+  xy: 51, 552
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 786, 656
+  xy: 492, 656
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 126
 bonus_bomb_
   rotate: false
-  xy: 786, 803
-  size: 47, 47
-  orig: 47, 47
+  xy: 835, 768
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 5
 xplode_tip_left_
   rotate: false
-  xy: 70, 156
+  xy: 2, 277
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 394, 667
+  xy: 345, 658
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 143
 bonus_potion_
   rotate: false
-  xy: 884, 766
-  size: 47, 47
-  orig: 47, 47
+  xy: 540, 803
+  size: 46, 55
+  orig: 46, 55
   offset: 0, 0
   index: 1
 xplode_tip_right_
   rotate: false
-  xy: 263, 116
+  xy: 165, 252
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 m_generic6_die_
   rotate: false
-  xy: 121, 1300
+  xy: 284, 1110
   size: 36, 45
   orig: 36, 45
   offset: 0, 0
   index: 0
 m_generic8_die_
   rotate: false
-  xy: 178, 196
+  xy: 132, 249
   size: 31, 38
   orig: 31, 38
   offset: 0, 0
   index: 4
 m_generic9_die_
   rotate: false
-  xy: 280, 1293
+  xy: 371, 1094
   size: 36, 42
   orig: 36, 42
   offset: 0, 0
   index: 2
 lifes
   rotate: false
-  xy: 443, 813
-  size: 47, 47
-  orig: 47, 47
+  xy: 981, 1399
+  size: 38, 32
+  orig: 38, 32
   offset: 0, 0
   index: -1
 tiles_43_destroy_
   rotate: false
-  xy: 458, 323
+  xy: 713, 272
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 tiles_2_destroy_
   rotate: false
-  xy: 407, 373
+  xy: 199, 442
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 b_white_die_
   rotate: false
-  xy: 840, 106
+  xy: 878, 59
   size: 48, 57
   orig: 48, 57
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 592, 503
+  xy: 650, 499
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 211
 tiles_
   rotate: false
-  xy: 394, 618
+  xy: 846, 512
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 169
 tiles_
   rotate: false
-  xy: 799, 460
+  xy: 503, 460
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 232
 m_5_walk_left_
   rotate: false
-  xy: 334, 1088
+  xy: 557, 1145
   size: 39, 48
   orig: 39, 48
   offset: 0, 0
   index: 0
 b_blue_walk_die_
   rotate: false
-  xy: 953, 2
+  xy: 478, 60
   size: 54, 51
   orig: 54, 51
   offset: 0, 0
   index: 7
 tiles_166_destroy_
   rotate: false
-  xy: 247, 624
+  xy: 797, 610
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 511, 307
+  xy: 763, 258
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 44
 bonus_hand_
   rotate: false
-  xy: 639, 797
-  size: 47, 47
-  orig: 47, 47
+  xy: 442, 859
+  size: 46, 55
+  orig: 46, 55
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 897, 423
+  xy: 2, 622
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 258
 tiles_84_destroy_
   rotate: false
-  xy: 409, 275
+  xy: 101, 388
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 m_generic2_die_
   rotate: false
-  xy: 995, 452
+  xy: 140, 124
   size: 26, 41
   orig: 26, 41
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 358, 278
+  xy: 2, 426
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 83
 tiles_
   rotate: false
-  xy: 345, 719
+  xy: 100, 829
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 125
 m_2_walk_up_
   rotate: false
-  xy: 340, 1040
+  xy: 972, 859
   size: 41, 46
   orig: 41, 46
   offset: 0, 0
   index: 3
 b_green_die_
   rotate: false
-  xy: 785, 106
+  xy: 933, 2
   size: 53, 55
   orig: 53, 55
   offset: 0, 0
   index: 3
 m_generic10_walk_
   rotate: false
-  xy: 298, 1245
+  xy: 268, 255
   size: 37, 46
   orig: 37, 46
   offset: 0, 0
   index: 2
 bonus_bomb_
   rotate: false
-  xy: 443, 862
-  size: 47, 47
-  orig: 47, 47
+  xy: 50, 1012
+  size: 46, 53
+  orig: 46, 53
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 750, 458
+  xy: 552, 451
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 286
 tiles_248_destroy_
   rotate: false
-  xy: 149, 494
+  xy: 851, 414
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 b_red_die_
   rotate: false
-  xy: 393, 2
+  xy: 235, 70
   size: 54, 56
   orig: 54, 56
   offset: 0, 0
   index: 2
 bonus_potion_
   rotate: false
-  xy: 835, 759
-  size: 47, 47
-  orig: 47, 47
+  xy: 586, 902
+  size: 45, 56
+  orig: 45, 56
   offset: 0, 0
   index: 2
 m_generic3_die_
   rotate: false
-  xy: 613, 1057
+  xy: 664, 1043
   size: 40, 42
   orig: 40, 42
   offset: 0, 0
   index: 1
 m_generic4_die_
   rotate: false
-  xy: 241, 1324
+  xy: 371, 1138
   size: 36, 41
   orig: 36, 41
   offset: 0, 0
   index: 3
 m_generic5_die_
   rotate: false
-  xy: 60, 116
+  xy: 291, 103
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 xplode_center_
   rotate: false
-  xy: 211, 166
+  xy: 966, 211
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 m_4_walk_up_
   rotate: false
-  xy: 227, 1134
+  xy: 870, 1209
   size: 38, 59
   orig: 38, 59
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 2, 641
+  xy: 2, 671
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 214
 m_generic1_die_
   rotate: false
-  xy: 197, 1374
+  xy: 360, 1181
   size: 35, 43
   orig: 35, 43
   offset: 0, 0
   index: 2
 m_1_walk_down_
   rotate: false
-  xy: 137, 1104
+  xy: 730, 1183
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
   index: 2
 m_1_walk_up_
   rotate: false
-  xy: 585, 960
+  xy: 48, 1185
   size: 42, 47
   orig: 42, 47
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 198, 526
+  xy: 198, 589
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 221
 b_red_walk_left_
   rotate: false
-  xy: 863, 864
+  xy: 730, 875
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 2
 m_generic5_walk_
   rotate: false
-  xy: 510, 1161
+  xy: 977, 1123
   size: 39, 46
   orig: 39, 46
   offset: 0, 0
   index: 2
 m_2_walk_down_
   rotate: false
-  xy: 2, 1145
+  xy: 597, 1265
   size: 39, 42
   orig: 39, 42
   offset: 0, 0
   index: 1
 xplode_tip_up_
   rotate: false
-  xy: 629, 60
+  xy: 416, 163
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 tiles_166_destroy_
   rotate: false
-  xy: 100, 662
+  xy: 846, 561
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 m_2_die_
   rotate: false
-  xy: 42, 1259
+  xy: 837, 1413
   size: 37, 44
   orig: 37, 44
   offset: 0, 0
   index: 2
 m_3_die_
   rotate: false
-  xy: 995, 495
+  xy: 281, 136
   size: 26, 37
   orig: 26, 37
   offset: 0, 0
   index: 4
 m_5_die_
   rotate: false
-  xy: 221, 2
+  xy: 82, 84
   size: 56, 59
   orig: 56, 59
   offset: 0, 0
   index: 0
 m_3_walk_up_
   rotate: false
-  xy: 705, 1057
+  xy: 573, 1069
   size: 40, 44
   orig: 40, 44
   offset: 0, 0
   index: 0
 m_generic1_walk_
   rotate: false
-  xy: 318, 1331
+  xy: 45, 1234
   size: 35, 46
   orig: 35, 46
   offset: 0, 0
   index: 0
 spawn_p
   rotate: false
-  xy: 884, 717
+  xy: 198, 834
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 805, 313
+  xy: 507, 313
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 307
 tiles_
   rotate: false
-  xy: 603, 405
+  xy: 297, 479
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 268
 m_1_walk_right_
   rotate: false
-  xy: 2, 1290
+  xy: 969, 1433
   size: 37, 44
   orig: 37, 44
   offset: 0, 0
   index: 2
 m_2_walk_up_
   rotate: false
-  xy: 799, 1020
+  xy: 474, 1093
   size: 40, 44
   orig: 40, 44
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 658, 258
+  xy: 256, 361
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 53
 tiles_289_destroy_
   rotate: false
-  xy: 505, 405
+  xy: 198, 491
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 m_5_walk_up_
   rotate: false
-  xy: 428, 1076
+  xy: 657, 1087
   size: 39, 49
   orig: 39, 49
   offset: 0, 0
   index: 0
 bonus_shield_
   rotate: false
-  xy: 51, 853
-  size: 47, 47
-  orig: 47, 47
+  xy: 392, 917
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 556, 356
+  xy: 655, 352
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 296
 xplode_tip_left_
   rotate: false
-  xy: 2, 194
+  xy: 108, 289
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 933, 648
+  xy: 493, 607
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 146
 m_4_walk_up_
   rotate: false
-  xy: 355, 1185
+  xy: 910, 1268
   size: 38, 49
   orig: 38, 49
   offset: 0, 0
   index: 0
 xplode_tip_right_
   rotate: false
-  xy: 329, 113
+  xy: 224, 186
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 b_white_walk_up_
   rotate: false
-  xy: 342, 925
+  xy: 978, 93
   size: 44, 57
   orig: 44, 57
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 737, 605
+  xy: 648, 597
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 163
 tiles_207_destroy_
   rotate: false
-  xy: 886, 521
+  xy: 296, 577
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 bonus_life_
   rotate: false
-  xy: 198, 820
-  size: 47, 47
-  orig: 47, 47
+  xy: 537, 920
+  size: 45, 56
+  orig: 45, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 296, 523
+  xy: 296, 528
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 224
 m_5_walk_down_
   rotate: false
-  xy: 170, 236
+  xy: 516, 1131
   size: 39, 60
   orig: 39, 60
   offset: 0, 0
   index: 2
 m_1_walk_left_
   rotate: false
-  xy: 164, 1241
+  xy: 839, 1366
   size: 37, 45
   orig: 37, 45
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 848, 465
+  xy: 452, 507
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 231
 tiles_
   rotate: false
-  xy: 541, 552
+  xy: 345, 609
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 189
 m_1_die_
   rotate: false
-  xy: 629, 962
+  xy: 875, 881
   size: 41, 46
   orig: 41, 46
   offset: 0, 0
   index: 1
 trophy
   rotate: false
-  xy: 315, 1138
+  xy: 960, 1214
   size: 38, 54
   orig: 38, 54
   offset: 0, 0
   index: -1
 bonus_star_
   rotate: false
-  xy: 211, 216
-  size: 47, 63
-  orig: 47, 63
+  xy: 100, 878
+  size: 46, 61
+  orig: 46, 61
   offset: 0, 0
   index: 1
 b_green_walk_right_
   rotate: false
-  xy: 541, 846
+  xy: 296, 822
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 688, 650
+  xy: 592, 646
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 128
 tiles_
   rotate: false
-  xy: 151, 298
+  xy: 557, 255
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 63
 tiles_
   rotate: false
-  xy: 605, 356
+  xy: 704, 370
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 295
 shield_
   rotate: false
-  xy: 2, 2
-  size: 78, 79
-  orig: 78, 79
+  xy: 242, 2
+  size: 66, 66
+  orig: 66, 66
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 492, 650
+  xy: 443, 654
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 145
 b_red_die_
   rotate: false
-  xy: 953, 55
+  xy: 823, 2
   size: 53, 56
   orig: 53, 56
   offset: 0, 0
   index: 1
 xplode_hor_
   rotate: false
-  xy: 429, 160
+  xy: 816, 168
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 tiles_207_destroy_
   rotate: false
-  xy: 296, 572
+  xy: 51, 699
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 m_generic6_die_
   rotate: false
-  xy: 337, 1283
+  xy: 891, 1364
   size: 37, 46
   orig: 37, 46
   offset: 0, 0
   index: 2
 m_generic7_die_
   rotate: false
-  xy: 995, 495
+  xy: 281, 136
   size: 26, 37
   orig: 26, 37
   offset: 0, 0
   index: 4
 m_generic9_die_
   rotate: false
-  xy: 757, 1016
+  xy: 622, 1033
   size: 40, 44
   orig: 40, 44
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 609, 307
+  xy: 909, 320
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 tiles_125_destroy_
   rotate: false
-  xy: 296, 719
+  xy: 149, 796
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 884, 570
+  xy: 2, 769
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 173
 m_generic5_walk_
   rotate: false
-  xy: 465, 1169
+  xy: 846, 1079
   size: 39, 46
   orig: 39, 46
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 528, 160
+  xy: 2, 377
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 97
 m_5_walk_left_
   rotate: false
-  xy: 611, 1131
+  xy: 952, 1001
   size: 39, 58
   orig: 39, 58
   offset: 0, 0
   index: 2
 m_generic4_walk_
   rotate: false
-  xy: 170, 1196
+  xy: 950, 1316
   size: 38, 43
   orig: 38, 43
   offset: 0, 0
   index: 2
 bonus_star_
   rotate: false
-  xy: 413, 210
-  size: 47, 63
-  orig: 47, 63
+  xy: 736, 748
+  size: 45, 65
+  orig: 45, 65
   offset: 0, 0
   index: 4
 b_blue_walk_die_
   rotate: false
-  xy: 379, 60
+  xy: 309, 118
   size: 48, 51
   orig: 48, 51
   offset: 0, 0
   index: 5
 b_blue_walk_up_
   rotate: false
-  xy: 951, 983
+  xy: 436, 1034
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 903, 276
+  xy: 2, 475
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 46
 bonus_hand_
   rotate: false
-  xy: 541, 797
-  size: 47, 47
-  orig: 47, 47
+  xy: 882, 712
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 750, 409
+  xy: 149, 551
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 262
 m_4_walk_right_
   rotate: false
-  xy: 43, 1156
+  xy: 679, 1257
   size: 38, 56
   orig: 38, 56
   offset: 0, 0
   index: 1
 b_red_walk_down_
   rotate: false
-  xy: 99, 1004
+  xy: 242, 1024
   size: 44, 56
   orig: 44, 56
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 773, 213
+  xy: 508, 215
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 85
 spawn_p
   rotate: false
-  xy: 933, 746
+  xy: 149, 845
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 b_white_walk_left_
   rotate: false
-  xy: 344, 866
+  xy: 640, 695
   size: 46, 57
   orig: 46, 57
   offset: 0, 0
   index: 3
 m_generic10_walk_
   rotate: false
-  xy: 203, 1241
+  xy: 917, 1452
   size: 37, 41
   orig: 37, 41
   offset: 0, 0
   index: 0
 b_green_die_
   rotate: false
-  xy: 329, 60
+  xy: 366, 113
   size: 48, 51
   orig: 48, 51
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 198, 428
+  xy: 605, 401
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 288
 bonus_bomb_
   rotate: false
-  xy: 933, 844
-  size: 47, 47
-  orig: 47, 47
+  xy: 439, 976
+  size: 45, 56
+  orig: 45, 56
   offset: 0, 0
   index: 2
 b_red_walk_up_
   rotate: false
-  xy: 485, 1010
+  xy: 2, 1195
   size: 41, 56
   orig: 41, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 198, 673
+  xy: 198, 736
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 138
 b_white_walk_down_
   rotate: false
-  xy: 818, 857
+  xy: 830, 828
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 2
 b_red_die_
   rotate: false
-  xy: 2, 141
+  xy: 699, 53
   size: 48, 51
   orig: 48, 51
   offset: 0, 0
   index: 4
 bonus_potion_
   rotate: false
-  xy: 737, 752
-  size: 47, 47
-  orig: 47, 47
+  xy: 244, 964
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 4
 xplode_vert_
   rotate: false
-  xy: 579, 60
+  xy: 516, 115
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 m_3_walk_right_
   rotate: false
-  xy: 539, 1258
+  xy: 556, 1195
   size: 39, 44
   orig: 39, 44
   offset: 0, 0
   index: 2
 m_generic4_die_
   rotate: false
-  xy: 60, 116
+  xy: 291, 103
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 m_generic5_die_
   rotate: false
-  xy: 79, 1348
+  xy: 177, 1216
   size: 36, 39
   orig: 36, 39
   offset: 0, 0
   index: 3
 face_white
   rotate: false
-  xy: 155, 43
+  xy: 310, 2
   size: 56, 56
   orig: 56, 56
   offset: 0, 0
   index: -1
 b_blue_walk_left_
   rotate: false
-  xy: 197, 928
+  xy: 2, 975
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 0
 tiles_2_destroy_
   rotate: false
-  xy: 298, 376
+  xy: 149, 453
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 590, 601
+  xy: 895, 614
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 166
 m_generic1_die_
   rotate: false
-  xy: 551, 1163
+  xy: 928, 1158
   size: 39, 46
   orig: 39, 46
   offset: 0, 0
   index: 0
 m_1_walk_down_
   rotate: false
-  xy: 291, 1042
+  xy: 918, 866
   size: 41, 46
   orig: 41, 46
   offset: 0, 0
   index: 0
 b_red_walk_left_
   rotate: false
-  xy: 2, 984
+  xy: 394, 802
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 688, 552
+  xy: 198, 687
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 183
 tiles_
   rotate: false
-  xy: 462, 225
+  xy: 763, 209
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 90
 xplode_tip_up_
   rotate: false
-  xy: 729, 109
+  xy: 359, 166
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 1
 tiles_166_destroy_
   rotate: false
-  xy: 2, 739
+  xy: 944, 604
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 m_2_die_
   rotate: false
-  xy: 39, 1434
+  xy: 734, 134
   size: 30, 38
   orig: 30, 38
   offset: 0, 0
   index: 4
 m_3_die_
   rotate: false
-  xy: 238, 1367
+  xy: 409, 1140
   size: 35, 43
   orig: 35, 43
   offset: 0, 0
   index: 2
 m_4_die_
   rotate: false
-  xy: 221, 2
+  xy: 82, 84
   size: 56, 59
   orig: 56, 59
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 394, 471
+  xy: 851, 365
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 251
 tiles_
   rotate: false
-  xy: 590, 699
+  xy: 492, 705
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 101
 tiles_
   rotate: false
-  xy: 786, 607
+  xy: 697, 615
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 16
 spawn_p
   rotate: false
-  xy: 786, 705
+  xy: 296, 773
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 756, 311
+  xy: 557, 304
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 309
 bomb_orig_
   rotate: false
-  xy: 52, 206
+  xy: 409, 213
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 100, 466
+  xy: 552, 402
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 272
 tiles_
   rotate: false
-  xy: 560, 258
+  xy: 356, 315
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 55
 b_white_walk_left_
   rotate: false
-  xy: 198, 869
+  xy: 590, 744
   size: 46, 57
   orig: 46, 57
   offset: 0, 0
   index: 0
 b_green_die_
   rotate: false
-  xy: 940, 170
+  xy: 928, 59
   size: 48, 55
   orig: 48, 55
   offset: 0, 0
   index: 0
 b_red_walk_up_
   rotate: false
-  xy: 771, 911
+  xy: 780, 836
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 2, 494
+  xy: 753, 356
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 298
 tiles_
   rotate: false
-  xy: 835, 612
+  xy: 746, 650
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 148
 b_white_walk_up_
   rotate: false
-  xy: 342, 925
+  xy: 978, 93
   size: 44, 57
   orig: 44, 57
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 639, 601
+  xy: 944, 653
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 165
 bonus_speed_
   rotate: false
-  xy: 345, 768
-  size: 47, 47
-  orig: 47, 47
+  xy: 688, 713
+  size: 46, 55
+  orig: 46, 55
   offset: 0, 0
   index: 1
 bonus_life_
   rotate: false
-  xy: 100, 858
-  size: 47, 47
-  orig: 47, 47
+  xy: 147, 952
+  size: 46, 53
+  orig: 46, 53
   offset: 0, 0
   index: 0
 b_blue_walk_right_
   rotate: false
-  xy: 294, 925
+  xy: 99, 941
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 0
 m_5_walk_down_
   rotate: false
-  xy: 383, 1086
+  xy: 607, 1123
   size: 39, 49
   orig: 39, 49
   offset: 0, 0
   index: 0
 Sprite 364_
   rotate: false
-  xy: 737, 801
-  size: 47, 47
-  orig: 47, 47
+  xy: 542, 2
+  size: 55, 58
+  orig: 55, 58
   offset: 0, 0
   index: 0
 m_3_walk_left_
   rotate: false
-  xy: 145, 1058
+  xy: 739, 1137
   size: 39, 44
   orig: 39, 44
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 505, 454
+  xy: 753, 405
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 254
 m_generic4_walk_
   rotate: false
-  xy: 258, 1238
+  xy: 981, 1361
   size: 38, 36
   orig: 38, 36
   offset: 0, 0
   index: 1
 face_red
   rotate: false
-  xy: 82, 45
+  xy: 368, 2
   size: 56, 56
   orig: 56, 56
   offset: 0, 0
   index: -1
 tiles_
   rotate: false
-  xy: 541, 699
+  xy: 541, 696
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 104
 tiles_
   rotate: false
-  xy: 799, 411
+  xy: 100, 584
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 261
 m_generic7_walk_
   rotate: false
-  xy: 395, 1274
+  xy: 678, 1315
   size: 38, 44
   orig: 38, 44
   offset: 0, 0
   index: 2
 m_1_walk_right_
   rotate: false
-  xy: 571, 1057
+  xy: 763, 988
   size: 40, 43
   orig: 40, 43
   offset: 0, 0
   index: 1
 b_red_walk_right_
   rotate: false
-  xy: 149, 886
+  xy: 541, 745
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 848, 416
+  xy: 51, 601
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 26
 bonus_potion
   rotate: false
-  xy: 492, 797
-  size: 47, 47
-  orig: 47, 47
+  xy: 956, 1479
+  size: 37, 38
+  orig: 37, 38
   offset: 0, 0
   index: -1
 b_green_die_
   rotate: false
-  xy: 897, 2
+  xy: 422, 60
   size: 54, 51
   orig: 54, 51
   offset: 0, 0
   index: 7
 xplode_tip_down_
   rotate: false
-  xy: 529, 110
+  xy: 2, 327
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 3
 tiles_289_destroy_
   rotate: false
-  xy: 948, 403
+  xy: 248, 459
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 2, 788
+  xy: 2, 818
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 132
 m_generic3_walk_
   rotate: false
-  xy: 982, 829
+  xy: 961, 907
   size: 40, 46
   orig: 40, 46
   offset: 0, 0
   index: 0
 tiles_248_destroy_
   rotate: false
-  xy: 554, 454
+  xy: 850, 463
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 b_white_walk_down_
   rotate: false
-  xy: 630, 904
+  xy: 95, 1172
   size: 42, 56
   orig: 42, 56
   offset: 0, 0
   index: 1
 bonus_shield
   rotate: false
-  xy: 639, 748
-  size: 47, 47
-  orig: 47, 47
+  xy: 140, 84
+  size: 27, 38
+  orig: 27, 38
   offset: 0, 0
   index: -1
 xplode_hor_
   rotate: false
-  xy: 779, 163
+  xy: 766, 159
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 m_generic6_die_
   rotate: false
-  xy: 995, 495
+  xy: 281, 136
   size: 26, 37
   orig: 26, 37
   offset: 0, 0
   index: 4
 m_generic7_die_
   rotate: false
-  xy: 982, 684
+  xy: 531, 1036
   size: 40, 47
   orig: 40, 47
   offset: 0, 0
   index: 2
 m_generic8_die_
   rotate: false
-  xy: 672, 962
+  xy: 727, 933
   size: 41, 44
   orig: 41, 44
   offset: 0, 0
   index: 0
 tiles_207_destroy_
   rotate: false
-  xy: 443, 568
+  xy: 149, 649
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 51, 657
+  xy: 494, 558
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 835, 563
+  xy: 51, 748
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 175
 b_white_walk_right_
   rotate: false
-  xy: 294, 983
+  xy: 978, 152
   size: 44, 57
   orig: 44, 57
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 590, 552
+  xy: 296, 626
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 186
 tiles_
   rotate: false
-  xy: 51, 314
+  xy: 102, 339
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 99
 m_2_walk_left_
   rotate: false
-  xy: 42, 1214
+  xy: 799, 1332
   size: 38, 43
   orig: 38, 43
   offset: 0, 0
   index: 0
 m_1_die_
   rotate: false
-  xy: 995, 495
+  xy: 281, 136
   size: 26, 37
   orig: 26, 37
   offset: 0, 0
   index: 4
 bonus_star_
   rotate: false
-  xy: 360, 213
-  size: 47, 63
-  orig: 47, 63
+  xy: 636, 811
+  size: 45, 61
+  orig: 45, 61
   offset: 0, 0
   index: 2
 b_blue_walk_die_
   rotate: false
-  xy: 561, 2
+  xy: 225, 128
   size: 54, 56
   orig: 54, 56
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 854, 269
+  xy: 51, 454
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 48
 bonus_hand_
   rotate: false
-  xy: 2, 935
-  size: 47, 47
-  orig: 47, 47
+  xy: 2, 1078
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 507, 356
+  xy: 305, 381
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 303
 tiles_84_destroy_
   rotate: false
-  xy: 920, 227
+  xy: 356, 266
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 b_red_walk_down_
   rotate: false
-  xy: 816, 915
+  xy: 682, 893
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 675, 209
+  xy: 714, 223
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 87
 xplode_tip_down_
   rotate: false
-  xy: 679, 110
+  xy: 767, 109
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 51, 510
+  xy: 503, 411
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 271
 tiles_
   rotate: false
-  xy: 703, 356
+  xy: 503, 362
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 292
 bonus_bomb_
   rotate: false
-  xy: 835, 808
-  size: 47, 47
-  orig: 47, 47
+  xy: 783, 776
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 296, 670
+  xy: 296, 675
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 142
 xplode_vert_
   rotate: false
-  xy: 479, 60
+  xy: 466, 113
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 tiles_43_destroy_
   rotate: false
-  xy: 149, 347
+  xy: 861, 267
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 1
 m_generic3_die_
   rotate: false
-  xy: 60, 116
+  xy: 291, 103
   size: 16, 31
   orig: 16, 31
   offset: 0, 0
   index: 5
 m_generic5_die_
   rotate: false
-  xy: 469, 1120
+  xy: 943, 1061
   size: 39, 47
   orig: 39, 47
   offset: 0, 0
   index: 1
 tiles_2_destroy_
   rotate: false
-  xy: 198, 379
+  xy: 51, 503
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 tiles_125_destroy_
   rotate: false
-  xy: 492, 699
+  xy: 296, 724
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 641, 503
+  xy: 699, 517
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 210
 tiles_
   rotate: false
-  xy: 296, 621
+  xy: 895, 516
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 168
 b_white_walk_right_
   rotate: false
-  xy: 296, 866
+  xy: 2, 916
   size: 46, 57
   orig: 46, 57
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 639, 552
+  xy: 247, 655
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 185
 tiles_
   rotate: false
-  xy: 675, 160
+  xy: 665, 156
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 92
 m_3_walk_down_
   rotate: false
-  xy: 2, 1100
+  xy: 689, 1168
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
   index: 1
 b_blue_walk_die_
   rotate: false
-  xy: 841, 55
+  xy: 711, 2
   size: 54, 49
   orig: 54, 49
   offset: 0, 0
   index: 6
 tiles_166_destroy_
   rotate: false
-  xy: 541, 601
+  xy: 846, 610
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 249, 330
+  xy: 811, 316
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 41
 bonus_hand_
   rotate: false
-  xy: 688, 797
-  size: 47, 47
-  orig: 47, 47
+  xy: 98, 999
+  size: 46, 53
+  orig: 46, 53
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 786, 558
+  xy: 100, 731
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 18
 tiles_
   rotate: false
-  xy: 658, 307
+  xy: 958, 359
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 313
 m_generic7_walk_
   rotate: false
-  xy: 506, 1209
+  xy: 797, 1084
   size: 39, 45
   orig: 39, 45
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 198, 722
+  xy: 51, 846
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 124
 tiles_
   rotate: false
-  xy: 51, 363
+  xy: 458, 311
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 57
 b_green_die_
   rotate: false
-  xy: 449, 2
+  xy: 169, 86
   size: 54, 56
   orig: 54, 56
   offset: 0, 0
   index: 2
 m_generic6_walk_
   rotate: false
-  xy: 375, 1137
+  xy: 936, 1110
   size: 39, 46
   orig: 39, 46
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 247, 673
+  xy: 795, 659
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 131
 b_blue_walk_down_
   rotate: false
-  xy: 727, 850
+  xy: 929, 751
   size: 44, 54
   orig: 44, 54
   offset: 0, 0
   index: 0
 m_3_walk_right_
   rotate: false
-  xy: 842, 980
+  xy: 523, 1085
   size: 40, 44
   orig: 40, 44
   offset: 0, 0
   index: 1
 bonus_shield_
   rotate: false
-  xy: 590, 748
-  size: 47, 47
-  orig: 47, 47
+  xy: 246, 909
+  size: 46, 53
+  orig: 46, 53
   offset: 0, 0
   index: 0
 b_green_walk_left_
   rotate: false
-  xy: 492, 895
+  xy: 247, 851
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 1
 b_green_walk_down_
   rotate: false
-  xy: 953, 925
+  xy: 535, 978
   size: 43, 56
   orig: 43, 56
   offset: 0, 0
   index: 1
 m_generic3_die_
   rotate: false
-  xy: 547, 1211
+  xy: 747, 1090
   size: 39, 45
   orig: 39, 45
   offset: 0, 0
   index: 0
 m_generic4_die_
   rotate: false
-  xy: 2, 1429
+  xy: 177, 1257
   size: 35, 40
   orig: 35, 40
   offset: 0, 0
   index: 2
 m_generic5_die_
   rotate: false
-  xy: 99, 965
+  xy: 588, 803
   size: 46, 37
   orig: 46, 37
   offset: 0, 0
   index: 4
 xplode_center_
   rotate: false
-  xy: 261, 166
+  xy: 566, 156
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 tiles_2_destroy_
   rotate: false
-  xy: 51, 461
+  xy: 704, 321
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 345, 572
+  xy: 2, 720
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 207
 bonus_speed
   rotate: false
-  xy: 149, 788
-  size: 47, 47
-  orig: 47, 47
+  xy: 876, 1458
+  size: 37, 38
+  orig: 37, 38
   offset: 0, 0
   index: -1
 bonus_speed_
   rotate: false
-  xy: 394, 765
-  size: 47, 47
-  orig: 47, 47
+  xy: 490, 869
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 3
 b_white_die_
   rotate: false
-  xy: 785, 2
+  xy: 76, 203
   size: 54, 51
   orig: 54, 51
   offset: 0, 0
   index: 7
 b_blue_walk_right_
   rotate: false
-  xy: 392, 922
+  xy: 148, 894
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 149, 543
+  xy: 149, 600
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 220
 m_4_walk_down_
   rotate: false
-  xy: 275, 1133
+  xy: 920, 1206
   size: 38, 60
   orig: 38, 60
   offset: 0, 0
   index: 2
 m_4_walk_left_
   rotate: false
-  xy: 178, 1135
+  xy: 821, 1220
   size: 38, 59
   orig: 38, 59
   offset: 0, 0
   index: 2
 m_2_walk_right_
   rotate: false
-  xy: 234, 1044
+  xy: 639, 1184
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
   index: 2
 m_3_die_
   rotate: false
-  xy: 663, 1051
+  xy: 721, 979
   size: 40, 45
   orig: 40, 45
   offset: 0, 0
   index: 1
 m_4_die_
   rotate: false
-  xy: 40, 1351
+  xy: 139, 1226
   size: 36, 38
   orig: 36, 38
   offset: 0, 0
   index: 3
 m_5_die_
   rotate: false
-  xy: 953, 893
+  xy: 993, 555
   size: 26, 19
   orig: 26, 19
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 51, 804
+  xy: 690, 664
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 11
 tiles_
   rotate: false
-  xy: 854, 318
+  xy: 454, 360
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 306
 b_red_walk_right_
   rotate: false
-  xy: 100, 907
+  xy: 492, 754
   size: 46, 56
   orig: 46, 56
   offset: 0, 0
   index: 0
 tiles_289_destroy_
   rotate: false
-  xy: 456, 421
+  xy: 149, 502
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 100, 711
+  xy: 100, 780
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 134
 tiles_
   rotate: false
-  xy: 752, 360
+  xy: 454, 409
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 291
 xplode_tip_left_
   rotate: false
-  xy: 479, 110
+  xy: 52, 306
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 0
 tiles_248_destroy_
   rotate: false
-  xy: 2, 592
+  xy: 949, 457
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 xplode_tip_right_
   rotate: false
-  xy: 379, 113
+  xy: 168, 202
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 tiles_207_destroy_
   rotate: false
-  xy: 935, 550
+  xy: 247, 606
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 4
 b_starts_
   rotate: false
-  xy: 82, 2
+  xy: 169, 2
   size: 71, 41
   orig: 71, 41
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 737, 703
+  xy: 345, 756
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 0
 m_5_walk_right_
   rotate: false
-  xy: 982, 633
+  xy: 580, 1018
   size: 40, 49
   orig: 40, 49
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 51, 608
+  xy: 51, 650
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 217
 tiles_
   rotate: false
-  xy: 897, 472
+  xy: 650, 450
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 230
 face_blue
   rotate: false
-  xy: 279, 2
+  xy: 484, 2
   size: 56, 56
   orig: 56, 56
   offset: 0, 0
   index: -1
 b_green_walk_up_
   rotate: false
-  xy: 50, 1009
+  xy: 193, 1056
   size: 44, 56
   orig: 44, 56
   offset: 0, 0
   index: 0
 m_1_die_
   rotate: false
-  xy: 115, 1389
+  xy: 988, 2
   size: 34, 46
   orig: 34, 46
   offset: 0, 0
   index: 2
 bonus_star_
   rotate: false
-  xy: 260, 216
-  size: 47, 63
-  orig: 47, 63
+  xy: 307, 221
+  size: 47, 60
+  orig: 47, 60
   offset: 0, 0
   index: 0
 b_blue_walk_die_
   rotate: false
-  xy: 673, 2
+  xy: 2, 163
   size: 54, 56
   orig: 54, 56
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 903, 325
+  xy: 405, 361
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 305
 tiles_84_destroy_
   rotate: false
-  xy: 511, 258
+  xy: 207, 344
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 626, 209
+  xy: 665, 205
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 89
 tiles_
   rotate: false
-  xy: 690, 503
+  xy: 501, 509
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 21
 tiles_
   rotate: false
-  xy: 100, 319
+  xy: 508, 264
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 60
 tiles_
   rotate: false
-  xy: 654, 356
+  xy: 556, 353
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 294
 m_generic6_walk_
   rotate: false
-  xy: 123, 1254
+  xy: 798, 1377
   size: 37, 44
   orig: 37, 44
   offset: 0, 0
   index: 1
+shield_
+  rotate: false
+  xy: 2, 2
+  size: 82, 78
+  orig: 82, 78
+  offset: 0, 0
+  index: 2
 tiles_
   rotate: false
-  xy: 443, 666
+  xy: 394, 655
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 144
 b_red_die_
   rotate: false
-  xy: 52, 256
+  xy: 215, 286
   size: 47, 56
   orig: 47, 56
   offset: 0, 0
   index: 0
 bonus_potion_
   rotate: false
-  xy: 933, 795
-  size: 47, 47
-  orig: 47, 47
+  xy: 196, 941
+  size: 46, 53
+  orig: 46, 53
   offset: 0, 0
   index: 0
 m_generic9_walk_
   rotate: false
-  xy: 89, 1108
+  xy: 680, 1213
   size: 39, 42
   orig: 39, 42
   offset: 0, 0
   index: 2
 m_generic3_die_
   rotate: false
-  xy: 178, 154
+  xy: 132, 207
   size: 31, 40
   orig: 31, 40
   offset: 0, 0
   index: 3
 m_generic4_die_
   rotate: false
-  xy: 39, 1391
+  xy: 215, 1228
   size: 35, 41
   orig: 35, 41
   offset: 0, 0
   index: 1
 tiles_43_destroy_
   rotate: false
-  xy: 358, 327
+  xy: 959, 261
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 3
 b_white_die_
   rotate: false
-  xy: 213, 63
+  xy: 599, 53
   size: 48, 51
   orig: 48, 51
   offset: 0, 0
   index: 5
 tiles_125_destroy_
   rotate: false
-  xy: 884, 668
+  xy: 394, 704
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 933, 599
+  xy: 797, 512
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 172
 m_1_walk_up_
   rotate: false
-  xy: 528, 1020
+  xy: 775, 894
   size: 41, 45
   orig: 41, 45
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 494, 503
+  xy: 748, 503
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 227
 m_generic5_walk_
   rotate: false
-  xy: 982, 781
+  xy: 432, 1092
   size: 40, 46
   orig: 40, 46
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 577, 160
+  xy: 459, 213
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 94
 m_4_walk_left_
   rotate: false
-  xy: 738, 1108
+  xy: 805, 1026
   size: 39, 56
   orig: 39, 56
   offset: 0, 0
   index: 1
 b_blue_walk_die_
   rotate: false
-  xy: 2, 294
+  xy: 158, 302
   size: 47, 51
   orig: 47, 51
   offset: 0, 0
   index: 4
 tiles_
   rotate: false
-  xy: 51, 412
+  xy: 762, 307
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 43
 bonus_hand_
   rotate: false
-  xy: 590, 797
-  size: 47, 47
-  orig: 47, 47
+  xy: 488, 929
+  size: 45, 56
+  orig: 45, 56
   offset: 0, 0
   index: 2
 m_3_walk_up_
   rotate: false
-  xy: 124, 1209
+  xy: 901, 1319
   size: 38, 43
   orig: 38, 43
   offset: 0, 0
   index: 2
 m_generic2_die_
   rotate: false
-  xy: 200, 1331
+  xy: 322, 1141
   size: 36, 41
   orig: 36, 41
   offset: 0, 0
   index: 1
 b_green_die_
   rotate: false
-  xy: 279, 60
+  xy: 928, 116
   size: 48, 54
   orig: 48, 54
   offset: 0, 0
   index: 4
 m_5_walk_up_
   rotate: false
-  xy: 130, 1149
+  xy: 771, 1222
   size: 38, 58
   orig: 38, 58
   offset: 0, 0
   index: 2
 m_generic4_die_
   rotate: false
-  xy: 995, 495
+  xy: 281, 136
   size: 26, 37
   orig: 26, 37
   offset: 0, 0
   index: 4
 m_generic5_die_
   rotate: false
-  xy: 78, 1389
+  xy: 264, 1200
   size: 35, 42
   orig: 35, 42
   offset: 0, 0
   index: 2
 tiles_207_destroy_
   rotate: false
-  xy: 837, 514
+  xy: 345, 560
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 m_generic2_walk_
   rotate: false
-  xy: 2, 1247
+  xy: 758, 1375
   size: 38, 41
   orig: 38, 41
   offset: 0, 0
   index: 2
 tiles_125_destroy_
   rotate: false
-  xy: 835, 661
+  xy: 443, 703
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 6
 tiles_
   rotate: false
-  xy: 739, 507
+  xy: 445, 556
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 209
 bonus_speed_
   rotate: false
-  xy: 492, 748
-  size: 47, 47
-  orig: 47, 47
+  xy: 588, 842
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 5
 tiles_
   rotate: false
-  xy: 577, 209
+  xy: 616, 205
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 9
 m_2_walk_down_
   rotate: false
-  xy: 186, 1090
+  xy: 556, 1241
   size: 39, 43
   orig: 39, 43
   offset: 0, 0
   index: 0
 xplode_tip_up_
   rotate: false
-  xy: 679, 60
+  xy: 466, 163
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 m_2_die_
   rotate: false
-  xy: 884, 1009
+  xy: 910, 962
   size: 40, 44
   orig: 40, 44
   offset: 0, 0
   index: 1
 m_4_die_
   rotate: false
-  xy: 953, 893
+  xy: 993, 555
   size: 26, 19
   orig: 26, 19
   offset: 0, 0
   index: 5
 m_5_die_
   rotate: false
-  xy: 40, 1351
+  xy: 139, 1226
   size: 36, 38
   orig: 36, 38
   offset: 0, 0
   index: 3
 tiles_
   rotate: false
-  xy: 296, 474
+  xy: 900, 369
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 250
 tiles_
   rotate: false
-  xy: 590, 650
+  xy: 893, 663
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 13
 bomb_orig_
   rotate: false
-  xy: 120, 204
+  xy: 516, 165
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 707, 258
+  xy: 200, 393
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 52
 bonus_shield_
   rotate: false
-  xy: 2, 886
-  size: 47, 47
-  orig: 47, 47
+  xy: 343, 919
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 3
 b_green_walk_left_
   rotate: false
-  xy: 585, 904
+  xy: 143, 1125
   size: 43, 54
   orig: 43, 54
   offset: 0, 0
   index: 2
+shield_
+  rotate: false
+  xy: 242, 2
+  size: 66, 66
+  orig: 66, 66
+  offset: 0, 0
+  index: 1
 tiles_248_destroy_
   rotate: false
-  xy: 100, 515
+  xy: 900, 418
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 5
 b_red_die_
   rotate: false
-  xy: 841, 2
+  xy: 366, 60
   size: 54, 51
   orig: 54, 51
   offset: 0, 0
   index: 7
 m_generic9_walk_
   rotate: false
-  xy: 982, 733
+  xy: 481, 1045
   size: 40, 46
   orig: 40, 46
   offset: 0, 0
   index: 1
 tiles_
   rotate: false
-  xy: 688, 601
+  xy: 599, 597
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 164
 bonus_speed_
   rotate: false
-  xy: 198, 771
-  size: 47, 47
-  orig: 47, 47
+  xy: 295, 880
+  size: 46, 53
+  orig: 46, 53
   offset: 0, 0
   index: 0
 bonus_life_
   rotate: false
-  xy: 394, 814
-  size: 47, 47
-  orig: 47, 47
+  xy: 146, 1007
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 5
 m_generic8_walk_
   rotate: false
-  xy: 41, 1305
+  xy: 188, 1170
   size: 36, 44
   orig: 36, 44
   offset: 0, 0
   index: 2
 tiles_
   rotate: false
-  xy: 492, 601
+  xy: 748, 552
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 171
 m_4_walk_down_
   rotate: false
-  xy: 2, 1189
+  xy: 638, 1273
   size: 38, 56
   orig: 38, 56
   offset: 0, 0
   index: 1
 m_2_walk_right_
   rotate: false
-  xy: 43, 1112
+  xy: 638, 1229
   size: 39, 42
   orig: 39, 42
   offset: 0, 0
   index: 1
 b_green_walk_up_
   rotate: false
-  xy: 340, 984
+  xy: 191, 1114
   size: 43, 54
   orig: 43, 54
   offset: 0, 0
   index: 2
 m_1_die_
   rotate: false
-  xy: 96, 1062
+  xy: 829, 1174
   size: 39, 44
   orig: 39, 44
   offset: 0, 0
   index: 0
 m_3_walk_left_
   rotate: false
-  xy: 789, 1066
+  xy: 812, 981
   size: 40, 43
   orig: 40, 43
   offset: 0, 0
   index: 0
 tiles_
   rotate: false
-  xy: 701, 454
+  xy: 601, 450
   size: 47, 47
   orig: 47, 47
   offset: 0, 0
   index: 247
 m_generic4_walk_
   rotate: false
-  xy: 613, 1101
+  xy: 565, 1115
   size: 40, 28
   orig: 40, 28
   offset: 0, 0
   index: 0
 b_green_die_
   rotate: false
-  xy: 897, 55
+  xy: 767, 2
   size: 54, 48
   orig: 54, 48
   offset: 0, 0
