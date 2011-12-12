@@ -83,8 +83,9 @@ public class GameWorld {
 		mCurrentLevelName = _startLevelName;
 		Level.loadLevel(_startLevelName, this, nPlayers);
 
-		mMap.placePortal();
-		
+		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
+			mMap.placePortal();
+
 		mClock = new Clock();
 		mClock.reset(1, 0);
 		mClock.start();
@@ -111,7 +112,7 @@ public class GameWorld {
 		mSpawnedBonus.clear();
 		mBombs.clear();
 		mExplosions.clear();
-		
+
 		short nPlayers = 2;
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
@@ -119,8 +120,7 @@ public class GameWorld {
 		mClock = new Clock();
 		mClock.reset(1, 0);
 		mClock.start();
-		
-		
+
 	}
 
 	public void spawnMonster(String _type, short _line, short _col)
@@ -139,17 +139,16 @@ public class GameWorld {
 
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
-		
-		if( mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
+
+		if (mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
 		{
 			mLocalPlayer.reset();
-			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
 			mLocalPlayer.mColor = Player.getColorFromString(_type);
 			mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 			mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 			return;
 		}
-			
+
 		Player tmpPlayer = mPlayers.getFreeObject();
 
 		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
@@ -248,7 +247,7 @@ public class GameWorld {
 	private <T extends MovableObject> boolean objectCloseToExplosion(Tile _tile, T _obj, int _objTileIdx, short _direction)
 	{
 		int idxTile = mMap.calcTileIndex(_tile.mPositionInArray, _direction, (short) 1);
-		if (_objTileIdx == idxTile)
+		if (_objTileIdx == idxTile && Directions.getInverseDirection(_direction) == _obj.mDirection && _obj.mIsMoving)
 			return true;
 
 		return false;

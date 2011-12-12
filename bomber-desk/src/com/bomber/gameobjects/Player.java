@@ -175,6 +175,8 @@ public class Player extends KillableObject {
 	 */
 	public void reset()
 	{
+		super.reset();
+		
 		mPoints = 0;
 		mEffects.clear();
 		mActiveBonus.clear();

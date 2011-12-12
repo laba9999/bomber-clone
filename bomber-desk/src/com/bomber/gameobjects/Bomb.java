@@ -47,19 +47,20 @@ public class Bomb extends KillableObject {
 		{
 			// Verifica as colisões
 			GameMap map = mWorld.mMap;
+			int currentTileIdx = map.calcTileIndex(mPosition);
 			int forbiddenTileIdx = map.calcTileIndex(mPosition, mDirection, (short) 1);
 
 			// Contra monstros
-			if (checkCollisionsAgainstMovableObjects(mWorld.mMonsters, forbiddenTileIdx))
+			if (checkCollisionsAgainstMovableObjects(mWorld.mMonsters, currentTileIdx, forbiddenTileIdx))
 				return;
 
 			// Contra outros players
-			if (checkCollisionsAgainstMovableObjects(mWorld.mPlayers, forbiddenTileIdx))
+			if (checkCollisionsAgainstMovableObjects(mWorld.mPlayers, currentTileIdx, forbiddenTileIdx))
 				return;
 		}
 	}
 
-	private <T extends KillableObject> boolean checkCollisionsAgainstMovableObjects(ObjectsPool<T> pool, int _forbiddenTileIdx)
+	private <T extends KillableObject> boolean checkCollisionsAgainstMovableObjects(ObjectsPool<T> pool, int _currentTileIdx, int _forbiddenTileIdx)
 	{
 		for (KillableObject m : pool)
 		{
@@ -67,7 +68,7 @@ public class Bomb extends KillableObject {
 				continue;
 
 			int objTileIdx = mWorld.mMap.calcTileIndex(m.mPosition);
-			if (objTileIdx == _forbiddenTileIdx)
+			if (objTileIdx == _forbiddenTileIdx || objTileIdx == _currentTileIdx)
 			{
 				stop();
 				return true;

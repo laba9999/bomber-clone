@@ -3,6 +3,7 @@ package com.bomber.gameobjects.monsters;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.DebugSettings;
 import com.bomber.common.Directions;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.KillableObject;
@@ -46,8 +47,9 @@ public class Monster extends KillableObject {
 			return;
 		}
 
-		// TODO : descomentar
-		//checkForPlayerCollision();
+		if (DebugSettings.MONSTERS_KILL_PLAYERS)
+			checkForPlayerCollision();
+
 		decideToTurn();
 	}
 
