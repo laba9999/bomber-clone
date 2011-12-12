@@ -10,7 +10,7 @@ public class Tile extends Drawable {
 	public static final short COLLIDABLE = 2;
 	public static final short PORTAL = 3;
 
-
+	public boolean mIsPortal = false;
 	public boolean mContainsBomb = false;
 	public short mType;
 	public int mPositionInArray;

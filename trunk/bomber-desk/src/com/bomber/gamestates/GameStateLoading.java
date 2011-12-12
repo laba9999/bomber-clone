@@ -1,6 +1,9 @@
 package com.bomber.gamestates;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.GameScreen;
+import com.bomber.common.Assets;
+import com.bomber.world.Level;
 
 public class GameStateLoading extends GameState {
 
@@ -12,7 +15,11 @@ public class GameStateLoading extends GameState {
 
 	public void update()
 	{
-		throw new UnsupportedOperationException();
+		if(Level.mIsLoaded) 
+		{
+			mGameScreen.mGameState = new GameStatePlaying(mGameScreen);
+		}
+		
 	}
 
 	public void parseInput()
@@ -22,6 +29,13 @@ public class GameStateLoading extends GameState {
 
 	public void present(float _interpolation)
 	{
-		throw new UnsupportedOperationException();
+		mBatcher.setProjectionMatrix(mUICamera.combined);		
+		BitmapFont font = Assets.mFont;
+	
+		mBatcher.begin();	
+
+		//desenha "paused" ao canto
+		font.draw(mBatcher,"LOADING", 600 , 470);
+		mBatcher.end();
 	}
 }

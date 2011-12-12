@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bomber.common.Assets;
 import com.bomber.gamestates.GameState;
+import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePlaying;
+import com.bomber.gametype.GameType;
+import com.bomber.gametype.GameTypeCampaign;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
@@ -28,7 +31,7 @@ public class GameScreen implements ApplicationListener {
 
 	public static Integer ticksPerSecond = 100;
 
-	private GameState mGameState;
+	public GameState mGameState;
 	private long mLastGameStateChangeTime = System.currentTimeMillis();
 
 	public GameState getGameState()
@@ -51,12 +54,16 @@ public class GameScreen implements ApplicationListener {
 		mUICamera = new OrthographicCamera(800, 480);
 		mUICamera.position.set(800 / 2, 480 / 2, 0);
 		mUICamera.update();
-		Assets.loadAssets();
-		mWorld = new GameWorld(GameType.CAMPAIGN, "level1");
-
+		
 		mBatcher = new SpriteBatch();
-		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
+		
+		Assets.loadAssets();
+		
+		//mGameState = new GameStateLoading(this);
 
+		mWorld = new GameWorld( new GameTypeCampaign(), "level1");
+		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
+		
 		mGameState = new GameStatePlaying(this);
 
 		mNextGameTick = System.nanoTime();
