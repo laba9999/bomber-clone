@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.DebugSettings;
 import com.bomber.GameType;
 import com.bomber.Team;
 import com.bomber.common.Assets;
@@ -123,6 +124,16 @@ public class GameWorld {
 
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
+		
+		if( mGameType == GameType.CAMPAIGN && mLocalPlayer != null)
+		{
+			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
+			mLocalPlayer.mColor = Player.getColorFromString(_type);
+			mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+			mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+			return;
+		}
+			
 		Player tmpPlayer = mPlayers.getFreeObject();
 
 		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
@@ -203,18 +214,19 @@ public class GameWorld {
 			if (b.mContainer.mPositionInArray == _tile.mPositionInArray)
 				b.kill();
 
-		// TODO : descomentar
+		if (!DebugSettings.PLAYER_DIE_WITH_EXPLOSIONS)
+			return;
+
 		// Verifica os players
-//		 for (Player p : mPlayers)
-//		 {
-//		 objTileIdx = mMap.calcTileIndex(p.mPosition);
-//		 if (objTileIdx == _tile.mPositionInArray)
-//		 {
-//		 p.kill();
-//		 continue;
-//		 }
-//		
-//		 }
+		for (Player p : mPlayers)
+		{
+			objTileIdx = mMap.calcTileIndex(p.mPosition);
+			if (objTileIdx == _tile.mPositionInArray)
+			{
+				p.kill();
+				continue;
+			}
+		}
 	}
 
 	private <T extends MovableObject> boolean objectCloseToExplosion(Tile _tile, T _obj, int _objTileIdx, short _direction)
@@ -360,7 +372,8 @@ public class GameWorld {
 		updateExplosions();
 		updateBonus();
 
-		spawnBonusRandomly();
+		if (DebugSettings.WORLD_SPAWN_BONUS_RANDOMLY)
+			spawnBonusRandomly();
 	}
 
 	private void updateMonsters()
