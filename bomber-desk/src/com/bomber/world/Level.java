@@ -33,8 +33,12 @@ public class Level {
 
 	public static HashMap<Short, String> mImageTiles = new HashMap<Short, String>();
 
+	public static boolean mIsLoaded;
+	
 	public static void loadLevel(String _levelID, GameWorld _world, short _howManyPlayers)
 	{
+		mIsLoaded = false;
+		
 		mNumberOfPlayers = _howManyPlayers;
 
 		try
@@ -135,7 +139,8 @@ public class Level {
 		}
 
 		_world.mMap.updateTilesForPresentation();
-
+		
+		mIsLoaded = true;
 	}
 
 	private static void setupSpawn(short _id, short _positionX, short _positionY, GameWorld _world)

@@ -6,7 +6,6 @@ import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
-import com.bomber.GameType;
 import com.bomber.Team;
 import com.bomber.common.Assets;
 import com.bomber.common.Directions;
@@ -22,6 +21,10 @@ import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.bonus.BonusTypes;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
+import com.bomber.gametype.GameType;
+import com.bomber.gametype.GameTypeCTF;
+import com.bomber.gametype.GameTypeCampaign;
+import com.bomber.gametype.GameTypeDeathmatch;
 import com.bomber.remote.Message;
 import com.bomber.remote.RemoteConnections;
 
@@ -34,7 +37,7 @@ public class GameWorld {
 
 	private Player mLocalPlayer = null;
 
-	private short mGameType;
+	public GameType mGameType;
 	public boolean mIsPVPGame;
 	public GameMap mMap;
 	public RemoteConnections mRemoteConns;
@@ -43,10 +46,10 @@ public class GameWorld {
 
 	private String mCurrentLevelName;
 
-	public GameWorld(short _gameType, String _starLevelName) {
+	public GameWorld(GameType _gameType, String _startLevelName) {
 
 		mGameType = _gameType;
-
+		mGameType.mGameWorld = this;
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
@@ -55,9 +58,9 @@ public class GameWorld {
 
 		// O numero de players vai variar consoante o tipo de jogo
 		short nPlayers = 4;
-		if (_gameType == GameType.CAMPAIGN)
+		if (_gameType instanceof GameTypeCampaign)
 			nPlayers = 1;
-		else if (_gameType == GameType.CTF || _gameType == GameType.DEADMATCH)
+		else if (_gameType instanceof GameTypeCTF || _gameType instanceof GameTypeDeathmatch)
 			nPlayers = 2;
 
 		mPlayers = new ObjectsPool<Player>((short) nPlayers, new ObjectFactory.CreatePlayer(this));
@@ -77,9 +80,11 @@ public class GameWorld {
 
 		// Lê o nivel
 		nPlayers = 2;
-		mCurrentLevelName = _starLevelName;
-		Level.loadLevel(_starLevelName, this, nPlayers);
+		mCurrentLevelName = _startLevelName;
+		Level.loadLevel(_startLevelName, this, nPlayers);
 
+		mMap.placePortal();
+		
 		mClock = new Clock();
 		mClock.reset(1, 0);
 		mClock.start();
@@ -100,12 +105,22 @@ public class GameWorld {
 		return mLocalPlayer;
 	}
 
-	public void reset()
+	public void reset(String _starLevelName)
 	{
 		mMonsters.clear();
 		mSpawnedBonus.clear();
 		mBombs.clear();
 		mExplosions.clear();
+		
+		short nPlayers = 2;
+		mCurrentLevelName = _starLevelName;
+		Level.loadLevel(_starLevelName, this, nPlayers);
+
+		mClock = new Clock();
+		mClock.reset(1, 0);
+		mClock.start();
+		
+		
 	}
 
 	public void spawnMonster(String _type, short _line, short _col)
@@ -125,7 +140,7 @@ public class GameWorld {
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
 		
-		if( mGameType == GameType.CAMPAIGN && mLocalPlayer != null)
+		if( mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
 		{
 			mLocalPlayer.reset();
 			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));

@@ -112,4 +112,9 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		mObjectsIterator.reset();
 		return mObjectsIterator;
 	}
+	
+	public int usedObjects()
+	{
+		return mUsedObjects.size() - mFreeObjects.size();
+	}
 }

@@ -37,12 +37,12 @@ public class WorldRenderer {
 
 	public void render()
 	{
-
+		
 		// TODO: retirar quando já não for necessário para ver os FPS
 		GLCommon gl = Gdx.gl;
-		gl.glClearColor(1, 0, 0, 1);
+		gl.glClearColor(0, 0, 0, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
+		
 		// Actualiza a posição da camera para seguir o local player
 		updateCameraPosition();
 
@@ -57,8 +57,7 @@ public class WorldRenderer {
 		renderExplosions();
 		renderPlayers();
 		renderMonsters();
-		renderFPS();
-		renderTicks();
+
 	}
 
 	private void updateCameraPosition()
@@ -79,20 +78,6 @@ public class WorldRenderer {
 		mBatch.setProjectionMatrix(mCamera.combined);
 	}
 
-	private void renderFPS()
-	{
-		mBatch.begin();
-		Integer fps = Gdx.graphics.getFramesPerSecond();
-		Assets.mFont.draw(mBatch, fps.toString(), 100, 650);
-		mBatch.end();
-	}
-
-	private void renderTicks()
-	{
-		mBatch.begin();
-		Assets.mFont.draw(mBatch, GameScreen.ticksPerSecond.toString(), 300, 650);
-		mBatch.end();
-	}
 
 	private void renderTiles()
 	{
@@ -101,9 +86,17 @@ public class WorldRenderer {
 		for (int i = 0; i < map.size(); i++)
 		{
 			Tile tmpTile = map.get(i);
+
 			mBatch.draw(tmpTile.mCurrentFrame, tmpTile.mPosition.x, tmpTile.mPosition.y);
 		}
+		
+		
+		Tile mPortal = mWorld.mMap.mPortal;
+		if(mPortal!=null )
+		mBatch.draw(mPortal.mCurrentFrame, mPortal.mPosition.x, mPortal.mPosition.y);
+
 		mBatch.end();
+
 	}
 
 	private void renderTilesExplosions()

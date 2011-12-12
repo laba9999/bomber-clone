@@ -29,7 +29,7 @@ public class GameStatePaused extends GameState {
 	
 		mBatcher.begin();	
 
-		//desenha nivel ao canto
+		//desenha "paused" ao canto
 		font.draw(mBatcher,"PAUSED", 600 , 470);
 		
 		Rectangle[] zones = mInput.getZones();

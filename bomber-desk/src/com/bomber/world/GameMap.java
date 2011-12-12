@@ -2,11 +2,13 @@ package com.bomber.world;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.common.Assets;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
@@ -34,6 +36,7 @@ public class GameMap {
 	private ObjectsPool<Tile> mImutableTiles;
 	private ObjectsPool<Tile> mDestroyableTiles;
 	public ObjectsPool<Tile> mTilesBeingDestroyed;
+	public Tile mPortal;
 
 	public ArrayList<Tile> mTilesMap = new ArrayList<Tile>();
 
@@ -49,7 +52,7 @@ public class GameMap {
 		mImutableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.WALKABLE));
 		mDestroyableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.DESTROYABLE));
 		mTilesBeingDestroyed = new ObjectsPool<Tile>((short) 0, null);
-
+		mPortal = null;
 	}
 
 	/**
@@ -67,13 +70,13 @@ public class GameMap {
 	public void addDestroyableTile(short _line, short _col, Animation _anim)
 	{
 
-//		Tile tmpTile = mDestroyableTiles.getFreeObject();
-//
-//		tmpTile.mType = Tile.DESTROYABLE;
-//		tmpTile.setCurrentAnimation(_anim, (short) 8, false, false);
-//		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
-//
-//		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
+		Tile tmpTile = mDestroyableTiles.getFreeObject();
+
+		tmpTile.mType = Tile.DESTROYABLE;
+		tmpTile.setCurrentAnimation(_anim, (short) 8, false, false);
+		tmpTile.mPositionInArray = (mHeight - (_line + 1)) * mWidth + _col;
+
+		tmpTile.mPosition.set(_col * Tile.TILE_SIZE, _line * Tile.TILE_SIZE);
 	}
 
 	/**
@@ -136,6 +139,7 @@ public class GameMap {
 
 		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
+		
 	}
 
 	public void explodeTile(Tile _tile)
@@ -149,6 +153,14 @@ public class GameMap {
 		mDestroyableTiles.releaseObject(_tile);
 		mTilesBeingDestroyed.addObject(_tile);
 
+
+		if(_tile.mIsPortal)
+		{
+			spawnPortal(_tile.mPosition.x,_tile.mPosition.y);
+
+			
+		}
+		
 		// O mapa vai apresentar a partir de agora o tile walkable que estava
 		// por baixo deste
 		for (Tile tl : mImutableTiles)
@@ -159,6 +171,7 @@ public class GameMap {
 				break;
 			}
 		}
+
 	}
 
 	/**
@@ -355,6 +368,7 @@ public class GameMap {
 
 		Tile tmpTile = mTilesMap.get(_tileIdx);
 		
+					
 		if ((tmpTile.mType == Tile.DESTROYABLE && _ignoreDestroyables))
 			return;
 
@@ -417,7 +431,11 @@ public class GameMap {
 			tmpTile.update();
 
 			if (tmpTile.mLooped)
+			{
 				mTilesBeingDestroyed.releaseObject(tmpTile);
+				
+			}
+				
 		}
 	}
 
@@ -664,6 +682,56 @@ public class GameMap {
 	{
 		int idx = calcTileIndex(_starIdx, _direction, _distance);
 
+
 		return mTilesMap.get(idx);
 	}
+	
+	
+	public Tile getRandomTileFromType(short _type) 
+	{
+		if(_type > Tile.PORTAL || _type < Tile.WALKABLE)
+		{
+			throw new InvalidParameterException("Tipo inválido");
+		}
+		
+		Random randomGenerator = new Random();
+		short col;
+		short lin;	
+		Tile tileAtPosition = null;
+		boolean unwantedType = false;
+		
+		do
+		{
+			//gera posição aleatória
+			col = (short) randomGenerator.nextInt(mWidth);
+			lin = (short) randomGenerator.nextInt(mHeight);
+			
+			float colInPixels = col * Tile.TILE_SIZE;				
+			float linInPixels = lin * Tile.TILE_SIZE;
+			
+			//verifica se o tile na posição gerada é do tipo pretendido
+			tileAtPosition = getTile(new Vector2(colInPixels,linInPixels));				
+			unwantedType = tileAtPosition.mType != _type;
+			
+		}while(unwantedType);
+
+		return tileAtPosition;
+	}
+	
+	public void placePortal()
+	{
+		Tile futurePortal = getRandomTileFromType(Tile.DESTROYABLE);
+		futurePortal.mIsPortal = true;
+	}
+	
+	public void spawnPortal(float _x, float _y)
+	{
+		mPortal = mImutableTiles.getFreeObject();
+		mPortal.mPosition.x = _x;
+		mPortal.mPosition.y = _y;
+		//TODO: alterar textura
+		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_",123);
+	}
+	
+	
 }
