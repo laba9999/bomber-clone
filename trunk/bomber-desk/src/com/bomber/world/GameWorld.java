@@ -127,6 +127,7 @@ public class GameWorld {
 		
 		if( mGameType == GameType.CAMPAIGN && mLocalPlayer != null)
 		{
+			mLocalPlayer.reset();
 			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
 			mLocalPlayer.mColor = Player.getColorFromString(_type);
 			mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
