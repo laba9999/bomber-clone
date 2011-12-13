@@ -40,7 +40,8 @@ public class Assets {
 	public static HashMap<String, MovableObjectAnimation> mMonsters;
 	public static HashMap<String, MovableObjectAnimation> mPlayers;
 	public static HashMap<String, TextureRegion> mPlayersHeads;
-	public static HashMap<String, Animation> mBonus;
+	public static HashMap<String, Animation> mBonusAnimations;
+	public static HashMap<String, TextureRegion> mBonusIcons;
 	public static HashMap<String, Animation> mPlayerEffects;
 	public static HashMap<String, TextureRegion> mNonDestroyableTiles;
 
@@ -69,7 +70,8 @@ public class Assets {
 		mPlayers = new HashMap<String, MovableObjectAnimation>();
 		mPlayerEffects = new HashMap<String, Animation>();
 		mPlayersHeads = new HashMap<String, TextureRegion>();
-		mBonus = new HashMap<String, Animation>();
+		mBonusAnimations = new HashMap<String, Animation>();
+		mBonusIcons = new HashMap<String, TextureRegion>();
 		mExplosions = new HashMap<String, Animation>();
 		mMonsters = new HashMap<String, MovableObjectAnimation>();
 		mNonDestroyableTiles = new HashMap<String, TextureRegion>();
@@ -239,13 +241,20 @@ public class Assets {
 
 	private static void loadBonus()
 	{
-		mBonus.put("bonus_bomb", loadBackloopingAnimation("bonus_bomb_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
-		mBonus.put("bonus_hand", loadBackloopingAnimation("bonus_hand_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
-		mBonus.put("bonus_life", loadBackloopingAnimation("bonus_life_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
-		mBonus.put("bonus_potion", loadBackloopingAnimation("bonus_potion_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
-		mBonus.put("bonus_shield", loadBackloopingAnimation("bonus_shield_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
-		mBonus.put("bonus_speed", loadBackloopingAnimation("bonus_speed_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
-		mBonus.put("bonus_star", loadBackloopingAnimation("bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonusAnimations.put("bonus_bomb", loadBackloopingAnimation("bonus_bomb_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonusAnimations.put("bonus_hand", loadBackloopingAnimation("bonus_hand_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonusAnimations.put("bonus_life", loadBackloopingAnimation("bonus_life_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonusAnimations.put("bonus_potion", loadBackloopingAnimation("bonus_potion_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonusAnimations.put("bonus_shield", loadBackloopingAnimation("bonus_shield_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonusAnimations.put("bonus_speed", loadBackloopingAnimation("bonus_speed_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+		mBonusAnimations.put("bonus_star", loadBackloopingAnimation("bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+
+		
+		mBonusIcons.put("shield", mAtlas.findRegion("bonus_shield"));
+		mBonusIcons.put("hand", mAtlas.findRegion("bonus_throw"));
+		//TODO: ajustar o tamanho 
+		mBonusIcons.put("star", mAtlas.findRegion("bonus_invencibility"));
+		
 	}
 
 	private static Animation loadBackloopingAnimation(String _id, short _howManyFrames, float _frameDuration)

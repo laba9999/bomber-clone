@@ -162,8 +162,9 @@ public class GameMap {
 
 		if (_tile.mIsPortal)
 		{
-			spawnPortal(_tile.mPosition.x, _tile.mPosition.y);
+			spawnPortal(_tile);
 			_tile.mIsPortal = false;
+			return; 
 		}
 
 		// O mapa vai apresentar a partir de agora o tile walkable que estava
@@ -725,13 +726,18 @@ public class GameMap {
 		futurePortal.mIsPortal = true;
 	}
 
-	public void spawnPortal(float _x, float _y)
+	public void spawnPortal(Tile _t)
 	{
 		mPortal = mImutableTiles.getFreeObject();
-		mPortal.mPosition.x = _x;
-		mPortal.mPosition.y = _y;
+		mPortal.mPosition.x = _t.mPosition.x;
+		mPortal.mPosition.y = _t.mPosition.y;
+		mPortal.mPositionInArray = _t.mPositionInArray;
+		mTilesMap.set(_t.mPositionInArray, mPortal);
+		
 		// TODO: alterar textura
 		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 123);
+
+
 	}
 
 }

@@ -55,49 +55,49 @@ public class GameStatePlaying extends GameState {
 		mBatcher.draw(Assets.mControllerBar,0,0);
 
 		//desenha nivel ao canto
-		font.draw(mBatcher,"LEVEL 1", 10 , 470);
+		font.draw(mBatcher,"PAUSE", 10 , 475);
 		
 		//desenha tempo e score		
 		if(mGameWorld.mClock != null)
-		font.draw(mBatcher, mGameWorld.mClock.toString(), 235, 125);
+		font.draw(mBatcher, mGameWorld.mClock.toString(), 255, 475);
 		//TODO: mPointsAsString não é necessário??
-		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 350, 125);
+		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 370, 475);
 		
 		//desenha quantidades de bonus ao fundo
 		Integer value;
 		
 		value = (int) player.mLives;
-		font.draw(mBatcher, value.toString(), 285, 47);
+		font.draw(mBatcher, value.toString(), 305, 30);
 		
 		value = (int) player.mBombExplosionSize;
-		font.draw(mBatcher, value.toString(), 355, 47);
+		font.draw(mBatcher, value.toString(), 375, 30);
 		
 		value = (int) player.mMaxSimultaneousBombs;
-		font.draw(mBatcher, value.toString(), 430, 47);
+		font.draw(mBatcher, value.toString(), 450, 30);
 	
 		value = (int) player.mSpeedFactor;
-		font.draw(mBatcher, value.toString(), 500, 47);
+		font.draw(mBatcher, value.toString(), 520, 30);
 		
 		//desenha bonus ao canto
-		float x = 755;
-		float y = 437;		
+		float x = 765;
+		float y = 440;		
 		boolean drawBonusHand = player.mIsAbleToPushBombs;
 		boolean drawBonusShield = player.mIsShieldActive;
 		boolean drawBonusStar = player.mPointsMultiplier != 1;
 		
 		if(drawBonusHand)
 		{
-			mBatcher.draw(Assets.mBonus.get("bonus_hand").getKeyFrame(0, false), x, y);
+			mBatcher.draw(Assets.mBonusIcons.get("hand"), x, y);
 			x -= 57;
 		}
 		if(drawBonusShield)
 		{
-			mBatcher.draw(Assets.mBonus.get("bonus_shield").getKeyFrame(0, false), x, y);
+			mBatcher.draw(Assets.mBonusIcons.get("shield"), x, y);
 			x -= 57;
 		}
 		if(drawBonusStar)
 		{
-			mBatcher.draw(Assets.mBonus.get("bonus_star").getKeyFrame(0, false), x, y - 5);
+			mBatcher.draw(Assets.mBonusIcons.get("star"), x, y);
 			x -= 57;	
 		}
 		

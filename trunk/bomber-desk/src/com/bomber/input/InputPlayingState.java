@@ -24,10 +24,10 @@ public class InputPlayingState extends Input {
 
 	private short mOriginX = 0;
 	private short mOriginY = 0;
-	final short directionsXWidth = 50;
+	final short directionsXWidth = 65;
 	final short directionsXHeight = 60;
 	final short directionsYWidth = 60;
-	final short directionsYHeight = 50;
+	final short directionsYHeight = 65;
 	final short cornerWidht = directionsXWidth - 2;
 	final short cornerHeight = directionsYHeight - 2;
 

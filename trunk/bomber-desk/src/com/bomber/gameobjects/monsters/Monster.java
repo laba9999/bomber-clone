@@ -44,16 +44,6 @@ public class Monster extends KillableObject {
 			if (mLooped)
 			{
 				mWorld.mMonsters.releaseObject(this);
-			
-				//TODO : colocar isto num metodo do GameWorld?
-				OverlayingText t = new OverlayingText();
-				t.mText = new Integer(mInfo.mPointsValue).toString();
-				t.mPosition = mPosition.cpy();
-				t.mPosition.x -= Tile.TILE_SIZE_HALF;
-				t.mPosition.y += Tile.TILE_SIZE_HALF;				
-				mWorld.mPoints.addObject(t);
-				
-				mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
 			}
 			return;
 		}
@@ -75,7 +65,15 @@ public class Monster extends KillableObject {
 	protected void onMapCollision(short _collisionType)
 	{
 		short direction = Directions.getAnyOtherDirection(mRandomGenerator, mDirection);
-		changeDirection(direction);
+		
+		Tile tileOnDirection = mWorld.mMap.getTile(mPosition, direction, (short) 1);
+		
+		if(tileOnDirection.mType != Tile.COLLIDABLE && tileOnDirection.mType != Tile.DESTROYABLE)
+		{
+			changeDirection(direction);
+		}
+		
+		
 	}
 
 	private void decideToTurn()
@@ -100,7 +98,14 @@ public class Monster extends KillableObject {
 
 	@Override
 	protected boolean onKill()
-	{
+	{ 
+		
+		//TODO : colocar isto num metodo do GameWorld?
+		String text = new Integer(mInfo.mPointsValue).toString();
+		mWorld.addOverlayingPoints(text, mPosition);
+		
+		mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
+		
 		return false;
 	}
 

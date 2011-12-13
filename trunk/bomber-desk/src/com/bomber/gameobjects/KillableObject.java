@@ -9,12 +9,14 @@ public abstract class KillableObject extends MovableObject {
 
 	final public void kill()
 	{
+
+		
+		if(mIsDead)
+			return;
+		
 		boolean ignoreKill = onKill();
 		
 		if( ignoreKill )
-			return;
-		
-		if(mIsDead)
 			return;
 		
 		mIsDead = true;

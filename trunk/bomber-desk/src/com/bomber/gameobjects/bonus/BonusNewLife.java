@@ -9,7 +9,7 @@ public class BonusNewLife extends Bonus {
 	
 	public BonusNewLife()
 	{
-		Animation anim = Assets.mBonus.get("bonus_life");
+		Animation anim = Assets.mBonusAnimations.get("bonus_life");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true, true);
 	}
     

@@ -8,7 +8,7 @@ public class BonusSpeed extends Bonus {
 
 	public BonusSpeed() {
 
-		Animation anim = Assets.mBonus.get("bonus_speed");
+		Animation anim = Assets.mBonusAnimations.get("bonus_speed");
 		setCurrentAnimation(anim, (short) NUMBER_OF_ANIMATION_FRAMES, true, true);
 	}
 

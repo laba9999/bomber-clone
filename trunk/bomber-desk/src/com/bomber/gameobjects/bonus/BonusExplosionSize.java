@@ -9,7 +9,7 @@ public class BonusExplosionSize extends Bonus {
 	
 	public BonusExplosionSize()
 	{
-		Animation anim = Assets.mBonus.get("bonus_potion");
+		Animation anim = Assets.mBonusAnimations.get("bonus_potion");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true, true);
 	}
     

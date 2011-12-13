@@ -9,7 +9,7 @@ public class BonusShield extends TemporaryBonus {
 	public BonusShield() {
 		super(Bonus.SHIELD, 600); // 6secs
 
-		Animation anim = Assets.mBonus.get("bonus_shield");
+		Animation anim = Assets.mBonusAnimations.get("bonus_shield");
 		setCurrentAnimation(anim, (short) NUMBER_OF_ANIMATION_FRAMES, true, true);
 	}
 
