@@ -9,7 +9,7 @@ public class BonusDoublePoints extends TemporaryBonus {
 	{
 		super(Bonus.DOUBLE_POINTS, 600);
 		
-		Animation anim = Assets.mBonus.get("bonus_star");
+		Animation anim = Assets.mBonusAnimations.get("bonus_star");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true,true);
 	}
 

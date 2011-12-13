@@ -35,7 +35,7 @@ public class GameWorld {
 	public ObjectsPool<Player> mPlayers;
 	public ObjectsPool<Bomb> mBombs;
 	public ObjectsPool<Drawable> mExplosions;
-	public ObjectsPool<OverlayingText> mPoints;
+	public ObjectsPool<OverlayingText> mOverlayingPoints;
 	private Player mLocalPlayer = null;
 
 	public GameType mGameType;
@@ -83,7 +83,7 @@ public class GameWorld {
 		
 		// Instancia pool de OverlayingTexts com 0 elementos e sem Factory definida
 		// Objectos serão adicionados manualmente
-		mPoints = new ObjectsPool<OverlayingText>((short)0,null);
+		mOverlayingPoints = new ObjectsPool<OverlayingText>((short)0,null);
 		
 		// Lê o nivel
 		nPlayers = 2;
@@ -194,6 +194,17 @@ public class GameWorld {
 
 		return true;
 	}
+	
+	public void addOverlayingPoints(String _text, Vector2 _position)
+	{
+		OverlayingText t = new OverlayingText();
+		t.mText = _text;
+		t.mPosition = _position.cpy();
+		t.mPosition.x -= Tile.TILE_SIZE_HALF;
+		t.mPosition.y += Tile.TILE_SIZE_HALF;	
+		mOverlayingPoints.addObject(t);
+	}
+	
 
 	public void spawnExplosion(Bomb _bomb)
 	{
@@ -446,11 +457,11 @@ public class GameWorld {
 	private void updateOverlayingText()
 	{
 
-		for(OverlayingText t : mPoints)
+		for(OverlayingText t : mOverlayingPoints)
 		{			
 			if(t.mTicksElapsed >= t.POINTS_TICKS_DURATION)
 			{
-				mPoints.releaseObject(t);
+				mOverlayingPoints.releaseObject(t);
 			}
 			
 			t.mTicksElapsed++;

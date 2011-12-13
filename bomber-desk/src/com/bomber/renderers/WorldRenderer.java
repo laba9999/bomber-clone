@@ -94,11 +94,6 @@ public class WorldRenderer {
 		}
 		
 		
-		Tile mPortal = mWorld.mMap.mPortal;
-		
-		if(mPortal!=null )
-		mBatch.draw(mPortal.mCurrentFrame, mPortal.mPosition.x, mPortal.mPosition.y);
-
 		mBatch.end();
 
 	}
@@ -195,7 +190,7 @@ public class WorldRenderer {
 		//TODO: alterar font
 		BitmapFont font = Assets.mFont;
 		
-		for (OverlayingText t: mWorld.mPoints)
+		for (OverlayingText t: mWorld.mOverlayingPoints)
 		{
 			Vector2 drawingPoint = t.mPosition;		
 			font.draw(mBatch, t.mText, drawingPoint.x, drawingPoint.y);
