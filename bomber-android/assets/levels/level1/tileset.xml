@@ -146,7 +146,7 @@
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="21" width="40" height="40">
-			<image file="m_generic1_walk_0_scaled.png"/>
+			<image file="m_5_walk_0_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
