@@ -29,10 +29,23 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 
 	public void clear()
 	{
-		for(T tmp : this)
-			releaseObject(tmp);
+		clear(false);
 	}
-	
+
+	public void clear(boolean _reorderFreePositions)
+	{
+		for (T tmp : this)
+			releaseObject(tmp);
+
+		if (_reorderFreePositions)
+		{
+			mFreePositions.clear();
+			for (Short i = (short) (mFreeObjects.size()-1); i >=0 ; i--)
+				mFreePositions.push(i);
+		}
+
+	}
+
 	private void allocateNewObjects(short _quantity)
 	{
 		if (null == mFactory)
@@ -82,7 +95,7 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		// Obtem o objecto a devolver
 		T result = mFreeObjects.pop();
 		result.reset();
-		
+
 		// Actualiza o index do objecto para o libertar mais tarde
 		result.mIndex = insertPos;
 
@@ -94,13 +107,15 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 	public void releaseObject(T obj)
 	{
 		short freeIndex = obj.mIndex;
-		
-		// Se não tiver sido providenciado uma factory então significa que os objectos
-		// foram inseridos à mão e isto significa que não são reaproveitáveis, logo
+
+		// Se não tiver sido providenciado uma factory então significa que os
+		// objectos
+		// foram inseridos à mão e isto significa que não são reaproveitáveis,
+		// logo
 		// não vale a pena guardar
 		if (null != mFactory)
 			mFreeObjects.push(obj);
-		
+
 		mFreePositions.push(freeIndex);
 		mUsedObjects.set(freeIndex, null);
 	}
@@ -112,7 +127,7 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		mObjectsIterator.reset();
 		return mObjectsIterator;
 	}
-	
+
 	public int usedObjects()
 	{
 		return mUsedObjects.size() - mFreeObjects.size();
