@@ -2,8 +2,8 @@ package com.bomber.gameobjects.monsters;
 
 import java.util.Random;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.bomber.DebugSettings;
+import com.bomber.OverlayingText;
 import com.bomber.common.Directions;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.KillableObject;
@@ -42,8 +42,19 @@ public class Monster extends KillableObject {
 		if (mIsDead)
 		{
 			if (mLooped)
+			{
 				mWorld.mMonsters.releaseObject(this);
-
+			
+				//TODO : colocar isto num metodo do GameWorld?
+				OverlayingText t = new OverlayingText();
+				t.mText = new Integer(mInfo.mPointsValue).toString();
+				t.mPosition = mPosition.cpy();
+				t.mPosition.x -= Tile.TILE_SIZE_HALF;
+				t.mPosition.y += Tile.TILE_SIZE_HALF;				
+				mWorld.mPoints.addObject(t);
+				
+				mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
+			}
 			return;
 		}
 
@@ -63,13 +74,14 @@ public class Monster extends KillableObject {
 	@Override
 	protected void onMapCollision(short _collisionType)
 	{
-		mDirection = Directions.getAnyOtherDirection(mRandomGenerator, mDirection);
+		short direction = Directions.getAnyOtherDirection(mRandomGenerator, mDirection);
+		changeDirection(direction);
 	}
 
 	private void decideToTurn()
 	{
 		Tile tileBelow = mWorld.mMap.getTile(mPosition);
-		// verifica se está exactamente no centrado na tile:
+		// verifica se está exactamente centrado na tile:
 		if (mPosition.x - Tile.TILE_SIZE_HALF == tileBelow.mPosition.x && mPosition.y - Tile.TILE_SIZE_HALF == tileBelow.mPosition.y)
 		{
 			if (mRandomGenerator.nextInt(10) < 3)
@@ -80,10 +92,11 @@ public class Monster extends KillableObject {
 
 				// verifica se a tile na direcção de newDirection é "andável"
 				if (newTileInDirection.mType == Tile.WALKABLE || (newTileInDirection.mType == Tile.DESTROYABLE && mInfo.mAbleToFly))
-					mDirection = newDirection;
+					changeDirection(newDirection);
 			}
 		}
 	}
+
 
 	@Override
 	protected boolean onKill()

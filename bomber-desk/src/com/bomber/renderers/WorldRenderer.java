@@ -6,9 +6,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.GameScreen;
+import com.bomber.OverlayingText;
 import com.bomber.common.Assets;
 import com.bomber.common.PlayerEffect;
 import com.bomber.gameobjects.Bomb;
@@ -57,6 +59,7 @@ public class WorldRenderer {
 		renderExplosions();
 		renderPlayers();
 		renderMonsters();
+		renderOverlayingText();
 
 	}
 
@@ -92,6 +95,7 @@ public class WorldRenderer {
 		
 		
 		Tile mPortal = mWorld.mMap.mPortal;
+		
 		if(mPortal!=null )
 		mBatch.draw(mPortal.mCurrentFrame, mPortal.mPosition.x, mPortal.mPosition.y);
 
@@ -184,5 +188,19 @@ public class WorldRenderer {
 		}
 		mBatch.end();
 	}
+	
+	private void renderOverlayingText()
+	{
+		mBatch.begin();
+		//TODO: alterar font
+		BitmapFont font = Assets.mFont;
+		
+		for (OverlayingText t: mWorld.mPoints)
+		{
+			Vector2 drawingPoint = t.mPosition;		
+			font.draw(mBatch, t.mText, drawingPoint.x, drawingPoint.y);
+		}
+		mBatch.end();
 
+	}
 }

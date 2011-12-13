@@ -1,4 +1,4 @@
-package com.bomber.gametype;
+package com.bomber.gametypes;
 
 import com.bomber.world.GameWorld;
 

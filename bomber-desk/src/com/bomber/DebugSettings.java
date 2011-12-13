@@ -6,11 +6,11 @@ public class DebugSettings {
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
 	
 	// Monstros
-	public static final boolean MONSTERS_KILL_PLAYERS = false;
+	public static final boolean MONSTERS_KILL_PLAYERS = true;
 	
 	// Mapa
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;
 	
 	// Mundo
-	public static final boolean WORLD_SPAWN_BONUS_RANDOMLY = false;
+	public static final boolean WORLD_SPAWN_BONUS_RANDOMLY = true;
 }

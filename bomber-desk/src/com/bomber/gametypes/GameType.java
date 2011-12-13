@@ -1,4 +1,4 @@
-package com.bomber.gametype;
+package com.bomber.gametypes;
 
 import com.bomber.world.GameWorld;
 
@@ -20,6 +20,15 @@ public abstract class GameType {
 	 * Usado para verificar se pode mudar para o estado Win
 	 */
 	public abstract boolean isOver();
+	
+	
+	/*
+	 * Verifica se pode mudar para o estado gameover
+	 */	
+	public boolean isLost()
+	{
+		return mGameWorld.getLocalPlayer().mLives == 0;
+	}
 	
 	//TODO : apagar se nao for necessário
 	public static final short CAMPAIGN = 0;

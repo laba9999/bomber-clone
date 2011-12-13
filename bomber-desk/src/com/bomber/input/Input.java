@@ -13,6 +13,7 @@ public abstract class Input {
 	protected OrthographicCamera mUICamera;
 	protected Rectangle[] mInputZones;
 	protected GameState mGameState;
+	
 	Input(GameState _gameState)
 	{
 		mUICamera = _gameState.mGameScreen.mUICamera;

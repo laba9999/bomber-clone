@@ -127,6 +127,9 @@ public class GameMap {
 
 		mImutableTiles.clear();
 		mDestroyableTiles.clear();
+		mTilesBeingDestroyed.clear();
+		mTilesMap.clear();
+		mPortal = null;
 	}
 
 	/**
@@ -141,7 +144,25 @@ public class GameMap {
 			mTilesMap.add(null);
 
 		for (Tile tl : mImutableTiles)
+		{
+			
 			mTilesMap.set(tl.mPositionInArray, tl);
+
+		}
+		
+		//	if(mTilesMap.get(tl.mPositionInArray) == null)
+//		for (Tile tl : mImutableTiles)
+//		{
+//			if(tl.mType == Tile.WALKABLE)
+//				mTilesMap.set(tl.mPositionInArray, tl);
+//
+//		}	
+//		
+//		for (Tile tl : mImutableTiles)
+//		{
+//			if(tl.mType == Tile.COLLIDABLE)
+//				mTilesMap.set(tl.mPositionInArray, tl);
+//		}			
 
 		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
@@ -163,8 +184,7 @@ public class GameMap {
 		if(_tile.mIsPortal)
 		{
 			spawnPortal(_tile.mPosition.x,_tile.mPosition.y);
-
-			
+			_tile.mIsPortal = false;
 		}
 		
 		// O mapa vai apresentar a partir de agora o tile walkable que estava
