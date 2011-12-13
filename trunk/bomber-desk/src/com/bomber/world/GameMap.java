@@ -36,17 +36,15 @@ import com.bomber.gameobjects.Tile;
  */
 public class GameMap {
 
+	private GameWorld mWorld;
 	private ObjectsPool<Tile> mImutableTiles;
 	private ObjectsPool<Tile> mDestroyableTiles;
 	public ObjectsPool<Tile> mTilesBeingDestroyed;
+
 	public Tile mPortal;
-
 	public ArrayList<Tile> mTilesMap = new ArrayList<Tile>();
-
 	public short mWidth, mHeight;
 	public int mWidthPixels, mHeightPixels;
-
-	GameWorld mWorld;
 
 	public GameMap(GameWorld _gameWorld) {
 
@@ -126,9 +124,6 @@ public class GameMap {
 
 		mImutableTiles.clear(true);
 		mDestroyableTiles.clear();
-		mTilesBeingDestroyed.clear();
-		mTilesMap.clear();
-		mPortal = null;
 	}
 
 	/**
@@ -143,10 +138,14 @@ public class GameMap {
 			mTilesMap.add(null);
 
 		for (Tile tl : mImutableTiles)
+		{
 			mTilesMap.set(tl.mPositionInArray, tl);
+
+		}
 
 		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
+
 	}
 
 	public void explodeTile(Tile _tile)
@@ -163,7 +162,7 @@ public class GameMap {
 		if (_tile.mIsPortal)
 		{
 			spawnPortal(_tile);
-			_tile.mIsPortal = false;
+
 			return; 
 		}
 
@@ -729,6 +728,8 @@ public class GameMap {
 	public void spawnPortal(Tile _t)
 	{
 		mPortal = mImutableTiles.getFreeObject();
+		
+		mPortal.mType = Tile.WALKABLE;
 		mPortal.mPosition.x = _t.mPosition.x;
 		mPortal.mPosition.y = _t.mPosition.y;
 		mPortal.mPositionInArray = _t.mPositionInArray;
@@ -736,8 +737,6 @@ public class GameMap {
 		
 		// TODO: alterar textura
 		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 123);
-
-
 	}
 
 }

@@ -29,7 +29,7 @@ public class InputLevelCompletedState extends Input {
 		if (Gdx.input.isKeyPressed(Keys.ENTER))
 		{
 			GameScreen gs = mGameState.mGameScreen;
-			gs.mWorld.reset("level4");
+			gs.mWorld.reset("level1");
 			GameStatePlaying g = new GameStatePlaying(mGameState.mGameScreen);
 			gs.setGameState(g);
 

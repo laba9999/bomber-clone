@@ -3,6 +3,8 @@ package com.bomber.gameobjects;
 import com.bomber.common.Utils;
 
 public class Tile extends Drawable {
+
+
 	public static final short TILE_SIZE = 47;
 	public static final short TILE_SIZE_HALF = TILE_SIZE /2;
 	public static final short WALKABLE = 0;
@@ -18,6 +20,15 @@ public class Tile extends Drawable {
 	public Tile(short _type) {
 		mType = _type;
 		mUUID = Utils.getNextUUID();
+	}
+	
+	@Override
+	public void reset()
+	{
+		super.reset();
+		
+		mIsPortal = false;
+		mContainsBomb = false;
 	}
 
 	/**
