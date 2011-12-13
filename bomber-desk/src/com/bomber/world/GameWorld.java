@@ -526,7 +526,7 @@ public class GameWorld {
 		// do nível intacto.
 		int maxSimultaneousBonus = 10;
 
-		int howManyBonus = mSpawnedBonus.usedObjects();
+		int howManyBonus = mSpawnedBonus.mLenght;
 
 
 		if (howManyBonus == maxSimultaneousBonus)

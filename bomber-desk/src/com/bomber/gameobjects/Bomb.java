@@ -18,7 +18,7 @@ public class Bomb extends KillableObject {
 
 	private int mTicksSinceDrop = 0;
 
-	private static final int mTicksToExplode = 200; // 100/sec = 3secs;
+	private static final int mTicksToExplode = 10; // 100/sec = 3secs;
 
 
 	public Bomb(GameWorld _world) {

@@ -16,6 +16,7 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 	private Factory<T> mFactory;
 	private ObjectsPoolIterator<T> mObjectsIterator;
 
+	public short mLenght = 0;
 	public ObjectsPool(short _initialQuantity, Factory<T> _factory) {
 
 		mFactory = _factory;
@@ -74,6 +75,8 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 			_obj.mIndex = (short) mUsedObjects.size();
 			mUsedObjects.add(_obj);
 		}
+		
+		mLenght++;
 	}
 
 	/**
@@ -101,6 +104,8 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 
 		mUsedObjects.set(insertPos, result);
 
+		mLenght++;
+		
 		return result;
 	}
 
@@ -118,6 +123,8 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 
 		mFreePositions.push(freeIndex);
 		mUsedObjects.set(freeIndex, null);
+		
+		mLenght--;
 	}
 
 	@Override
@@ -126,10 +133,5 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		// Faz reset ao iterador e devolve sempre o mesmo
 		mObjectsIterator.reset();
 		return mObjectsIterator;
-	}
-
-	public int usedObjects()
-	{
-		return mUsedObjects.size() - mFreeObjects.size();
 	}
 }
