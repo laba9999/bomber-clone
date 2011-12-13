@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-
 import com.bomber.DebugSettings;
 import com.bomber.common.Assets;
 
@@ -48,12 +47,12 @@ public class GameMap {
 	public int mWidthPixels, mHeightPixels;
 
 	GameWorld mWorld;
-	
+
 	public GameMap(GameWorld _gameWorld) {
-		
+
 		mWorld = _gameWorld;
-		
-		mImutableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.WALKABLE));
+
+		mImutableTiles = new ObjectsPool<Tile>((short) 100, new ObjectFactory.CreateTile(Tile.WALKABLE));
 		mDestroyableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.DESTROYABLE));
 		mTilesBeingDestroyed = new ObjectsPool<Tile>((short) 0, null);
 		mPortal = null;
@@ -73,9 +72,9 @@ public class GameMap {
 	 */
 	public void addDestroyableTile(short _line, short _col, Animation _anim)
 	{
-		if(!DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
+		if (!DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
 			return;
-		
+
 		Tile tmpTile = mDestroyableTiles.getFreeObject();
 
 		tmpTile.mType = Tile.DESTROYABLE;
@@ -125,7 +124,7 @@ public class GameMap {
 		mWidthPixels = mWidth * Tile.TILE_SIZE;
 		mHeightPixels = mHeight * Tile.TILE_SIZE;
 
-		mImutableTiles.clear();
+		mImutableTiles.clear(true);
 		mDestroyableTiles.clear();
 		mTilesBeingDestroyed.clear();
 		mTilesMap.clear();
@@ -144,29 +143,10 @@ public class GameMap {
 			mTilesMap.add(null);
 
 		for (Tile tl : mImutableTiles)
-		{
-			
 			mTilesMap.set(tl.mPositionInArray, tl);
-
-		}
-		
-		//	if(mTilesMap.get(tl.mPositionInArray) == null)
-//		for (Tile tl : mImutableTiles)
-//		{
-//			if(tl.mType == Tile.WALKABLE)
-//				mTilesMap.set(tl.mPositionInArray, tl);
-//
-//		}	
-//		
-//		for (Tile tl : mImutableTiles)
-//		{
-//			if(tl.mType == Tile.COLLIDABLE)
-//				mTilesMap.set(tl.mPositionInArray, tl);
-//		}			
 
 		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
-		
 	}
 
 	public void explodeTile(Tile _tile)
@@ -180,13 +160,12 @@ public class GameMap {
 		mDestroyableTiles.releaseObject(_tile);
 		mTilesBeingDestroyed.addObject(_tile);
 
-
-		if(_tile.mIsPortal)
+		if (_tile.mIsPortal)
 		{
-			spawnPortal(_tile.mPosition.x,_tile.mPosition.y);
+			spawnPortal(_tile.mPosition.x, _tile.mPosition.y);
 			_tile.mIsPortal = false;
 		}
-		
+
 		// O mapa vai apresentar a partir de agora o tile walkable que estava
 		// por baixo deste
 		for (Tile tl : mImutableTiles)
@@ -393,8 +372,7 @@ public class GameMap {
 			return;
 
 		Tile tmpTile = mTilesMap.get(_tileIdx);
-		
-					
+
 		if ((tmpTile.mType == Tile.DESTROYABLE && _ignoreDestroyables))
 			return;
 
@@ -418,25 +396,24 @@ public class GameMap {
 		{
 			// De certeza?
 			boolean found = false;
-			for(Bomb b : mWorld.mBombs)
+			for (Bomb b : mWorld.mBombs)
 			{
-				if(b.mContainer.mPositionInArray == tmpTile.mPositionInArray)
+				if (b.mContainer.mPositionInArray == tmpTile.mPositionInArray)
 				{
 					_result.mType = Collision.BOMB;
 					found = true;
 					break;
 				}
 			}
-			
-			if(!found)
+
+			if (!found)
 			{
 				tmpTile.mContainsBomb = false;
 				return;
 			}
-			
+
 		}
-			
-		
+
 		// Devolve o valor overlapped baseado na direcção do objecto
 		if (_direction == Directions.UP)
 			_result.mAmounts.y = bbTile.y - (_objBB.y + Tile.TILE_SIZE);
@@ -459,9 +436,9 @@ public class GameMap {
 			if (tmpTile.mLooped)
 			{
 				mTilesBeingDestroyed.releaseObject(tmpTile);
-				
+
 			}
-				
+
 		}
 	}
 
@@ -553,15 +530,14 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
-	
 	public int calcTileIndex(Vector2 _position, short _direction, short _distance)
 	{
 		int idx = calcTileIndex(_position);
 		idx = calcTileIndex(idx, _direction, _distance);
-		
+
 		return idx;
 	}
-	
+
 	/**
 	 * Tranforma uma posição 2D num index do array de tiles. Isto é feito
 	 * baseado no tamanho do tile e na largura do mapa.
@@ -708,57 +684,54 @@ public class GameMap {
 	{
 		int idx = calcTileIndex(_starIdx, _direction, _distance);
 
-
 		return mTilesMap.get(idx);
 	}
-	
-	
-	public Tile getRandomTileFromType(short _type) 
+
+	public Tile getRandomTileFromType(short _type)
 	{
-		
-		if(_type > Tile.PORTAL || _type < Tile.WALKABLE)
+
+		if (_type > Tile.PORTAL || _type < Tile.WALKABLE)
 		{
 			throw new InvalidParameterException("Tipo inválido");
 		}
-		
+
 		Random randomGenerator = new Random();
 		short col;
-		short lin;	
+		short lin;
 		Tile tileAtPosition = null;
 		boolean unwantedType = false;
-		
+
 		do
 		{
-			//gera posição aleatória
+			// gera posição aleatória
 			col = (short) randomGenerator.nextInt(mWidth);
 			lin = (short) randomGenerator.nextInt(mHeight);
-			
-			float colInPixels = col * Tile.TILE_SIZE;				
+
+			float colInPixels = col * Tile.TILE_SIZE;
 			float linInPixels = lin * Tile.TILE_SIZE;
-			
-			//verifica se o tile na posição gerada é do tipo pretendido
-			tileAtPosition = getTile(new Vector2(colInPixels,linInPixels));				
+
+			// verifica se o tile na posição gerada é do tipo pretendido
+			tileAtPosition = getTile(new Vector2(colInPixels, linInPixels));
 			unwantedType = tileAtPosition.mType != _type;
-			
-		}while(unwantedType);
+
+		} while (unwantedType);
 
 		return tileAtPosition;
 	}
-	
+
 	public void placePortal()
 	{
 		Tile futurePortal = getRandomTileFromType(Tile.DESTROYABLE);
 		futurePortal.mIsPortal = true;
 	}
-	
+
 	public void spawnPortal(float _x, float _y)
 	{
 		mPortal = mImutableTiles.getFreeObject();
 		mPortal.mPosition.x = _x;
 		mPortal.mPosition.y = _y;
-		//TODO: alterar textura
-		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_",123);
+		// TODO: alterar textura
+		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 123);
 	}
-	
-	
+
 }

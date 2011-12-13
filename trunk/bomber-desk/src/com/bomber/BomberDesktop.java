@@ -13,5 +13,4 @@ public class BomberDesktop {
 		//new LwjglApplication(new GameScreen(), "Bomber", 480, 320, false);
 
 	}
-
 }
