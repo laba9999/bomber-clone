@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
-import com.bomber.gametype.GameTypeCampaign;
+import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.input.InputPlayingState;
 
 public class GameStatePlaying extends GameState {
@@ -31,8 +31,11 @@ public class GameStatePlaying extends GameState {
 			}
 			
 			//TODO : outros gametypes
-			
 
+		}
+		else if(mGameWorld.mGameType.isLost())
+		{
+			mGameScreen.setGameState(new GameStateGameOver(mGameScreen));
 		}
 
 	}
@@ -56,24 +59,24 @@ public class GameStatePlaying extends GameState {
 		
 		//desenha tempo e score		
 		if(mGameWorld.mClock != null)
-		font.draw(mBatcher, mGameWorld.mClock.toString(), 235, 105);
+		font.draw(mBatcher, mGameWorld.mClock.toString(), 235, 125);
 		//TODO: mPointsAsString não é necessário??
-		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 350, 105);
+		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 350, 125);
 		
 		//desenha quantidades de bonus ao fundo
 		Integer value;
 		
 		value = (int) player.mLives;
-		font.draw(mBatcher, value.toString(), 270, 25);
+		font.draw(mBatcher, value.toString(), 285, 47);
 		
 		value = (int) player.mBombExplosionSize;
-		font.draw(mBatcher, value.toString(), 350, 25);
+		font.draw(mBatcher, value.toString(), 355, 47);
 		
 		value = (int) player.mMaxSimultaneousBombs;
-		font.draw(mBatcher, value.toString(), 435, 25);
+		font.draw(mBatcher, value.toString(), 430, 47);
 	
 		value = (int) player.mSpeedFactor;
-		font.draw(mBatcher, value.toString(), 510, 25);
+		font.draw(mBatcher, value.toString(), 500, 47);
 		
 		//desenha bonus ao canto
 		float x = 755;
@@ -98,9 +101,9 @@ public class GameStatePlaying extends GameState {
 			x -= 57;	
 		}
 		
-		Rectangle[] zones = mInput.getZones();
-		for (int i = 0; i < zones.length; i++)
-			mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
+//		Rectangle[] zones = mInput.getZones();
+//		for (int i = 0; i < zones.length; i++)
+//			mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
 
 		Integer fps = Gdx.graphics.getFramesPerSecond();
 		Assets.mFont.draw(mBatcher, fps.toString(), 150, 470);

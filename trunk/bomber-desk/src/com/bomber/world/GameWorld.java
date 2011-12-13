@@ -6,6 +6,7 @@ import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
+import com.bomber.OverlayingText;
 import com.bomber.Team;
 import com.bomber.common.Assets;
 import com.bomber.common.Directions;
@@ -21,10 +22,10 @@ import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.bonus.BonusTypes;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
-import com.bomber.gametype.GameType;
-import com.bomber.gametype.GameTypeCTF;
-import com.bomber.gametype.GameTypeCampaign;
-import com.bomber.gametype.GameTypeDeathmatch;
+import com.bomber.gametypes.GameType;
+import com.bomber.gametypes.GameTypeCTF;
+import com.bomber.gametypes.GameTypeCampaign;
+import com.bomber.gametypes.GameTypeDeathmatch;
 import com.bomber.remote.Message;
 import com.bomber.remote.RemoteConnections;
 
@@ -34,7 +35,7 @@ public class GameWorld {
 	public ObjectsPool<Player> mPlayers;
 	public ObjectsPool<Bomb> mBombs;
 	public ObjectsPool<Drawable> mExplosions;
-
+	public ObjectsPool<OverlayingText> mPoints;
 	private Player mLocalPlayer = null;
 
 	public GameType mGameType;
@@ -44,12 +45,14 @@ public class GameWorld {
 	public ArrayList<Team> mTeams = new ArrayList<Team>();
 	public Clock mClock;
 
-	private String mCurrentLevelName;
+	public String mCurrentLevelName;
 
 	public GameWorld(GameType _gameType, String _startLevelName) {
 
 		mGameType = _gameType;
 		mGameType.mGameWorld = this;
+		
+		mCurrentLevelName = _startLevelName;
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
@@ -77,7 +80,11 @@ public class GameWorld {
 		mExplosions = new ObjectsPool<Drawable>(nExplosions, new ObjectFactory.CreateExplosion());
 
 		mMap = new GameMap(this);
-
+		
+		// Instancia pool de OverlayingTexts com 0 elementos e sem Factory definida
+		// Objectos serão adicionados manualmente
+		mPoints = new ObjectsPool<OverlayingText>((short)0,null);
+		
 		// Lê o nivel
 		nPlayers = 2;
 		mCurrentLevelName = _startLevelName;
@@ -112,11 +119,15 @@ public class GameWorld {
 		mSpawnedBonus.clear();
 		mBombs.clear();
 		mExplosions.clear();
-
+		mMap.reset(mMap.mWidth, mMap.mHeight);
+		
 		short nPlayers = 2;
 		mCurrentLevelName = _starLevelName;
 		Level.loadLevel(_starLevelName, this, nPlayers);
-
+		
+		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
+			mMap.placePortal();
+		
 		mClock = new Clock();
 		mClock.reset(1, 0);
 		mClock.start();
@@ -386,10 +397,16 @@ public class GameWorld {
 		updateMonsters();
 		updateExplosions();
 		updateBonus();
+		updateOverlayingText();
+		
+		//TODO: Alterar Textura
+		if(mGameType.mNeedsPortal && mGameType.isObjectiveAcomplished() && mMap.mPortal != null) 
+			mMap.mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 125);
 
 		if (DebugSettings.WORLD_SPAWN_BONUS_RANDOMLY)
 			spawnBonusRandomly();
 	}
+	
 
 	private void updateMonsters()
 	{
@@ -424,6 +441,21 @@ public class GameWorld {
 	{
 		for (Bonus b : mSpawnedBonus)
 			b.update();
+	}
+	
+	private void updateOverlayingText()
+	{
+
+		for(OverlayingText t : mPoints)
+		{			
+			if(t.mTicksElapsed >= t.POINTS_TICKS_DURATION)
+			{
+				mPoints.releaseObject(t);
+			}
+			
+			t.mTicksElapsed++;
+		}
+		
 	}
 
 	public void spawnBonusRandomly()
@@ -481,12 +513,10 @@ public class GameWorld {
 		// spawnBonusRandomly pode tornar-se infitito.
 		// Isto acontece quando maxSimultaneousBonus > Número de tiles walkables
 		// do nível intacto.
-		int maxSimultaneousBonus = 30;
+		int maxSimultaneousBonus = 10;
 
-		int howManyBonus = 0;
+		int howManyBonus = mSpawnedBonus.usedObjects();
 
-		for (Bonus bonus : mSpawnedBonus)
-			howManyBonus++;
 
 		if (howManyBonus == maxSimultaneousBonus)
 			return true;

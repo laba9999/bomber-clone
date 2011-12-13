@@ -7,8 +7,8 @@ import com.bomber.common.Assets;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePlaying;
-import com.bomber.gametype.GameType;
-import com.bomber.gametype.GameTypeCampaign;
+import com.bomber.gametypes.GameType;
+import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 

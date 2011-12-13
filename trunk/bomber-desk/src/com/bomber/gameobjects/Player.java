@@ -209,6 +209,8 @@ public class Player extends KillableObject {
 			
 			return true;
 		}
+		
+		mLives--;
 
 		return false;
 	}
@@ -243,25 +245,7 @@ public class Player extends KillableObject {
 
 	private void pushBombAhead()
 	{
-		/*
-		 * Rectangle whereBombShouldBe = getBoundingBox();
-		 * 
-		 * switch (mDirection) { case Directions.UP:
-		 * whereBombShouldBe.setY(whereBombShouldBe.getY() + Tile.TILE_SIZE);
-		 * break; case Directions.DOWN:
-		 * whereBombShouldBe.setY(whereBombShouldBe.getY() - Tile.TILE_SIZE);
-		 * break; case Directions.LEFT:
-		 * whereBombShouldBe.setX(whereBombShouldBe.getX() - Tile.TILE_SIZE);
-		 * break; case Directions.RIGHT:
-		 * whereBombShouldBe.setX(whereBombShouldBe.getX() + Tile.TILE_SIZE);
-		 * break; }
-		 * 
-		 * for (Bomb bomb : mWorld.mBombs) { if
-		 * (whereBombShouldBe.contains(bomb.mPosition.x, bomb.mPosition.y))
-		 * bomb.changeDirection(mDirection); }
-		 */
 
-		// Mais simples
 		int whereBombShouldBe = mWorld.mMap.calcTileIndex(mPosition, mDirection, (short) 1);
 		for (Bomb bomb : mWorld.mBombs)
 			if (whereBombShouldBe == bomb.mContainer.mPositionInArray)
