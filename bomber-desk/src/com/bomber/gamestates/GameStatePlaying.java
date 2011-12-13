@@ -59,9 +59,9 @@ public class GameStatePlaying extends GameState {
 		
 		//desenha tempo e score		
 		if(mGameWorld.mClock != null)
-		font.draw(mBatcher, mGameWorld.mClock.toString(), 255, 475);
+		font.draw(mBatcher, mGameWorld.mClock.toString(), 280, 475);
 		//TODO: mPointsAsString não é necessário??
-		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 370, 475);
+		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 365, 475);
 		
 		//desenha quantidades de bonus ao fundo
 		Integer value;
@@ -79,8 +79,8 @@ public class GameStatePlaying extends GameState {
 		font.draw(mBatcher, value.toString(), 520, 30);
 		
 		//desenha bonus ao canto
-		float x = 765;
-		float y = 440;		
+		float x = 764;
+		float y = 445;		
 		boolean drawBonusHand = player.mIsAbleToPushBombs;
 		boolean drawBonusShield = player.mIsShieldActive;
 		boolean drawBonusStar = player.mPointsMultiplier != 1;
@@ -106,8 +106,8 @@ public class GameStatePlaying extends GameState {
 //			mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
 
 		Integer fps = Gdx.graphics.getFramesPerSecond();
-		Assets.mFont.draw(mBatcher, fps.toString(), 150, 470);
-		Assets.mFont.draw(mBatcher, GameScreen.ticksPerSecond.toString(), 200, 470);
+		Assets.mFont.draw(mBatcher, fps.toString(), 115, 470);
+		Assets.mFont.draw(mBatcher, GameScreen.ticksPerSecond.toString(), 165, 470);
 
 		
 		mBatcher.end();
