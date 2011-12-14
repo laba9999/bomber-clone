@@ -508,6 +508,9 @@ public class GameMap {
 			if (found)
 				break;
 		}
+		
+		if(!found)
+			idx = -1;
 
 		return idx;
 	}

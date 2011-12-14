@@ -9,6 +9,8 @@ public class Directions {
 	public static final short LEFT = 2;
 	public static final short RIGHT = 3;
 	
+	public static final short[] DIRECTIONS = {UP,DOWN,LEFT};
+	
 	public static short getInverseDirection(short _direction)
 	{
 		if( _direction == UP) return DOWN;
@@ -40,6 +42,21 @@ public class Directions {
 		}
 
 		return newDirection;
+	}
+	
+	public static short[] getRemainingDirections(short _direction)
+	{
+
+		short c = 0;
+//		short inverseDirection =getInverseDirection(_direction);
+		
+		for(short i = UP; i <= RIGHT; i++)
+		{
+			if(_direction != i )
+				DIRECTIONS[c++] = i;
+		}
+	
+		return DIRECTIONS;
 	}
 	
 	/*
