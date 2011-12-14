@@ -1,5 +1,6 @@
 package com.bomber.gameobjects.bonus;
 
+import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Player;
 
 public abstract class TemporaryBonus extends Bonus {
@@ -8,14 +9,25 @@ public abstract class TemporaryBonus extends Bonus {
 	private int mEffectDuration;
 	private int mEffectCurrentDuration;
 
-	protected short mType;
+	public short mType;
 
 	TemporaryBonus(short _type, int _durationTicks) {
 		mEffectDuration = _durationTicks;
 		mAffectedPlayer = null;
 		mType = _type;
 	}
-
+	
+	
+	public <T extends TemporaryBonus> void clone(T _bonus)
+	{
+		_bonus.mAffectedPlayer =mAffectedPlayer;
+		_bonus.mEffectDuration = mEffectDuration;
+		_bonus.mEffectCurrentDuration = mEffectCurrentDuration;
+		
+		_bonus.mType = mType;
+	}
+	
+	
 	@Override
 	public final void applyEffect(Player _player)
 	{

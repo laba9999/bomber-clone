@@ -2,6 +2,7 @@ package com.bomber.common;
 
 import java.security.InvalidParameterException;
 
+import com.bomber.OverlayingText;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Player;
@@ -82,10 +83,18 @@ public final class ObjectFactory {
 		}
 	}
 
+	public static class CreateOverlayingText extends Factory<OverlayingText> {
+		@Override
+		public OverlayingText onCreate()
+		{
+			return new OverlayingText();
+		}
+	}
+
 	public static class CreateBonus {
 
 		public static Bonus create(short _bonusType)
-		{ 
+		{
 			Bonus tmpBonus = null;
 			switch (_bonusType)
 			{
@@ -113,9 +122,6 @@ public final class ObjectFactory {
 			default:
 				throw new InvalidParameterException("Tipo de bonus desconhecido");
 			}
-
-			if (null != tmpBonus)
-				tmpBonus.mUUID = Utils.getNextUUID();
 
 			return tmpBonus;
 		}

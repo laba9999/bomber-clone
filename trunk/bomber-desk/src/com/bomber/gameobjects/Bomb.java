@@ -23,7 +23,6 @@ public class Bomb extends KillableObject {
 
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
-		mUUID = Utils.getNextUUID();
 		mIgnoreDestroyables = false;
 	}
 

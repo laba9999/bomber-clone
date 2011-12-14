@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.common.Collision;
+import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.PlayerEffect;
 import com.bomber.common.Utils;
@@ -54,7 +55,6 @@ public class Player extends KillableObject {
 
 	public Player(GameWorld _world) {
 		mWorld = _world;
-		mUUID = Utils.getNextUUID();
 
 		mEffects = new ObjectsPool<PlayerEffect>((short) 0, null);
 		mActiveBonus = new ObjectsPool<TemporaryBonus>((short) 0, null);
@@ -146,7 +146,12 @@ public class Player extends KillableObject {
 				if (!TemporaryBonus.class.isAssignableFrom(bonus.getClass()))
 					continue;
 
-				mActiveBonus.addObject((TemporaryBonus) bonus);
+				// Para jogar pelo seguro clonamos o abjecto antes de o
+				// adicionar a uma pool diferente
+				TemporaryBonus tmpBonus = (TemporaryBonus) ObjectFactory.CreateBonus.create(((TemporaryBonus) bonus).mType);
+				bonus.clone(tmpBonus);
+
+				mActiveBonus.addObject(tmpBonus);
 			}
 		}
 	}
@@ -176,7 +181,7 @@ public class Player extends KillableObject {
 	public void reset()
 	{
 		super.reset();
-		
+
 		mPoints = 0;
 		mEffects.clear();
 		mActiveBonus.clear();
@@ -196,20 +201,20 @@ public class Player extends KillableObject {
 	@Override
 	protected boolean onKill()
 	{
-		if(mIsShieldActive)
+		if (mIsShieldActive)
 		{
-			for(TemporaryBonus b : mActiveBonus)
+			for (TemporaryBonus b : mActiveBonus)
 			{
-				if( b instanceof BonusShield)
+				if (b instanceof BonusShield)
 				{
 					b.removeEffect();
 					break;
 				}
 			}
-			
+
 			return true;
 		}
-		
+
 		mLives--;
 
 		return false;

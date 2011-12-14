@@ -15,18 +15,16 @@ import com.bomber.world.GameWorld;
 public class Monster extends KillableObject {
 	public MonsterInfo mInfo;
 	private Random mRandomGenerator;
-	
 
 	public static ArrayList<Short> mAvailableDirections = new ArrayList<Short>();
-	
+
 	public Monster(GameWorld _world) {
 		mWorld = _world;
-		mUUID = Utils.getNextUUID();
 
 		// TODO : ter muito cuidado pk em multiplayer isto tem de estar
 		// sincronizado.
 		mRandomGenerator = new Random(mUUID);
-		
+
 	}
 
 	@Override
@@ -54,8 +52,7 @@ public class Monster extends KillableObject {
 			}
 			return;
 		}
-		
-		
+
 		if (DebugSettings.MONSTERS_KILL_PLAYERS)
 			checkForPlayerCollision();
 
@@ -64,26 +61,26 @@ public class Monster extends KillableObject {
 
 	private void updateAvailableDirections()
 	{
-		if(mIsDead)
+		if (mIsDead)
 			return;
-		
+
 		mAvailableDirections.clear();
-			
-		for(short i : Directions.getRemainingDirections(mDirection))
+
+		for (short i : Directions.getRemainingDirections(mDirection))
 		{
 			int x;
-			
-			if(mInfo.mAbleToFly)
-				x = mWorld.mMap.getDistanceToNext(1, mPosition,i , Tile.WALKABLE,Tile.DESTROYABLE);
-			else
-				x = mWorld.mMap.getDistanceToNext(1, mPosition,i , Tile.WALKABLE);
 
-			if(x!=-1)	
+			if (mInfo.mAbleToFly)
+				x = mWorld.mMap.getDistanceToNext(1, mPosition, i, Tile.WALKABLE, Tile.DESTROYABLE);
+			else
+				x = mWorld.mMap.getDistanceToNext(1, mPosition, i, Tile.WALKABLE);
+
+			if (x != -1)
 				mAvailableDirections.add(i);
-			
+
 		}
 	}
-	
+
 	private void checkForPlayerCollision()
 	{
 		for (Player p : mWorld.mPlayers)
@@ -95,66 +92,59 @@ public class Monster extends KillableObject {
 	protected void onMapCollision(short _collisionType)
 	{
 
-		if(mAvailableDirections.size() == 0)
+		if (mAvailableDirections.size() == 0)
 			return;
-				
-		short rand = (short )mRandomGenerator.nextInt(mAvailableDirections.size());
+
+		short rand = (short) mRandomGenerator.nextInt(mAvailableDirections.size());
 		short dir = mAvailableDirections.get(rand);
-		
+
 		changeDirection(dir);
 	}
-	
 
 	private void decideToTurn()
 	{
 		short chanceOfTurning = 3;
 		float delta = 0.04f;
-		
-			
-		if(mAvailableDirections.size() == 0)
-			return;		
-		
-		
+
+		if (mAvailableDirections.size() == 0)
+			return;
+
 		Tile tileBelow = mWorld.mMap.getTile(mPosition);
-		Rectangle mBB = getBoundingBox();	
-		
+		Rectangle mBB = getBoundingBox();
+
 		float x = tileBelow.mPosition.x - mBB.getX();
 		float y = tileBelow.mPosition.y - mBB.getY();
-		
+
 		float dist = (float) Math.sqrt(x * x + y * y);
 
-		if(dist>delta)
+		if (dist > delta)
 		{
 			return;
 		}
-		
+
 		if (mRandomGenerator.nextInt(10) < chanceOfTurning)
 		{
 			// obtem nova direcção
 
-				short rand = (short)mRandomGenerator.nextInt(mAvailableDirections.size());
-				changeDirection(mAvailableDirections.get(rand));
+			short rand = (short) mRandomGenerator.nextInt(mAvailableDirections.size());
+			changeDirection(mAvailableDirections.get(rand));
 		}
 
-
-		mPosition.set(tileBelow.mPosition.x + Tile.TILE_SIZE_HALF,tileBelow.mPosition.y+ Tile.TILE_SIZE_HALF);
+		mPosition.set(tileBelow.mPosition.x + Tile.TILE_SIZE_HALF, tileBelow.mPosition.y + Tile.TILE_SIZE_HALF);
 	}
 
-
-	
 	@Override
 	protected boolean onKill()
-	{ 
-		
-		//TODO : colocar isto num metodo do GameWorld?
-		String text = new Integer(mInfo.mPointsValue).toString();
-		mWorld.addOverlayingPoints(text, mPosition);
-		
+	{
+		// TODO : colocar isto num metodo do GameWorld?
+		mWorld.spawnOverlayingPoints(mInfo.mPointsValueString, mPosition.x , mPosition.y+ Tile.TILE_SIZE_HALF);
+
 		mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
-		
+
 		return false;
 	}
 
+	
 	@Override
 	protected void onChangedDirection()
 	{

@@ -12,8 +12,9 @@ public abstract class PoolObject {
 		if(mOwnerUUID == -1)
 			mOwnerUUID = _uuid;
 		
-//		if( _uuid != mOwnerUUID)
-//			_uuid = _uuid;
+		if( _uuid != mOwnerUUID)
+			throw new IllegalStateException(); 
+		
 		
 		mIndex = _idx;
 	}

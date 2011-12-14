@@ -7,14 +7,15 @@ public class UIMovableObject extends GameObject {
 
 	public float mSpeed = 0f;
 
-	private Vector2 mStartPosition;
+	protected Vector2 mStartPosition;
 	private Vector2 mDirection;
 	private int mDuration;
-	
+
 	public int mTicksCounter = 0;
 	public boolean mIsMoving = false;
 
 	public TextureRegion mTexture = null;
+
 
 	public UIMovableObject(float _speed, float _startX, float _startY, float _dirX, float _dirY, int _duration) {
 
@@ -24,6 +25,7 @@ public class UIMovableObject extends GameObject {
 		mDirection = new Vector2(_dirX, _dirY);
 		mStartPosition = new Vector2(_startX, _startY);
 	}
+
 
 	@Override
 	public void update()

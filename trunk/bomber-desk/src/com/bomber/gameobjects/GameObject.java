@@ -3,13 +3,15 @@ package com.bomber.gameobjects;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.PoolObject;
+import com.bomber.common.Utils;
 
 public abstract class GameObject extends PoolObject {
 	public Vector2 mPosition = new Vector2();
 	protected Vector2 mDrawingPoint = new Vector2();
 	private Rectangle mBoudingBox = new Rectangle(0, 0, Tile.TILE_SIZE, Tile.TILE_SIZE);
-	public int mUUID;
+	public int mUUID = Utils.getNextUUID();
 
+	
 	public abstract void update();
 
 	/**
