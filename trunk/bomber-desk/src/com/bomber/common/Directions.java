@@ -47,6 +47,9 @@ public class Directions {
 	public static short[] getRemainingDirections(short _direction)
 	{
 
+		if(_direction == Directions.NONE)
+			return new short[0];
+		
 		short c = 0;
 //		short inverseDirection =getInverseDirection(_direction);
 		
