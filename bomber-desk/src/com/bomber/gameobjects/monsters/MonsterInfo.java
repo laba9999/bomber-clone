@@ -5,13 +5,14 @@ import java.util.HashMap;
 public class MonsterInfo
 {
 	private static HashMap<String, MonsterInfo> TYPES = null;
-	
 	public int mPointsValue;
 	public boolean mAbleToKill;
 	public boolean mAbleToFly;
+	public String mPointsValueString;
 	
 	public MonsterInfo(int _pointsValue, boolean _ableToKill, boolean _ableToFly)
 	{
+		mPointsValueString = "+" + String.valueOf(_pointsValue);
 		mPointsValue = _pointsValue;
 		mAbleToKill  = _ableToKill;
 		mAbleToFly = _ableToFly;

@@ -1,20 +1,18 @@
 package com.bomber;
 
-import com.badlogic.gdx.math.Vector2;
-import com.bomber.common.PoolObject;
+import com.bomber.gameobjects.UIMovableObject;
 
-public class OverlayingText extends PoolObject {
-	
-	public static final short POINTS_TICKS_DURATION = 200;
-	public short mTicksElapsed;
+public class OverlayingText extends UIMovableObject {
+
 	public String mText;
-	public Vector2 mPosition;
-	
-	@Override
-	public void reset() {
-		mTicksElapsed = 0;
-		mText = null;
-		mPosition = null;
+
+	public OverlayingText() {
+		super(3, 0, 0, 0.02f, 0.08f, 100);
 	}
-	
+
+	public void set(String _text, float _startX, float _startY)
+	{
+		mText = _text;
+		mPosition.set(_startX, _startY);
+	}
 }

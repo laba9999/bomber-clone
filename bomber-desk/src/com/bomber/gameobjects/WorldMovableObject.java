@@ -15,6 +15,7 @@ public abstract class WorldMovableObject extends Drawable {
 	public boolean mIsMoving = false;
 	private final Collision mCollision = new Collision();
 
+	
 	@Override
 	public void reset()
 	{

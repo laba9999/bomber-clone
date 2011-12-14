@@ -155,6 +155,10 @@ public class GameMap {
 
 		_tile.explode();
 
+		// Prémio! :)
+		mWorld.spawnOverlayingPoints("+100", _tile.mPosition.x, _tile.mPosition.y + Tile.TILE_SIZE);
+		mWorld.getLocalPlayer().mPoints += 100;
+		
 		// Actualiza as pools
 		mDestroyableTiles.releaseObject(_tile);
 		

@@ -15,6 +15,7 @@ import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
+import com.bomber.gameobjects.UIMovableObject;
 import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
@@ -48,13 +49,12 @@ public class GameWorld {
 
 	private short mNumberPlayers;
 	private Player mLocalPlayer = null;
-	
+
 	public GameWorld(GameType _gameType, String _startLevelName) {
 
 		mGameType = _gameType;
 		mGameType.mGameWorld = this;
-		
-		
+
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
@@ -82,11 +82,10 @@ public class GameWorld {
 		mExplosions = new ObjectsPool<Drawable>(nExplosions, new ObjectFactory.CreateExplosion());
 
 		mMap = new GameMap(this);
-		
-		// Instancia pool de OverlayingTexts com 0 elementos e sem Factory definida
-		// Objectos serão adicionados manualmente
-		mOverlayingPoints = new ObjectsPool<OverlayingText>((short)0,null);
-		
+
+		// Instancia pool de OverlayingTexts
+		mOverlayingPoints = new ObjectsPool<OverlayingText>((short) 5, new ObjectFactory.CreateOverlayingText());
+
 		// Lê o nivel
 		mClock = new Clock();
 		Level.loadLevel(_startLevelName, this, mNumberPlayers);
@@ -119,12 +118,12 @@ public class GameWorld {
 		mBombs.clear();
 		mExplosions.clear();
 		mMap.reset(mMap.mWidth, mMap.mHeight);
-		
+
 		Level.loadLevel(_levelToload, this, mNumberPlayers);
-		
+
 		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
 			mMap.placePortal();
-		
+
 		mClock.start();
 	}
 
@@ -188,17 +187,13 @@ public class GameWorld {
 
 		return true;
 	}
-	
-	public void addOverlayingPoints(String _text, Vector2 _position)
+
+	public void spawnOverlayingPoints(String _text, float _x, float _y)
 	{
-		OverlayingText t = new OverlayingText();
-		t.mText = _text;
-		t.mPosition = _position.cpy();
-		t.mPosition.x -= Tile.TILE_SIZE_HALF;
-		t.mPosition.y += Tile.TILE_SIZE_HALF;	
-		mOverlayingPoints.addObject(t);
+		OverlayingText t = mOverlayingPoints.getFreeObject();
+		t.set(_text, _x, _y);
+		t.mIsMoving = true;
 	}
-	
 
 	public void spawnExplosion(Bomb _bomb)
 	{
@@ -403,15 +398,14 @@ public class GameWorld {
 		updateExplosions();
 		updateBonus();
 		updateOverlayingText();
-		
-		//TODO: Alterar Textura
-		if(mGameType.mNeedsPortal && mGameType.isObjectiveAcomplished() && mMap.mPortal != null) 
+
+		// TODO: Alterar Textura
+		if (mGameType.mNeedsPortal && mGameType.isObjectiveAcomplished() && mMap.mPortal != null)
 			mMap.mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 125);
 
 		if (DebugSettings.WORLD_SPAWN_BONUS_RANDOMLY)
 			spawnBonusRandomly();
 	}
-	
 
 	private void updateMonsters()
 	{
@@ -447,20 +441,15 @@ public class GameWorld {
 		for (Bonus b : mSpawnedBonus)
 			b.update();
 	}
-	
+
 	private void updateOverlayingText()
 	{
-
-		for(OverlayingText t : mOverlayingPoints)
-		{			
-			if(t.mTicksElapsed >= t.POINTS_TICKS_DURATION)
-			{
+		for (OverlayingText t : mOverlayingPoints)
+		{
+			t.update();
+			if (!t.mIsMoving)
 				mOverlayingPoints.releaseObject(t);
-			}
-			
-			t.mTicksElapsed++;
 		}
-		
 	}
 
 	public void spawnBonusRandomly()
@@ -521,7 +510,6 @@ public class GameWorld {
 		int maxSimultaneousBonus = 10;
 
 		int howManyBonus = mSpawnedBonus.mLenght;
-
 
 		if (howManyBonus == maxSimultaneousBonus)
 			return true;

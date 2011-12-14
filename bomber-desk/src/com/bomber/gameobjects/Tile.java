@@ -19,7 +19,6 @@ public class Tile extends Drawable {
 
 	public Tile(short _type) {
 		mType = _type;
-		mUUID = Utils.getNextUUID();
 	}
 	
 	@Override
