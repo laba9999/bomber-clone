@@ -1,7 +1,9 @@
 package com.bomber.gameobjects.monsters;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.bomber.DebugSettings;
 import com.bomber.OverlayingText;
 import com.bomber.common.Directions;
@@ -10,12 +12,19 @@ import com.bomber.gameobjects.KillableObject;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.world.GameWorld;
+import com.bomber.world.TilesetXMLHandler;
 
 public class Monster extends KillableObject {
-
+	private static short HOW_MANY_DIRECTIONS_TO_SAVE = 3;
 	public MonsterInfo mInfo;
 	private Random mRandomGenerator;
-
+	
+//	private short[] mPastDirections;
+//	private short mPastDirectionsIndex;
+//	private boolean mTurnedOnLastTile;
+	
+	public static ArrayList<Short> mAvailableDirections = new ArrayList<Short>();
+	
 	public Monster(GameWorld _world) {
 		mWorld = _world;
 		mUUID = Utils.getNextUUID();
@@ -23,6 +32,11 @@ public class Monster extends KillableObject {
 		// TODO : ter muito cuidado pk em multiplayer isto tem de estar
 		// sincronizado.
 		mRandomGenerator = new Random(mUUID);
+		
+		
+//		mTurnedOnLastTile = false;
+//		mPastDirections = new short[HOW_MANY_DIRECTIONS_TO_SAVE];
+//		mPastDirectionsIndex = 0;
 	}
 
 	@Override
@@ -35,6 +49,8 @@ public class Monster extends KillableObject {
 	@Override
 	public void update()
 	{
+
+		updateAvailableDirections();
 		// Actualiza a posição
 		super.update();
 
@@ -47,7 +63,8 @@ public class Monster extends KillableObject {
 			}
 			return;
 		}
-
+		
+		
 		if (DebugSettings.MONSTERS_KILL_PLAYERS)
 			checkForPlayerCollision();
 
@@ -64,38 +81,75 @@ public class Monster extends KillableObject {
 	@Override
 	protected void onMapCollision(short _collisionType)
 	{
-		short direction = Directions.getAnyOtherDirection(mRandomGenerator, mDirection);
+
+		if(mAvailableDirections.size() == 0)
+			return;
+				
+		short rand = (short )mRandomGenerator.nextInt(mAvailableDirections.size());
+		short dir = mAvailableDirections.get(rand);
+		changeDirection(dir);
+	}
+	
+	
+	private void updateAvailableDirections()
+	{
+		if(mIsDead)
+			return;
 		
-		Tile tileOnDirection = mWorld.mMap.getTile(mPosition, direction, (short) 1);
-		
-		if(tileOnDirection.mType != Tile.COLLIDABLE && tileOnDirection.mType != Tile.DESTROYABLE)
+		mAvailableDirections.clear();
+			
+		for(short i : Directions.getRemainingDirections(mDirection))
 		{
-			changeDirection(direction);
+			int x;
+			
+			if(mInfo.mAbleToFly)
+				x = mWorld.mMap.getDistanceToNext(1, mPosition,i , Tile.WALKABLE,Tile.DESTROYABLE);
+			else
+				x = mWorld.mMap.getDistanceToNext(1, mPosition,i , Tile.WALKABLE);
+
+			if(x!=-1)	
+				mAvailableDirections.add(i);
+			
 		}
-		
-		
 	}
 
 	private void decideToTurn()
 	{
+		short chanceOfTurning = 3;
+		float delta = 0.04f;
+		
+			
+		if(mAvailableDirections.size() == 0)
+			return;		
+		
+		
 		Tile tileBelow = mWorld.mMap.getTile(mPosition);
-		// verifica se está exactamente centrado na tile:
-		if (mPosition.x - Tile.TILE_SIZE_HALF == tileBelow.mPosition.x && mPosition.y - Tile.TILE_SIZE_HALF == tileBelow.mPosition.y)
+		Rectangle mBB = getBoundingBox();	
+		
+		float x = tileBelow.mPosition.x - mBB.getX();
+		float y = tileBelow.mPosition.y - mBB.getY();
+		
+		float dist = (float) Math.sqrt(x * x + y * y);
+
+		if(dist>delta)
 		{
-			if (mRandomGenerator.nextInt(10) < 3)
+			return;
+		}
+
+			if (mRandomGenerator.nextInt(10) < chanceOfTurning)
 			{
 				// obtem nova direcção
-				short newDirection = Directions.getPerpendicularDirection(mRandomGenerator, mDirection);
-				Tile newTileInDirection = mWorld.mMap.getTile(mPosition, newDirection, (short) 1);
+				short rand = (short )mRandomGenerator.nextInt(mAvailableDirections.size());
 
-				// verifica se a tile na direcção de newDirection é "andável"
-				if (newTileInDirection.mType == Tile.WALKABLE || (newTileInDirection.mType == Tile.DESTROYABLE && mInfo.mAbleToFly))
-					changeDirection(newDirection);
+				changeDirection(mAvailableDirections.get(rand));
+	
 			}
-		}
+
+			mPosition.set(tileBelow.mPosition.x + Tile.TILE_SIZE_HALF,tileBelow.mPosition.y+ Tile.TILE_SIZE_HALF);
 	}
 
 
+	
 	@Override
 	protected boolean onKill()
 	{ 
@@ -112,7 +166,6 @@ public class Monster extends KillableObject {
 	@Override
 	protected void onChangedDirection()
 	{
-		// TODO Auto-generated method stub
 
 	}
 

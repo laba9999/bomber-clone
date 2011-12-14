@@ -6,7 +6,7 @@ import com.bomber.world.GameWorld;
 
 public abstract class MovableObject extends Drawable {
 
-	public float mSpeed = 3.5f;
+	public float mSpeed = 1f;
 	public short mDirection;
 	public GameWorld mWorld;
 	public boolean mIgnoreDestroyables;
@@ -30,6 +30,7 @@ public abstract class MovableObject extends Drawable {
 
 	public void changeDirection(short _newDirection)
 	{
+	
 		if (mDirection != _newDirection || !mIsMoving)
 		{
 			mDirection = _newDirection;
