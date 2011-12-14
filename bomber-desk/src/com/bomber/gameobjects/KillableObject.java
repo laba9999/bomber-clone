@@ -2,7 +2,7 @@ package com.bomber.gameobjects;
 
 import com.bomber.common.Directions;
 
-public abstract class KillableObject extends MovableObject {
+public abstract class KillableObject extends WorldMovableObject {
 
 
 	public boolean mIsDead = false;

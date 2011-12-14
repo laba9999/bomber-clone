@@ -18,7 +18,7 @@ import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.Bomb;
-import com.bomber.gameobjects.MovableObject;
+import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.Tile;
 
 /**
@@ -50,9 +50,9 @@ public class GameMap {
 
 		mWorld = _gameWorld;
 
-		mImutableTiles = new ObjectsPool<Tile>((short) 100, new ObjectFactory.CreateTile(Tile.WALKABLE));
+		mImutableTiles = new ObjectsPool<Tile>((short) 10, new ObjectFactory.CreateTile(Tile.WALKABLE));
 		mDestroyableTiles = new ObjectsPool<Tile>((short) 20, new ObjectFactory.CreateTile(Tile.DESTROYABLE));
-		mTilesBeingDestroyed = new ObjectsPool<Tile>((short) 0, null);
+		mTilesBeingDestroyed = new ObjectsPool<Tile>((short) 10, new ObjectFactory.CreateTile(Tile.WALKABLE));
 		mPortal = null;
 	}
 
@@ -157,7 +157,12 @@ public class GameMap {
 
 		// Actualiza as pools
 		mDestroyableTiles.releaseObject(_tile);
-		mTilesBeingDestroyed.addObject(_tile);
+		
+		
+		Tile tmpTile = mTilesBeingDestroyed.getFreeObject();
+		tmpTile.mPosition.set(_tile.mPosition);
+		_tile.clone(tmpTile);
+		
 
 		if (_tile.mIsPortal)
 		{
@@ -195,7 +200,7 @@ public class GameMap {
 	 *            verificação.
 	 * @return True se for detectada uma colisão, False caso contrário.
 	 */
-	public void checkForCollisions(MovableObject _obj, Collision _results, boolean _ignoreDestroyables)
+	public void checkForCollisions(WorldMovableObject _obj, Collision _results, boolean _ignoreDestroyables)
 	{
 
 		_results.reset();

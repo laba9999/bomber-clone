@@ -13,7 +13,8 @@ public class GameStateLoading extends GameState {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void update()
+	@Override
+	public void onUpdate()
 	{
 		if(Level.mIsLoaded) 
 		{
@@ -38,4 +39,20 @@ public class GameStateLoading extends GameState {
 		font.draw(mBatcher,"LOADING", 600 , 470);
 		mBatcher.end();
 	}
+
+	@Override
+	protected void onFinish()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void onUpdateFinishing()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

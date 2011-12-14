@@ -15,7 +15,7 @@ import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
-import com.bomber.gameobjects.MovableObject;
+import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.bonus.Bonus;
@@ -36,7 +36,6 @@ public class GameWorld {
 	public ObjectsPool<Bomb> mBombs;
 	public ObjectsPool<Drawable> mExplosions;
 	public ObjectsPool<OverlayingText> mOverlayingPoints;
-	private Player mLocalPlayer = null;
 
 	public GameType mGameType;
 	public boolean mIsPVPGame;
@@ -45,14 +44,17 @@ public class GameWorld {
 	public ArrayList<Team> mTeams = new ArrayList<Team>();
 	public Clock mClock;
 
-	public String mCurrentLevelName;
+	public String mNextLevelName;
 
+	private short mNumberPlayers;
+	private Player mLocalPlayer = null;
+	
 	public GameWorld(GameType _gameType, String _startLevelName) {
 
 		mGameType = _gameType;
 		mGameType.mGameWorld = this;
 		
-		mCurrentLevelName = _startLevelName;
+		
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
 		mSpawnedBonus = new ObjectsPool<Bonus>((short) 0, null);
@@ -60,17 +62,17 @@ public class GameWorld {
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
 		// O numero de players vai variar consoante o tipo de jogo
-		short nPlayers = 4;
+		mNumberPlayers = 4;
 		if (_gameType instanceof GameTypeCampaign)
-			nPlayers = 1;
+			mNumberPlayers = 1;
 		else if (_gameType instanceof GameTypeCTF || _gameType instanceof GameTypeDeathmatch)
-			nPlayers = 2;
+			mNumberPlayers = 2;
 
-		mPlayers = new ObjectsPool<Player>((short) nPlayers, new ObjectFactory.CreatePlayer(this));
+		mPlayers = new ObjectsPool<Player>(mNumberPlayers, new ObjectFactory.CreatePlayer(this));
 
 		// Assumimos que cada player vai poder colocar em termos médios 2 bombas
 		// de cada vez
-		short nBombs = (short) (2 * nPlayers);
+		short nBombs = (short) (2 * mNumberPlayers);
 		mBombs = new ObjectsPool<Bomb>(nBombs, new ObjectFactory.CreateBomb(this));
 
 		// Assumimos que cada bomba vai ter um poder de explosão médio de 3,
@@ -86,15 +88,12 @@ public class GameWorld {
 		mOverlayingPoints = new ObjectsPool<OverlayingText>((short)0,null);
 		
 		// Lê o nivel
-		nPlayers = 2;
-		mCurrentLevelName = _startLevelName;
-		Level.loadLevel(_startLevelName, this, nPlayers);
+		mClock = new Clock();
+		Level.loadLevel(_startLevelName, this, mNumberPlayers);
 
 		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
 			mMap.placePortal();
 
-		mClock = new Clock();
-		mClock.reset(1, 0);
 		mClock.start();
 	}
 
@@ -113,7 +112,7 @@ public class GameWorld {
 		return mLocalPlayer;
 	}
 
-	public void reset(String _starLevelName)
+	public void reset(String _levelToload)
 	{
 		mMonsters.clear();
 		mSpawnedBonus.clear();
@@ -121,17 +120,12 @@ public class GameWorld {
 		mExplosions.clear();
 		mMap.reset(mMap.mWidth, mMap.mHeight);
 		
-		short nPlayers = 2;
-		mCurrentLevelName = _starLevelName;
-		Level.loadLevel(_starLevelName, this, nPlayers);
+		Level.loadLevel(_levelToload, this, mNumberPlayers);
 		
 		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
 			mMap.placePortal();
 		
-		mClock = new Clock();
-		mClock.reset(1, 0);
 		mClock.start();
-
 	}
 
 	public void spawnMonster(String _type, short _line, short _col)
@@ -266,7 +260,7 @@ public class GameWorld {
 		}
 	}
 
-	private <T extends MovableObject> boolean objectCloseToExplosion(Tile _tile, T _obj, int _objTileIdx, short _direction)
+	private <T extends WorldMovableObject> boolean objectCloseToExplosion(Tile _tile, T _obj, int _objTileIdx, short _direction)
 	{
 		int idxTile = mMap.calcTileIndex(_tile.mPositionInArray, _direction, (short) 1);
 		if (_objTileIdx == idxTile && Directions.getInverseDirection(_direction) == _obj.mDirection && _obj.mIsMoving)
@@ -367,7 +361,7 @@ public class GameWorld {
 		}
 	}
 
-	public boolean checkIfObjectCollidingWithBomb(MovableObject _obj, Vector2 _results)
+	public boolean checkIfObjectCollidingWithBomb(WorldMovableObject _obj, Vector2 _results)
 	{
 		_results.x = 0;
 		_results.y = 0;

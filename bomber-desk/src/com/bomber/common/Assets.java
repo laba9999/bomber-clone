@@ -60,7 +60,6 @@ public class Assets {
 	/**
 	 * Usados no pause.
 	 */
-	public static TextureRegion mDarkGlass;
 	public static TextureRegion mPauseScreen;
 	
 	public static BitmapFont mFont;
@@ -335,8 +334,11 @@ public class Assets {
 		Texture t = new Texture(Gdx.files.internal("controller.png"));
 		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mControllerBar = new TextureRegion(t);
-		// mDarkGlass = mAtlas.findRegion("TO BE DEFINED");
-		// mPauseScreen = mAtlas.findRegion("TO BE DEFINED");
+		
+
+		mPauseScreen = mAtlas.findRegion("pause_screen");
+		
+		
 		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);
 		mFont.setScale(1);

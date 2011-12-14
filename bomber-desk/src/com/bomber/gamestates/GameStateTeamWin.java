@@ -9,7 +9,8 @@ public class GameStateTeamWin extends GameState {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void update()
+	@Override
+	public void onUpdate()
 	{
 		throw new UnsupportedOperationException();
 	}
@@ -23,4 +24,20 @@ public class GameStateTeamWin extends GameState {
 	{
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	protected void onFinish()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void onUpdateFinishing()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

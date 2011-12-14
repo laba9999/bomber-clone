@@ -15,7 +15,8 @@ public class GameStateGameOver extends GameState {
 		mInput = new InputGameOverState(this);
 	}
 
-	public void update()
+	@Override
+	public void onUpdate()
 	{
 		mInput.update();
 	}
@@ -37,4 +38,21 @@ public class GameStateGameOver extends GameState {
 		font.draw(mBatcher,"N N N A A A B B B O O O", 350 , 250);
 
 		mBatcher.end();	}
+
+	@Override
+	protected void onFinish()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void onUpdateFinishing()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 }

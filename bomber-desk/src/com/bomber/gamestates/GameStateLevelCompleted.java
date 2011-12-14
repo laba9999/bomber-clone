@@ -13,7 +13,8 @@ public class GameStateLevelCompleted extends GameState {
 		mInput = new InputLevelCompletedState(this);
 	}
 
-	public void update()
+	@Override
+	public void onUpdate()
 	{
 		mInput.update();
 	}
@@ -36,4 +37,20 @@ public class GameStateLevelCompleted extends GameState {
 
 		mBatcher.end();
 	}
+
+	@Override
+	protected void onFinish()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void onUpdateFinishing()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
