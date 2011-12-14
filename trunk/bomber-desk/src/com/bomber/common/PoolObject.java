@@ -4,7 +4,23 @@ package com.bomber.common;
  * Vai encapsular os objectos que existiram no ObjectsPool
  */
 public abstract class PoolObject {
-	public Short mIndex;
+	private Short mIndex;
+	public int mOwnerUUID = -1;
+	
+	public void setIndex(int _uuid, Short _idx)
+	{
+		if(mOwnerUUID == -1)
+			mOwnerUUID = _uuid;
+		
+//		if( _uuid != mOwnerUUID)
+//			_uuid = _uuid;
+		
+		mIndex = _idx;
+	}
+	
+	public Short getIndex(){
+		return mIndex;
+	}
 	
 	/**
 	 * É utilizado pela ObjectPool quando o objecto é marcado como disponivel.

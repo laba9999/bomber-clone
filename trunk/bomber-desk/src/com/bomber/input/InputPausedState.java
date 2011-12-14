@@ -19,7 +19,7 @@ public class InputPausedState extends Input {
 	protected void parseKeyboardInput()
 	{
 		if (Gdx.input.isKeyPressed(Keys.P))
-			mGameState.mGameScreen.setGameState(mGameState.mPreviousGameState);
+			mGameState.finish(mGameState.mPreviousGameState);
 	}
 
 	@Override
@@ -30,7 +30,8 @@ public class InputPausedState extends Input {
 			mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 			if (mInputZones[INPUT_CONTINUE].contains(mTouchPoint.x, mTouchPoint.y))
 			{
-				mGameState.mGameScreen.setGameState(mGameState.mPreviousGameState);
+				
+				mGameState.finish(mGameState.mPreviousGameState);
 				return;
 			}
 		}

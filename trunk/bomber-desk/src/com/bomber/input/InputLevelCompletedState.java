@@ -10,6 +10,7 @@ import com.bomber.gamestates.GameStatePlaying;
 import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
+import com.bomber.world.Level;
 
 public class InputLevelCompletedState extends Input {
 	private static final short INPUT_CONTINUE = 0;
@@ -29,12 +30,11 @@ public class InputLevelCompletedState extends Input {
 		if (Gdx.input.isKeyPressed(Keys.ENTER))
 		{
 			GameScreen gs = mGameState.mGameScreen;
-			gs.mWorld.reset("level1");
+			gs.mWorld.reset(Level.mInfo.mNextLevelName);
 			GameStatePlaying g = new GameStatePlaying(mGameState.mGameScreen);
 			gs.setGameState(g);
 
 		}
-	
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class InputLevelCompletedState extends Input {
 			if (mInputZones[INPUT_CONTINUE].contains(mTouchPoint.x, mTouchPoint.y))
 			{
 				GameScreen gs = mGameState.mGameScreen;
-				gs.mWorld.reset("level4");
+				gs.mWorld.reset(Level.mInfo.mNextLevelName);
 				GameStatePlaying g = new GameStatePlaying(mGameState.mGameScreen);
 				gs.setGameState(g);
 				

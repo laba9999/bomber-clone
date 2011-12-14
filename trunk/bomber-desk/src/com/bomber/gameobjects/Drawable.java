@@ -14,6 +14,11 @@ public class Drawable extends GameObject {
 	private Animation mCurrentAnimation;
 	private short mNumberOfAnimationFrames = 1;
 
+	public <T extends Drawable> void clone(T _drawable)
+	{
+		_drawable.setCurrentAnimation(mCurrentAnimation, mNumberOfAnimationFrames, mPlayAnimation, mAutoRepeat);
+	}
+	
 	public void setCurrentAnimation(Animation _anim, short _numberOfFrames, boolean _play, boolean _autoRepeat)
 	{
 		mNumberOfAnimationFrames = _numberOfFrames;
@@ -46,7 +51,7 @@ public class Drawable extends GameObject {
 		if (!mLooped && (mAnimationTicks >= mCurrentAnimation.frameDuration * mNumberOfAnimationFrames))
 		{
 			mLooped = true;
-			
+			//mCurrentFrame = mCurrentAnimation.getKeyFrame(mCurrentAnimation.frameDuration * mNumberOfAnimationFrames-1, true);
 			if(!mAutoRepeat)
 				return;
 		}

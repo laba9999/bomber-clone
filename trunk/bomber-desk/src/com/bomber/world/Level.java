@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -34,16 +35,18 @@ public class Level {
 	public static HashMap<Short, String> mImageTiles = new HashMap<Short, String>();
 
 	public static boolean mIsLoaded;
-	
+
+
+	public static LevelInfo mInfo = new LevelInfo();
+
 	public static void loadLevel(String _levelID, GameWorld _world, short _howManyPlayers)
 	{
 		mIsLoaded = false;
-		
 		mNumberOfPlayers = _howManyPlayers;
-
+		mInfo.mCurrentLevelName = _levelID;
+		
 		try
 		{
-
 			// setup parser
 			SAXParserFactory factory = SAXParserFactory.newInstance();
 			SAXParser parser = factory.newSAXParser();
@@ -51,9 +54,9 @@ public class Level {
 
 			// parse level xml file
 			LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler();
-			
+
 			xmlReader.setContentHandler(myLevelXMLHandler);
-		    InputStream inputStream = Gdx.files.internal("levels/" + _levelID + "/" + _levelID + ".xml").read();
+			InputStream inputStream = Gdx.files.internal("levels/" + _levelID + "/" + _levelID + ".xml").read();
 
 			Reader reader = new InputStreamReader(inputStream, "UTF-8");
 			xmlReader.parse(new InputSource(reader));
@@ -72,6 +75,7 @@ public class Level {
 			flipMatrixVertically(mDestroyableIDs);
 			flipMatrixVertically(mSpawnIDs);
 
+			loadLevelInfo(_world);
 			setupLevel(_world);
 
 		} catch (Exception e)
@@ -80,6 +84,29 @@ public class Level {
 			e.printStackTrace();
 		}
 
+	}
+
+	private static void loadLevelInfo(GameWorld _world)
+	{
+		String[] levelInfo = new String[3];
+		InputStream inputStream = Gdx.files.internal("levels/" + mInfo.mCurrentLevelName + "/info.txt").read();
+		Scanner scanner = new Scanner(inputStream);
+		try
+		{
+			short i = 0;
+			while (scanner.hasNextLine())
+			{
+				String nextLine = scanner.nextLine();
+				if (nextLine.length() > 0 && nextLine.charAt(0) != '#')
+					levelInfo[i++] = nextLine;
+			}
+		} finally
+		{
+			scanner.close();
+		}
+		
+		mInfo.set(levelInfo);
+		_world.mClock.reset(mInfo.mMinutes, mInfo.mSeconds);
 	}
 
 	private static void flipMatrixVertically(short[][] _matrix)
@@ -139,7 +166,7 @@ public class Level {
 		}
 
 		_world.mMap.updateTilesForPresentation();
-		
+
 		mIsLoaded = true;
 	}
 

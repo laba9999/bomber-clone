@@ -16,11 +16,14 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 	private Factory<T> mFactory;
 	private ObjectsPoolIterator<T> mObjectsIterator;
 
+	private int mUUID;
 	public short mLenght = 0;
 	public ObjectsPool(short _initialQuantity, Factory<T> _factory) {
 
 		mFactory = _factory;
 
+		mUUID = Utils.getNextUUID();
+		
 		// Inicializa os containers
 		if (null != mFactory)
 			allocateNewObjects(_initialQuantity);
@@ -38,6 +41,12 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		for (T tmp : this)
 			releaseObject(tmp);
 
+		if(mFactory==null)
+		{
+			mFreePositions.clear();
+			mUsedObjects.clear();
+		}
+		
 		if (_reorderFreePositions)
 		{
 			mFreePositions.clear();
@@ -56,7 +65,7 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		for (short i = 0; i < _quantity; freePositionStart++, i++)
 		{
 			T tmpObject = mFactory.create();
-
+			
 			mFreeObjects.push(tmpObject);
 			mFreePositions.push(freePositionStart);
 			mUsedObjects.add(null);
@@ -68,11 +77,11 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		// Verifica se existem lugares livres no array
 		if (!mFreePositions.empty())
 		{
-			_obj.mIndex = mFreePositions.pop();
-			mUsedObjects.set(_obj.mIndex, _obj);
+			_obj.setIndex(mUUID, mFreePositions.pop());
+			mUsedObjects.set(_obj.getIndex(), _obj);
 		} else
 		{
-			_obj.mIndex = (short) mUsedObjects.size();
+			_obj.setIndex(mUUID, (short) mUsedObjects.size());
 			mUsedObjects.add(_obj);
 		}
 		
@@ -100,7 +109,7 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 		result.reset();
 
 		// Actualiza o index do objecto para o libertar mais tarde
-		result.mIndex = insertPos;
+		result.setIndex(mUUID, insertPos);
 
 		mUsedObjects.set(insertPos, result);
 
@@ -111,7 +120,7 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 
 	public void releaseObject(T obj)
 	{
-		short freeIndex = obj.mIndex;
+		short freeIndex = obj.getIndex();
 
 		// Se não tiver sido providenciado uma factory então significa que os
 		// objectos
