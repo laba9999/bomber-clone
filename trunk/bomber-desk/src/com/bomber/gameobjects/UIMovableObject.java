@@ -1,7 +1,10 @@
 package com.bomber.gameobjects;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.common.ObjectsPool;
 
 public class UIMovableObject extends GameObject {
 
@@ -16,6 +19,7 @@ public class UIMovableObject extends GameObject {
 
 	public TextureRegion mTexture = null;
 
+	public ObjectsPool<UIMovableObject> mChilds;
 
 	public UIMovableObject(float _speed, float _startX, float _startY, float _dirX, float _dirY, int _duration) {
 
@@ -24,8 +28,14 @@ public class UIMovableObject extends GameObject {
 		mDuration = _duration;
 		mDirection = new Vector2(_dirX, _dirY);
 		mStartPosition = new Vector2(_startX, _startY);
+
+		mChilds = new ObjectsPool<UIMovableObject>((short) 0, null);
 	}
 
+	public <T extends UIMovableObject> void addChild(T _newChild)
+	{
+		mChilds.addObject(_newChild);
+	}
 
 	@Override
 	public void update()
@@ -36,6 +46,11 @@ public class UIMovableObject extends GameObject {
 		mPosition.x += mSpeed * mDirection.x;
 		mPosition.y += mSpeed * mDirection.y;
 
+		for (UIMovableObject child : mChilds)
+		{
+			child.mPosition.x += mSpeed * mDirection.x;
+			child.mPosition.y += mSpeed * mDirection.y;
+		}
 		if (++mTicksCounter >= mDuration)
 			mIsMoving = false;
 	}
