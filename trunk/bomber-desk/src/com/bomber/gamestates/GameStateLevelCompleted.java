@@ -10,15 +10,29 @@ public class GameStateLevelCompleted extends GameState {
 
 	private Integer mPoints;
 	private boolean mEndScoreAnimation;
-
+	private short mTrophiesEarned;
+	
 	public GameStateLevelCompleted(GameScreen _gameScreen) {
 		super(_gameScreen);
 		mEndScoreAnimation = false;
 		mInput = new InputLevelCompletedState(this);
 		mPoints = mGameWorld.getLocalPlayer().mPoints;
-		mGameWorld.getLocalPlayer().mPoints += mGameWorld.mClock.getRemainingSeconds() / 100;
-		mGameWorld.mClock.setUpdateInterval(50);
+		mGameWorld.getLocalPlayer().mPoints +=  mGameWorld.mClock.getRemainingSeconds() / 100;
+		
+		float x = (float) (mGameWorld.getLocalPlayer().mPoints - mGameWorld.getLocalPlayer().mStartLevelPoints) / mGameWorld.getMaxPoints();
+		
+		//mstartlevelponts
+		if(x >= 0.9)
+			mTrophiesEarned = 3;
+		else if(x == 0.9 && x >= 0.6)
+			mTrophiesEarned = 2;
+		else if(x == 0.6 && x >= 0.3)
+			mTrophiesEarned = 1;
+		else
+			mTrophiesEarned = 0;
 
+		
+		mGameWorld.mClock.setUpdateInterval(50);
 	}
 
 	@Override
@@ -49,7 +63,7 @@ public class GameStateLevelCompleted extends GameState {
 		mBatcher.enableBlending();
 		mBatcher.draw(Assets.DarkGlass.get(), 0, 0);
 
-		mBatcher.draw(Assets.mLevelCompletedScreen, 125, 60);
+		mBatcher.draw(Assets.mScreens.get("levelcompleted") , 125,60);
 
 		BitmapFont font = Assets.mFont;
 		font.setScale(1.8f);
@@ -64,7 +78,13 @@ public class GameStateLevelCompleted extends GameState {
 
 		font.draw(mBatcher, "FINAL SCORE", 235, 260);
 		font.draw(mBatcher, mPoints.toString(), 450, 260);
+		
+		
+		for(int i = 0; i < mTrophiesEarned; i++)
+		{
+			mBatcher.draw(Assets.mTrophy, 304 + i*63,179);
 
+		}
 	}
 
 	@Override

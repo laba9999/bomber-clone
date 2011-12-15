@@ -2,12 +2,13 @@ package com.bomber.gamestates;
 
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
+import com.bomber.common.Settings;
 import com.bomber.gameobjects.UIMovableObject;
 import com.bomber.input.InputPausedState;
 
 public class GameStatePaused extends GameState {
 
-	private static UIMovableObject mOptionsPanel = null;
+	public static UIMovableObject mOptionsPanel = null;
 
 	public GameStatePaused(GameScreen _gameScreen) {
 		super(_gameScreen);
@@ -16,10 +17,14 @@ public class GameStatePaused extends GameState {
 		if (mOptionsPanel == null)
 		{
 			int animationSpeed = 25;
-			int animationDuration = Assets.mPauseScreen.getRegionWidth() / animationSpeed;
+			int animationDuration = Assets.mScreens.get("pause").getRegionWidth() / animationSpeed;
 			animationDuration *=2;
-			mOptionsPanel = new UIMovableObject(animationSpeed, 800 + Assets.mPauseScreen.getRegionWidth(), 0, -1.0f, 0f, animationDuration);
-			mOptionsPanel.mTexture = Assets.mPauseScreen;
+			float startX = 800 + Assets.mScreens.get("pause").getRegionWidth();
+			mOptionsPanel = new UIMovableObject(animationSpeed, startX, 0, -1.0f, 0f, animationDuration);
+			mOptionsPanel.mTexture = Assets.mScreens.get("pause") ;
+			UIMovableObject soundButton = new UIMovableObject(0, startX + 7, 5, 0, 0,0);
+			soundButton.mTexture = Assets.getSoundButtonTexture();
+			mOptionsPanel.addChild(soundButton);
 		}
 
 
@@ -73,6 +78,10 @@ public class GameStatePaused extends GameState {
 		// Desenha o painel de opções
 		mBatcher.draw(mOptionsPanel.mTexture, mOptionsPanel.mPosition.x, mOptionsPanel.mPosition.y);
 
+		for(UIMovableObject o : mOptionsPanel.mChilds)
+		{
+			mBatcher.draw(o.mTexture, o.mPosition.x, o.mPosition.y);
+		}
 	}
 	
 	

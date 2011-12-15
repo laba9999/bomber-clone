@@ -3,7 +3,11 @@ package com.bomber.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.common.Assets;
+import com.bomber.common.Settings;
+import com.bomber.gameobjects.UIMovableObject;
 import com.bomber.gamestates.GameState;
+import com.bomber.gamestates.GameStatePaused;
 import com.bomber.world.Level;
 
 public class InputPausedState extends Input {
@@ -12,7 +16,8 @@ public class InputPausedState extends Input {
 	private static final short INPUT_SOUND = 2;
 	private static final short INPUT_HELP = 3;
 	private static final short INPUT_BACK = 4;
-
+	private long mTimeWhenLastPress = 0;
+	
 	public InputPausedState(GameState _gameState) {
 		super(_gameState);
 
@@ -27,10 +32,17 @@ public class InputPausedState extends Input {
 	@Override
 	protected void parseKeyboardInput()
 	{
+		
+
+		
 		if (Gdx.input.isKeyPressed(Keys.P))
 			parseInputZone(INPUT_CONTINUE);
 		else if (Gdx.input.isKeyPressed(Keys.R))
 			parseInputZone(INPUT_RELOAD);
+		else if (Gdx.input.isKeyPressed(Keys.S))
+		{
+			parseInputZone(INPUT_SOUND);			
+		}
 	}
 
 	@Override
@@ -53,6 +65,12 @@ public class InputPausedState extends Input {
 	@Override
 	protected void parseInputZone(short _zone)
 	{
+		
+		if(System.currentTimeMillis() - mTimeWhenLastPress < 500)
+		{
+		 return;	
+		}
+		
 		switch (_zone)
 		{
 		case INPUT_CONTINUE:
@@ -63,7 +81,9 @@ public class InputPausedState extends Input {
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 		case INPUT_SOUND:
-
+			Settings.isSoundOn = !Settings.isSoundOn;			
+			GameStatePaused.mOptionsPanel.getChild((short)0).mTexture = Assets.getSoundButtonTexture();				
+			mTimeWhenLastPress = System.currentTimeMillis();
 			break;
 		case INPUT_HELP:
 

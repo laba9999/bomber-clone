@@ -54,7 +54,7 @@ public class GameStatePlaying extends GameState {
 		Player player = mGameWorld.getLocalPlayer();
 
 		// desenha imagem do controller
-		mBatcher.draw(Assets.mControllerBar, 0, 0);
+		mBatcher.draw(Assets.mScreens.get("controller"), 0, 0);
 
 		// Relógio
 		drawClock(font);

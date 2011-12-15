@@ -6,7 +6,7 @@ public class DebugSettings {
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
 	
 	// Monstros
-	public static final boolean MONSTERS_KILL_PLAYERS = true;
+	public static final boolean MONSTERS_KILL_PLAYERS = false;
 	
 	// Mapa
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;
