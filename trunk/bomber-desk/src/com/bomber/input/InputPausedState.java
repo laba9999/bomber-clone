@@ -62,7 +62,7 @@ public class InputPausedState extends Input {
 			break;
 		case INPUT_RELOAD:
 			mGameState.mGameScreen.mWorld.reset(Level.mInfo.mCurrentLevelName);
-			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
+//			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 		case INPUT_SOUND:

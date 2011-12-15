@@ -63,7 +63,7 @@ public class GameStatePlaying extends GameState {
 		drawClock(font);
 
 		// Pontos
-		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 365, 475);
+		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 365, 473);
 
 		//
 		// Bonus
@@ -81,16 +81,16 @@ public class GameStatePlaying extends GameState {
 		Integer value;
 
 		value = (int) _player.mLives;
-		_font.draw(mBatcher, value.toString(), 305, 30);
+		_font.draw(mBatcher, value.toString(), 312, 26);
 
 		value = (int) _player.mBombExplosionSize;
-		_font.draw(mBatcher, value.toString(), 375, 30);
+		_font.draw(mBatcher, value.toString(), 380, 26);
 
 		value = (int) _player.mMaxSimultaneousBombs;
-		_font.draw(mBatcher, value.toString(), 450, 30);
+		_font.draw(mBatcher, value.toString(), 453, 26);
 
 		value = (int) _player.mSpeedFactor;
-		_font.draw(mBatcher, value.toString(), 520, 30);
+		_font.draw(mBatcher, value.toString(), 523, 26);
 	}
 
 	private void drawActiveBonus(Player _player)
@@ -135,7 +135,7 @@ public class GameStatePlaying extends GameState {
 				_font.setColor(1, 0, 0, 1);
 		}
 
-		_font.draw(mBatcher, clock.toString(), 280, 475);
+		_font.draw(mBatcher, clock.toString(), 290, 473);
 		_font.setColor(1, 1, 1, 1);
 	}
 
