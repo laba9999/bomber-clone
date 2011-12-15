@@ -12,5 +12,9 @@ public class DebugSettings {
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;
 	
 	// Mundo
-	public static final boolean WORLD_SPAWN_BONUS_RANDOMLY = true;
+	
+	
+	// UI
+	public static final boolean UI_DRAW_FPS = true;
+	public static final boolean UI_DRAW_INPUT_ZONES = true;
 }

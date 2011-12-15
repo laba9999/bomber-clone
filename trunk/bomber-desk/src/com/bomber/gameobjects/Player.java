@@ -30,7 +30,7 @@ public class Player extends KillableObject {
 	private int mLastTickPoints = -1;
 
 	public String mName;
-	public String mPointsAsString;
+	private String mPointsAsString;
 
 	public short mLives = 1;
 	public short mPointsMultiplier = 1;

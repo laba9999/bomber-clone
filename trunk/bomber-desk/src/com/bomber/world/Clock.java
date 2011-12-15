@@ -6,10 +6,11 @@ public class Clock {
 
 	private boolean mStartedClock = false;
 	private boolean mIsPaused = false;
-	private long mCountdownValue;
 	private long mLastTimeMilis = 0;
 	private long mTotalTimeEllapsed = 0;
 
+	private long mCountdownValue;
+	
 	private String mLastTimeString;
 	private StringBuilder mTimeStringBuilder = new StringBuilder("00:00");
 
@@ -31,7 +32,13 @@ public class Clock {
 
 		mTotalTimeEllapsed = 0;
 	}
+	
 
+	public int getRemainingSeconds()
+	{
+		return (int) (mCountdownValue - mTotalTimeEllapsed);
+	}
+	
 	private void updateTimeString(int _minutes, int _seconds)
 	{
 		if (_minutes > 9)

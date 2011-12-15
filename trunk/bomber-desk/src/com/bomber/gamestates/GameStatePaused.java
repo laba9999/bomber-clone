@@ -1,9 +1,11 @@
 package com.bomber.gamestates;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.DebugSettings;
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.UIMovableObject;
@@ -83,30 +85,37 @@ public class GameStatePaused extends GameState {
 		mOptionsPanel.update();
 	}
 	
-	public void present(float _interpolation)
+	public void onPresent(float _interpolation)
 	{
 		mWorldRenderer.render();
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-
-		BitmapFont font = Assets.mFont;
-
-		mBatcher.begin();
-
-
-
-		Rectangle[] zones = mInput.getZones();
-		for (int i = 0; i < zones.length; i++)
-			mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
 
 		// Desenha o vidro escuro
 		mBatcher.draw(mDarkGlass, 0, 0);
 
 		// Desenha o painel de opções
 		mBatcher.draw(mOptionsPanel.mTexture, mOptionsPanel.mPosition.x, mOptionsPanel.mPosition.y);
-		
-		mBatcher.end();
+
 	}
 
+	private void drawDebugInfo(BitmapFont _font)
+	{
+		if (DebugSettings.UI_DRAW_INPUT_ZONES)
+		{
+			Rectangle[] zones = mInput.getZones();
+			for (int i = 0; i < zones.length; i++)
+				mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
+		}
+
+		if (DebugSettings.UI_DRAW_FPS)
+		{
+			Integer fps = Gdx.graphics.getFramesPerSecond();
+			_font.draw(mBatcher, fps.toString(), 115, 470);
+			_font.draw(mBatcher, GameScreen.ticksPerSecond.toString(), 165, 470);
+		}
+	}
+	
+	
 	@Override
 	public void onFinish()
 	{

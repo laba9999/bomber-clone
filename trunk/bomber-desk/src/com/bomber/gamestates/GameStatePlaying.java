@@ -3,13 +3,21 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.DebugSettings;
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.input.InputPlayingState;
+import com.bomber.world.Clock;
 
 public class GameStatePlaying extends GameState {
+
+	private static final int SECONDS_TO_START_BLINK_CLOCK = 15000;
+
+	private short mClockBlinkInterval = 100;
+	private short mTicksSinceLastClockBlink = 100;
+	private boolean mPaintingClockRed = false;
 
 	public GameStatePlaying(GameScreen _gameScreen) {
 		super(_gameScreen);
@@ -23,65 +31,76 @@ public class GameStatePlaying extends GameState {
 		mInput.update();
 		mGameWorld.update();
 
+		mTicksSinceLastClockBlink++;
+
 		if (mGameWorld.mGameType.isOver())
 		{
 			if (mGameWorld.mGameType instanceof GameTypeCampaign)
-			{
 				mGameScreen.setGameState(new GameStateLevelCompleted(mGameScreen));
-			}
 
 			// TODO : outros gametypes
 
 		} else if (mGameWorld.mGameType.isLost())
-		{
 			mGameScreen.setGameState(new GameStateGameOver(mGameScreen));
-		}
 
 	}
 
-	public void present(float _interpolation)
+	public void onPresent(float _interpolation)
 	{
+		// Renderiza o mundo
 		mWorldRenderer.render();
+		
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 
+		// Cache
 		BitmapFont font = Assets.mFont;
 		Player player = mGameWorld.getLocalPlayer();
 
-		mBatcher.begin();
 		// desenha imagem do controller
 		mBatcher.draw(Assets.mControllerBar, 0, 0);
 
-		// desenha nivel ao canto
-		font.draw(mBatcher, "PAUSE", 10, 475);
+		// Relógio
+		drawClock(font);
 
-		// desenha tempo e score
-		if (mGameWorld.mClock != null)
-			font.draw(mBatcher, mGameWorld.mClock.toString(), 280, 475);
-
-		// TODO: mPointsAsString não é necessário??
+		// Pontos
 		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 365, 475);
 
+		//
+		// Bonus
+
+		// Quantidade de bónus
+		drawAcummulatedBonus(font, player);
+
+		// Bónus activos
+		drawActiveBonus(player);
+	}
+
+	private void drawAcummulatedBonus(BitmapFont _font, Player _player)
+	{
 		// desenha quantidades de bonus ao fundo
 		Integer value;
 
-		value = (int) player.mLives;
-		font.draw(mBatcher, value.toString(), 305, 30);
+		value = (int) _player.mLives;
+		_font.draw(mBatcher, value.toString(), 305, 30);
 
-		value = (int) player.mBombExplosionSize;
-		font.draw(mBatcher, value.toString(), 375, 30);
+		value = (int) _player.mBombExplosionSize;
+		_font.draw(mBatcher, value.toString(), 375, 30);
 
-		value = (int) player.mMaxSimultaneousBombs;
-		font.draw(mBatcher, value.toString(), 450, 30);
+		value = (int) _player.mMaxSimultaneousBombs;
+		_font.draw(mBatcher, value.toString(), 450, 30);
 
-		value = (int) player.mSpeedFactor;
-		font.draw(mBatcher, value.toString(), 520, 30);
+		value = (int) _player.mSpeedFactor;
+		_font.draw(mBatcher, value.toString(), 520, 30);
+	}
 
+	private void drawActiveBonus(Player _player)
+	{
 		// desenha bonus ao canto
 		float x = 764;
 		float y = 445;
-		boolean drawBonusHand = player.mIsAbleToPushBombs;
-		boolean drawBonusShield = player.mIsShieldActive;
-		boolean drawBonusStar = player.mPointsMultiplier != 1;
+		boolean drawBonusHand = _player.mIsAbleToPushBombs;
+		boolean drawBonusShield = _player.mIsShieldActive;
+		boolean drawBonusStar = _player.mPointsMultiplier != 1;
 
 		if (drawBonusHand)
 		{
@@ -98,18 +117,26 @@ public class GameStatePlaying extends GameState {
 			mBatcher.draw(Assets.mBonusIcons.get("star"), x, y);
 			x -= 57;
 		}
+	}
 
-		// Rectangle[] zones = mInput.getZones();
-		// for (int i = 0; i < zones.length; i++)
-		// mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x,
-		// zones[i].y, zones[i].width, zones[i].height);
+	private void drawClock(BitmapFont _font)
+	{
+		mBatcher.setColor(1, 1, 1, 1);
+		Clock clock = mGameWorld.mClock;
+		if (clock.getRemainingSeconds() < SECONDS_TO_START_BLINK_CLOCK)
+		{
+			if (mTicksSinceLastClockBlink > mClockBlinkInterval)
+			{
+				mTicksSinceLastClockBlink = 0;
+				mPaintingClockRed = !mPaintingClockRed;
+			}
 
-		Integer fps = Gdx.graphics.getFramesPerSecond();
-		Assets.mFont.draw(mBatcher, fps.toString(), 115, 470);
-		Assets.mFont.draw(mBatcher, GameScreen.ticksPerSecond.toString(), 165, 470);
+			if (mPaintingClockRed)
+				_font.setColor(1, 0, 0, 1);
+		}
 
-		mBatcher.end();
-
+		_font.draw(mBatcher, clock.toString(), 280, 475);
+		_font.setColor(1, 1, 1, 1);
 	}
 
 	@Override

@@ -8,18 +8,16 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
 import com.bomber.DebugSettings;
 import com.bomber.common.Assets;
-
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.Bomb;
-import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.Tile;
+import com.bomber.gameobjects.WorldMovableObject;
 
 /**
  * Os Tiles vão ser lidos do nivel por camadas, imutáveis(mImutableTiles)e
@@ -108,6 +106,30 @@ public class GameMap {
 			throw new InvalidParameterException();
 	}
 
+	public void setupBonus(short _quantity, short _seed)
+	{
+		Tile tileAtPosition = null;
+		boolean positionIsAvailable;
+		Random randomGenerator = new Random(_seed);
+	
+		for (int i = 0; i < _quantity; i++)
+		{
+			do
+			{
+				// gera posição aleatória
+				short positionInArray = (short) randomGenerator.nextInt(mWidth * mHeight);
+	
+				// verifica se o tile na posição gerada é walkable
+				tileAtPosition = mTilesMap.get(positionInArray);
+	
+				positionIsAvailable = tileAtPosition.mType == Tile.DESTROYABLE && !tileAtPosition.containsBonus() && !tileAtPosition.mIsPortal;
+			} while (!positionIsAvailable);
+	
+			if (positionIsAvailable)
+				tileAtPosition.mContainedBonusType = (short) randomGenerator.nextInt(7);
+		}
+	}
+
 	/**
 	 * A ser chamado de cada vez que é inicializado um novo nível.
 	 * 
@@ -138,14 +160,10 @@ public class GameMap {
 			mTilesMap.add(null);
 
 		for (Tile tl : mImutableTiles)
-		{
 			mTilesMap.set(tl.mPositionInArray, tl);
-
-		}
 
 		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
-
 	}
 
 	public void explodeTile(Tile _tile)
@@ -158,21 +176,23 @@ public class GameMap {
 		// Prémio! :)
 		mWorld.spawnOverlayingPoints("+100", _tile.mPosition.x, _tile.mPosition.y + Tile.TILE_SIZE);
 		mWorld.getLocalPlayer().mPoints += 100;
-		
+
+		// Verifica se tem bónus
+		if (_tile.containsBonus())
+			mWorld.spawnBonus(_tile);
+
 		// Actualiza as pools
 		mDestroyableTiles.releaseObject(_tile);
-		
-		
+
 		Tile tmpTile = mTilesBeingDestroyed.getFreeObject();
 		tmpTile.mPosition.set(_tile.mPosition);
 		_tile.clone(tmpTile);
-		
 
+		// Verifica se é o portal
 		if (_tile.mIsPortal)
 		{
 			spawnPortal(_tile);
-
-			return; 
+			return;
 		}
 
 		// O mapa vai apresentar a partir de agora o tile walkable que estava
@@ -185,7 +205,6 @@ public class GameMap {
 				break;
 			}
 		}
-
 	}
 
 	/**
@@ -206,7 +225,6 @@ public class GameMap {
 	 */
 	public void checkForCollisions(WorldMovableObject _obj, Collision _results, boolean _ignoreDestroyables)
 	{
-
 		_results.reset();
 
 		int testIdx;
@@ -443,11 +461,7 @@ public class GameMap {
 			tmpTile.update();
 
 			if (tmpTile.mLooped)
-			{
 				mTilesBeingDestroyed.releaseObject(tmpTile);
-
-			}
-
 		}
 	}
 
@@ -517,8 +531,8 @@ public class GameMap {
 			if (found)
 				break;
 		}
-		
-		if(!found)
+
+		if (!found)
 			idx = -1;
 
 		return idx;
@@ -740,13 +754,13 @@ public class GameMap {
 	public void spawnPortal(Tile _t)
 	{
 		mPortal = mImutableTiles.getFreeObject();
-		
+
 		mPortal.mType = Tile.WALKABLE;
 		mPortal.mPosition.x = _t.mPosition.x;
 		mPortal.mPosition.y = _t.mPosition.y;
 		mPortal.mPositionInArray = _t.mPositionInArray;
 		mTilesMap.set(_t.mPositionInArray, mPortal);
-		
+
 		// TODO: alterar textura
 		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 123);
 	}

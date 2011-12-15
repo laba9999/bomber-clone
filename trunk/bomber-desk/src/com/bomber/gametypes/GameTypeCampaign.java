@@ -37,14 +37,10 @@ public class GameTypeCampaign extends GameType {
 			Tile portal = mGameWorld.mMap.mPortal;
 
 			if (portal != null && portal.getBoundingBox().contains(x, y))
-			{
 				ret = true;
-			}
 
 		}
 
 		return ret;
-
 	}
-
 }

@@ -77,7 +77,11 @@ public class Level {
 
 			loadLevelInfo(_world);
 			setupLevel(_world);
-
+			
+			_world.mMap.setupBonus(mInfo.mNumberBonus, mInfo.mBonusSeed);
+			_world.mClock.reset(mInfo.mMinutes, mInfo.mSeconds);
+			
+			mIsLoaded = true;
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
@@ -88,7 +92,7 @@ public class Level {
 
 	private static void loadLevelInfo(GameWorld _world)
 	{
-		String[] levelInfo = new String[3];
+		String[] levelInfo = new String[5];
 		InputStream inputStream = Gdx.files.internal("levels/" + mInfo.mCurrentLevelName + "/info.txt").read();
 		Scanner scanner = new Scanner(inputStream);
 		try
@@ -106,7 +110,6 @@ public class Level {
 		}
 		
 		mInfo.set(levelInfo);
-		_world.mClock.reset(mInfo.mMinutes, mInfo.mSeconds);
 	}
 
 	private static void flipMatrixVertically(short[][] _matrix)
@@ -166,8 +169,6 @@ public class Level {
 		}
 
 		_world.mMap.updateTilesForPresentation();
-
-		mIsLoaded = true;
 	}
 
 	private static void setupSpawn(short _id, short _positionX, short _positionY, GameWorld _world)
