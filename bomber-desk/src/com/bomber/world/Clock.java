@@ -10,8 +10,10 @@ public class Clock {
 	private long mTotalTimeEllapsed = 0;
 	private int mUpdateInterval = 1000;
 
+	private boolean mCompletedUpdateInterval = false;
+
 	private long mCountdownValue;
-	
+
 	private String mLastTimeString;
 	private StringBuilder mTimeStringBuilder = new StringBuilder("00:00");
 
@@ -34,7 +36,16 @@ public class Clock {
 		mUpdateInterval = 1000;
 		mTotalTimeEllapsed = 0;
 	}
-	
+
+	public boolean hasCompletedUpdateInterval()
+	{
+		boolean res = mCompletedUpdateInterval;
+
+		mCompletedUpdateInterval = false;
+
+		return res;
+	}
+
 	public void setUpdateInterval(int _value)
 	{
 		mUpdateInterval = _value;
@@ -44,7 +55,7 @@ public class Clock {
 	{
 		return (int) (mCountdownValue - mTotalTimeEllapsed);
 	}
-	
+
 	private void updateTimeString(int _minutes, int _seconds)
 	{
 		if (_minutes > 9)
@@ -103,6 +114,7 @@ public class Clock {
 
 		mTotalTimeEllapsed += 1000;
 		mLastTimeMilis = System.currentTimeMillis();
+		mCompletedUpdateInterval = true;
 
 		interval = mCountdownValue - mTotalTimeEllapsed;
 		interval /= 1000;
