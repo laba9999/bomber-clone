@@ -51,6 +51,4 @@ public class GameStateLoading extends GameState {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 }

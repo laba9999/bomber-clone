@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -24,7 +25,7 @@ public class Assets {
 	private static final float PLAYER_WALK_FRAME_DURATION = 15f;
 	private static final float PLAYER_DIE_FRAME_DURATION = 50f;
 	private static final float PLAYER_SHIELD_FRAME_DURATION = 20f;
-	
+
 	private static final float BONUS_FRAME_DURATION = 10f;
 	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 10f;
 	private static final float BOMB_FRAME_DURATION = 50f;
@@ -62,7 +63,6 @@ public class Assets {
 	 */
 	public static TextureRegion mPauseScreen;
 	public static TextureRegion mLevelCompletedScreen;
-	
 	public static BitmapFont mFont;
 
 	public static void loadAssets()
@@ -112,10 +112,10 @@ public class Assets {
 	{
 		Animation shield = loadAnimation("shield_", PLAYER_SHIELD_FRAME_DURATION);
 		mPlayerEffects.put("shield", shield);
-		
+
 		// TODO : ler water splash
 	}
-	
+
 	/**
 	 * Cria MovableObjectAnimation com Animations de Players
 	 */
@@ -249,12 +249,11 @@ public class Assets {
 		mBonusAnimations.put("bonus_speed", loadBackloopingAnimation("bonus_speed_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 		mBonusAnimations.put("bonus_star", loadBackloopingAnimation("bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 
-		
 		mBonusIcons.put("shield", mAtlas.findRegion("bonus_shield"));
 		mBonusIcons.put("hand", mAtlas.findRegion("bonus_throw"));
-		//TODO: ajustar o tamanho 
+		// TODO: ajustar o tamanho
 		mBonusIcons.put("star", mAtlas.findRegion("bonus_invencibility"));
-		
+
 	}
 
 	private static Animation loadBackloopingAnimation(String _id, short _howManyFrames, float _frameDuration)
@@ -263,10 +262,10 @@ public class Assets {
 
 		for (int i = 0; i < _howManyFrames; i++)
 			regions.add(mAtlas.findRegion(_id, i));
-	
+
 		for (int i = _howManyFrames - 2; i > 0; i--)
 			regions.add(mAtlas.findRegion(_id, i));
-		
+
 		return new Animation(_frameDuration, regions);
 	}
 
@@ -335,7 +334,6 @@ public class Assets {
 		Texture t = new Texture(Gdx.files.internal("controller.png"));
 		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mControllerBar = new TextureRegion(t);
-		
 
 		//mPauseScreen = mAtlas.findRegion("pause_screen");
 		t = new Texture(Gdx.files.internal("pause_screen.png"));
@@ -352,4 +350,43 @@ public class Assets {
 
 	}
 
+	public static class DarkGlass {
+		private static Pixmap mPixmap = null;
+		private static Texture mDarkGlass = null;
+
+		public static void dispose()
+		{
+			if( mPixmap == null)
+				return;
+			
+			mPixmap.dispose();
+			mDarkGlass.dispose();
+
+			mPixmap = null;
+			mDarkGlass = null;
+		}
+
+		public static Texture get()
+		{
+			if (mDarkGlass != null)
+				return mDarkGlass;
+
+			create();
+			
+			return mDarkGlass;
+		}
+
+		private static void create()
+		{
+			mPixmap = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
+
+			// Cria o vidro escuro
+			mPixmap.setColor(0, 0, 0, 0.8f);
+			mPixmap.fill();
+
+			mDarkGlass = new Texture(mPixmap);
+			mDarkGlass.draw(mPixmap, 0, 0);
+			mDarkGlass.bind();
+		}
+	}
 }
