@@ -1,0 +1,39 @@
+atlas_hd.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+trophy
+  rotate: false
+  xy: 804, 2
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+controller
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+pause_screen
+  rotate: false
+  xy: 554, 484
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+gameover
+  rotate: false
+  xy: 2, 856
+  size: 550, 370
+  orig: 550, 370
+  offset: 0, 0
+  index: -1
+level_completed
+  rotate: false
+  xy: 2, 484
+  size: 550, 370
+  orig: 550, 370
+  offset: 0, 0
+  index: -1
