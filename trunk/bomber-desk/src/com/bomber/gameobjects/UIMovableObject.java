@@ -1,6 +1,7 @@
 package com.bomber.gameobjects;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -28,6 +29,7 @@ public class UIMovableObject extends GameObject {
 		mDuration = _duration;
 		mDirection = new Vector2(_dirX, _dirY);
 		mStartPosition = new Vector2(_startX, _startY);
+		mPosition.set(mStartPosition);
 
 		mChilds = new ObjectsPool<UIMovableObject>((short) 0, null);
 	}
@@ -35,6 +37,16 @@ public class UIMovableObject extends GameObject {
 	public <T extends UIMovableObject> void addChild(T _newChild)
 	{
 		mChilds.addObject(_newChild);
+	}
+
+	public UIMovableObject getChild(short _idx)
+	{
+		short idx = 0;
+		for (UIMovableObject o : mChilds)
+			if (idx++ == _idx)
+				return o;
+
+		throw new NoSuchElementException();
 	}
 
 	@Override
