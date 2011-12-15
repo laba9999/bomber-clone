@@ -3,11 +3,11 @@ package com.bomber.gameobjects;
 import java.util.HashMap;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Collision;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.PlayerEffect;
-import com.bomber.common.Utils;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.bonus.BonusExplosionSize;
 import com.bomber.gameobjects.bonus.BonusShield;
@@ -27,12 +27,13 @@ public class Player extends KillableObject {
 	public static final short MAX_SPEED_FACTOR = 4;
 
 	public int mPoints = 0;
+	public int mStartLevelPoints = 0;
 	private int mLastTickPoints = -1;
 
 	public String mName;
 	private String mPointsAsString;
 
-	public short mLives = 1;
+	public short mLives = 3;
 	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 1;
 	public short mMaxSimultaneousBombs = 1;
@@ -41,6 +42,8 @@ public class Player extends KillableObject {
 
 	public boolean mIsShieldActive = false;
 	public boolean mIsAbleToPushBombs = false;
+	
+	public Vector2 mSpawnPosition;
 
 	/**
 	 * Inicializado com o máximo de bonus que podem estar activos ao mesmo
@@ -189,7 +192,7 @@ public class Player extends KillableObject {
 		mIsShieldActive = false;
 		mIsAbleToPushBombs = false;
 
-		mLives = 1;
+		mLives = 3;
 		mPointsMultiplier = 1;
 	}
 
