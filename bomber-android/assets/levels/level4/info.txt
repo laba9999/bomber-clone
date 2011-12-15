@@ -6,3 +6,9 @@ level1
 
 #segundos
 0
+
+#nº de bónus
+3
+
+#seed para os bonus
+5432

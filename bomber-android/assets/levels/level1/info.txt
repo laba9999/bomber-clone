@@ -5,4 +5,10 @@ level4
 1
 
 #segundos
-0
+13
+
+#nº de bónus
+2
+
+#seed para os bonus
+1234
