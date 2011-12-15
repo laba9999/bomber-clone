@@ -6,7 +6,6 @@ import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.DebugSettings;
 import com.bomber.common.Directions;
-import com.bomber.common.Utils;
 import com.bomber.gameobjects.KillableObject;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;

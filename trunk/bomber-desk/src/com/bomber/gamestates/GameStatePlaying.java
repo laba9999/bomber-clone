@@ -1,9 +1,6 @@
 package com.bomber.gamestates;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Rectangle;
-import com.bomber.DebugSettings;
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;

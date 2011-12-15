@@ -58,7 +58,7 @@ public class InputPlayingState extends Input {
 		mInputZones[INPUT_RIGHT_UP] = new Rectangle(mInputZones[INPUT_RIGHT].x + 2, mInputZones[INPUT_UP].y + 2, cornerWidht, cornerHeight);
 
 		mInputZones[INPUT_BOMB] = new Rectangle(640, 5, 150, 150);
-		mInputZones[INPUT_PAUSE] = new Rectangle(20, 410, 50, 50);
+		mInputZones[INPUT_PAUSE] = new Rectangle(10, 400, 80, 80);
 
 		mGameWorld = _gameState.mGameScreen.mWorld;
 		mLocalPlayer = mGameWorld.getLocalPlayer();
@@ -72,6 +72,15 @@ public class InputPlayingState extends Input {
 		{
 			mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(p - 1), Gdx.input.getY(p - 1), 0));
 
+			if (mInputZones[INPUT_PAUSE].contains(mTouchPoint.x, mTouchPoint.y))
+			{
+				mGameState.mGameScreen.setGameState(new GameStatePaused(mGameState.mGameScreen));
+				return;
+			}
+
+			if (mGameWorld.getLocalPlayer().mIsDead)
+				return;
+
 			for (short i = INPUT_LEFT; i <= INPUT_LEFT_UP; i++)
 			{
 				if (mInputZones[i].contains(mTouchPoint.x, mTouchPoint.y))
@@ -82,6 +91,12 @@ public class InputPlayingState extends Input {
 				}
 			}
 
+			if (mDirectionsPointerIdx != -1 && !Gdx.input.isTouched(mDirectionsPointerIdx))
+			{
+				mGameWorld.getLocalPlayer().stop();
+				mDirectionsPointerIdx = -1;
+			}
+
 			if (!mJustPlacedBomb && mInputZones[INPUT_BOMB].contains(mTouchPoint.x, mTouchPoint.y))
 			{
 				mJustPlacedBomb = true;
@@ -89,17 +104,6 @@ public class InputPlayingState extends Input {
 				mGameWorld.getLocalPlayer().dropBomb();
 			}
 
-			if (mInputZones[INPUT_PAUSE].contains(mTouchPoint.x, mTouchPoint.y))
-			{
-				mGameState.mGameScreen.setGameState(new GameStatePaused(mGameState.mGameScreen));
-				return;
-			}
-		}
-
-		if (mDirectionsPointerIdx != -1 && !Gdx.input.isTouched(mDirectionsPointerIdx))
-		{
-			mGameWorld.getLocalPlayer().stop();
-			mDirectionsPointerIdx = -1;
 		}
 
 		if (mBombPointerIdx != -1 && !Gdx.input.isTouched(mBombPointerIdx))
@@ -109,7 +113,8 @@ public class InputPlayingState extends Input {
 		}
 	}
 
-	private void parseInputZone(short _zone)
+	@Override
+	protected void parseInputZone(short _zone)
 	{
 		switch (_zone)
 		{
@@ -153,6 +158,7 @@ public class InputPlayingState extends Input {
 			else
 				mLocalPlayer.changeDirection(Directions.UP);
 			break;
+
 		}
 
 		mLastDirectionalInput = _zone;
@@ -161,9 +167,14 @@ public class InputPlayingState extends Input {
 	@Override
 	protected void parseKeyboardInput()
 	{
+		if (Gdx.input.isKeyPressed(Keys.P))
+			mGameState.mGameScreen.setGameState(new GameStatePaused(mGameState.mGameScreen));
+
+		if (mGameWorld.getLocalPlayer().mIsDead)
+			return;
+
 		if (Gdx.input.isKeyPressed(Keys.LEFT))
 			mLocalPlayer.changeDirection(Directions.LEFT);
-
 		else if (Gdx.input.isKeyPressed(Keys.RIGHT))
 			mLocalPlayer.changeDirection(Directions.RIGHT);
 		else if (Gdx.input.isKeyPressed(Keys.DOWN))
@@ -182,10 +193,6 @@ public class InputPlayingState extends Input {
 			}
 		} else
 			mJustPlacedBomb = false;
-
-		if (Gdx.input.isKeyPressed(Keys.P))
-			mGameState.mGameScreen.setGameState(new GameStatePaused(mGameState.mGameScreen));
-
 	}
 
 }

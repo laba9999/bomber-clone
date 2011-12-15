@@ -144,6 +144,7 @@ public class GameWorld {
 		if (mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
 		{
 			mLocalPlayer.reset();
+			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
 			mLocalPlayer.mColor = Player.getColorFromString(_type);
 			mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 			mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
@@ -156,6 +157,8 @@ public class GameWorld {
 		tmpPlayer.mColor = Player.getColorFromString(_type);
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+		
+		tmpPlayer.mSpawnPosition.set(tmpPlayer.mPosition);
 	}
 
 	public void spawnBonus(Tile _container)

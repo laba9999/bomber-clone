@@ -1,6 +1,5 @@
 package com.bomber.gameobjects.bonus;
 
-import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Player;
 
 public abstract class TemporaryBonus extends Bonus {

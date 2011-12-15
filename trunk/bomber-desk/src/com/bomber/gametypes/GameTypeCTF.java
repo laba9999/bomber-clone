@@ -1,6 +1,5 @@
 package com.bomber.gametypes;
 
-import com.bomber.world.GameWorld;
 
 public class GameTypeCTF extends GameType {
 

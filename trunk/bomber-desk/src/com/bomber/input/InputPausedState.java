@@ -3,9 +3,7 @@ package com.bomber.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
-import com.bomber.common.Directions;
 import com.bomber.gamestates.GameState;
-import com.bomber.world.GameWorld;
 import com.bomber.world.Level;
 
 public class InputPausedState extends Input {
@@ -52,9 +50,9 @@ public class InputPausedState extends Input {
 		}
 	}
 
-	private void parseInputZone(short _zone)
+	@Override
+	protected void parseInputZone(short _zone)
 	{
-		GameWorld world = mGameState.mGameScreen.mWorld;
 		switch (_zone)
 		{
 		case INPUT_CONTINUE:
@@ -62,7 +60,6 @@ public class InputPausedState extends Input {
 			break;
 		case INPUT_RELOAD:
 			mGameState.mGameScreen.mWorld.reset(Level.mInfo.mCurrentLevelName);
-//			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 		case INPUT_SOUND:
@@ -77,5 +74,4 @@ public class InputPausedState extends Input {
 			break;
 		}
 	}
-
 }

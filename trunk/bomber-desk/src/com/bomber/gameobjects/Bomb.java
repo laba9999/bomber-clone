@@ -3,7 +3,6 @@ package com.bomber.gameobjects;
 import com.bomber.common.Assets;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectsPool;
-import com.bomber.common.Utils;
 import com.bomber.world.GameMap;
 import com.bomber.world.GameWorld;
 
