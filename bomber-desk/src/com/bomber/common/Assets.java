@@ -61,6 +61,7 @@ public class Assets {
 	 * Usados no pause.
 	 */
 	public static TextureRegion mPauseScreen;
+	public static TextureRegion mLevelCompletedScreen;
 	
 	public static BitmapFont mFont;
 
@@ -336,8 +337,14 @@ public class Assets {
 		mControllerBar = new TextureRegion(t);
 		
 
-		mPauseScreen = mAtlas.findRegion("pause_screen");
+		//mPauseScreen = mAtlas.findRegion("pause_screen");
+		t = new Texture(Gdx.files.internal("pause_screen.png"));
+		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		mPauseScreen = new TextureRegion(t);
 		
+		t = new Texture(Gdx.files.internal("level_completed.png"));
+		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		mLevelCompletedScreen = new TextureRegion(t);
 		
 		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);

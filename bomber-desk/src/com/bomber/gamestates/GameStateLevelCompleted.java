@@ -27,6 +27,11 @@ public class GameStateLevelCompleted extends GameState {
 		BitmapFont font = Assets.mFont;
 	
 		font.draw(mBatcher,"NICE", 350 , 250);
+
+
+		mBatcher.draw(Assets.mLevelCompletedScreen, mUICamera.viewportWidth / 4,mUICamera.viewportHeight / 4);
+
+
 	}
 
 	@Override
