@@ -20,16 +20,9 @@ public abstract class GameType {
 	 * Usado para verificar se pode mudar para o estado Win
 	 */
 	public abstract boolean isOver();
+	public abstract boolean isLost();
 	
-	
-	/*
-	 * Verifica se pode mudar para o estado gameover
-	 */	
-	public boolean isLost()
-	{
-		return mGameWorld.getLocalPlayer().mLives == 0 || mGameWorld.mClock.mReachedZero;
-	}
-	
+
 	//TODO : apagar se nao for necessário
 	public static final short CAMPAIGN = 0;
 	public static final short CTF = 1;

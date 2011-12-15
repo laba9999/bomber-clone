@@ -22,7 +22,7 @@ import com.bomber.gameobjects.bonus.Bonus;
  */
 public class Assets {
 	private static final float PLAYER_WALK_FRAME_DURATION = 15f;
-	private static final float PLAYER_DIE_FRAME_DURATION = 50f;
+	private static final float PLAYER_DIE_FRAME_DURATION = 15f;
 	private static final float PLAYER_SHIELD_FRAME_DURATION = 20f;
 
 	private static final float BONUS_FRAME_DURATION = 10f;

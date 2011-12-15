@@ -1,5 +1,6 @@
 package com.bomber.gametypes;
 
+import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 
 public class GameTypeCampaign extends GameType {
@@ -42,5 +43,12 @@ public class GameTypeCampaign extends GameType {
 		}
 
 		return ret;
+	}
+
+	@Override
+	public boolean isLost()
+	{
+		Player localPlayer = mGameWorld.getLocalPlayer();
+		return (localPlayer.mLives == 0 && localPlayer.mLooped) || mGameWorld.mClock.mReachedZero;
 	}
 }
