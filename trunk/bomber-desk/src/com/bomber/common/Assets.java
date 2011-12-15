@@ -36,7 +36,8 @@ public class Assets {
 	private static final float G_MONSTER_DIE_FRAME_DURATION = 30f;
 
 	private static final String ATLAS_FILE = "atlas.txt";
-
+	private static final String ATLAS_HD_FILE = "atlas_hd.txt";
+	
 	public static TextureAtlas mAtlas;
 	public static HashMap<String, MovableObjectAnimation> mMonsters;
 	public static HashMap<String, MovableObjectAnimation> mPlayers;
@@ -63,6 +64,7 @@ public class Assets {
 	 */
 	public static TextureRegion mPauseScreen;
 	public static TextureRegion mLevelCompletedScreen;
+	public static TextureRegion mGameOverScreen;
 	public static BitmapFont mFont;
 
 	public static void loadAssets()
@@ -251,7 +253,6 @@ public class Assets {
 
 		mBonusIcons.put("shield", mAtlas.findRegion("bonus_shield"));
 		mBonusIcons.put("hand", mAtlas.findRegion("bonus_throw"));
-		// TODO: ajustar o tamanho
 		mBonusIcons.put("star", mAtlas.findRegion("bonus_invencibility"));
 
 	}
@@ -331,23 +332,24 @@ public class Assets {
 		// mSoundButton = loadAnimation("TO BE DEFINED");
 		// mPauseButtons.put("TO BE DEFINED",
 		// mAtlas.findRegion("TO BE DEFINED"));
-		Texture t = new Texture(Gdx.files.internal("controller.png"));
-		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		mControllerBar = new TextureRegion(t);
-
-		//mPauseScreen = mAtlas.findRegion("pause_screen");
-		t = new Texture(Gdx.files.internal("pause_screen.png"));
-		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		mPauseScreen = new TextureRegion(t);
+		TextureAtlas atlasHD =  new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
 		
-		t = new Texture(Gdx.files.internal("level_completed.png"));
-		t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		mLevelCompletedScreen = new TextureRegion(t);
+		mControllerBar = atlasHD.findRegion("controller");
+		mPauseScreen = atlasHD.findRegion("pause_screen");
+		mLevelCompletedScreen = atlasHD.findRegion("level_completed");
+		mGameOverScreen = atlasHD.findRegion("gameover");
 		
 		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);
 		mFont.setScale(1);
 
+	}
+	
+	public static void reset()
+	{
+		mMonsters.clear();
+		mNonDestroyableTiles.clear();
+		mDestroyableTiles.clear();
 	}
 
 	public static class DarkGlass {
