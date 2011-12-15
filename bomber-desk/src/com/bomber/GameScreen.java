@@ -46,7 +46,7 @@ public class GameScreen implements ApplicationListener {
 			return;
 
 		mGameState = _newGameState;
-
+		
 		mGameState.reset();
 		mLastGameStateChangeTime = System.currentTimeMillis();
 	}

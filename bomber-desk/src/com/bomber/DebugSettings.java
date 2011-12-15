@@ -16,5 +16,6 @@ public class DebugSettings {
 	
 	// UI
 	public static final boolean UI_DRAW_FPS = true;
-	public static final boolean UI_DRAW_INPUT_ZONES = true;
+	public static final boolean UI_DRAW_INPUT_ZONES = false
+			;
 }
