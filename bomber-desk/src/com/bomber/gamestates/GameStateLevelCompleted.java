@@ -19,23 +19,14 @@ public class GameStateLevelCompleted extends GameState {
 		mInput.update();
 	}
 
-	public void present(float _interpolation)
+	public void onPresent(float _interpolation)
 	{
 		mWorldRenderer.render();
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 		
 		BitmapFont font = Assets.mFont;
 	
-		mBatcher.begin();	
-
-	
-		Rectangle[] zones = mInput.getZones();
-		for (int i = 0; i < zones.length; i++)
-			mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
-
 		font.draw(mBatcher,"NICE", 350 , 250);
-
-		mBatcher.end();
 	}
 
 	@Override

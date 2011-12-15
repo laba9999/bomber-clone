@@ -28,16 +28,14 @@ public class GameStateLoading extends GameState {
 		throw new UnsupportedOperationException();
 	}
 
-	public void present(float _interpolation)
+	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);		
 		BitmapFont font = Assets.mFont;
 	
-		mBatcher.begin();	
-
 		//desenha "paused" ao canto
 		font.draw(mBatcher,"LOADING", 600 , 470);
-		mBatcher.end();
+
 	}
 
 	@Override

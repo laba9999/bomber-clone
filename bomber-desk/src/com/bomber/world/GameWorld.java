@@ -1,7 +1,6 @@
 package com.bomber.world;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -15,12 +14,10 @@ import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
-import com.bomber.gameobjects.UIMovableObject;
-import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
+import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.bonus.Bonus;
-import com.bomber.gameobjects.bonus.BonusTypes;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
 import com.bomber.gametypes.GameType;
@@ -161,12 +158,12 @@ public class GameWorld {
 		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 	}
 
-	public void spawnBonus(short _type, short _line, short _col)
+	public void spawnBonus(Tile _container)
 	{
-		Bonus tmpBonus = ObjectFactory.CreateBonus.create(_type);
+		Bonus tmpBonus = ObjectFactory.CreateBonus.create(_container.mContainedBonusType);
 		mSpawnedBonus.addObject(tmpBonus);
-		tmpBonus.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-		tmpBonus.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+		tmpBonus.mPosition.x = _container.mPosition.x + Tile.TILE_SIZE_HALF;
+		tmpBonus.mPosition.y = _container.mPosition.y + Tile.TILE_SIZE_HALF;
 	}
 
 	public boolean spawnBomb(short _bombPower, Vector2 _playerPosition)
@@ -402,9 +399,6 @@ public class GameWorld {
 		// TODO: Alterar Textura
 		if (mGameType.mNeedsPortal && mGameType.isObjectiveAcomplished() && mMap.mPortal != null)
 			mMap.mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 125);
-
-		if (DebugSettings.WORLD_SPAWN_BONUS_RANDOMLY)
-			spawnBonusRandomly();
 	}
 
 	private void updateMonsters()
@@ -451,7 +445,7 @@ public class GameWorld {
 				mOverlayingPoints.releaseObject(t);
 		}
 	}
-
+/*
 	public void spawnBonusRandomly()
 	{
 
@@ -499,7 +493,7 @@ public class GameWorld {
 		}
 
 	}
-
+*/
 	public boolean checkReachedMaximumSimultaneousBonus()
 	{
 		// TODO : ajustar valor

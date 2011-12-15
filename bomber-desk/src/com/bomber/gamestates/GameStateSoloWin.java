@@ -20,7 +20,7 @@ public class GameStateSoloWin extends GameState {
 		throw new UnsupportedOperationException();
 	}
 
-	public void present(float _interpolation)
+	public void onPresent(float _interpolation)
 	{
 		throw new UnsupportedOperationException();
 	}

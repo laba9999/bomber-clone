@@ -27,7 +27,7 @@ public abstract class GameType {
 	 */	
 	public boolean isLost()
 	{
-		return mGameWorld.getLocalPlayer().mLives == 0;
+		return mGameWorld.getLocalPlayer().mLives == 0 || mGameWorld.mClock.mReachedZero;
 	}
 	
 	//TODO : apagar se nao for necessário

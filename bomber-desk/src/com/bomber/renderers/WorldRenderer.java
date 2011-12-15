@@ -39,12 +39,14 @@ public class WorldRenderer {
 
 	public void render()
 	{
+		// Porque é chamado antes da apresentação da UI
+		mBatch.end();
 		
 		// TODO: retirar quando já não for necessário para ver os FPS
 		GLCommon gl = Gdx.gl;
 		gl.glClearColor(0, 0, 0, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+
 		// Actualiza a posição da camera para seguir o local player
 		updateCameraPosition();
 
@@ -53,6 +55,7 @@ public class WorldRenderer {
 		renderTiles();
 
 		mBatch.enableBlending();
+		mBatch.begin();
 		renderBonus();
 		renderTilesExplosions();
 		renderBombs();
@@ -60,7 +63,6 @@ public class WorldRenderer {
 		renderPlayers();
 		renderMonsters();
 		renderOverlayingText();
-
 	}
 
 	private void updateCameraPosition()
@@ -81,10 +83,10 @@ public class WorldRenderer {
 		mBatch.setProjectionMatrix(mCamera.combined);
 	}
 
-
 	private void renderTiles()
 	{
 		List<Tile> map = mWorld.mMap.mTilesMap;
+
 		mBatch.begin();
 		for (int i = 0; i < map.size(); i++)
 		{
@@ -92,62 +94,51 @@ public class WorldRenderer {
 
 			mBatch.draw(tmpTile.mCurrentFrame, tmpTile.mPosition.x, tmpTile.mPosition.y);
 		}
-		
-		
+
 		mBatch.end();
 
 	}
 
 	private void renderTilesExplosions()
 	{
-		mBatch.begin();
+
 		for (Tile t : mWorld.mMap.mTilesBeingDestroyed)
 			mBatch.draw(t.mCurrentFrame, t.mPosition.x, t.mPosition.y);
-
-		mBatch.end();
 	}
 
 	private void renderBonus()
 	{
-		mBatch.begin();
 		for (Bonus b : mWorld.mSpawnedBonus)
 		{
-
 			Vector2 drawingPoint = b.drawingPoint();
 			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
 			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
 
 		}
-		mBatch.end();
 	}
 
 	private void renderBombs()
 	{
-		mBatch.begin();
 		for (Bomb b : mWorld.mBombs)
 		{
 			Vector2 drawingPoint = b.drawingPoint();
 			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
 			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
 		}
-		mBatch.end();
 	}
 
 	private void renderExplosions()
 	{
-		mBatch.begin();
 		for (Drawable b : mWorld.mExplosions)
 		{
 			Vector2 drawingPoint = b.drawingPoint();
 			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
 			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
 		}
-		mBatch.end();
 	}
 
 	private void renderPlayers()
 	{
-		mBatch.begin();
 		for (Player p : mWorld.mPlayers)
 		{
 			Vector2 drawingPoint = p.drawingPoint();
@@ -165,12 +156,10 @@ public class WorldRenderer {
 			// p.getBoundingBox().x, p.getBoundingBox().y,
 			// p.getBoundingBox().width, p.getBoundingBox().height);
 		}
-		mBatch.end();
 	}
 
 	private void renderMonsters()
 	{
-		mBatch.begin();
 		for (Monster m : mWorld.mMonsters)
 		{
 			Vector2 drawingPoint = m.drawingPoint();
@@ -181,21 +170,17 @@ public class WorldRenderer {
 			// m.getBoundingBox().x, m.getBoundingBox().y,
 			// m.getBoundingBox().width, m.getBoundingBox().height);
 		}
-		mBatch.end();
 	}
-	
+
 	private void renderOverlayingText()
 	{
-		mBatch.begin();
-		//TODO: alterar font
+		// TODO: alterar font
 		BitmapFont font = Assets.mFont;
-		
-		for (OverlayingText t: mWorld.mOverlayingPoints)
+
+		for (OverlayingText t : mWorld.mOverlayingPoints)
 		{
-			Vector2 drawingPoint = t.mPosition;		
+			Vector2 drawingPoint = t.mPosition;
 			font.draw(mBatch, t.mText, drawingPoint.x, drawingPoint.y);
 		}
-		mBatch.end();
-
 	}
 }
