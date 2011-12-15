@@ -27,6 +27,9 @@ public class Player extends KillableObject {
 	public static final short MAX_EXPLOSION_SIZE = 6;
 	public static final short MAX_SPEED_FACTOR = 4;
 
+	public static final short SPAWN_IMMUNITY_TICKS = 300;
+	public static final short PLAYER_BLINK_SPEED = 10;
+
 	public int mPoints = 0;
 	public int mStartLevelPoints = 0;
 	private int mLastTickPoints = -1;
@@ -45,6 +48,8 @@ public class Player extends KillableObject {
 	public boolean mIsAbleToPushBombs = false;
 
 	public Vector2 mSpawnPosition = new Vector2();
+
+	private short mTicksSinceSpawn;
 
 	/**
 	 * Inicializado com o máximo de bonus que podem estar activos ao mesmo
@@ -70,6 +75,11 @@ public class Player extends KillableObject {
 
 	}
 
+	public boolean isImmune()
+	{
+		return mTicksSinceSpawn <= SPAWN_IMMUNITY_TICKS;
+	}
+	
 	public String getPointsAsString()
 	{
 		if (mPoints == mLastTickPoints)
@@ -109,14 +119,17 @@ public class Player extends KillableObject {
 
 		if (mIsDead)
 		{
-			if (mLooped)
+			if (mLooped && mLives > 0)
 			{
 				mIsDead = false;
 				mPosition.set(mSpawnPosition);
 				changeDirection(Directions.DOWN);
+				mTicksSinceSpawn = 0;
 			}
 			return;
 		}
+
+		mTicksSinceSpawn++;
 
 		// Verifica se colidiu com algum bónus
 		checkBonusCollision();
@@ -199,6 +212,8 @@ public class Player extends KillableObject {
 
 		mLives = 3;
 		mPointsMultiplier = 1;
+		
+		mTicksSinceSpawn = 0;
 	}
 
 	public String getPoints()
@@ -209,6 +224,9 @@ public class Player extends KillableObject {
 	@Override
 	protected boolean onKill()
 	{
+		if (mTicksSinceSpawn <= SPAWN_IMMUNITY_TICKS)
+			return true;
+
 		if (mIsShieldActive)
 		{
 			for (TemporaryBonus b : mActiveBonus)

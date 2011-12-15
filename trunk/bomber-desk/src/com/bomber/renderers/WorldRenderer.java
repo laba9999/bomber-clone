@@ -29,6 +29,9 @@ public class WorldRenderer {
 	SpriteBatch mBatch;
 	OrthographicCamera mCamera;
 
+	private short mTicksSincePlayerLastBlink;
+	private boolean mBlinkLocalPlayer = false;
+
 	public WorldRenderer(SpriteBatch _batch, GameWorld _world) {
 		mWorld = _world;
 		mBatch = _batch;
@@ -40,7 +43,7 @@ public class WorldRenderer {
 	{
 		// Porque é chamado antes da apresentação da UI
 		mBatch.end();
-		
+
 		// TODO: retirar quando já não for necessário para ver os FPS
 		GLCommon gl = Gdx.gl;
 		gl.glClearColor(0, 0, 0, 1);
@@ -141,7 +144,23 @@ public class WorldRenderer {
 		{
 			Vector2 drawingPoint = p.drawingPoint();
 			drawingPoint.x += (Tile.TILE_SIZE - p.mCurrentFrame.getRegionWidth()) / 2;
+
+			// Verifica se é suposto apresentar o piscar da imunidade do spawn
+			if (p.isImmune())
+			{
+				if (mTicksSincePlayerLastBlink++ > Player.PLAYER_BLINK_SPEED)
+				{
+					mTicksSincePlayerLastBlink = 0;
+					mBlinkLocalPlayer = !mBlinkLocalPlayer;
+				}
+			} else
+				mBlinkLocalPlayer = false;
+
+			if (mBlinkLocalPlayer)
+				mBatch.setColor(1, 1, 1, 0.5f);
+
 			mBatch.draw(p.mCurrentFrame, drawingPoint.x, drawingPoint.y);
+			mBatch.setColor(1, 1, 1, 1);
 
 			// Desenha os efeitos
 			for (PlayerEffect ef : p.mEffects)

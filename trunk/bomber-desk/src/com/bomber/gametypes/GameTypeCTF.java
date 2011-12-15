@@ -19,4 +19,11 @@ public class GameTypeCTF extends GameType {
 		return false;
 	}
 
+	@Override
+	public boolean isLost()
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

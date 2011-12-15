@@ -9,8 +9,6 @@ public abstract class KillableObject extends WorldMovableObject {
 
 	final public void kill()
 	{
-
-		
 		if(mIsDead)
 			return;
 		
@@ -44,5 +42,9 @@ public abstract class KillableObject extends WorldMovableObject {
 		mIsDead = false;
 	}
 
+	/**
+	 * 
+	 * @return Deve devolver se é suposto ignorar a morte ou não.
+	 */
 	protected abstract boolean onKill();
 }
