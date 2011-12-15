@@ -8,6 +8,7 @@ public class Clock {
 	private boolean mIsPaused = false;
 	private long mLastTimeMilis = 0;
 	private long mTotalTimeEllapsed = 0;
+	private int mUpdateInterval = 1000;
 
 	private long mCountdownValue;
 	
@@ -30,9 +31,14 @@ public class Clock {
 		mStartedClock = false;
 		mIsPaused = false;
 
+		mUpdateInterval = 1000;
 		mTotalTimeEllapsed = 0;
 	}
 	
+	public void setUpdateInterval(int _value)
+	{
+		mUpdateInterval = _value;
+	}
 
 	public int getRemainingSeconds()
 	{
@@ -92,7 +98,7 @@ public class Clock {
 		long interval = System.currentTimeMillis() - mLastTimeMilis;
 
 		// Apenas recria a string caso já tenha passado mais de um segundo
-		if (interval < 1000 || mIsPaused)
+		if (interval < mUpdateInterval || mIsPaused)
 			return mLastTimeString;
 
 		mTotalTimeEllapsed += 1000;
