@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.xml.ws.soap.MTOM;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -54,16 +56,14 @@ public class Assets {
 	public static HashMap<String, Animation> mExplosions;
 
 	public static MovableObjectAnimation mBomb;
-	public static TextureRegion mMainScreen;
+	
+	public static HashMap<String, TextureRegion> mScreens = new HashMap<String, TextureRegion>();
+
 	public static Animation mSoundButton;
+	public static TextureRegion mTrophy;
+	
 	public static HashMap<String, TextureRegion> mPauseButtons;
-	public static TextureRegion mControllerBar;
-	/**
-	 * Usados no pause.
-	 */
-	public static TextureRegion mPauseScreen;
-	public static TextureRegion mLevelCompletedScreen;
-	public static TextureRegion mGameOverScreen;
+
 	public static BitmapFont mFont;
 
 	public static void loadAssets()
@@ -333,15 +333,26 @@ public class Assets {
 		// mAtlas.findRegion("TO BE DEFINED"));
 		TextureAtlas atlasHD =  new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
 		
-		mControllerBar = atlasHD.findRegion("controller");
-		mPauseScreen = atlasHD.findRegion("pause_screen");
-		mLevelCompletedScreen = atlasHD.findRegion("level_completed");
-		mGameOverScreen = atlasHD.findRegion("gameover");
-		
+		mScreens.put("controller", atlasHD.findRegion("controller"));
+		mScreens.put("pause", atlasHD.findRegion("pause_screen"));
+		mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
+		mScreens.put("gameover", atlasHD.findRegion("gameover"));
+
+		mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
+		mTrophy = atlasHD.findRegion("trophy");
 		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);
 		mFont.setScale(1);
 
+	}
+	
+	public static TextureRegion getSoundButtonTexture()
+	{
+		if(Settings.isSoundOn)
+			return mSoundButton.getKeyFrame(1, false);		
+		else
+			return mSoundButton.getKeyFrame(0, false);
+		
 	}
 	
 	public static void reset()

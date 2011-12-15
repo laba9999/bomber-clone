@@ -8,7 +8,7 @@ public class Tile extends Drawable {
 	public static final short DESTROYABLE = 1;
 	public static final short COLLIDABLE = 2;
 	public static final short PORTAL = 3;
-
+	public static final int POINTS = 100;
 	
 	public short mContainedBonusType = -1;
 	public boolean mIsPortal = false;

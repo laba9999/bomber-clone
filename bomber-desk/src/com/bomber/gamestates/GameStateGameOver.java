@@ -30,7 +30,7 @@ public class GameStateGameOver extends GameState {
 		mBatcher.draw(Assets.DarkGlass.get(), 0, 0);
 		
 		BitmapFont font = Assets.mFont;		
-		mBatcher.draw(Assets.mGameOverScreen,125,60);
+		mBatcher.draw(Assets.mScreens.get("gameover") ,125,60);
 		font.setScale(1.8f);
 		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);
 		font.setScale(1);

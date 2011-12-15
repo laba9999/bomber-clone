@@ -107,6 +107,26 @@ public class GameWorld {
 
 		return mLocalPlayer;
 	}
+	
+	public int getMaxPoints()
+	{
+		if(mMonsters == null || mMap == null || mMap.mTilesMap == null)
+			throw new IllegalStateException();
+
+		int monsterPoints = 0;
+		 
+		for(Monster monster : mMonsters)
+		{
+			monsterPoints += monster.mInfo.mPointsValue;
+		}
+		
+		int tilePoints = mMap.mDestroyableTiles.mLenght * Tile.POINTS;
+		
+		return monsterPoints + tilePoints + 20 * 10;
+		
+	}
+	
+	
 
 	public void reset(String _levelToload)
 	{

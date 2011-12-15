@@ -4,7 +4,7 @@ filter: Linear,Linear
 repeat: none
 trophy
   rotate: false
-  xy: 804, 2
+  xy: 804, 109
   size: 54, 52
   orig: 54, 52
   offset: 0, 0
@@ -23,6 +23,20 @@ pause_screen
   orig: 256, 512
   offset: 0, 0
   index: -1
+sound_
+  rotate: false
+  xy: 911, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 0
+sound_
+  rotate: false
+  xy: 804, 2
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 1
 gameover
   rotate: false
   xy: 2, 856

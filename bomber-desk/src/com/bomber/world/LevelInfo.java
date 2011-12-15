@@ -8,7 +8,7 @@ public class LevelInfo {
 	public short mSeconds;
 	public short mNumberBonus;
 	public short mBonusSeed;
-
+	public short mMaxPoints;
 	/**
 	 * @param _levelInfo
 	 *            Posição 0: Nome do nivelseguinte
@@ -24,5 +24,6 @@ public class LevelInfo {
 		mSeconds = Short.valueOf(_levelInfo[2]);
 		mNumberBonus = Short.valueOf(_levelInfo[3]);
 		mBonusSeed = Short.valueOf(_levelInfo[4]);
+		mMaxPoints = Short.valueOf(_levelInfo[5]);
 	}
 }

@@ -36,7 +36,7 @@ public class GameMap {
 
 	private GameWorld mWorld;
 	private ObjectsPool<Tile> mImutableTiles;
-	private ObjectsPool<Tile> mDestroyableTiles;
+	public ObjectsPool<Tile> mDestroyableTiles;
 	public ObjectsPool<Tile> mTilesBeingDestroyed;
 
 	public Tile mPortal;
@@ -175,7 +175,7 @@ public class GameMap {
 
 		// Prémio! :)
 		mWorld.spawnOverlayingPoints("+100", _tile.mPosition.x, _tile.mPosition.y + Tile.TILE_SIZE);
-		mWorld.getLocalPlayer().mPoints += 100;
+		mWorld.getLocalPlayer().mPoints += Tile.POINTS;
 
 		// Verifica se tem bónus
 		if (_tile.containsBonus())
@@ -764,5 +764,7 @@ public class GameMap {
 		// TODO: alterar textura
 		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 123);
 	}
+	
+
 
 }

@@ -92,7 +92,7 @@ public class Level {
 
 	private static void loadLevelInfo(GameWorld _world)
 	{
-		String[] levelInfo = new String[5];
+		String[] levelInfo = new String[6];
 		InputStream inputStream = Gdx.files.internal("levels/" + mInfo.mCurrentLevelName + "/info.txt").read();
 		Scanner scanner = new Scanner(inputStream);
 		try
@@ -207,5 +207,6 @@ public class Level {
 
 		}
 	}
+
 
 }
