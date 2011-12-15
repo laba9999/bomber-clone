@@ -16,8 +16,8 @@ public class InputGameOverState extends Input {
 		super(_gameState);
 
 		mInputZones = new Rectangle[2];
-		mInputZones[INPUT_CONTINUE] = new Rectangle(300, 200, 80, 80);
-		mInputZones[INPUT_MENU] = new Rectangle(400, 200, 80, 80);
+		mInputZones[INPUT_CONTINUE] = new Rectangle(275, 75, 100, 100);
+		mInputZones[INPUT_MENU] = new Rectangle(435, 74, 100, 100);
 	}
 
 	@Override
