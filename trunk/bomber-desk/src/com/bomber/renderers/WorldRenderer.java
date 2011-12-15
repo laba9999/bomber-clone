@@ -113,7 +113,6 @@ public class WorldRenderer {
 			Vector2 drawingPoint = b.drawingPoint();
 			drawingPoint.x += (Tile.TILE_SIZE - b.mCurrentFrame.getRegionWidth()) / 2;
 			mBatch.draw(b.mCurrentFrame, drawingPoint.x, drawingPoint.y);
-
 		}
 	}
 

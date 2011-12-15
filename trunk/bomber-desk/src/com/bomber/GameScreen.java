@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bomber.common.Assets;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
+import com.bomber.gamestates.GameStatePaused;
 import com.bomber.gamestates.GameStatePlaying;
 import com.bomber.gametypes.GameType;
 import com.bomber.gametypes.GameTypeCampaign;
@@ -45,7 +46,7 @@ public class GameScreen implements ApplicationListener {
 			return;
 
 		mGameState = _newGameState;
-		
+
 		mGameState.reset();
 		mLastGameStateChangeTime = System.currentTimeMillis();
 	}
@@ -56,16 +57,16 @@ public class GameScreen implements ApplicationListener {
 		mUICamera = new OrthographicCamera(800, 480);
 		mUICamera.position.set(800 / 2, 480 / 2, 0);
 		mUICamera.update();
-		
-		mBatcher = new SpriteBatch();
-		
-		Assets.loadAssets();
-		
-		//mGameState = new GameStateLoading(this);
 
-		mWorld = new GameWorld( new GameTypeCampaign(), "level1");
+		mBatcher = new SpriteBatch();
+
+		Assets.loadAssets();
+
+		// mGameState = new GameStateLoading(this);
+
+		mWorld = new GameWorld(new GameTypeCampaign(), "level1");
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
-		
+
 		mGameState = new GameStatePlaying(this);
 
 		mNextGameTick = System.nanoTime();
@@ -100,26 +101,27 @@ public class GameScreen implements ApplicationListener {
 
 		mInterpolation = (System.nanoTime() + SKIP_TICKS - mNextGameTick) / SKIP_TICKS;
 		mGameState.present(mInterpolation);
+
 	}
 
 	@Override
 	public void pause()
 	{
-		// TODO Auto-generated method stub
-
+		if (mGameState instanceof GameStatePlaying)
+			setGameState(new GameStatePaused(this));
+		
+		Assets.DarkGlass.dispose();
 	}
 
 	@Override
 	public void resume()
 	{
-		// TODO Auto-generated method stub
-
+		mNextGameTick = System.nanoTime();
 	}
 
 	@Override
 	public void dispose()
 	{
-		// TODO Auto-generated method stub
 
 	}
 }
