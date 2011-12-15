@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.Collision;
+import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.PlayerEffect;
@@ -42,8 +43,8 @@ public class Player extends KillableObject {
 
 	public boolean mIsShieldActive = false;
 	public boolean mIsAbleToPushBombs = false;
-	
-	public Vector2 mSpawnPosition;
+
+	public Vector2 mSpawnPosition = new Vector2();
 
 	/**
 	 * Inicializado com o máximo de bonus que podem estar activos ao mesmo
@@ -109,7 +110,11 @@ public class Player extends KillableObject {
 		if (mIsDead)
 		{
 			if (mLooped)
-				mWorld.mPlayers.releaseObject(this);
+			{
+				mIsDead = false;
+				mPosition.set(mSpawnPosition);
+				changeDirection(Directions.DOWN);
+			}
 			return;
 		}
 

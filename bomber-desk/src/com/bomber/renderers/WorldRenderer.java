@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.bomber.GameScreen;
 import com.bomber.OverlayingText;
 import com.bomber.common.Assets;
 import com.bomber.common.PlayerEffect;

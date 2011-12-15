@@ -1,11 +1,9 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.math.Rectangle;
 import com.bomber.GameScreen;
 import com.bomber.common.Assets;
 import com.bomber.input.InputGameOverState;
-import com.bomber.input.InputPlayingState;
 import com.bomber.world.Level;
 
 public class GameStateGameOver extends GameState {
@@ -42,8 +40,7 @@ public class GameStateGameOver extends GameState {
 	@Override
 	protected void onFinish()
 	{
-		// TODO Auto-generated method stub
-
+		mGameScreen.setGameState(mNextGameState);
 	}
 
 	@Override

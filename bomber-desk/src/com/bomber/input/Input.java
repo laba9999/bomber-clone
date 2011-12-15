@@ -29,11 +29,14 @@ public abstract class Input {
 			parseTouchInput();
 	}
 	
-	protected abstract void parseKeyboardInput();
-	protected abstract void parseTouchInput();
 	
 	public final Rectangle[] getZones()
 	{
 		return mInputZones;
 	}
+	
+	protected abstract void parseKeyboardInput();
+	protected abstract void parseTouchInput();
+	protected abstract void parseInputZone(short _zone);
+
 }

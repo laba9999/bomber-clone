@@ -1,11 +1,6 @@
 package com.bomber.tests;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
-
-import com.bomber.gameobjects.Player;
-import com.bomber.gameobjects.Tile;
 
 public class GameMapTest {
 
