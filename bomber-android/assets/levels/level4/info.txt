@@ -13,5 +13,5 @@ level1
 #seed para os bonus
 5432
 
-#maximo numero de pontos
+#high score
 5350

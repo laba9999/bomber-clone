@@ -13,5 +13,5 @@ level4
 #seed para os bonus
 1234
 
-#maximo numero de pontos
+#high score
 5350

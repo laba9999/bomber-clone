@@ -134,6 +134,7 @@ public class GameWorld {
 		mSpawnedBonus.clear();
 		mBombs.clear();
 		mExplosions.clear();
+		mOverlayingPoints.clear();
 		mMap.reset(mMap.mWidth, mMap.mHeight);
 
 		Level.loadLevel(_levelToload, this, mNumberPlayers);

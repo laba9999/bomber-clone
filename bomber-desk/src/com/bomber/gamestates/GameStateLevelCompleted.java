@@ -8,20 +8,30 @@ import com.bomber.world.Level;
 
 public class GameStateLevelCompleted extends GameState {
 
-	private Integer mPoints;
+	private Integer mHighScoreDisplayed;
+	private int mNewHighScore;
+	private Integer mPointsDisplayed;
 	private boolean mEndScoreAnimation;
 	private short mTrophiesEarned;
+	
 	
 	public GameStateLevelCompleted(GameScreen _gameScreen) {
 		super(_gameScreen);
 		mEndScoreAnimation = false;
 		mInput = new InputLevelCompletedState(this);
-		mPoints = mGameWorld.getLocalPlayer().mPoints;
+		mPointsDisplayed = mGameWorld.getLocalPlayer().mPoints - mGameWorld.getLocalPlayer().mStartLevelPoints;
+		//atribui nova pontuação pelo extra do tempo restante
 		mGameWorld.getLocalPlayer().mPoints +=  mGameWorld.mClock.getRemainingSeconds() / 100;
 		
-		float x = (float) (mGameWorld.getLocalPlayer().mPoints - mGameWorld.getLocalPlayer().mStartLevelPoints) / mGameWorld.getMaxPoints();
+		//verifica se pontuação actual é melhor que o highscore
+		//e guarda já o valor antes que o utilizador salte a animação da pontuação
+		mHighScoreDisplayed = Level.mInfo.mHighScore;
+		if(mPointsDisplayed >= mHighScoreDisplayed)
+			mNewHighScore = mPointsDisplayed;
+	
+		//calcula quantidade de troféus a apresentar
+		float x = (float) mPointsDisplayed / mGameWorld.getMaxPoints();
 		
-		//mstartlevelponts
 		if(x >= 0.9)
 			mTrophiesEarned = 3;
 		else if(x == 0.9 && x >= 0.6)
@@ -41,15 +51,19 @@ public class GameStateLevelCompleted extends GameState {
 
 		mInput.update();
 
+		//animação da pontuação
 		if (!mEndScoreAnimation && mGameWorld.mClock.hasCompletedUpdateInterval())
 		{
 			if (!mGameWorld.mClock.mReachedZero)
-				mPoints += 10;
+				mPointsDisplayed += 10;
 			else
 			{
-				mPoints += 10;
+				mPointsDisplayed += 10;
 				mEndScoreAnimation = true;
 			}
+
+			if(mPointsDisplayed > mHighScoreDisplayed)
+				mHighScoreDisplayed = mPointsDisplayed;
 		}
 
 	}
@@ -69,15 +83,15 @@ public class GameStateLevelCompleted extends GameState {
 		font.setScale(1.8f);
 		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);
 		font.setScale(1);
-		// TODO: Highscore!
+		
 		font.draw(mBatcher, "HIGHSCORE", 235, 330);
-		font.draw(mBatcher, "0000000", 450, 330);
+		font.draw(mBatcher, mHighScoreDisplayed.toString(), 450, 330);
 
 		font.draw(mBatcher, "TIME", 235, 295);
 		font.draw(mBatcher, mGameWorld.mClock.toString(), 450, 295);
 
 		font.draw(mBatcher, "FINAL SCORE", 235, 260);
-		font.draw(mBatcher, mPoints.toString(), 450, 260);
+		font.draw(mBatcher, mPointsDisplayed.toString(), 450, 260);
 		
 		
 		for(int i = 0; i < mTrophiesEarned; i++)
@@ -90,8 +104,15 @@ public class GameStateLevelCompleted extends GameState {
 	@Override
 	protected void onFinish()
 	{
-		mGameWorld.getLocalPlayer().mStartLevelPoints = mGameWorld.getLocalPlayer().mPoints;
-		mGameWorld.getLocalPlayer().mPoints = mGameWorld.getLocalPlayer().mStartLevelPoints;
+		if(mPointsDisplayed >= mHighScoreDisplayed)
+		{
+			Level.mInfo.mHighScore = mNewHighScore;
+			Level.mInfo.writeToFile();
+		}	
+		
+		
+		//mGameWorld.getLocalPlayer().mStartLevelPoints = mGameWorld.getLocalPlayer().mPoints;
+		//mGameWorld.getLocalPlayer().mPoints = mGameWorld.getLocalPlayer().mStartLevelPoints;
 		mGameScreen.setGameState(mNextGameState);
 	}
 
