@@ -125,6 +125,8 @@ public class Player extends KillableObject {
 				mPosition.set(mSpawnPosition);
 				changeDirection(Directions.DOWN);
 				mTicksSinceSpawn = 0;
+				mIsMoving = false;
+				stopCurrentAnimation();
 			}
 			return;
 		}

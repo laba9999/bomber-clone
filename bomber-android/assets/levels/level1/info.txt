@@ -12,6 +12,3 @@ level4
 
 #seed para os bonus
 1234
-
-#high score
-5350

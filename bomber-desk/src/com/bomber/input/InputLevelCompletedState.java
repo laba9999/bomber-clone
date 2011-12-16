@@ -26,11 +26,9 @@ public class InputLevelCompletedState extends Input {
 	protected void parseKeyboardInput()
 	{
 		if (Gdx.input.isKeyPressed(Keys.ENTER))
-		{
 			parseInputZone(INPUT_CONTINUE);
-		}else if(Gdx.input.isKeyPressed(Keys.R))
+		else if(Gdx.input.isKeyPressed(Keys.R))
 			parseInputZone(INPUT_RELOAD);
-		
 	}
 
 	@Override

@@ -1,6 +1,5 @@
 package com.bomber.gameobjects;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

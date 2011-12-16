@@ -1,6 +1,7 @@
 package com.bomber.remote;
 
 import java.nio.ByteBuffer;
+import java.security.InvalidParameterException;
 
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.common.PoolObject;
@@ -10,6 +11,7 @@ import com.bomber.common.PoolObject;
  * qualquer tipo de evento.
  */
 public class Message extends PoolObject {
+	public static final short STRING_MAX_SIZE = 32;
 	/**
 	 * este senderID identifica unicamente o jogador que a enviou. Este sender
 	 * id é colocado durante a criação pela pool que por sua vez é um atributo
@@ -26,17 +28,55 @@ public class Message extends PoolObject {
 	 */
 	public short remoteEventType;
 	public Vector2 valVector2_0 = new Vector2();
-	private Vector2 valVector2_1 = new Vector2();
+	public Vector2 valVector2_1 = new Vector2();
 	public short valShort;
 	public int valInt;
-	public String valString;
+	private String valString;
+	
+	private byte[] valStringBuffer = new byte[32];
 
+	
+	//
+	// Estes get/set são necessários para controlar o tamanho da string
+	public String getStringValue()
+	{
+		return valString;
+	}
+	
+	/**
+	 * 
+	 * @param _newString Pode ter no máximo {@link Message.STRING_MAX_SIZE} 
+	 */
+	public void setStringValue(String _newString)
+	{
+		if(_newString.length() > STRING_MAX_SIZE)
+			throw new InvalidParameterException("String demasiado comprida!");
+	
+		valString = _newString;
+	}
+	
 	/**
 	 * O ByteBuffer oferece metodos do tipo getFloat, etc...
 	 */
 	public void parse(ByteBuffer _buff)
 	{
-		throw new UnsupportedOperationException();
+		senderID = _buff.getShort();
+		UUID = _buff.getInt();
+		messageType = _buff.getShort();
+		remoteEventType = _buff.getShort();
+		valVector2_0.x = _buff.getFloat();
+		valVector2_0.y = _buff.getFloat();
+		valVector2_1.x = _buff.getFloat();
+		valVector2_1.y = _buff.getFloat();
+
+		valShort = _buff.getShort();
+		valInt =  _buff.getInt();
+		
+
+		_buff.get(valStringBuffer, 0, valStringBuffer.length);
+		valString = new String(valStringBuffer).trim();
+		
+		_buff.position(0);
 	}
 
 	/**
@@ -45,13 +85,28 @@ public class Message extends PoolObject {
 	 */
 	public void fillBuffer(ByteBuffer _destination)
 	{
-		throw new UnsupportedOperationException();
+		_destination.putShort(senderID);
+		_destination.putInt(UUID);
+		_destination.putShort(messageType);
+		_destination.putShort(remoteEventType);
+		
+		_destination.putFloat(valVector2_0.x);
+		_destination.putFloat(valVector2_0.y);
+		_destination.putFloat(valVector2_1.x);
+		_destination.putFloat(valVector2_1.y);
+
+		_destination.putShort(valShort);
+		_destination.putInt(valInt);
+
+		_destination.put(valString.getBytes());
+	
+		_destination.position(0);
 	}
 
 	@Override
 	public void reset()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

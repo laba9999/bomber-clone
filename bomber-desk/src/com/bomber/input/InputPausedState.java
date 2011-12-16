@@ -96,7 +96,7 @@ public class InputPausedState extends Input {
 			break;
 
 		case INPUT_BACK:
-
+			mGameState.mGameScreen.goBackToActivities();
 			break;
 		}
 	}
