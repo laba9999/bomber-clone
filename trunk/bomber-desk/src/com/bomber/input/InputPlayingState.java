@@ -79,7 +79,10 @@ public class InputPlayingState extends Input {
 			}
 
 			if (mGameWorld.getLocalPlayer().mIsDead)
+			{
+				mDirectionsPointerIdx = -1;
 				return;
+			}
 
 			for (short i = INPUT_LEFT; i <= INPUT_LEFT_UP; i++)
 			{
@@ -91,11 +94,6 @@ public class InputPlayingState extends Input {
 				}
 			}
 
-			if (mDirectionsPointerIdx != -1 && !Gdx.input.isTouched(mDirectionsPointerIdx))
-			{
-				mGameWorld.getLocalPlayer().stop();
-				mDirectionsPointerIdx = -1;
-			}
 
 			if (!mJustPlacedBomb && mInputZones[INPUT_BOMB].contains(mTouchPoint.x, mTouchPoint.y))
 			{
@@ -106,6 +104,12 @@ public class InputPlayingState extends Input {
 
 		}
 
+		if (mDirectionsPointerIdx != -1 && !Gdx.input.isTouched(mDirectionsPointerIdx))
+		{
+			mGameWorld.getLocalPlayer().stop();
+			mDirectionsPointerIdx = -1;
+		}
+		
 		if (mBombPointerIdx != -1 && !Gdx.input.isTouched(mBombPointerIdx))
 		{
 			mJustPlacedBomb = false;

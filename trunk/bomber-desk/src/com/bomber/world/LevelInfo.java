@@ -18,7 +18,7 @@ public class LevelInfo {
 	public short mSeconds;
 	public short mNumberBonus;
 	public short mBonusSeed;
-	public int mHighScore;
+	private int mHighScore;
 
 	/**
 	 * @param _levelInfo
@@ -33,8 +33,19 @@ public class LevelInfo {
 		mSeconds = Short.valueOf(_levelInfo[2]);
 		mNumberBonus = Short.valueOf(_levelInfo[3]);
 		mBonusSeed = Short.valueOf(_levelInfo[4]);
-	
+
 		loadHighSore();
+	}
+
+	public int getHighScore()
+	{
+		return mHighScore;
+	}
+
+	public void setHighScore(int _newHighScore)
+	{
+		mHighScore = _newHighScore;
+		saveHighscore();
 	}
 
 	private void loadHighSore()
@@ -43,35 +54,35 @@ public class LevelInfo {
 
 		InputStream inputStream = null;
 		Scanner scanner = null;
-		
+
 		try
 		{
 			inputStream = Gdx.files.internal(path).read();
 			scanner = new Scanner(inputStream);
 			mHighScore = Integer.valueOf(scanner.nextLine());
-		} 
-		catch(Throwable t)
+		} catch (Throwable t)
 		{
 			mHighScore = 0;
-		}
-		finally
+		} finally
 		{
-			if(inputStream != null)
+			if (inputStream != null)
 				try
 				{
 					inputStream.close();
-				} catch (IOException e){}
+				} catch (IOException e)
+				{
+				}
 		}
 	}
-	
-	public void saveHighscore()
+
+	private void saveHighscore()
 	{
-		String path = Gdx.files.getExternalStoragePath() +"com.amov.bomber/levels/" + mCurrentLevelName;
+		String path = Gdx.files.getExternalStoragePath() + "com.amov.bomber/levels/" + mCurrentLevelName;
 
 		// Cria a directoria se não existir
 		File levelDirectory = new File(path);
 		levelDirectory.mkdirs();
-		
+
 		path += "/highscore.txt";
 		BufferedWriter out = null;
 		try
@@ -80,15 +91,17 @@ public class LevelInfo {
 			PrintWriter bw = new PrintWriter(out);
 			bw.println(mHighScore);
 
-		} catch (Throwable t) {
+		} catch (Throwable t)
+		{
 			t.printStackTrace();
-		}
-		finally
+		} finally
 		{
 			try
 			{
-				if (out != null) out.close();
-			} catch (IOException e){
+				if (out != null)
+					out.close();
+			} catch (IOException e)
+			{
 				e.printStackTrace();
 			}
 		}

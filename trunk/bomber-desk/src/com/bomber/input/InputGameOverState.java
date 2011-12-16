@@ -54,7 +54,7 @@ public class InputGameOverState extends Input {
 			break;
 			
 		case INPUT_MENU:
-			
+			mGameState.mGameScreen.goBackToActivities();
 			break;
 		}
 		

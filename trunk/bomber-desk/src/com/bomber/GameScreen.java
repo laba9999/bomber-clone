@@ -38,6 +38,12 @@ public class GameScreen implements ApplicationListener {
 		return mGameState;
 	}
 
+	public void goBackToActivities()
+	{
+		// TODO : implementar voltar às actividades do android
+		throw new UnsupportedOperationException();
+	}
+	
 	public void setGameState(GameState _newGameState)
 	{
 		if (System.currentTimeMillis() - mLastGameStateChangeTime < 250)

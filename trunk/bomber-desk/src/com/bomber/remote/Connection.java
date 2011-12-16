@@ -7,10 +7,8 @@ public class Connection extends Thread {
 	 * servidor.
 	 */
 	private short mLocalID;
-	/**
-	 * ID que identifica este cliente perante todos os outros é atribuido pelo
-	 * servidor.
-	 */
+
+	// Latência
 	private short mRTT;
 	public MessageSocketIO mSocket;
 

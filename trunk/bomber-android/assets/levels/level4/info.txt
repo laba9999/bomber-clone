@@ -12,6 +12,3 @@ level1
 
 #seed para os bonus
 5432
-
-#high score
-5350
