@@ -1,5 +1,6 @@
 package com.bomber.world;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -92,7 +93,7 @@ public class Level {
 
 	private static void loadLevelInfo(GameWorld _world)
 	{
-		String[] levelInfo = new String[6];
+		String[] levelInfo = new String[5];
 		InputStream inputStream = Gdx.files.internal("levels/" + mInfo.mCurrentLevelName + "/info.txt").read();
 		Scanner scanner = new Scanner(inputStream);
 		try
@@ -107,6 +108,12 @@ public class Level {
 		} finally
 		{
 			scanner.close();
+			
+			try
+			{
+				inputStream.close();
+			} catch (IOException e){}
+
 		}
 		
 		mInfo.set(levelInfo);
