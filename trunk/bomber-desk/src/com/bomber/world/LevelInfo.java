@@ -1,11 +1,14 @@
 package com.bomber.world;
 
 import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 
 public class LevelInfo {
 	public String mCurrentLevelName;
@@ -16,14 +19,12 @@ public class LevelInfo {
 	public short mNumberBonus;
 	public short mBonusSeed;
 	public int mHighScore;
+
 	/**
 	 * @param _levelInfo
-	 *            Posição 0: Nome do nivelseguinte
-	 *            Posição 1: Minutos 
-	 *            Posição 2: Segundos
-	 *            Posição 3: Nº de bónus a spawnar
-	 *            Posição 4: Seed a usar no spawn dos bónus
-	 *            Posição 5: Pontuação Máxima actual
+	 *            Posição 0: Nome do nivelseguinte Posição 1: Minutos Posição 2:
+	 *            Segundos Posição 3: Nº de bónus a spawnar Posição 4: Seed a
+	 *            usar no spawn dos bónus
 	 */
 	public void set(String[] _levelInfo)
 	{
@@ -32,33 +33,64 @@ public class LevelInfo {
 		mSeconds = Short.valueOf(_levelInfo[2]);
 		mNumberBonus = Short.valueOf(_levelInfo[3]);
 		mBonusSeed = Short.valueOf(_levelInfo[4]);
-		mHighScore = Short.valueOf(_levelInfo[5]);
+	
+		loadHighSore();
+	}
+
+	private void loadHighSore()
+	{
+		String path = "com.amov.bomber/levels/" + mCurrentLevelName + "/highscore.txt";
+
+		InputStream inputStream = null;
+		Scanner scanner = null;
+		
+		try
+		{
+			inputStream = Gdx.files.internal(path).read();
+			scanner = new Scanner(inputStream);
+			mHighScore = Integer.valueOf(scanner.nextLine());
+		} 
+		catch(Throwable t)
+		{
+			mHighScore = 0;
+		}
+		finally
+		{
+			if(inputStream != null)
+				try
+				{
+					inputStream.close();
+				} catch (IOException e){}
+		}
 	}
 	
-	public void writeToFile()
+	public void saveHighscore()
 	{
-		//FileHandle fh = Gdx.files.internal("levels/" + mCurrentLevelName + "/info.txt");
-		FileHandle fh = Gdx.files.external("./assets/levels/" + mCurrentLevelName + "/info.txt");
+		String path = Gdx.files.getExternalStoragePath() +"com.amov.bomber/levels/" + mCurrentLevelName;
+
+		// Cria a directoria se não existir
+		File levelDirectory = new File(path);
+		levelDirectory.mkdirs();
 		
-		BufferedWriter bw = new BufferedWriter(fh.writer(false));
-		
-		try {
-			bw.write("#nome do próximo nível");
-			bw.write(mNextLevelName);
-			bw.write("#minutos");
-			bw.write(mMinutes);
-			bw.write("#segundos");
-			bw.write(mSeconds);
-			bw.write("#nº de bónus");
-			bw.write(mNumberBonus);
-			bw.write("#seed para os bónus");
-			bw.write(mBonusSeed);
-			bw.write("#highscore");			
-			bw.write(mHighScore);
-		} catch (IOException e) {
-			e.printStackTrace();
+		path += "/highscore.txt";
+		BufferedWriter out = null;
+		try
+		{
+			out = new BufferedWriter(new OutputStreamWriter(Gdx.files.absolute(path).write(false)));
+			PrintWriter bw = new PrintWriter(out);
+			bw.println(mHighScore);
+
+		} catch (Throwable t) {
+			t.printStackTrace();
 		}
-
-
+		finally
+		{
+			try
+			{
+				if (out != null) out.close();
+			} catch (IOException e){
+				e.printStackTrace();
+			}
+		}
 	}
 }
