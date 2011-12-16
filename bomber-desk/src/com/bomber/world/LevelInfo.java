@@ -57,11 +57,12 @@ public class LevelInfo {
 
 		try
 		{
-			inputStream = Gdx.files.internal(path).read();
+			inputStream = Gdx.files.external(path).read();
 			scanner = new Scanner(inputStream);
 			mHighScore = Integer.valueOf(scanner.nextLine());
 		} catch (Throwable t)
 		{
+			t.printStackTrace();
 			mHighScore = 0;
 		} finally
 		{
