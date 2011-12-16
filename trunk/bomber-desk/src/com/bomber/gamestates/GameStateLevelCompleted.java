@@ -20,7 +20,7 @@ public class GameStateLevelCompleted extends GameState {
 		mEndScoreAnimation = false;
 		mInput = new InputLevelCompletedState(this);
 		mPointsDisplayed = mGameWorld.getLocalPlayer().mPoints - mGameWorld.getLocalPlayer().mStartLevelPoints;
-		//atribui nova pontuação pelo extra do tempo restante
+		//atribui nova pontuação ao jogador pelo extra do tempo restante
 		mGameWorld.getLocalPlayer().mPoints +=  mGameWorld.mClock.getRemainingSeconds() / 100;
 		
 		//verifica se pontuação actual é melhor que o highscore
@@ -96,7 +96,7 @@ public class GameStateLevelCompleted extends GameState {
 		
 		for(int i = 0; i < mTrophiesEarned; i++)
 		{
-			mBatcher.draw(Assets.mTrophy, 304 + i*63,179);
+			mBatcher.draw(Assets.mTrophy, 304 + i*63,18);
 
 		}
 	}
@@ -110,9 +110,7 @@ public class GameStateLevelCompleted extends GameState {
 			Level.mInfo.writeToFile();
 		}	
 		
-		
-		//mGameWorld.getLocalPlayer().mStartLevelPoints = mGameWorld.getLocalPlayer().mPoints;
-		//mGameWorld.getLocalPlayer().mPoints = mGameWorld.getLocalPlayer().mStartLevelPoints;
+		mGameWorld.getLocalPlayer().mPoints = mGameWorld.getLocalPlayer().mStartLevelPoints;
 		mGameScreen.setGameState(mNextGameState);
 	}
 

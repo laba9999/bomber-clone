@@ -8,6 +8,7 @@ import com.bomber.common.Settings;
 import com.bomber.gameobjects.UIMovableObject;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStatePaused;
+import com.bomber.world.GameWorld;
 import com.bomber.world.Level;
 
 public class InputPausedState extends Input {
@@ -71,13 +72,18 @@ public class InputPausedState extends Input {
 		 return;	
 		}
 		
+		GameWorld world = mGameState.mGameScreen.mWorld;
+
 		switch (_zone)
 		{
 		case INPUT_CONTINUE:
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 		case INPUT_RELOAD:
-			mGameState.mGameScreen.mWorld.reset(Level.mInfo.mCurrentLevelName);
+			
+			world.reset(Level.mInfo.mCurrentLevelName);
+			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
+
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 		case INPUT_SOUND:

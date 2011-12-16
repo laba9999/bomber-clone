@@ -28,13 +28,9 @@ public class InputLevelCompletedState extends Input {
 		if (Gdx.input.isKeyPressed(Keys.ENTER))
 		{
 			parseInputZone(INPUT_CONTINUE);
-			// GameScreen gs = mGameState.mGameScreen;
-			// gs.mWorld.reset(Level.mInfo.mNextLevelName);
-			// GameStatePlaying g = new
-			// GameStatePlaying(mGameState.mGameScreen);
-			// gs.setGameState(g);
-
-		}
+		}else if(Gdx.input.isKeyPressed(Keys.R))
+			parseInputZone(INPUT_RELOAD);
+		
 	}
 
 	@Override
@@ -62,11 +58,18 @@ public class InputLevelCompletedState extends Input {
 		switch (_zone)
 		{
 		case INPUT_CONTINUE:
+			
+			int tempScore = world.getLocalPlayer().mPoints;
+			
 			world.getLocalPlayer().mStartLevelPoints = world.getLocalPlayer().mPoints;
-			world.reset(Level.mInfo.mNextLevelName);
+			world.reset(Level.mInfo.mNextLevelName);	
+			
+			world.getLocalPlayer().mPoints = tempScore;
+			
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 		case INPUT_RELOAD:
+			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
 			mGameState.mGameScreen.mWorld.reset(Level.mInfo.mCurrentLevelName);
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
