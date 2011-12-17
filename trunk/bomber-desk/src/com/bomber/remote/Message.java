@@ -32,29 +32,29 @@ public class Message extends PoolObject {
 	public short valShort;
 	public int valInt;
 	private String valString;
-	
+
 	private byte[] valStringBuffer = new byte[32];
 
-	
 	//
 	// Estes get/set são necessários para controlar o tamanho da string
 	public String getStringValue()
 	{
 		return valString;
 	}
-	
+
 	/**
 	 * 
-	 * @param _newString Pode ter no máximo {@link Message.STRING_MAX_SIZE} 
+	 * @param _newString
+	 *            Pode ter no máximo {@link #STRING_MAX_SIZE}
 	 */
 	public void setStringValue(String _newString)
 	{
-		if(_newString.length() > STRING_MAX_SIZE)
+		if (_newString.length() > STRING_MAX_SIZE)
 			throw new InvalidParameterException("String demasiado comprida!");
-	
+
 		valString = _newString;
 	}
-	
+
 	/**
 	 * O ByteBuffer oferece metodos do tipo getFloat, etc...
 	 */
@@ -70,12 +70,11 @@ public class Message extends PoolObject {
 		valVector2_1.y = _buff.getFloat();
 
 		valShort = _buff.getShort();
-		valInt =  _buff.getInt();
-		
+		valInt = _buff.getInt();
 
 		_buff.get(valStringBuffer, 0, valStringBuffer.length);
 		valString = new String(valStringBuffer).trim();
-		
+
 		_buff.position(0);
 	}
 
@@ -89,7 +88,7 @@ public class Message extends PoolObject {
 		_destination.putInt(UUID);
 		_destination.putShort(messageType);
 		_destination.putShort(remoteEventType);
-		
+
 		_destination.putFloat(valVector2_0.x);
 		_destination.putFloat(valVector2_0.y);
 		_destination.putFloat(valVector2_1.x);
@@ -99,8 +98,21 @@ public class Message extends PoolObject {
 		_destination.putInt(valInt);
 
 		_destination.put(valString.getBytes());
-	
+
 		_destination.position(0);
+	}
+
+	public void cloneTo(Message _newMessage)
+	{
+		_newMessage.senderID = senderID;
+		_newMessage.UUID = UUID;
+		_newMessage.messageType = messageType;
+		_newMessage.remoteEventType = remoteEventType;
+		_newMessage.valVector2_0.set(valVector2_0);
+		_newMessage.valVector2_1.set(valVector2_1);
+		_newMessage.valShort = valShort;
+		_newMessage.valInt = valInt;
+		_newMessage.valString = new String(valString);
 	}
 
 	@Override
