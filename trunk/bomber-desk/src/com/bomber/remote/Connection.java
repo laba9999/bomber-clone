@@ -78,7 +78,7 @@ public class Connection extends Thread {
 		mIsConnected = false;
 		mSocket.close();
 
-		System.out.println("Conexion " + mLocalID + " has disconnected...");
+		Game.LOGGER.log("Conexion " + mRemoteID + " has disconnected...");
 	}
 
 	public void update()
@@ -90,7 +90,7 @@ public class Connection extends Thread {
 		{
 			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE)
 			{
-				System.out.println("Conexion " + mLocalID + " timed out...");
+				Game.LOGGER.log("Conexion " + mLocalID + " timed out...");
 				disconnect("Timeout!");
 			}
 		} else
@@ -113,7 +113,7 @@ public class Connection extends Thread {
 		while (true)
 		{
 			rcvedMsg = mSocket.recvMessage();
-			if (rcvedMsg == null)
+			if (rcvedMsg == null || mSocket.mIsClosed)
 				break;
 
 			mRemoteID = rcvedMsg.senderID;
@@ -136,7 +136,7 @@ public class Connection extends Thread {
 		case EventType.PONG:
 			// Actualiza o RTT e não adiciona a mensagem ao contentor
 			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
-			System.out.println("RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
+			Game.LOGGER.log("RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			mSentPing = false;
 			break;
 

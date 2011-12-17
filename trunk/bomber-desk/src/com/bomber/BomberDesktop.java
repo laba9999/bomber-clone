@@ -12,7 +12,7 @@ public class BomberDesktop {
 		new LwjglApplication(new Game(), "Bomber", 800, 480, false);
 		// new LwjglApplication(new GameScreen(), "Bomber", 480, 320, false);
 
-		// new GameServer().start();
-		// new GameClient().start();
+		 new GameServer().start();
+		 //new GameClient().start();
 	}
 }

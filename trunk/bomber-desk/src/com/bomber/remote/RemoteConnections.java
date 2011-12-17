@@ -3,6 +3,7 @@ package com.bomber.remote;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.bomber.Game;
 import com.bomber.remote.tcp.TCPLocalServer;
 import com.bomber.remote.tcp.TCPMessageSocketIO;
 
@@ -64,9 +65,9 @@ public class RemoteConnections {
 			{
 				
 				// TODO : comentar os sysout's
-				System.out.println("Clientes ligados:");
+				Game.LOGGER.log("Clientes ligados:");
 				for (int i = 0; i < mPlayers.size(); i++)
-					System.out.println(mPlayers.get(i).toString());
+					Game.LOGGER.log(mPlayers.get(i).toString());
 				
 				if(mIsGameServer)
 				{

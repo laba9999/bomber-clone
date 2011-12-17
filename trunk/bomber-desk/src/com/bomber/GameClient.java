@@ -30,9 +30,9 @@ public class GameClient extends Thread {
 
 		try
 		{
-			mConnections.connectToGameServer(Protocols.TCP, "localhost", 50001);
+			mConnections.connectToGameServer(Protocols.TCP, "192.168.1.105", 50001);
 
-			System.out.println("Connectado ao servidor!");
+			Game.LOGGER.log("Connectado ao servidor!");
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -46,7 +46,7 @@ public class GameClient extends Thread {
 			Game.mCurrentTick++;
 			try
 			{
-				Thread.sleep(50);
+				Thread.sleep(5);
 			} catch (InterruptedException e)
 			{
 				// TODO Auto-generated catch block

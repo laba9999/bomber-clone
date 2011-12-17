@@ -3,6 +3,7 @@ package com.bomber;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Assets;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStatePaused;
@@ -20,6 +21,8 @@ public class Game implements ApplicationListener {
 	public static long mCurrentTick = 0;
 	public static Integer mTicksPerSecond = 100;
 
+	
+	public static Logger LOGGER =new Logger("TAG");
 	private int mLoops;
 	private long startTime;
 	private long mNextGameTick;
