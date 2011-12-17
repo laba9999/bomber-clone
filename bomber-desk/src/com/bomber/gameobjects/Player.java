@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.Game;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
@@ -14,14 +15,21 @@ import com.bomber.gameobjects.bonus.BonusExplosionSize;
 import com.bomber.gameobjects.bonus.BonusShield;
 import com.bomber.gameobjects.bonus.BonusSpeed;
 import com.bomber.gameobjects.bonus.TemporaryBonus;
+import com.bomber.remote.EventType;
+import com.bomber.remote.Message;
+import com.bomber.remote.MessageType;
+import com.bomber.remote.RemoteConnections;
 import com.bomber.world.GameWorld;
 
 public class Player extends KillableObject {
 	private static HashMap<String, Short> COLORS = null;
 	public static final short WHITE = 0;
-	public static final short BLUE = 1;
+	public static final short RED = 1;
 	public static final short GREEN = 2;
-	public static final short RED = 3;
+	public static final short BLUE = 3;
+
+
+	
 	public static final float MAX_SPEED = 2;
 
 	public static final short MAX_EXPLOSION_SIZE = 6;
@@ -36,9 +44,6 @@ public class Player extends KillableObject {
 
 	public String mName;
 	private String mPointsAsString;
-
-	// Faz a ligação entre a conexão remota e o boneco
-	public short mRemoteId = -1;
 	
 	public short mLives = 3;
 	public short mPointsMultiplier = 1;
@@ -52,6 +57,7 @@ public class Player extends KillableObject {
 
 	public Vector2 mSpawnPosition = new Vector2();
 
+	public boolean mIsLocalPlayer = false;
 	private short mTicksSinceSpawn;
 
 	/**
@@ -65,6 +71,8 @@ public class Player extends KillableObject {
 	 */
 	public ObjectsPool<PlayerEffect> mEffects;
 
+	private RemoteConnections mRemoteConnections = Game.mRemoteConnections;
+	
 	public Player(GameWorld _world) {
 		mWorld = _world;
 
@@ -106,10 +114,10 @@ public class Player extends KillableObject {
 		{
 			COLORS = new HashMap<String, Short>();
 
-			COLORS.put("b_white", (short) 0);
-			COLORS.put("b_blue", (short) 1);
-			COLORS.put("b_green", (short) 2);
-			COLORS.put("b_red", (short) 3);
+			COLORS.put("b_white", WHITE);
+			COLORS.put("b_blue", BLUE);
+			COLORS.put("b_green", GREEN);
+			COLORS.put("b_red", RED);
 		}
 
 		return COLORS.get(_key);
@@ -254,8 +262,17 @@ public class Player extends KillableObject {
 	@Override
 	protected void onChangedDirection()
 	{
-		// TODO Auto-generated method stub
-
+		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer())
+			return;
+		
+		Message tmpMessage = mRemoteConnections.mMessageToSend;
+		tmpMessage.messageType = MessageType.PLAYER;
+		tmpMessage.eventType = EventType.MOVE;
+		tmpMessage.valVector2_0.set(mPosition);
+		tmpMessage.valShort = mDirection;
+		tmpMessage.UUID = mUUID;
+		
+		mRemoteConnections.broadcast(tmpMessage);
 	}
 
 	@Override
@@ -263,6 +280,19 @@ public class Player extends KillableObject {
 	{
 		if (!mIsDead)
 			stopCurrentAnimation();
+		
+		
+		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer())
+			return;
+		
+		Message tmpMessage = mRemoteConnections.mMessageToSend;
+		tmpMessage.messageType = MessageType.PLAYER;
+		tmpMessage.eventType = EventType.STOP;
+		tmpMessage.valVector2_0.set(mPosition);
+		tmpMessage.valShort = mDirection;
+		tmpMessage.UUID = mUUID;
+		
+		mRemoteConnections.broadcast(tmpMessage);
 	}
 
 	@Override
