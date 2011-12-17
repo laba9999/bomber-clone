@@ -14,7 +14,7 @@ import com.bomber.world.GameWorld;
 public class Game implements ApplicationListener {
 
 	private static final int MAX_FRAMESKIP = 5;
-	private static final int TICKS_PER_SECOND = 100;
+	public static final int TICKS_PER_SECOND = 100;
 	private static final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
 	
 	public static long mCurrentTick = 0;

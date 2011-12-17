@@ -27,39 +27,50 @@ public abstract class MessageSocketIO {
 	 * de cada vez que é recebida uma nova mensagem.
 	 */
 	private Message mReceivedMessage;
-	private MessageContainer mMessageContainer;
 
-	public Message mMessageToSend;
-
-	public MessageSocketIO(MessageContainer _container) {
+	public boolean mIsClosed = false;
+	public MessageSocketIO() {
 		mRecvByteBuffer = ByteBuffer.wrap(mRecvBytes);
 		mSendByteBuffer = ByteBuffer.wrap(mSendBytes);
-		mMessageContainer = _container;
 
 		mReceivedMessage = new Message();
-		mMessageToSend = new Message();
 	}
 
-	public boolean sendMessage()
+	public boolean sendMessage(Message _msg)
 	{
-		mMessageToSend.fillBuffer(mSendByteBuffer);
+		if(mIsClosed)
+			return false;
+		
+		_msg.fillBuffer(mSendByteBuffer);
 		return onSendMessage();
 	}
-
-	/**
-	 * Deve ser chamada de cada vez que o array {@link mRecvBytes} é
-	 * actualizado.
-	 */
-	protected void onNewMessageReceived()
+	
+	public synchronized void close()
 	{
-		mReceivedMessage.parse(mRecvByteBuffer);
-		mMessageContainer.add(mReceivedMessage);
+		if(mIsClosed)
+			return;
+		
+		mIsClosed = true;
+		
+		onClose();
 	}
 
+	public Message recvMessage()
+	{
+		if(onRecvMessage())
+			return null;
+		
+		mReceivedMessage.parse(mRecvByteBuffer);
+		
+		return mReceivedMessage;
+	}
+	
+	protected abstract void onClose();
+	
 	/**
 	 * Deve implementar o envio do array {@link #mSendBytes}.
 	 */
-	public abstract boolean onSendMessage();
+	protected abstract boolean onSendMessage();
 
 	/**
 	 * Deve implementar o recebimento de mensagens. O que é recebido é um array
@@ -69,5 +80,5 @@ public abstract class MessageSocketIO {
 	 * adicionada ao {@link mMessageContainer} que contém as mensagens à espera
 	 * de serem tratadas .
 	 */
-	public abstract boolean recvMessage();
+	protected abstract boolean onRecvMessage();
 }

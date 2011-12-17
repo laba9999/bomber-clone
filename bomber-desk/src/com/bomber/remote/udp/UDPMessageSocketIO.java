@@ -1,12 +1,10 @@
 package com.bomber.remote.udp;
 
-import com.bomber.remote.MessageContainer;
 import com.bomber.remote.MessageSocketIO;
 
 public class UDPMessageSocketIO extends MessageSocketIO {
 
-	public UDPMessageSocketIO(MessageContainer _container) {
-		super(_container);
+	public UDPMessageSocketIO() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -18,10 +16,17 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 	}
 
 	@Override
-	public boolean recvMessage()
+	public boolean onRecvMessage()
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	protected void onClose()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 
