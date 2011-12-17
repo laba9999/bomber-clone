@@ -12,7 +12,7 @@ public class Connection extends Thread {
 	 * servidor.
 	 */
 	public short mLocalID;
-	public short mRemoteID;
+	public short mRemoteID = -1;
 
 	// Latência em ticks
 	public short mRTT = 0;
@@ -35,6 +35,12 @@ public class Connection extends Thread {
 		mMessageForInternalUse.senderID = mLocalID;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Remote id: " + mRemoteID + " - " + mSocket.toString();
+	}
+	
 	public void sendMessage(Message _msg)
 	{
 		// Se estamos disconectados nem vale a pena tentar
@@ -46,7 +52,7 @@ public class Connection extends Thread {
 			return;
 
 		// Houve um erro ao enviar a mensagem
-		disconnect("Erro ao enviar mensagem!");
+		disconnect("Erro enviar mensagem!");
 	}
 
 	public synchronized void disconnect(String _reason)
@@ -70,21 +76,29 @@ public class Connection extends Thread {
 
 	public void update()
 	{
+		if (!mIsConnected)
+			return;
+
 		if (mSentPing)
+		{
 			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE)
 			{
 				System.out.println("Conexion " + mLocalID + " timed out...");
 				disconnect("Timeout!");
 			}
-
-		// Verifica a latência
-		if (Game.mCurrentTick > (mLastRTTCheckTick + RTT_CHECK_INTERVAL))
+		}else
 		{
-			mLastRTTCheckTick = Game.mCurrentTick;
-			mMessageForInternalUse.messageType = MessageType.PING;
-			sendMessage(mMessageForInternalUse);
-			mSentPing = true;
+			// Verifica a latência
+			if (Game.mCurrentTick > (mLastRTTCheckTick + RTT_CHECK_INTERVAL))
+			{
+				mLastRTTCheckTick = Game.mCurrentTick;
+				mMessageForInternalUse.messageType = MessageType.PING;
+				sendMessage(mMessageForInternalUse);
+				mSentPing = true;
+			}		
 		}
+
+
 	}
 
 	@Override
@@ -101,7 +115,7 @@ public class Connection extends Thread {
 			addMessageToContainer(rcvedMsg);
 		}
 
-		disconnect("Erro ao receber mensagem!");
+		disconnect("Erro receber mensagem!");
 	}
 
 	private void addMessageToContainer(Message _msg)

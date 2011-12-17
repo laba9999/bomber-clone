@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.bomber.remote.tcp.TCPLocalServer;
+import com.bomber.remote.tcp.TCPMessageSocketIO;
 
 public class RemoteConnections {
 	private Connection mGameServer = null;
@@ -12,25 +13,46 @@ public class RemoteConnections {
 	private LocalServer mLocalServer = null;
 
 	private boolean mAcceptingConnections = false;
-	private short mMaxConnectionsToAccept = 0;
 	public MessageContainer mRecvMessages = null;
 
-	public RemoteConnections() {
+	public boolean mIsGameServer = false;
+	
+	public RemoteConnections(boolean _isGameServer) {
 		mRecvMessages = new MessageContainer();
 		mPlayers = new ArrayList<Connection>();
+		
+		mIsGameServer = _isGameServer;
+	}
+
+	public boolean isConnectedToServer()
+	{
+		return mGameServer != null || mIsGameServer;
+	}
+
+	public void connectToGameServer(short _protocol, String _ip, int _port) throws IOException
+	{
+		switch (_protocol)
+		{
+		case Protocols.TCP:
+			mGameServer = new Connection(new TCPMessageSocketIO(_ip, _port), mRecvMessages);
+		}
+		
+		mGameServer.start();
+
 	}
 
 	public void update()
 	{
 		if (mAcceptingConnections)
 		{
-			mLocalServer.getCachedConnections(mPlayers, (short) (mMaxConnectionsToAccept - mPlayers.size()));
-			mAcceptingConnections = mPlayers.size() < mMaxConnectionsToAccept;
-
-			if (!mAcceptingConnections)
+			mLocalServer.getCachedConnections(mPlayers);
+			mAcceptingConnections = !mLocalServer.mAllConnected;
+			
+			if(!mAcceptingConnections)
 			{
-				mLocalServer.stopReceiving();
-				mLocalServer = null;
+				System.out.println("Clientes ligados:");
+				for(int i = 0; i< mPlayers.size(); i++)
+					System.out.println(mPlayers.get(i).toString());
 			}
 		}
 
@@ -50,14 +72,12 @@ public class RemoteConnections {
 	 *            O número máximo de conexões a aceitar.
 	 * @throws IOException
 	 */
-	public void acceptConnections(short _protocol, short _port, short _maxConnections) throws IOException
+	public void acceptConnections(short _protocol, int _port, short _maxConnections) throws IOException
 	{
-		mMaxConnectionsToAccept = _maxConnections;
-
 		switch (_protocol)
 		{
 		case Protocols.TCP:
-			mLocalServer = new TCPLocalServer(mRecvMessages, _port);
+			mLocalServer = new TCPLocalServer(mRecvMessages, _port, _maxConnections);
 		}
 
 		if (null != mLocalServer)

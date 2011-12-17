@@ -11,7 +11,9 @@ import com.bomber.common.PoolObject;
  * qualquer tipo de evento.
  */
 public class Message extends PoolObject {
-	public static final short STRING_MAX_SIZE = 32;
+
+
+	public static final short STRING_MAX_SIZE = 24;
 	/**
 	 * este senderID identifica unicamente o jogador que a enviou. Este sender
 	 * id é colocado durante a criação pela pool que por sua vez é um atributo
@@ -35,9 +37,9 @@ public class Message extends PoolObject {
 	
 	// Sempre que o servidor enviar uma mensagem envia também o número de ticks
 	public long valTicks;
-	private String valString;
+	private String valString ="";
 
-	private byte[] valStringBuffer = new byte[24];
+	private byte[] valStringBuffer = new byte[STRING_MAX_SIZE];
 
 	//
 	// Estes get/set são necessários para controlar o tamanho da string
@@ -119,6 +121,21 @@ public class Message extends PoolObject {
 		_newMessage.valShort = valShort;
 		_newMessage.valInt = valInt;
 		_newMessage.valString = new String(valString);
+	}
+	
+	@Override
+	public String toString()
+	{
+		StringBuilder str = new StringBuilder();
+		str.append("Sender ID: " + senderID).append("\r\n");
+		str.append("UUID: " + UUID).append("\r\n");
+		str.append("valVector2_0: (" + valVector2_0.x + ", "+ valVector2_0.y+")").append("\r\n");
+		str.append("valVector2_1: (" + valVector2_1.x + ", "+ valVector2_1.y+")").append("\r\n");
+		str.append("valShort: " + valShort).append("\r\n");
+		str.append("valInt: " + valInt).append("\r\n");
+		str.append("valString: " + valString);
+		
+		return str.toString();
 	}
 
 	@Override
