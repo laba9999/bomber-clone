@@ -1,14 +1,14 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.bomber.GameScreen;
+import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.world.Level;
 
 public class GameStateLoading extends GameState {
 
 
-	public GameStateLoading(GameScreen _gameScreen) {
+	public GameStateLoading(Game _gameScreen) {
 		super(_gameScreen);
 		// TODO Auto-generated constructor stub
 	}

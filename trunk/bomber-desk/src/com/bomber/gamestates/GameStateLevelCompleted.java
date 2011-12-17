@@ -1,7 +1,7 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.bomber.GameScreen;
+import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.input.InputLevelCompletedState;
@@ -14,7 +14,7 @@ public class GameStateLevelCompleted extends GameState {
 	private boolean mEndScoreAnimation;
 	private short mTrophiesEarned;
 
-	public GameStateLevelCompleted(GameScreen _gameScreen) {
+	public GameStateLevelCompleted(Game _gameScreen) {
 		super(_gameScreen);
 		mEndScoreAnimation = false;
 		mInput = new InputLevelCompletedState(this);

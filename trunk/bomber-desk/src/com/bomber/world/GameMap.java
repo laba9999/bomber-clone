@@ -146,6 +146,8 @@ public class GameMap {
 
 		mImutableTiles.clear(true);
 		mDestroyableTiles.clear();
+		
+		mPortal = null;
 	}
 
 	/**
@@ -463,6 +465,10 @@ public class GameMap {
 			if (tmpTile.mLooped)
 				mTilesBeingDestroyed.releaseObject(tmpTile);
 		}
+		
+		if( mPortal!= null)
+			mPortal.update();
+		
 	}
 
 	/**
@@ -761,8 +767,11 @@ public class GameMap {
 		mPortal.mPositionInArray = _t.mPositionInArray;
 		mTilesMap.set(_t.mPositionInArray, mPortal);
 
-		// TODO: alterar textura
-		mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 123);
+		if(!mWorld.mGameType.isObjectiveAcomplished())
+			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, false, false);
+		else
+			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, true, true);
+
 	}
 	
 

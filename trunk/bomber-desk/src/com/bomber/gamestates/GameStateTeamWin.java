@@ -1,10 +1,10 @@
 package com.bomber.gamestates;
 
-import com.bomber.GameScreen;
+import com.bomber.Game;
 
 public class GameStateTeamWin extends GameState {
 
-	public GameStateTeamWin(GameScreen _gameScreen) {
+	public GameStateTeamWin(Game _gameScreen) {
 		super(_gameScreen);
 		// TODO Auto-generated constructor stub
 	}

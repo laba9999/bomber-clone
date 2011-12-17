@@ -26,14 +26,18 @@ public class Message extends PoolObject {
 	/**
 	 * um dos RemoteEventType
 	 */
+
 	public short remoteEventType;
 	public Vector2 valVector2_0 = new Vector2();
 	public Vector2 valVector2_1 = new Vector2();
 	public short valShort;
 	public int valInt;
+	
+	// Sempre que o servidor enviar uma mensagem envia também o número de ticks
+	public long valTicks;
 	private String valString;
 
-	private byte[] valStringBuffer = new byte[32];
+	private byte[] valStringBuffer = new byte[24];
 
 	//
 	// Estes get/set são necessários para controlar o tamanho da string
@@ -71,7 +75,8 @@ public class Message extends PoolObject {
 
 		valShort = _buff.getShort();
 		valInt = _buff.getInt();
-
+		valTicks = _buff.getLong();
+		
 		_buff.get(valStringBuffer, 0, valStringBuffer.length);
 		valString = new String(valStringBuffer).trim();
 
@@ -96,7 +101,8 @@ public class Message extends PoolObject {
 
 		_destination.putShort(valShort);
 		_destination.putInt(valInt);
-
+		_destination.putLong(valTicks);
+		
 		_destination.put(valString.getBytes());
 
 		_destination.position(0);

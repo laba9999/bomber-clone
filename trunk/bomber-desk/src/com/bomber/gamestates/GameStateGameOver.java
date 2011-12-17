@@ -1,14 +1,14 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.bomber.GameScreen;
+import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.input.InputGameOverState;
 import com.bomber.world.Level;
 
 public class GameStateGameOver extends GameState {
 
-	public GameStateGameOver(GameScreen _gameScreen) {
+	public GameStateGameOver(Game _gameScreen) {
 		super(_gameScreen);
 
 		mInput = new InputGameOverState(this);
