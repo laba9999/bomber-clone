@@ -29,6 +29,9 @@ public class Assets {
 	private static final short PLAYER_DIE_FRAMES_COUNT = 8;
 	private static final short PLAYER_WALK_FRAMES_COUNT = 4;
 	
+	public static final short PORTAL_FRAMES_COUNT = 2;
+	public static final short PORTAL_FRAME_DURATION = 50;
+	
 	private static final float BONUS_FRAME_DURATION = 10f;
 	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 10f;
 	private static final float BOMB_FRAME_DURATION = 50f;
@@ -70,6 +73,8 @@ public class Assets {
 	public static HashMap<String, TextureRegion> mScreens = new HashMap<String, TextureRegion>();
 
 	public static Animation mSoundButton;
+	public static Animation mPortal;
+	
 	public static TextureRegion mTrophy;
 	
 	public static HashMap<String, TextureRegion> mPauseButtons;
@@ -89,6 +94,7 @@ public class Assets {
 		mDestroyableTiles = new HashMap<String, Animation>();
 
 		loadAtlas();
+		loadPortal();
 		loadPlayerAnimations();
 		loadPlayersHeads();
 		loadPlayerEffects();
@@ -103,6 +109,12 @@ public class Assets {
 		mAtlas = new TextureAtlas(Gdx.files.internal(ATLAS_FILE));
 	}
 
+	
+	private static void loadPortal()
+	{
+		mPortal = loadAnimation("portal_", PORTAL_FRAME_DURATION);
+	}
+	
 	private static void loadPlayerAnimations()
 	{
 
@@ -179,8 +191,6 @@ public class Assets {
 	 */
 	private static MovableObjectAnimation loadNormalMonsterMovableObjectAnimation(String _id)
 	{
-
-
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation

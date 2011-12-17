@@ -132,19 +132,11 @@ public final class ObjectFactory {
 	 * da mensagem. Este é o mesmo valor que está na class RemoteConnections
 	 * (mLocalID).
 	 */
-	public class CreateMessage extends Factory<Message> {
-		short mLocalID;
-
-		public CreateMessage(short _localID) {
-			mLocalID = _localID;
-		}
+	public static class CreateMessage extends Factory<Message> {
 
 		public Message onCreate()
 		{
-			Message tmpMsg = new Message();
-			tmpMsg.senderID = mLocalID;
-
-			return tmpMsg;
+			return new Message();
 		}
 	}
 }

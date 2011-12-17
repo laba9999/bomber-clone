@@ -1,34 +1,84 @@
 package com.bomber.remote;
 
+import java.util.LinkedList;
 import java.util.concurrent.ArrayBlockingQueue;
 
+import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 
 public class MessageContainer {
 	private ObjectsPool<Message> mMessagesPool;
-	/**
-	 * Uma fila de mensagens recebidas. A criação/obtenção destas mensagens é
-	 * gerida pela pool.
-	 */
-	private ArrayBlockingQueue<Message> mMessages;
+	private LinkedList<Message> mMessages;
 
-	/**
-	 * A mensagem do parametro deve ser copiada para uma nova já existente na
-	 * pool pois esta será reutlizada.
-	 * 
-	 * Se for uma mensagem do servidor do tipo SYNC, elimina todas as mensagens
-	 * do mesmo tipo que já existam.
-	 */
-	public synchronized void add(Message _message)
-	{
-		throw new UnsupportedOperationException();
+	public MessageContainer() {
+		mMessages = new LinkedList<Message>();
+		mMessagesPool = new ObjectsPool<Message>((short) 10, new ObjectFactory.CreateMessage());
 	}
 
 	/**
-	 * Devolve uma referencia para a proxima mensagem na fila.
+	 * Adiciona uma nova mensagem à fila de mensagens à espera de serem
+	 * tratadas. A mensagem é copiada para uma pertencente à pool de mensagens
+	 * locais e por isso pode ser reutilizada.
+	 * 
+	 * @param _message
+	 *            A mensagem a adicionar
+	 */
+	public synchronized void add(Message _message)
+	{
+		Message tmpMessage;
+
+		if (_message.remoteEventType == RemoteEventType.SYNC)
+		{
+			// Um SYNC do servidor, podemos eliminar todas as mensagens do mesmo
+			// tipo referentes ao mesmo objecto
+			for (int i = 0; i < mMessages.size(); i++)
+			{
+				tmpMessage = mMessages.get(i);
+
+				if (tmpMessage.UUID != _message.UUID)
+					continue;
+
+				if (tmpMessage.messageType == _message.messageType)
+				{
+					mMessages.remove(i);
+					i--;
+				}
+			}
+
+			// Os SYNC's têm prioridade sobre todos os outros tipos por isso
+			// adiciona ao inicio da fila
+			tmpMessage = mMessagesPool.getFreeObject();
+			_message.cloneTo(tmpMessage);
+			mMessages.addFirst(tmpMessage);
+			return;
+		}
+
+		// Adiciona a nova mensagem ao final da fila
+		tmpMessage = mMessagesPool.getFreeObject();
+		_message.cloneTo(tmpMessage);
+		mMessages.add(tmpMessage);
+	}
+
+	/**
+	 * Deve ser chamado assim que uma mensagem obtida através do método
+	 * {@link #getNext()} tiver sido tratada para que o objecto seja devolvido à
+	 * pool.
+	 * 
+	 * @param _msg
+	 *            A mensagem a libertar
+	 */
+	public void setParsed(Message _msg)
+	{
+		mMessagesPool.releaseObject(_msg);
+	}
+
+	/**
+	 * Devolve uma referencia para a proxima mensagem na fila. Após o tratamento
+	 * da mensagem, esta deve ser libertada usando o método.
+	 * {@link #setParsed(Message)}
 	 */
 	public Message getNext()
 	{
-		throw new UnsupportedOperationException();
+		return mMessages.remove();
 	}
 }
