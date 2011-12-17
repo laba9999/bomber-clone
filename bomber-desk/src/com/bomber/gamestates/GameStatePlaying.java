@@ -1,7 +1,7 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.bomber.GameScreen;
+import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gametypes.GameTypeCampaign;
@@ -16,7 +16,7 @@ public class GameStatePlaying extends GameState {
 	private short mTicksSinceLastClockBlink = 100;
 	private boolean mPaintingClockRed = false;
 
-	public GameStatePlaying(GameScreen _gameScreen) {
+	public GameStatePlaying(Game _gameScreen) {
 		super(_gameScreen);
 
 		mInput = new InputPlayingState(this);

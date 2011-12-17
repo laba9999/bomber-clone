@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.bomber.DebugSettings;
-import com.bomber.GameScreen;
+import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.input.Input;
 import com.bomber.renderers.WorldRenderer;
@@ -16,7 +16,7 @@ import com.bomber.world.GameWorld;
 public abstract class GameState {
 	public GameState mPreviousGameState;
 	public GameState mNextGameState;
-	public GameScreen mGameScreen;
+	public Game mGameScreen;
 	protected GameWorld mGameWorld;
 	protected OrthographicCamera mUICamera;
 	protected WorldRenderer mWorldRenderer;
@@ -26,7 +26,7 @@ public abstract class GameState {
 
 	protected boolean mIsFinishing;
 
-	public GameState(GameScreen _gameScreen) {
+	public GameState(Game _gameScreen) {
 		mGameScreen = _gameScreen;
 		mGameWorld = _gameScreen.mWorld;
 		mPreviousGameState = _gameScreen.getGameState();
@@ -84,7 +84,7 @@ public abstract class GameState {
 		{
 			Integer fps = Gdx.graphics.getFramesPerSecond();
 			font.draw(mBatcher, fps.toString(), 115, 470);
-			font.draw(mBatcher, GameScreen.ticksPerSecond.toString(), 165, 470);
+			font.draw(mBatcher, Game.mTicksPerSecond.toString(), 165, 470);
 		}
 	}
 

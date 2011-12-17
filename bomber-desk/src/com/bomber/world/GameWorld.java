@@ -421,8 +421,11 @@ public class GameWorld {
 		updateOverlayingText();
 
 		// TODO: Alterar Textura
-		if (mGameType.mNeedsPortal && mGameType.isObjectiveAcomplished() && mMap.mPortal != null)
-			mMap.mPortal.mCurrentFrame = Assets.mAtlas.findRegion("tiles_", 125);
+		if (mGameType.mNeedsPortal && mGameType.isObjectiveAcomplished() && mMap.mPortal != null && !mMap.mPortal.mPlayAnimation)
+		{
+			mMap.mPortal.mPlayAnimation = true;
+			mMap.mPortal.mAutoRepeat = true;
+		}
 	}
 
 	private void updateMonsters()

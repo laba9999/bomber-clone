@@ -1,6 +1,6 @@
 package com.bomber.gamestates;
 
-import com.bomber.GameScreen;
+import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.common.Settings;
 import com.bomber.gameobjects.UIMovableObject;
@@ -10,7 +10,7 @@ public class GameStatePaused extends GameState {
 
 	public static UIMovableObject mOptionsPanel = null;
 
-	public GameStatePaused(GameScreen _gameScreen) {
+	public GameStatePaused(Game _gameScreen) {
 		super(_gameScreen);
 
 

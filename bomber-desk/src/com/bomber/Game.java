@@ -11,11 +11,14 @@ import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
-public class GameScreen implements ApplicationListener {
+public class Game implements ApplicationListener {
 
-	private final int MAX_FRAMESKIP = 5;
-	private final int TICKS_PER_SECOND = 100;
-	private final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
+	private static final int MAX_FRAMESKIP = 5;
+	private static final int TICKS_PER_SECOND = 100;
+	private static final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
+	
+	public static long mCurrentTick = 0;
+	public static Integer mTicksPerSecond = 100;
 
 	private int mLoops;
 	private long startTime;
@@ -28,7 +31,7 @@ public class GameScreen implements ApplicationListener {
 	public OrthographicCamera mUICamera;
 	public WorldRenderer mWorldRenderer;
 
-	public static Integer ticksPerSecond = 100;
+	
 
 	public GameState mGameState;
 	private long mLastGameStateChangeTime = System.currentTimeMillis();
@@ -92,15 +95,16 @@ public class GameScreen implements ApplicationListener {
 			ticksPerSecondCounter++;
 			if ((System.nanoTime() - startTime) > 1000000000)
 			{
-				ticksPerSecond = ticksPerSecondCounter;
+				mTicksPerSecond = ticksPerSecondCounter;
 				ticksPerSecondCounter = 0;
 				startTime = System.nanoTime();
-				break;
 			}
 
 			mGameState.update();
 			mNextGameTick += SKIP_TICKS;
 			mLoops++;
+			
+			mCurrentTick++;
 		}
 
 		mInterpolation = (System.nanoTime() + SKIP_TICKS - mNextGameTick) / SKIP_TICKS;
