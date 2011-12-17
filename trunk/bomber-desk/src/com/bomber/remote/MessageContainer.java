@@ -26,9 +26,9 @@ public class MessageContainer {
 	{
 		Message tmpMessage;
 
-		switch (_message.remoteEventType)
+		switch (_message.eventType)
 		{
-		case RemoteEventType.SYNC:
+		case EventType.SYNC:
 
 			// Um SYNC do servidor, podemos eliminar todas as mensagens do mesmo
 			// tipo referentes ao mesmo objecto
@@ -53,7 +53,7 @@ public class MessageContainer {
 			mMessages.addFirst(tmpMessage);
 			break;
 
-		case RemoteEventType.DISCONNECT:
+		case EventType.DISCONNECT:
 			tmpMessage = mMessagesPool.getFreeObject();
 			_message.cloneTo(tmpMessage);
 			mMessages.addFirst(tmpMessage);

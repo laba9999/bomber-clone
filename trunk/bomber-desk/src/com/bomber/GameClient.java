@@ -4,19 +4,22 @@ import java.io.IOException;
 
 import com.bomber.remote.Message;
 import com.bomber.remote.MessageType;
+import com.bomber.remote.MessagesHandler;
 import com.bomber.remote.Protocols;
 import com.bomber.remote.RemoteConnections;
-import com.bomber.remote.RemoteEventType;
+import com.bomber.remote.EventType;
 
 public class GameClient extends Thread {
 	RemoteConnections mConnections;
-
+	MessagesHandler msgHandler;
+	
 	public GameClient() {
 		mConnections = new RemoteConnections(false);
+		msgHandler = new MessagesHandler(mConnections, null);
 
 		Message m = new Message();
 		m.messageType = MessageType.BOMB;
-		m.remoteEventType = RemoteEventType.CREATE;
+		m.eventType = EventType.CREATE;
 		m.senderID = 1;
 		m.UUID = 2;
 		m.valInt = 123456;
@@ -39,6 +42,8 @@ public class GameClient extends Thread {
 		{
 			//mConnections.sendToServer(m);
 			mConnections.update();
+			msgHandler.parseNextMessage();
+			Game.mCurrentTick++;
 			try
 			{
 				Thread.sleep(50);
