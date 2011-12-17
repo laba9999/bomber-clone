@@ -1,7 +1,6 @@
 package com.bomber.remote;
 
 import java.util.LinkedList;
-import java.util.concurrent.ArrayBlockingQueue;
 
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
@@ -27,8 +26,10 @@ public class MessageContainer {
 	{
 		Message tmpMessage;
 
-		if (_message.remoteEventType == RemoteEventType.SYNC)
+		switch (_message.remoteEventType)
 		{
+		case RemoteEventType.SYNC:
+
 			// Um SYNC do servidor, podemos eliminar todas as mensagens do mesmo
 			// tipo referentes ao mesmo objecto
 			for (int i = 0; i < mMessages.size(); i++)
@@ -45,18 +46,25 @@ public class MessageContainer {
 				}
 			}
 
-			// Os SYNC's têm prioridade sobre todos os outros tipos por isso
-			// adiciona ao inicio da fila
+			// Os SYNC's têm prioridade sobre todos os outros tipos excepto os
+			// DISCONNECTS por isso adiciona ao inicio da fila
 			tmpMessage = mMessagesPool.getFreeObject();
 			_message.cloneTo(tmpMessage);
 			mMessages.addFirst(tmpMessage);
-			return;
-		}
+			break;
 
-		// Adiciona a nova mensagem ao final da fila
-		tmpMessage = mMessagesPool.getFreeObject();
-		_message.cloneTo(tmpMessage);
-		mMessages.add(tmpMessage);
+		case RemoteEventType.DISCONNECT:
+			tmpMessage = mMessagesPool.getFreeObject();
+			_message.cloneTo(tmpMessage);
+			mMessages.addFirst(tmpMessage);
+			break;
+
+		default:
+			// Adiciona a nova mensagem ao final da fila
+			tmpMessage = mMessagesPool.getFreeObject();
+			_message.cloneTo(tmpMessage);
+			mMessages.add(tmpMessage);
+		}
 	}
 
 	/**
@@ -80,5 +88,10 @@ public class MessageContainer {
 	public Message getNext()
 	{
 		return mMessages.remove();
+	}
+	
+	public boolean hasNext()
+	{
+		return !mMessages.isEmpty();
 	}
 }

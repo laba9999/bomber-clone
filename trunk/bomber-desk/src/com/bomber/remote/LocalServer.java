@@ -1,7 +1,7 @@
 package com.bomber.remote;
 
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 
 public abstract class LocalServer extends Thread {
 
@@ -13,8 +13,8 @@ public abstract class LocalServer extends Thread {
 	// método para listar seria usado ao longo de toda a execução que por ser do
 	// tipo synchronized teria um maior impacto na performance.
 	private LinkedList<Connection> mConnectionsCache;
-	protected boolean mKeepReceiving = true;
-	protected MessageContainer mMessageContainer;
+	private boolean mKeepReceiving = true;
+	private MessageContainer mMessageContainer;
 
 	public LocalServer(MessageContainer _msgContainer) {
 		mConnectionsCache = new LinkedList<Connection>();
@@ -46,13 +46,14 @@ public abstract class LocalServer extends Thread {
 	 * @param _container
 	 *            O atributo {@link RemoteConnections.mPlayers}
 	 */
-	public synchronized void getCachedConnections(Map<Short, Connection> _container)
+	public synchronized void getCachedConnections(List<Connection> _container, short _max)
 	{
 		Connection tmpConnection;
-		while (mConnectionsCache.isEmpty())
+		short nAdded = 0;
+		while (!mConnectionsCache.isEmpty() && nAdded++ < _max)
 		{
 			tmpConnection = mConnectionsCache.remove();
-			_container.put(tmpConnection.mLocalID, tmpConnection);
+			_container.add(tmpConnection.mLocalID, tmpConnection);
 		}
 	}
 
@@ -65,7 +66,7 @@ public abstract class LocalServer extends Thread {
 	 */
 	protected synchronized void cacheConnection(MessageSocketIO _newSocket)
 	{
-		Connection tmpConn = new Connection(_newSocket);
+		Connection tmpConn = new Connection(_newSocket, mMessageContainer);
 		mConnectionsCache.add(tmpConn);
 	}
 

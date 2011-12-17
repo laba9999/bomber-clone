@@ -538,39 +538,4 @@ public class GameWorld {
 			return false;
 
 	}
-
-	public void parseGameMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public void parsePlayerMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public void parseBombMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public void parseMonsterMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public void parseBonusMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public void parsePointsMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	public void parseClockMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
 }

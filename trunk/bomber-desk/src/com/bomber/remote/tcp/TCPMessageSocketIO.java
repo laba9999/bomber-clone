@@ -5,7 +5,6 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import com.bomber.remote.MessageContainer;
 import com.bomber.remote.MessageSocketIO;
 
 public class TCPMessageSocketIO extends MessageSocketIO {
@@ -14,16 +13,12 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 	private BufferedOutputStream mOutput;
 	private BufferedInputStream mInput;
 
-	public TCPMessageSocketIO(String _addressToConnect, int _portToConnect, MessageContainer _msgContainer) throws IOException {
-		super(_msgContainer);
-
+	public TCPMessageSocketIO(String _addressToConnect, int _portToConnect) throws IOException {
 		mSocket = new Socket(_addressToConnect, _portToConnect);
 		initializeIOStreams();
 	}
 
-	public TCPMessageSocketIO(Socket _socket, MessageContainer _msgContainer) throws IOException {
-		super(_msgContainer);
-
+	public TCPMessageSocketIO(Socket _socket) throws IOException {
 		mSocket = _socket;
 		initializeIOStreams();
 	}
@@ -52,12 +47,11 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 	}
 
 	@Override
-	public boolean recvMessage()
+	public boolean onRecvMessage()
 	{
 		try
 		{
 			mInput.read(mRecvBytes);
-			onNewMessageReceived();
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -65,5 +59,21 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 		}
 
 		return true;
+	}
+
+	@Override
+	public void onClose()
+	{
+		try
+		{
+			mOutput.close();
+			mInput.close();
+
+			mSocket.close();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
 	}
 }

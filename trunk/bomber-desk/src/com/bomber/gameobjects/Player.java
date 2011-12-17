@@ -37,6 +37,9 @@ public class Player extends KillableObject {
 	public String mName;
 	private String mPointsAsString;
 
+	// Faz a ligação entre a conexão remota e o boneco
+	public short mRemoteId = -1;
+	
 	public short mLives = 3;
 	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 1;
