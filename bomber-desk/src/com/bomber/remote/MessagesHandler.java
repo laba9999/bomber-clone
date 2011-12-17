@@ -1,5 +1,6 @@
 package com.bomber.remote;
 
+import com.bomber.Game;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
@@ -24,7 +25,7 @@ public class MessagesHandler {
 		
 		if(tmpMessage.eventType == EventType.DISCONNECT)
 		{
-			System.out.println(tmpMessage.getStringValue());
+			Game.LOGGER.log(tmpMessage.getStringValue());
 			return;
 		}
 		

@@ -2,6 +2,7 @@ package com.bomber;
 
 import java.io.IOException;
 
+import com.badlogic.gdx.utils.Logger;
 import com.bomber.remote.Message;
 import com.bomber.remote.MessageType;
 import com.bomber.remote.MessagesHandler;
@@ -20,7 +21,7 @@ public class GameServer extends Thread {
 		try
 		{
 			mConnections.acceptConnections(Protocols.TCP, 50001, (short) 1);
-			System.out.println("Server online!");
+			Game.LOGGER.log("Server online!");
 		} catch (IOException e)
 		{
 			e.printStackTrace();
@@ -36,8 +37,6 @@ public class GameServer extends Thread {
 			mConnections.update();
 
 			msgHandler.parseNextMessage();
-
-			Game.mCurrentTick++;
 			try
 			{
 				Thread.sleep(50);
