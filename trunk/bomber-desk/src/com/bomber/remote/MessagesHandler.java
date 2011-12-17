@@ -1,6 +1,7 @@
 package com.bomber.remote;
 
 import com.bomber.Game;
+import com.bomber.gameobjects.Player;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
@@ -66,7 +67,49 @@ public class MessagesHandler {
 	
 	private void parsePlayerMessage(Message _msg)
 	{
-		throw new UnsupportedOperationException();
+		switch(_msg.eventType)
+		{
+		case EventType.MOVE:
+			for(Player player : mWorld.mPlayers)
+			{
+				if(player.mUUID == _msg.UUID)
+				{
+					player.changeDirection(_msg.valShort);
+					player.mPosition = _msg.valVector2_0;
+				}
+			}
+			break;
+		case EventType.STOP:
+			for(Player player : mWorld.mPlayers)
+			{
+				if(player.mUUID == _msg.UUID)
+				{
+					player.stop();
+					player.changeDirection(_msg.valShort);
+					player.mPosition = _msg.valVector2_0;
+				}
+
+			}
+			break;
+		case EventType.SYNC:
+			for(Player player : mWorld.mPlayers)
+			{
+				if(player.mUUID == _msg.UUID)
+				{
+					player.mDirection = _msg.valShort;
+					player.mPosition = _msg.valVector2_0;
+					
+					if(_msg.valInt == 0)
+						player.mIsMoving = false;
+					else
+						player.mIsMoving = true;
+				}
+			}
+			break;
+		default:
+			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+		}
+		
 	}
 
 	private void parseBombMessage(Message _msg)
