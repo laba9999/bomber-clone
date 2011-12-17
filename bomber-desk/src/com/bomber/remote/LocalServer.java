@@ -77,6 +77,7 @@ public abstract class LocalServer extends Thread {
 	protected synchronized void cacheConnection(MessageSocketIO _newSocket)
 	{
 		Connection tmpConn = new Connection(_newSocket, mMessageContainer);
+		tmpConn.setDaemon(true);
 		tmpConn.start();
 		mConnectionsCache.add(tmpConn);
 	}

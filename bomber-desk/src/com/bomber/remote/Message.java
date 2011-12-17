@@ -29,7 +29,7 @@ public class Message extends PoolObject {
 	 * um dos RemoteEventType
 	 */
 
-	public short remoteEventType;
+	public short eventType;
 	public Vector2 valVector2_0 = new Vector2();
 	public Vector2 valVector2_1 = new Vector2();
 	public short valShort;
@@ -69,7 +69,7 @@ public class Message extends PoolObject {
 		senderID = _buff.getShort();
 		UUID = _buff.getInt();
 		messageType = _buff.getShort();
-		remoteEventType = _buff.getShort();
+		eventType = _buff.getShort();
 		valVector2_0.x = _buff.getFloat();
 		valVector2_0.y = _buff.getFloat();
 		valVector2_1.x = _buff.getFloat();
@@ -94,7 +94,7 @@ public class Message extends PoolObject {
 		_destination.putShort(senderID);
 		_destination.putInt(UUID);
 		_destination.putShort(messageType);
-		_destination.putShort(remoteEventType);
+		_destination.putShort(eventType);
 
 		_destination.putFloat(valVector2_0.x);
 		_destination.putFloat(valVector2_0.y);
@@ -115,7 +115,7 @@ public class Message extends PoolObject {
 		_newMessage.senderID = senderID;
 		_newMessage.UUID = UUID;
 		_newMessage.messageType = messageType;
-		_newMessage.remoteEventType = remoteEventType;
+		_newMessage.eventType = eventType;
 		_newMessage.valVector2_0.set(valVector2_0);
 		_newMessage.valVector2_1.set(valVector2_1);
 		_newMessage.valShort = valShort;

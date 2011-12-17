@@ -11,7 +11,7 @@ public class Connection extends Thread {
 	 * ID que identifica este cliente perante todos os outros é atribuido pelo
 	 * servidor.
 	 */
-	public short mLocalID;
+	public short mLocalID = 0;
 	public short mRemoteID = -1;
 
 	// Latência em ticks
@@ -33,14 +33,21 @@ public class Connection extends Thread {
 
 		mMessageForInternalUse = new Message();
 		mMessageForInternalUse.senderID = mLocalID;
+		mMessageForInternalUse.messageType = MessageType.CONNECTION;
 	}
 
+	public void setLocalId(short _id)
+	{
+		mMessageForInternalUse.senderID = _id;
+		mLocalID = _id;
+	}
+	
 	@Override
 	public String toString()
 	{
 		return "Remote id: " + mRemoteID + " - " + mSocket.toString();
 	}
-	
+
 	public void sendMessage(Message _msg)
 	{
 		// Se estamos disconectados nem vale a pena tentar
@@ -63,7 +70,7 @@ public class Connection extends Thread {
 		// Avisa o World através de uma mensagem
 		// Para verificar se foi o server basta comparar o valShort com o
 		// RemoteId do atributo mGameServer
-		mMessageForInternalUse.remoteEventType = RemoteEventType.DISCONNECT;
+		mMessageForInternalUse.eventType = EventType.DISCONNECT;
 		mMessageForInternalUse.valShort = mRemoteID;
 		mMessageForInternalUse.setStringValue(_reason);
 		mMessagesContainer.add(mMessageForInternalUse);
@@ -86,19 +93,17 @@ public class Connection extends Thread {
 				System.out.println("Conexion " + mLocalID + " timed out...");
 				disconnect("Timeout!");
 			}
-		}else
+		} else
 		{
 			// Verifica a latência
 			if (Game.mCurrentTick > (mLastRTTCheckTick + RTT_CHECK_INTERVAL))
 			{
 				mLastRTTCheckTick = Game.mCurrentTick;
-				mMessageForInternalUse.messageType = MessageType.PING;
+				mMessageForInternalUse.eventType = EventType.PING;
 				sendMessage(mMessageForInternalUse);
 				mSentPing = true;
-			}		
+			}
 		}
-
-
 	}
 
 	@Override
@@ -120,18 +125,18 @@ public class Connection extends Thread {
 
 	private void addMessageToContainer(Message _msg)
 	{
-		switch (_msg.messageType)
+		switch (_msg.eventType)
 		{
-		case MessageType.PING:
+		case EventType.PING:
 			// Responde imediatamente e não adiciona a mensagem ao contentor
-			mMessageForInternalUse.messageType = MessageType.PONG;
+			mMessageForInternalUse.eventType = EventType.PONG;
 			sendMessage(mMessageForInternalUse);
 			break;
 
-		case MessageType.PONG:
+		case EventType.PONG:
 			// Actualiza o RTT e não adiciona a mensagem ao contentor
 			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
-			System.out.println("RTT ligação(" + mLocalID + "): " + mRTT);
+			System.out.println("RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			mSentPing = false;
 			break;
 

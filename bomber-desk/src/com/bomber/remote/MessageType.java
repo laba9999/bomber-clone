@@ -8,6 +8,5 @@ public class MessageType {
 	public static final short BONUS = 4;
 	public static final short POINTS = 5;
 	public static final short CLOCK = 6;
-	public static final short PING = 7;
-	public static final short PONG = 8;
+	public static final short CONNECTION = 7;
 }

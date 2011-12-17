@@ -5,11 +5,12 @@ import com.bomber.world.GameWorld;
 public class MessagesHandler {
 	GameWorld mWorld;
 	MessageContainer mMessageContainer;
-	
-	public MessagesHandler(MessageContainer _container, GameWorld _world)
+	RemoteConnections mRemoteConnections;
+	public MessagesHandler(RemoteConnections _connections, GameWorld _world)
 	{
 		mWorld = _world;
-		mMessageContainer = _container;
+		mMessageContainer = _connections.mRecvMessages;
+		mRemoteConnections = _connections;
 	}
 	
 	public void parseNextMessage()
@@ -20,6 +21,13 @@ public class MessagesHandler {
 		
 		// TODO : Adicionar os restantes tipos
 		Message tmpMessage = mMessageContainer.getNext();
+		
+		if(tmpMessage.eventType == EventType.DISCONNECT)
+		{
+			System.out.println(tmpMessage.getStringValue());
+			return;
+		}
+		
 		switch (tmpMessage.messageType)
 		{
 		case MessageType.BOMB:
@@ -32,7 +40,9 @@ public class MessagesHandler {
 		case MessageType.MONSTER:
 			parseMonsterMessage(tmpMessage);
 			break;
-
+		case MessageType.CONNECTION:
+			parseConnectionMessage(tmpMessage);
+			break;
 		default:
 			break;
 		}
@@ -41,6 +51,18 @@ public class MessagesHandler {
 		mMessageContainer.setParsed(tmpMessage);
 	}
 
+	private void parseConnectionMessage(Message _msg)
+	{
+
+		
+		switch(_msg.eventType)
+		{
+		case EventType.SET_ID:
+			mRemoteConnections.setLocalID(_msg.valShort);
+			break;
+		}
+	}
+	
 	private void parsePlayerMessage(Message _msg)
 	{
 		throw new UnsupportedOperationException();
@@ -53,7 +75,9 @@ public class MessagesHandler {
 
 	private void parseMonsterMessage(Message _msg)
 	{
-		throw new UnsupportedOperationException();
+		System.out.println("Nova mensagem:");
+		System.out.println("Tipo: BOMB");
+		System.out.println(_msg.toString());
 	}
 
 	private void parseBonusMessage(Message _msg)
