@@ -16,9 +16,15 @@ public abstract class LocalServer extends Thread {
 	private boolean mKeepReceiving = true;
 	private MessageContainer mMessageContainer;
 
-	public LocalServer(MessageContainer _msgContainer) {
+	private short mMax = 0;
+	
+	public boolean mAllConnected = false;
+	
+	public LocalServer(MessageContainer _msgContainer, short _max) {
 		mConnectionsCache = new LinkedList<Connection>();
 		mMessageContainer = _msgContainer;
+		
+		mMax = _max;
 	}
 
 	/**
@@ -33,10 +39,14 @@ public abstract class LocalServer extends Thread {
 	@Override
 	public void run()
 	{
-		while (mKeepReceiving)
+		short nAdded = 0;
+		while (mKeepReceiving && nAdded++ < mMax)
 		{
 			waitForConnection();
 		}
+		
+		mAllConnected = true;
+		mKeepReceiving = false;
 	}
 
 	/**
@@ -46,11 +56,11 @@ public abstract class LocalServer extends Thread {
 	 * @param _container
 	 *            O atributo {@link RemoteConnections.mPlayers}
 	 */
-	public synchronized void getCachedConnections(List<Connection> _container, short _max)
+	public synchronized void getCachedConnections(List<Connection> _container)
 	{
 		Connection tmpConnection;
-		short nAdded = 0;
-		while (!mConnectionsCache.isEmpty() && nAdded++ < _max)
+
+		while (!mConnectionsCache.isEmpty())
 		{
 			tmpConnection = mConnectionsCache.remove();
 			_container.add(tmpConnection.mLocalID, tmpConnection);
@@ -67,6 +77,7 @@ public abstract class LocalServer extends Thread {
 	protected synchronized void cacheConnection(MessageSocketIO _newSocket)
 	{
 		Connection tmpConn = new Connection(_newSocket, mMessageContainer);
+		tmpConn.start();
 		mConnectionsCache.add(tmpConn);
 	}
 

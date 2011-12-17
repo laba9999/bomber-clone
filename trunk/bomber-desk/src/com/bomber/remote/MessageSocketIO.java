@@ -36,6 +36,7 @@ public abstract class MessageSocketIO {
 		mReceivedMessage = new Message();
 	}
 
+	
 	public boolean sendMessage(Message _msg)
 	{
 		if(mIsClosed)
@@ -57,7 +58,7 @@ public abstract class MessageSocketIO {
 
 	public Message recvMessage()
 	{
-		if(onRecvMessage())
+		if(!onRecvMessage())
 			return null;
 		
 		mReceivedMessage.parse(mRecvByteBuffer);

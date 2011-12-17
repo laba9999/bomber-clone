@@ -17,8 +17,8 @@ public class TCPLocalServer extends LocalServer {
 	 * @param _port
 	 * @throws IOException
 	 */
-	public TCPLocalServer(MessageContainer _msgContainer, int _port) throws IOException {
-		super(_msgContainer);
+	public TCPLocalServer(MessageContainer _msgContainer, int _port, short _max) throws IOException {
+		super(_msgContainer, _max);
 		mSocket = new ServerSocket(_port);
 	}
 	
