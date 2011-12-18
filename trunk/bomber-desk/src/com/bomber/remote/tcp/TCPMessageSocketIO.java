@@ -15,20 +15,20 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 
 	public TCPMessageSocketIO(String _addressToConnect, int _portToConnect) throws IOException {
 		mSocket = new Socket(_addressToConnect, _portToConnect);
-		//mSocket.setTcpNoDelay(true);
+		mSocket.setTcpNoDelay(true);
 		initializeIOStreams();
 	}
 
 	public TCPMessageSocketIO(Socket _socket) throws IOException {
 		mSocket = _socket;
-		//mSocket.setTcpNoDelay(true);
+		mSocket.setTcpNoDelay(true);
 		initializeIOStreams();
 	}
 	
 	@Override
 	public String toString()
 	{
-		return mSocket.getInetAddress().toString() + ":" + mSocket.getPort();
+		return mSocket.getInetAddress().getHostAddress().toString() + ":" + mSocket.getPort();
 	}
 
 	private void initializeIOStreams() throws IOException

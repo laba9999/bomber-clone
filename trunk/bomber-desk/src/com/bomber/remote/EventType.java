@@ -13,9 +13,11 @@ public class EventType {
 	// short contém o remoteid da ligação que corresponde ao mRemoteId do Player
 	// string contém a razão
 	public static final short DISCONNECT = 7;
-	public static final short JOINED = 8;
+	
+	// Indica ao cliente que deve aguardar ligações
+	
+	public static final short LISTEN = 8;
 	public static final short PING = 9;
 	public static final short PONG = 10;
 	public static final short SET_ID = 11;
-	
 }

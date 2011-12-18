@@ -1,12 +1,11 @@
 package com.bomber.remote;
 
 import com.bomber.Game;
-import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Player;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
-	public GameWorld mWorld;
+	GameWorld mWorld;
 	MessageContainer mMessageContainer;
 	RemoteConnections mRemoteConnections;
 
@@ -75,6 +74,7 @@ public class MessagesHandler {
 				{
 					player.changeDirection(_msg.valShort);
 					player.mPosition.set(_msg.valVector2_0);
+					break;
 				}
 			}
 			break;
@@ -86,6 +86,7 @@ public class MessagesHandler {
 					player.changeDirection(_msg.valShort);
 					player.mPosition.set(_msg.valVector2_0);
 					player.stop();
+					break;
 				}
 
 			}
@@ -99,10 +100,10 @@ public class MessagesHandler {
 					player.mPosition.set(_msg.valVector2_0);
 					
 					if(_msg.valInt == 0)
-
 						player.mIsMoving = false;
 					else
 						player.mIsMoving = true;
+					break;
 				}
 			}
 			break;
@@ -122,7 +123,6 @@ public class MessagesHandler {
 			break;
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
-
 		}
 	}
 

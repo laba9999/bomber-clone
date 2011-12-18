@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Assets;
 import com.bomber.gamestates.GameState;
-import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.gamestates.GameStatePlaying;
 import com.bomber.gametypes.GameTypeCampaign;
