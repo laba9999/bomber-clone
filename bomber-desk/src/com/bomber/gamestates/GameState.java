@@ -16,7 +16,7 @@ import com.bomber.world.GameWorld;
 public abstract class GameState {
 	public GameState mPreviousGameState;
 	public GameState mNextGameState;
-	public Game mGameScreen;
+	public Game mGame;
 	protected GameWorld mGameWorld;
 	protected OrthographicCamera mUICamera;
 	protected WorldRenderer mWorldRenderer;
@@ -27,7 +27,7 @@ public abstract class GameState {
 	protected boolean mIsFinishing;
 
 	public GameState(Game _gameScreen) {
-		mGameScreen = _gameScreen;
+		mGame = _gameScreen;
 		mGameWorld = _gameScreen.mWorld;
 		mPreviousGameState = _gameScreen.getGameState();
 		mUICamera = _gameScreen.mUICamera;

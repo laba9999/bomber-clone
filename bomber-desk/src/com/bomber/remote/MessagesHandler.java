@@ -6,31 +6,30 @@ import com.bomber.gameobjects.Player;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
-	GameWorld mWorld;
+	public GameWorld mWorld;
 	MessageContainer mMessageContainer;
 	RemoteConnections mRemoteConnections;
-	public MessagesHandler(RemoteConnections _connections, GameWorld _world)
-	{
+
+	public MessagesHandler(RemoteConnections _connections, GameWorld _world) {
 		mWorld = _world;
 		mMessageContainer = _connections.mRecvMessages;
 		mRemoteConnections = _connections;
 	}
-	
+
 	public void parseNextMessage()
 	{
-		if( !mMessageContainer.hasNext())
+		if (!mMessageContainer.hasNext())
 			return;
-		
-		
+
 		// TODO : Adicionar os restantes tipos
 		Message tmpMessage = mMessageContainer.getNext();
-		
-		if(tmpMessage.eventType == EventType.DISCONNECT)
+
+		if (tmpMessage.eventType == EventType.DISCONNECT)
 		{
 			Game.LOGGER.log(tmpMessage.getStringValue());
 			return;
 		}
-		
+
 		switch (tmpMessage.messageType)
 		{
 		case MessageType.BOMB:
@@ -49,31 +48,30 @@ public class MessagesHandler {
 		default:
 			break;
 		}
-		
-		
+
 		mMessageContainer.setParsed(tmpMessage);
 	}
 
 	private void parseConnectionMessage(Message _msg)
 	{
 
-		
-		switch(_msg.eventType)
+		switch (_msg.eventType)
 		{
 		case EventType.SET_ID:
 			mRemoteConnections.setLocalID(_msg.valShort);
+			mWorld.setLocalPlayer(_msg.valShort);
 			break;
 		}
 	}
-	
+
 	private void parsePlayerMessage(Message _msg)
 	{
-		switch(_msg.eventType)
+		switch (_msg.eventType)
 		{
 		case EventType.MOVE:
-			for(Player player : mWorld.mPlayers)
+			for (Player player : mWorld.mPlayers)
 			{
-				if(player.mUUID == _msg.UUID)
+				if (player.mUUID == _msg.UUID)
 				{
 					player.changeDirection(_msg.valShort);
 					player.mPosition.set(_msg.valVector2_0);
@@ -81,27 +79,27 @@ public class MessagesHandler {
 			}
 			break;
 		case EventType.STOP:
-			for(Player player : mWorld.mPlayers)
+			for (Player player : mWorld.mPlayers)
 			{
-				if(player.mUUID == _msg.UUID)
+				if (player.mUUID == _msg.UUID)
 				{
 					player.changeDirection(_msg.valShort);
 					player.mPosition.set(_msg.valVector2_0);
 					player.stop();
-
 				}
 
 			}
 			break;
 		case EventType.SYNC:
-			for(Player player : mWorld.mPlayers)
+			for (Player player : mWorld.mPlayers)
 			{
-				if(player.mUUID == _msg.UUID)
+				if (player.mUUID == _msg.UUID)
 				{	
 					player.mDirection = _msg.valShort;
 					player.mPosition.set(_msg.valVector2_0);
 					
 					if(_msg.valInt == 0)
+
 						player.mIsMoving = false;
 					else
 						player.mIsMoving = true;
@@ -111,7 +109,7 @@ public class MessagesHandler {
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
 		}
-		
+
 	}
 
 	private void parseBombMessage(Message _msg)
@@ -126,8 +124,6 @@ public class MessagesHandler {
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
 
 		}
-		
-		throw new UnsupportedOperationException();
 	}
 
 	private void parseMonsterMessage(Message _msg)

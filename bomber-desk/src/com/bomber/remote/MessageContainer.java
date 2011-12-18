@@ -85,7 +85,7 @@ public class MessageContainer {
 	 * da mensagem, esta deve ser libertada usando o método.
 	 * {@link #setParsed(Message)}
 	 */
-	public Message getNext()
+	public synchronized Message getNext()
 	{
 		return mMessages.remove();
 	}

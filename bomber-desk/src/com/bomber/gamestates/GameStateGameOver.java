@@ -40,7 +40,7 @@ public class GameStateGameOver extends GameState {
 	@Override
 	protected void onFinish()
 	{
-		mGameScreen.setGameState(mNextGameState);
+		mGame.setGameState(mNextGameState);
 	}
 
 	@Override

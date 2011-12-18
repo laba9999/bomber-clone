@@ -4,8 +4,8 @@ import com.bomber.Game;
 
 public class Connection extends Thread {
 
-	private static final short RTT_CHECK_INTERVAL = Game.TICKS_PER_SECOND * 1;
-	private static final short TIMEOUT_VALUE = Game.TICKS_PER_SECOND * 1;
+	private static final short RTT_CHECK_INTERVAL = Game.TICKS_PER_SECOND * 2;
+	private static final short TIMEOUT_VALUE = Game.TICKS_PER_SECOND * 5;
 
 	/**
 	 * ID que identifica este cliente perante todos os outros é atribuido pelo

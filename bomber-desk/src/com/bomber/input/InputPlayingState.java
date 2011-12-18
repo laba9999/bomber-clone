@@ -60,8 +60,7 @@ public class InputPlayingState extends Input {
 		mInputZones[INPUT_BOMB] = new Rectangle(640, 5, 150, 150);
 		mInputZones[INPUT_PAUSE] = new Rectangle(10, 400, 80, 80);
 
-		mGameWorld = _gameState.mGameScreen.mWorld;
-		mLocalPlayer = mGameWorld.getLocalPlayer();
+		mGameWorld = _gameState.mGame.mWorld;
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public class InputPlayingState extends Input {
 
 			if (mInputZones[INPUT_PAUSE].contains(mTouchPoint.x, mTouchPoint.y))
 			{
-				mGameState.mGameScreen.setGameState(new GameStatePaused(mGameState.mGameScreen));
+				mGameState.mGame.setGameState(new GameStatePaused(mGameState.mGame));
 				return;
 			}
 
@@ -120,6 +119,7 @@ public class InputPlayingState extends Input {
 	@Override
 	protected void parseInputZone(short _zone)
 	{
+		mLocalPlayer = mGameWorld.getLocalPlayer();
 		switch (_zone)
 		{
 		case INPUT_LEFT:
@@ -171,8 +171,10 @@ public class InputPlayingState extends Input {
 	@Override
 	protected void parseKeyboardInput()
 	{
+		mLocalPlayer = mGameWorld.getLocalPlayer();
+		
 		if (Gdx.input.isKeyPressed(Keys.P))
-			mGameState.mGameScreen.setGameState(new GameStatePaused(mGameState.mGameScreen));
+			mGameState.mGame.setGameState(new GameStatePaused(mGameState.mGame));
 
 		if (mGameWorld.getLocalPlayer().mIsDead)
 			return;

@@ -2,6 +2,7 @@ package com.bomber.world;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
@@ -38,7 +39,6 @@ public class GameWorld {
 	public GameType mGameType;
 	public boolean mIsPVPGame;
 	public GameMap mMap;
-	public RemoteConnections mRemoteConns;
 	public ArrayList<Team> mTeams = new ArrayList<Team>();
 	public Clock mClock;
 
@@ -85,6 +85,9 @@ public class GameWorld {
 
 		// Lê o nivel
 		mClock = new Clock();
+		
+		// TODO : apagar a linha seguinte
+		mNumberPlayers = 2;
 		Level.loadLevel(_startLevelName, this, mNumberPlayers);
 
 		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
@@ -93,40 +96,55 @@ public class GameWorld {
 		mClock.start();
 	}
 
+	public void setLocalPlayer(short _color)
+	{
+		for (Player p : mPlayers)
+			if (p.mColor == _color)
+			{
+				p.mIsLocalPlayer = true;
+				mLocalPlayer = p;
+			}
+	}
+
 	public Player getLocalPlayer()
 	{
 		if (mLocalPlayer != null)
 			return mLocalPlayer;
 
-		for (Player p : mPlayers)
-			if (p.mColor == Player.WHITE)
-			{
-				mLocalPlayer = p;
-				break;
-			}
+		if (!mIsPVPGame)
+		{
+			for (Player p : mPlayers)
+				if (p.mColor == Player.WHITE)
+				{
+					mLocalPlayer = p;
+					p.mIsLocalPlayer = true;
+					break;
+				}
+		} else
+		{
+
+		}
 
 		return mLocalPlayer;
 	}
-	
+
 	public int getMaxPoints()
 	{
-		if(mMonsters == null || mMap == null || mMap.mTilesMap == null)
+		if (mMonsters == null || mMap == null || mMap.mTilesMap == null)
 			throw new IllegalStateException();
 
 		int monsterPoints = 0;
-		 
-		for(Monster monster : mMonsters)
+
+		for (Monster monster : mMonsters)
 		{
 			monsterPoints += monster.mInfo.mPointsValue;
 		}
-		
+
 		int tilePoints = mMap.mDestroyableTiles.mLenght * Tile.POINTS;
-		
+
 		return monsterPoints + tilePoints + 20 * 10;
-		
+
 	}
-	
-	
 
 	public void reset(String _levelToload)
 	{
@@ -162,15 +180,30 @@ public class GameWorld {
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
 
-		if (mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
+//		if (mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
+//		{
+//			mLocalPlayer.reset();
+//			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
+//			mLocalPlayer.mColor = Player.getColorFromString(_type);
+//			mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+//			mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+//			return;
+//		}
+		
+		for(Player p : mPlayers)
 		{
-			mLocalPlayer.reset();
-			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
-			mLocalPlayer.mColor = Player.getColorFromString(_type);
-			mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-			mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-			return;
-		}
+			if(p.mColor == Player.getColorFromString(_type))
+			{
+				p.reset();
+				p.setMovableAnimations(Assets.mPlayers.get(_type));
+				p.mColor = Player.getColorFromString(_type);
+				p.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+				p.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+				p.changeDirection(Directions.DOWN);
+				p.stop();
+				return;
+			}
+		}	
 
 		Player tmpPlayer = mPlayers.getFreeObject();
 
@@ -178,7 +211,7 @@ public class GameWorld {
 		tmpPlayer.mColor = Player.getColorFromString(_type);
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-		
+
 		tmpPlayer.mSpawnPosition.set(tmpPlayer.mPosition);
 	}
 
@@ -472,55 +505,44 @@ public class GameWorld {
 				mOverlayingPoints.releaseObject(t);
 		}
 	}
-/*
-	public void spawnBonusRandomly()
-	{
 
-		if (checkReachedMaximumSimultaneousBonus() == true)
-			return;
-
-		// TODO: indicar seed
-		Random randomGenerator = new Random();
-		int spawningProbability = 1;
-		int ticks = 100;
-
-		int rnd = randomGenerator.nextInt(ticks);
-
-		if (rnd <= spawningProbability)
-		{
-
-			short col;
-			short lin;
-			Tile tileAtPosition = null;
-			boolean positionIsntAvailable = false;
-
-			do
-			{
-				// gera posição aleatória
-				col = (short) randomGenerator.nextInt(mMap.mWidth);
-				lin = (short) randomGenerator.nextInt(mMap.mHeight);
-
-				float colInPixels = col * Tile.TILE_SIZE;
-				float linInPixels = lin * Tile.TILE_SIZE;
-
-				// verifica se o tile na posição gerada é walkable
-				tileAtPosition = mMap.getTile(new Vector2(colInPixels, linInPixels));
-				positionIsntAvailable = tileAtPosition.mType != Tile.WALKABLE;
-
-				// verifica se já existe um bonus na posição
-				for (Bonus bonus : mSpawnedBonus)
-				{
-					if (bonus.mPosition.x == colInPixels + Tile.TILE_SIZE_HALF && bonus.mPosition.y == linInPixels + Tile.TILE_SIZE_HALF)
-						positionIsntAvailable = true;
-				}
-
-			} while (positionIsntAvailable);
-
-			spawnBonus(BonusTypes.getRandom(), lin, col);
-		}
-
-	}
-*/
+	/*
+	 * public void spawnBonusRandomly() {
+	 * 
+	 * if (checkReachedMaximumSimultaneousBonus() == true) return;
+	 * 
+	 * // TODO: indicar seed Random randomGenerator = new Random(); int
+	 * spawningProbability = 1; int ticks = 100;
+	 * 
+	 * int rnd = randomGenerator.nextInt(ticks);
+	 * 
+	 * if (rnd <= spawningProbability) {
+	 * 
+	 * short col; short lin; Tile tileAtPosition = null; boolean
+	 * positionIsntAvailable = false;
+	 * 
+	 * do { // gera posição aleatória col = (short)
+	 * randomGenerator.nextInt(mMap.mWidth); lin = (short)
+	 * randomGenerator.nextInt(mMap.mHeight);
+	 * 
+	 * float colInPixels = col * Tile.TILE_SIZE; float linInPixels = lin *
+	 * Tile.TILE_SIZE;
+	 * 
+	 * // verifica se o tile na posição gerada é walkable tileAtPosition =
+	 * mMap.getTile(new Vector2(colInPixels, linInPixels));
+	 * positionIsntAvailable = tileAtPosition.mType != Tile.WALKABLE;
+	 * 
+	 * // verifica se já existe um bonus na posição for (Bonus bonus :
+	 * mSpawnedBonus) { if (bonus.mPosition.x == colInPixels +
+	 * Tile.TILE_SIZE_HALF && bonus.mPosition.y == linInPixels +
+	 * Tile.TILE_SIZE_HALF) positionIsntAvailable = true; }
+	 * 
+	 * } while (positionIsntAvailable);
+	 * 
+	 * spawnBonus(BonusTypes.getRandom(), lin, col); }
+	 * 
+	 * }
+	 */
 	public boolean checkReachedMaximumSimultaneousBonus()
 	{
 		// TODO : ajustar valor

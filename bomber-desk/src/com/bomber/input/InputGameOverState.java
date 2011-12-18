@@ -49,12 +49,12 @@ public class InputGameOverState extends Input {
 		switch(_zone)
 		{
 		case INPUT_RELOAD:
-			mGameState.mGameScreen.mWorld.reset(Level.mInfo.mCurrentLevelName);
+			mGameState.mGame.mWorld.reset(Level.mInfo.mCurrentLevelName);
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 			
 		case INPUT_MENU:
-			mGameState.mGameScreen.goBackToActivities();
+			mGameState.mGame.goBackToActivities();
 			break;
 		}
 		

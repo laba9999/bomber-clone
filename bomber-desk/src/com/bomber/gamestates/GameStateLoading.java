@@ -18,7 +18,7 @@ public class GameStateLoading extends GameState {
 	{
 		if(Level.mIsLoaded) 
 		{
-			mGameScreen.mGameState = new GameStatePlaying(mGameScreen);
+			mGame.mGameState = new GameStatePlaying(mGame);
 		}
 		
 	}

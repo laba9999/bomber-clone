@@ -18,6 +18,8 @@ public class RemoteConnections {
 
 	public boolean mIsGameServer = false;
 
+	public Message mMessageToSend = new Message();
+	
 	public RemoteConnections(boolean _isGameServer) {
 		mRecvMessages = new MessageContainer();
 		mPlayers = new ArrayList<Connection>();
@@ -120,10 +122,7 @@ public class RemoteConnections {
 		}
 	}
 
-	/**
-	 * Chama a outra função broadcast com o parametro _include server a true.
-	 */
-	public void broadcast(Message _msg, boolean _includeServer)
+	public void broadcast(Message _msg)
 	{
 		Connection tmpConn;
 		for (int i = 0; i < mPlayers.size(); i++)
@@ -141,13 +140,8 @@ public class RemoteConnections {
 			tmpConn.sendMessage(_msg);
 		}
 
-		if (_includeServer && mGameServer != null)
-			sendToServer(_msg);
-	}
-
-	public void sendToServer(Message _msg)
-	{
-		if (mGameServer != null && mGameServer.mIsConnected)
+		if (mGameServer != null && mGameServer.mIsConnected )
 			mGameServer.sendMessage(_msg);
 	}
+
 }
