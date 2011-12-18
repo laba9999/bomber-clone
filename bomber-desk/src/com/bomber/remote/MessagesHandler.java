@@ -1,6 +1,7 @@
 package com.bomber.remote;
 
 import com.bomber.Game;
+import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Player;
 import com.bomber.world.GameWorld;
 
@@ -115,6 +116,17 @@ public class MessagesHandler {
 
 	private void parseBombMessage(Message _msg)
 	{
+		switch(_msg.eventType)
+		{
+		case EventType.CREATE:
+			mWorld.spawnBomb(_msg.valShort, _msg.valVector2_0);
+
+			break;
+		default:
+			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+
+		}
+		
 		throw new UnsupportedOperationException();
 	}
 
