@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
+import com.bomber.Game;
 import com.bomber.OverlayingText;
 import com.bomber.Team;
 import com.bomber.common.Assets;
@@ -37,7 +38,6 @@ public class GameWorld {
 	public ObjectsPool<OverlayingText> mOverlayingPoints;
 
 	public GameType mGameType;
-	public boolean mIsPVPGame;
 	public GameMap mMap;
 	public ArrayList<Team> mTeams = new ArrayList<Team>();
 	public Clock mClock;
@@ -104,8 +104,8 @@ public class GameWorld {
 		if (mLocalPlayer != null)
 			return mLocalPlayer;
 
-		if (!mIsPVPGame)
-		{
+//		if (!Game.mIsPVPGame)
+//		{
 			for (Player p : mPlayers)
 				if (p.mColor == Player.WHITE)
 				{
@@ -113,10 +113,10 @@ public class GameWorld {
 					p.mIsLocalPlayer = true;
 					break;
 				}
-		} else
-		{
-
-		}
+//		} else
+//		{
+//
+//		}
 
 		return mLocalPlayer;
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.bomber.Game;
 import com.bomber.gameobjects.Player;
+import com.bomber.gamestates.GameStateLoading;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
@@ -62,7 +63,7 @@ public class MessagesHandler {
 			mRemoteConnections.setLocalID(_msg.valShort);
 			mWorld.setLocalPlayer(_msg.valShort);
 			break;
-			
+
 		case EventType.CONNECT_TO:
 			String[] data = _msg.getStringValue().split(":");
 			try
@@ -72,6 +73,12 @@ public class MessagesHandler {
 			{
 				e.printStackTrace();
 			}
+
+			break;
+
+		case EventType.START:
+			GameStateLoading.mServerAuthorizedStart = true;
+			break;
 		}
 	}
 
@@ -107,11 +114,11 @@ public class MessagesHandler {
 			for (Player player : mWorld.mPlayers)
 			{
 				if (player.mUUID == _msg.UUID)
-				{	
+				{
 					player.mDirection = _msg.valShort;
 					player.mPosition.set(_msg.valVector2_0);
-					
-					if(_msg.valInt == 0)
+
+					if (_msg.valInt == 0)
 						player.mIsMoving = false;
 					else
 						player.mIsMoving = true;
@@ -127,7 +134,7 @@ public class MessagesHandler {
 
 	private void parseBombMessage(Message _msg)
 	{
-		switch(_msg.eventType)
+		switch (_msg.eventType)
 		{
 		case EventType.CREATE:
 			mWorld.spawnBomb(_msg.valShort, _msg.valVector2_0);

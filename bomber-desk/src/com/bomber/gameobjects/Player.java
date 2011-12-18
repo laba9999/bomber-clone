@@ -85,7 +85,7 @@ public class Player extends KillableObject {
 	{
 		mWorld.spawnBomb(mBombExplosionSize, mPosition);
 		
-		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer())
+		if(mRemoteConnections== null || !mIsLocalPlayer)
 			return;
 		
 		Message tmpMessage = mRemoteConnections.mMessageToSend;
@@ -278,7 +278,7 @@ public class Player extends KillableObject {
 
 		mMovedSinceLastStop = true;
 		
-		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer() || mDirection == mLastDirectionSent)
+		if(mRemoteConnections== null || !mIsLocalPlayer || mDirection == mLastDirectionSent)
 			return;
 		mLastDirectionSent = mDirection;
 		
@@ -299,7 +299,7 @@ public class Player extends KillableObject {
 			stopCurrentAnimation();
 		
 		
-		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer() || !mMovedSinceLastStop)
+		if(mRemoteConnections== null || !mIsLocalPlayer || !mMovedSinceLastStop)
 			return;
 		
 		mMovedSinceLastStop = false;
