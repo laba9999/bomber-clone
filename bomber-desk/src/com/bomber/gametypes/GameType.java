@@ -22,8 +22,6 @@ public abstract class GameType {
 	public abstract boolean isOver();
 	public abstract boolean isLost();
 	
-
-	//TODO : apagar se nao for necessário
 	public static final short CAMPAIGN = 0;
 	public static final short CTF = 1;
 	public static final short DEADMATCH = 2;

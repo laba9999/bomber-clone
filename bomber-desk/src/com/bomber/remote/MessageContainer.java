@@ -75,7 +75,7 @@ public class MessageContainer {
 	 * @param _msg
 	 *            A mensagem a libertar
 	 */
-	public void setParsed(Message _msg)
+	public synchronized void setParsed(Message _msg)
 	{
 		mMessagesPool.releaseObject(_msg);
 	}

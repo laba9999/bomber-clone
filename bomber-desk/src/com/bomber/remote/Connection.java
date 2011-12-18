@@ -5,7 +5,7 @@ import com.bomber.Game;
 public class Connection extends Thread {
 
 	private static final short RTT_CHECK_INTERVAL = Game.TICKS_PER_SECOND * 2;
-	private static final short TIMEOUT_VALUE = Game.TICKS_PER_SECOND * 5;
+	private static final short TIMEOUT_VALUE = (short) (Game.TICKS_PER_SECOND * 1.5f);
 
 	/**
 	 * ID que identifica este cliente perante todos os outros é atribuido pelo
@@ -25,6 +25,7 @@ public class Connection extends Thread {
 	// Para os pings/pongs e desconexões.
 	private Message mMessageForInternalUse;
 
+	private short mTimeoutsCounter = 0;
 	public boolean mIsConnected = true;
 
 	public Connection(MessageSocketIO _socket, MessageContainer _msgContainer) {
@@ -41,11 +42,16 @@ public class Connection extends Thread {
 		mMessageForInternalUse.senderID = _id;
 		mLocalID = _id;
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return "Remote id: " + mRemoteID + " - " + mSocket.toString();
+	}
+
+	public String getSocketAddressString()
+	{
+		return mSocket.toString();
 	}
 
 	public void sendMessage(Message _msg)
@@ -90,7 +96,7 @@ public class Connection extends Thread {
 		{
 			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE)
 			{
-				Game.LOGGER.log("Conexion " + mLocalID + " timed out...");
+				Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - Conexion " + mLocalID + " timed out...");
 				disconnect("Timeout!");
 			}
 		} else
@@ -100,8 +106,8 @@ public class Connection extends Thread {
 			{
 				mLastRTTCheckTick = Game.mCurrentTick;
 				mMessageForInternalUse.eventType = EventType.PING;
-				sendMessage(mMessageForInternalUse);
 				mSentPing = true;
+				sendMessage(mMessageForInternalUse);
 			}
 		}
 	}
@@ -135,9 +141,9 @@ public class Connection extends Thread {
 
 		case EventType.PONG:
 			// Actualiza o RTT e não adiciona a mensagem ao contentor
-			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
-			Game.LOGGER.log("RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			mSentPing = false;
+			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
+			Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			break;
 
 		default:
