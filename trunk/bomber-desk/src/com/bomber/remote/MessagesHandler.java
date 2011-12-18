@@ -75,7 +75,7 @@ public class MessagesHandler {
 				if(player.mUUID == _msg.UUID)
 				{
 					player.changeDirection(_msg.valShort);
-					player.mPosition = _msg.valVector2_0;
+					player.mPosition.set(_msg.valVector2_0);
 				}
 			}
 			break;
@@ -84,9 +84,10 @@ public class MessagesHandler {
 			{
 				if(player.mUUID == _msg.UUID)
 				{
-					player.stop();
 					player.changeDirection(_msg.valShort);
-					player.mPosition = _msg.valVector2_0;
+					player.mPosition.set(_msg.valVector2_0);
+					player.stop();
+
 				}
 
 			}
@@ -95,9 +96,9 @@ public class MessagesHandler {
 			for(Player player : mWorld.mPlayers)
 			{
 				if(player.mUUID == _msg.UUID)
-				{
+				{	
 					player.mDirection = _msg.valShort;
-					player.mPosition = _msg.valVector2_0;
+					player.mPosition.set(_msg.valVector2_0);
 					
 					if(_msg.valInt == 0)
 						player.mIsMoving = false;
