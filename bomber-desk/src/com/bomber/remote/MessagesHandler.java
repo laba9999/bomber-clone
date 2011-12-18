@@ -65,6 +65,8 @@ public class MessagesHandler {
 			break;
 
 		case EventType.CONNECT_TO:
+			
+			Game.LOGGER.log("A tentar ligar ao cliente: " + _msg.getStringValue());
 			String[] data = _msg.getStringValue().split(":");
 			try
 			{
