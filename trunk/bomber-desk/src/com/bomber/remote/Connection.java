@@ -5,8 +5,9 @@ import com.bomber.Game;
 public class Connection extends Thread {
 
 	private static final short RTT_CHECK_INTERVAL = Game.TICKS_PER_SECOND * 2;
-	private static final short TIMEOUT_VALUE = (short) (Game.TICKS_PER_SECOND * 1.5f);
-
+	private static final short TIMEOUT_VALUE = (short) (Game.TICKS_PER_SECOND * 0.5f);
+	private static final short MAX_TIMEOUTS = 3;
+	
 	/**
 	 * ID que identifica este cliente perante todos os outros é atribuido pelo
 	 * servidor.
@@ -94,7 +95,7 @@ public class Connection extends Thread {
 
 		if (mSentPing)
 		{
-			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE)
+			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE && mTimeoutsCounter++ > MAX_TIMEOUTS)
 			{
 				Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - Conexion " + mLocalID + " timed out...");
 				disconnect("Timeout!");
@@ -122,6 +123,7 @@ public class Connection extends Thread {
 			if (rcvedMsg == null || mSocket.mIsClosed)
 				break;
 
+			mTimeoutsCounter = 0;
 			mRemoteID = rcvedMsg.senderID;
 			addMessageToContainer(rcvedMsg);
 		}
