@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Assets;
 import com.bomber.gamestates.GameState;
+import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.gamestates.GameStatePlaying;
 import com.bomber.gametypes.GameTypeCampaign;
@@ -30,6 +31,8 @@ public class Game implements ApplicationListener {
 	private float mInterpolation;
 	private int ticksPerSecondCounter;
 
+	public static boolean mIsPVPGame = true;
+	
 	public GameWorld mWorld;
 	public SpriteBatch mBatcher;
 	public OrthographicCamera mUICamera;
@@ -78,13 +81,13 @@ public class Game implements ApplicationListener {
 
 		Assets.loadAssets();
 
-		//mGameState = new GameStateLoading(this);
+		mGameState = new GameStateLoading(this);
 
 		mWorld = new GameWorld(new GameTypeCampaign(), "level1");
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 		mMessagesHandler = new MessagesHandler(mRemoteConnections, mWorld);
 
-		mGameState = new GameStatePlaying(this);
+		//mGameState = new GameStatePlaying(this);
 
 		mNextGameTick = System.nanoTime();
 	}

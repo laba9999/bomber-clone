@@ -120,6 +120,9 @@ public class InputPlayingState extends Input {
 	protected void parseInputZone(short _zone)
 	{
 		mLocalPlayer = mGameWorld.getLocalPlayer();
+		
+		if(mLocalPlayer == null)
+			return;
 		switch (_zone)
 		{
 		case INPUT_LEFT:
@@ -172,11 +175,13 @@ public class InputPlayingState extends Input {
 	protected void parseKeyboardInput()
 	{
 		mLocalPlayer = mGameWorld.getLocalPlayer();
+		if(mLocalPlayer == null)
+			return;
 		
 		if (Gdx.input.isKeyPressed(Keys.P))
 			mGameState.mGame.setGameState(new GameStatePaused(mGameState.mGame));
 
-		if (mGameWorld.getLocalPlayer().mIsDead)
+		if (mLocalPlayer.mIsDead)
 			return;
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT))

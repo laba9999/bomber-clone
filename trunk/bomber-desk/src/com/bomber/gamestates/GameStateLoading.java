@@ -7,6 +7,7 @@ import com.bomber.world.Level;
 
 public class GameStateLoading extends GameState {
 
+	public static boolean mServerAuthorizedStart = false;
 
 	public GameStateLoading(Game _gameScreen) {
 		super(_gameScreen);
@@ -18,6 +19,9 @@ public class GameStateLoading extends GameState {
 	{
 		if(Level.mIsLoaded) 
 		{
+			if( Game.mIsPVPGame && !mServerAuthorizedStart)
+				return;
+			
 			mGame.mGameState = new GameStatePlaying(mGame);
 		}
 		
@@ -34,7 +38,7 @@ public class GameStateLoading extends GameState {
 		BitmapFont font = Assets.mFont;
 	
 		//desenha "paused" ao canto
-		font.draw(mBatcher,"LOADING", 600 , 470);
+		font.draw(mBatcher,"LOADING", 350 , 250);
 
 	}
 

@@ -130,6 +130,13 @@ public class RemoteConnections {
 							mPlayers.get(c).sendMessage(tmpMessage);
 						}
 					}
+					
+					// Inicia o jogo
+					tmpMessage.eventType = EventType.START;
+					for (short i = 0; i < mPlayers.size(); i++)
+						mPlayers.get(i).sendMessage(tmpMessage);
+					
+					mRecvMessages.add(tmpMessage);
 				}
 
 			}
