@@ -14,10 +14,10 @@ public class EventType {
 	// string contém a razão
 	public static final short DISCONNECT = 7;
 	
-	// Indica ao cliente que deve aguardar ligações
-	
-	public static final short LISTEN = 8;
+	// Indica ao cliente para se ligar a outro
+	public static final short CONNECT_TO = 8;
 	public static final short PING = 9;
 	public static final short PONG = 10;
 	public static final short SET_ID = 11;
+	public static final short LOCAL_SERVER_PORT = 12;
 }

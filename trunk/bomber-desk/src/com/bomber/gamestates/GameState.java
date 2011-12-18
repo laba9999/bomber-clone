@@ -10,6 +10,7 @@ import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.input.Input;
+import com.bomber.remote.MessageContainer;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
@@ -83,8 +84,9 @@ public abstract class GameState {
 		if (DebugSettings.UI_DRAW_FPS)
 		{
 			Integer fps = Gdx.graphics.getFramesPerSecond();
-			font.draw(mBatcher, fps.toString(), 115, 470);
-			font.draw(mBatcher, Game.mTicksPerSecond.toString(), 165, 470);
+			font.draw(mBatcher, "F: " + fps.toString(), 100, 470);
+			font.draw(mBatcher, "T: " +Game.mTicksPerSecond.toString(), 165, 470);
+			font.draw(mBatcher, "M: " +MessageContainer.mMessagesPerSecond.toString(), 570, 470);
 		}
 	}
 

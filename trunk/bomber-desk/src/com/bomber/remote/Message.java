@@ -110,7 +110,7 @@ public class Message extends PoolObject {
 		_destination.position(0);
 	}
 
-	public void cloneTo(Message _newMessage)
+	public synchronized void cloneTo(Message _newMessage)
 	{
 		_newMessage.senderID = senderID;
 		_newMessage.UUID = UUID;

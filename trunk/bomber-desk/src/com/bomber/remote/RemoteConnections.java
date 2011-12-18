@@ -3,7 +3,9 @@ package com.bomber.remote;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Random;
 
+import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.gametypes.GameType;
 import com.bomber.remote.tcp.TCPLocalServer;
@@ -45,10 +47,17 @@ public class RemoteConnections {
 
 	public void connectToGameServer(short _protocol, String _ip, int _port) throws IOException
 	{
+
 		switch (_protocol)
 		{
 		case Protocols.TCP:
 			mGameServer = new Connection(new TCPMessageSocketIO(_ip, _port), mRecvMessages);
+
+			mMessageToSend.messageType = MessageType.CONNECTION;
+			mMessageToSend.eventType = EventType.LOCAL_SERVER_PORT;
+			mMessageToSend.valInt = ((TCPLocalServer) mLocalServer).getLocalPort();
+			mGameServer.sendMessage(mMessageToSend);
+			break;
 		}
 
 		if (mGameServer != null)
@@ -58,8 +67,29 @@ public class RemoteConnections {
 		}
 	}
 
+	public void connectToPlayer(short _protocol, String _ip, int _port) throws IOException
+	{
+		Connection tmpConn = null;
+		switch (_protocol)
+		{
+		case Protocols.TCP:
+			tmpConn = new Connection(new TCPMessageSocketIO(_ip, _port), mRecvMessages);
+			break;
+		}
+
+		if (tmpConn != null)
+		{
+			tmpConn.setDaemon(true);
+			tmpConn.start();
+			mPlayers.add(tmpConn);
+		}
+
+	}
+
 	public void update()
 	{
+		mRecvMessages.update();
+		
 		if (mAcceptingConnections)
 		{
 			mLocalServer.getCachedConnections(mPlayers);
@@ -88,16 +118,18 @@ public class RemoteConnections {
 
 					// Envia o endereço de todos a todos para que se liguem
 					// entre si
-//					tmpMessage.eventType = EventType.SET_ID;
-//					for (short i = 0; i < mPlayers.size(); i++)
-//					{
-//						String address = mPlayers.get(i).getSocketAddressString();
-//						for (short c = 0; c < mPlayers.size(); c++)
-//						{
-//							tmpMessage.valShort = (short) (i + 1);
-//							mPlayers.get(c).sendMessage(tmpMessage);
-//						}
-//					}
+					tmpMessage.eventType = EventType.CONNECT_TO;
+					for (short i = 0; i < mPlayers.size(); i++)
+					{
+						String address = mPlayers.get(i).getSocketAddressString();
+						String [] components  = address.split(":");
+						address = components[0] + ":" + mPlayers.get(i).mRemoteServerPort;
+						for (short c = (short) (i + 1); c < mPlayers.size(); c++)
+						{
+							tmpMessage.setStringValue(address);
+							mPlayers.get(c).sendMessage(tmpMessage);
+						}
+					}
 				}
 
 			}
@@ -133,6 +165,7 @@ public class RemoteConnections {
 		if (null != mLocalServer)
 		{
 			mAcceptingConnections = true;
+			mLocalServer.setDaemon(true);
 			mLocalServer.start();
 		}
 	}
@@ -178,8 +211,20 @@ public class RemoteConnections {
 			throw new InvalidParameterException("Tipo de jogo PvP desconhecido!");
 		}
 
+		nPlayers = DebugSettings.NUMBER_OF_PLAYERS;
 		if (!_isServer)
 		{
+			Random r = new Random(System.nanoTime());
+			try
+			{
+				System.out.println("À espera de ligações...");
+				connections.acceptConnections(Protocols.TCP, r.nextInt(100) + 50006, (short) (nPlayers - 1));
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+				System.exit(-1);
+			}
+
 			// Liga ao servidor
 			try
 			{
@@ -204,6 +249,36 @@ public class RemoteConnections {
 				System.exit(-1);
 			}
 		}
+
 		return connections;
+	}
+
+	public void closeAll(String _reason)
+	{
+
+		try
+		{
+			// Fecha tudo
+			for (int i = 0; i < mPlayers.size(); i++)
+			{
+				mPlayers.get(i).disconnect(_reason);
+				mPlayers.get(i).join();
+			}
+
+			if (mGameServer != null)
+			{
+				mGameServer.disconnect(_reason);
+				mGameServer.join();
+			}
+
+			if (mLocalServer != null)
+			{
+				mLocalServer.stopReceiving();
+				mLocalServer.join();
+			}
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

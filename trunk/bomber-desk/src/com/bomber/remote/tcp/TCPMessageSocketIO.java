@@ -59,8 +59,9 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 	{
 		try
 		{
-			mInput.read(mRecvBytes);
-		} catch (IOException e)
+			if(mInput.read(mRecvBytes) <= 0)
+				throw new IOException("Falha ao ler do socket!");
+		} catch (Throwable e)
 		{
 			e.printStackTrace();
 			return false;
@@ -78,7 +79,7 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 			mInput.close();
 
 			mSocket.close();
-		} catch (IOException e)
+		} catch (Throwable e)
 		{
 			e.printStackTrace();
 		}

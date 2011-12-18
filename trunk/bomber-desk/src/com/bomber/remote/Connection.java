@@ -5,7 +5,7 @@ import com.bomber.Game;
 public class Connection extends Thread {
 
 	private static final short RTT_CHECK_INTERVAL = Game.TICKS_PER_SECOND * 2;
-	private static final short TIMEOUT_VALUE = (short) (Game.TICKS_PER_SECOND * 0.5f);
+	private static final short TIMEOUT_VALUE = (short) (Game.TICKS_PER_SECOND * 5);
 	private static final short MAX_TIMEOUTS = 3;
 	
 	/**
@@ -28,6 +28,8 @@ public class Connection extends Thread {
 
 	private short mTimeoutsCounter = 0;
 	public boolean mIsConnected = true;
+	
+	public int mRemoteServerPort = -1;
 
 	public Connection(MessageSocketIO _socket, MessageContainer _msgContainer) {
 		mSocket = _socket;
@@ -146,6 +148,10 @@ public class Connection extends Thread {
 			mSentPing = false;
 			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
 			Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
+			break;
+			
+		case EventType.LOCAL_SERVER_PORT:
+			mRemoteServerPort = _msg.valInt;
 			break;
 
 		default:

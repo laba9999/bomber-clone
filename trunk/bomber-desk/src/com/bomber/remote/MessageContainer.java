@@ -2,6 +2,7 @@ package com.bomber.remote;
 
 import java.util.LinkedList;
 
+import com.bomber.Game;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 
@@ -9,11 +10,26 @@ public class MessageContainer {
 	private ObjectsPool<Message> mMessagesPool;
 	private LinkedList<Message> mMessages;
 
+	private int mMessagesPerSecondCount = 0;
+	private short mTicks = 0;
+	public static Integer mMessagesPerSecond = 0;
+	
 	public MessageContainer() {
 		mMessages = new LinkedList<Message>();
 		mMessagesPool = new ObjectsPool<Message>((short) 10, new ObjectFactory.CreateMessage());
 	}
 
+	
+	public void update()
+	{
+		if(mTicks++ >= Game.TICKS_PER_SECOND)
+		{
+			mMessagesPerSecond = mMessagesPerSecondCount;
+			mMessagesPerSecondCount = 0;
+			mTicks = 0;
+		}
+	}
+	
 	/**
 	 * Adiciona uma nova mensagem à fila de mensagens à espera de serem
 	 * tratadas. A mensagem é copiada para uma pertencente à pool de mensagens
@@ -24,6 +40,9 @@ public class MessageContainer {
 	 */
 	public synchronized void add(Message _message)
 	{
+		
+		mMessagesPerSecondCount++;
+		
 		Message tmpMessage;
 
 		switch (_message.eventType)
