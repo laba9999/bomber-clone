@@ -1,12 +1,14 @@
 package com.bomber.remote;
 
+import java.io.IOException;
+
 import com.bomber.Game;
 import com.bomber.gameobjects.Player;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
 	GameWorld mWorld;
-	MessageContainer mMessageContainer;
+	public MessageContainer mMessageContainer;
 	RemoteConnections mRemoteConnections;
 
 	public MessagesHandler(RemoteConnections _connections, GameWorld _world) {
@@ -60,6 +62,16 @@ public class MessagesHandler {
 			mRemoteConnections.setLocalID(_msg.valShort);
 			mWorld.setLocalPlayer(_msg.valShort);
 			break;
+			
+		case EventType.CONNECT_TO:
+			String[] data = _msg.getStringValue().split(":");
+			try
+			{
+				mRemoteConnections.connectToPlayer(Protocols.TCP, data[0], Integer.valueOf(data[1]));
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 

@@ -58,13 +58,6 @@ public class GameWorld {
 
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
-		// O numero de players vai variar consoante o tipo de jogo
-		mNumberPlayers = 4;
-		if (_gameType instanceof GameTypeCampaign)
-			mNumberPlayers = 1;
-		else if (_gameType instanceof GameTypeCTF || _gameType instanceof GameTypeDeathmatch)
-			mNumberPlayers = 2;
-
 		mPlayers = new ObjectsPool<Player>(mNumberPlayers, new ObjectFactory.CreatePlayer(this));
 
 		// Assumimos que cada player vai poder colocar em termos médios 2 bombas
@@ -87,7 +80,7 @@ public class GameWorld {
 		mClock = new Clock();
 		
 		// TODO : apagar a linha seguinte
-		mNumberPlayers = 2;
+		mNumberPlayers = DebugSettings.NUMBER_OF_PLAYERS;
 		Level.loadLevel(_startLevelName, this, mNumberPlayers);
 
 		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)

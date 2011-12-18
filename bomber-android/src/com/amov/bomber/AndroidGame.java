@@ -12,6 +12,16 @@ import com.bomber.remote.RemoteConnections;
 public class AndroidGame extends AndroidApplication {
 
 	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		Game.mRemoteConnections.closeAll("Aplication exited!");
+		
+		// Para grandes males grandes remédios...
+		System.exit(1);
+	}
+
+	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		// TODO Auto-generated method stub
@@ -20,5 +30,5 @@ public class AndroidGame extends AndroidApplication {
 
 		super.onCreate(savedInstanceState);
 		initialize(new Game(RemoteConnections.create(GameType.CTF, DebugSettings.START_ANDROID_AS_SERVER, DebugSettings.REMOTE_SERVER_ADDRESS, DebugSettings.REMOTE_SERVER_PORT)), false);
-	}	
+	}
 }

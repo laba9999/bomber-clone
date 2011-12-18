@@ -59,6 +59,7 @@ public class Player extends KillableObject {
 	public boolean mIsLocalPlayer = false;
 	private short mTicksSinceSpawn;
 	private short mLastDirectionSent = -1;
+	private boolean mMovedSinceLastStop = true;
 
 	/**
 	 * Inicializado com o máximo de bonus que podem estar activos ao mesmo
@@ -275,6 +276,7 @@ public class Player extends KillableObject {
 	protected void onChangedDirection()
 	{
 
+		mMovedSinceLastStop = true;
 		
 		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer() || mDirection == mLastDirectionSent)
 			return;
@@ -297,9 +299,10 @@ public class Player extends KillableObject {
 			stopCurrentAnimation();
 		
 		
-		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer())
+		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer() || !mMovedSinceLastStop)
 			return;
 		
+		mMovedSinceLastStop = false;
 		mLastDirectionSent = -1;
 		
 		Message tmpMessage = mRemoteConnections.mMessageToSend;

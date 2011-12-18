@@ -3,6 +3,8 @@ package com.bomber.remote;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.bomber.Game;
+
 public abstract class LocalServer extends Thread {
 
 	// Onde as novas conexões vão ser guardadas até a thread principal as vir
@@ -34,6 +36,7 @@ public abstract class LocalServer extends Thread {
 	public void stopReceiving()
 	{
 		mKeepReceiving = false;
+		onStopReceiving();
 	}
 
 	@Override
@@ -47,6 +50,8 @@ public abstract class LocalServer extends Thread {
 		
 		mAllConnected = true;
 		mKeepReceiving = false;
+		
+		Game.LOGGER.log("Server desligado...");
 	}
 
 	/**
@@ -88,4 +93,6 @@ public abstract class LocalServer extends Thread {
 	 * para aceitar nova conexão.
 	 */
 	public abstract void waitForConnection();
+	
+	public abstract void onStopReceiving();
 }

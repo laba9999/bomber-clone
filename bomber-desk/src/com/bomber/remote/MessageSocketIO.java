@@ -37,7 +37,7 @@ public abstract class MessageSocketIO {
 	}
 
 	
-	public boolean sendMessage(Message _msg)
+	public synchronized boolean sendMessage(Message _msg)
 	{
 		if(mIsClosed)
 			return false;
