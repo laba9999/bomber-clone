@@ -107,7 +107,7 @@ public class GameStateLevelCompleted extends GameState {
 	protected void onFinish()
 	{
 		mGameWorld.getLocalPlayer().mPoints = mGameWorld.getLocalPlayer().mStartLevelPoints;
-		mGameScreen.setGameState(mNextGameState);
+		mGame.setGameState(mNextGameState);
 	}
 
 	@Override

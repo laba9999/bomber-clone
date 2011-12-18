@@ -33,12 +33,12 @@ public class GameStatePlaying extends GameState {
 		if (mGameWorld.mGameType.isOver())
 		{
 			if (mGameWorld.mGameType instanceof GameTypeCampaign)
-				mGameScreen.setGameState(new GameStateLevelCompleted(mGameScreen));
+				mGame.setGameState(new GameStateLevelCompleted(mGame));
 
 			// TODO : outros gametypes
 
 		} else if (mGameWorld.mGameType.isLost())
-			mGameScreen.setGameState(new GameStateGameOver(mGameScreen));
+			mGame.setGameState(new GameStateGameOver(mGame));
 
 	}
 

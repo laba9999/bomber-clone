@@ -25,9 +25,8 @@ public class Player extends KillableObject {
 	private static HashMap<String, Short> COLORS = null;
 	public static final short WHITE = 0;
 	public static final short RED = 1;
-	public static final short GREEN = 2;
-	public static final short BLUE = 3;
-
+	public static final short BLUE = 2;
+	public static final short GREEN = 3;
 
 	
 	public static final float MAX_SPEED = 2;
@@ -59,6 +58,7 @@ public class Player extends KillableObject {
 
 	public boolean mIsLocalPlayer = false;
 	private short mTicksSinceSpawn;
+	private short mLastDirectionSent = -1;
 
 	/**
 	 * Inicializado com o máximo de bonus que podem estar activos ao mesmo
@@ -274,8 +274,11 @@ public class Player extends KillableObject {
 	@Override
 	protected void onChangedDirection()
 	{
-		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer())
+
+		
+		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer() || mDirection == mLastDirectionSent)
 			return;
+		mLastDirectionSent = mDirection;
 		
 		Message tmpMessage = mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.PLAYER;
@@ -296,6 +299,8 @@ public class Player extends KillableObject {
 		
 		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer())
 			return;
+		
+		mLastDirectionSent = -1;
 		
 		Message tmpMessage = mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.PLAYER;

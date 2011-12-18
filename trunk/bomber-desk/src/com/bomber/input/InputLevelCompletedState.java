@@ -52,7 +52,7 @@ public class InputLevelCompletedState extends Input {
 	@Override
 	protected void parseInputZone(short _zone)
 	{
-		GameWorld world = mGameState.mGameScreen.mWorld;
+		GameWorld world = mGameState.mGame.mWorld;
 		switch (_zone)
 		{
 		case INPUT_CONTINUE:
@@ -68,7 +68,7 @@ public class InputLevelCompletedState extends Input {
 			break;
 		case INPUT_RELOAD:
 			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
-			mGameState.mGameScreen.mWorld.reset(Level.mInfo.mCurrentLevelName);
+			mGameState.mGame.mWorld.reset(Level.mInfo.mCurrentLevelName);
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
 		case INPUT_MENU:

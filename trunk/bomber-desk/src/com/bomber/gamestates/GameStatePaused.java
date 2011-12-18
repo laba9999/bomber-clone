@@ -59,7 +59,7 @@ public class GameStatePaused extends GameState {
 	{
 		if (!mOptionsPanel.mIsMoving)
 		{
-			mGameScreen.setGameState(mNextGameState);
+			mGame.setGameState(mNextGameState);
 			return;
 		}
 		

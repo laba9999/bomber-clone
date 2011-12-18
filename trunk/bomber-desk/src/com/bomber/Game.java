@@ -6,23 +6,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Assets;
 import com.bomber.gamestates.GameState;
+import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.gamestates.GameStatePlaying;
 import com.bomber.gametypes.GameTypeCampaign;
+import com.bomber.remote.MessagesHandler;
+import com.bomber.remote.RemoteConnections;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
 public class Game implements ApplicationListener {
-
+	private static final short MAX_PARSED_MESSAGES_PER_TICK = 2;
 	private static final int MAX_FRAMESKIP = 5;
 	public static final int TICKS_PER_SECOND = 100;
 	private static final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
-	
+
 	public static long mCurrentTick = 0;
 	public static Integer mTicksPerSecond = 100;
 
-	
-	public static Logger LOGGER =new Logger("TAG");
+	public static Logger LOGGER = new Logger("TAG");
 	private int mLoops;
 	private long startTime;
 	private long mNextGameTick;
@@ -34,10 +36,15 @@ public class Game implements ApplicationListener {
 	public OrthographicCamera mUICamera;
 	public WorldRenderer mWorldRenderer;
 
-	
-
 	public GameState mGameState;
 	private long mLastGameStateChangeTime = System.currentTimeMillis();
+
+	private MessagesHandler mMessagesHandler;
+	public static RemoteConnections mRemoteConnections;
+
+	public Game(RemoteConnections _connections) {
+		mRemoteConnections = _connections;
+	}
 
 	public GameState getGameState()
 	{
@@ -49,14 +56,14 @@ public class Game implements ApplicationListener {
 		// TODO : implementar voltar às actividades do android
 		throw new UnsupportedOperationException();
 	}
-	
+
 	public void setGameState(GameState _newGameState)
 	{
 		if (System.currentTimeMillis() - mLastGameStateChangeTime < 250)
 			return;
 
 		mGameState = _newGameState;
-		
+
 		mGameState.reset();
 		mLastGameStateChangeTime = System.currentTimeMillis();
 	}
@@ -72,10 +79,11 @@ public class Game implements ApplicationListener {
 
 		Assets.loadAssets();
 
-		// mGameState = new GameStateLoading(this);
+		//mGameState = new GameStateLoading(this);
 
 		mWorld = new GameWorld(new GameTypeCampaign(), "level1");
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
+		mMessagesHandler = new MessagesHandler(mRemoteConnections, mWorld);
 
 		mGameState = new GameStatePlaying(this);
 
@@ -104,9 +112,14 @@ public class Game implements ApplicationListener {
 			}
 
 			mGameState.update();
+			mRemoteConnections.update();
+			
+			for (short i = 0; i < MAX_PARSED_MESSAGES_PER_TICK; i++)
+				mMessagesHandler.parseNextMessage();
+
 			mNextGameTick += SKIP_TICKS;
 			mLoops++;
-			
+
 			mCurrentTick++;
 		}
 
@@ -120,7 +133,7 @@ public class Game implements ApplicationListener {
 	{
 		if (mGameState instanceof GameStatePlaying)
 			setGameState(new GameStatePaused(this));
-		
+
 		Assets.DarkGlass.dispose();
 	}
 

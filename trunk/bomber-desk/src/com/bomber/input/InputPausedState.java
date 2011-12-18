@@ -72,7 +72,7 @@ public class InputPausedState extends Input {
 		 return;	
 		}
 		
-		GameWorld world = mGameState.mGameScreen.mWorld;
+		GameWorld world = mGameState.mGame.mWorld;
 
 		switch (_zone)
 		{
@@ -96,7 +96,7 @@ public class InputPausedState extends Input {
 			break;
 
 		case INPUT_BACK:
-			mGameState.mGameScreen.goBackToActivities();
+			mGameState.mGame.goBackToActivities();
 			break;
 		}
 	}
