@@ -83,7 +83,19 @@ public class Player extends KillableObject {
 	public void dropBomb()
 	{
 		mWorld.spawnBomb(mBombExplosionSize, mPosition);
-
+		
+		if(mRemoteConnections== null || this!=mWorld.getLocalPlayer())
+			return;
+		
+		Message tmpMessage = mRemoteConnections.mMessageToSend;
+		tmpMessage.messageType = MessageType.BOMB;
+		tmpMessage.eventType = EventType.CREATE;
+		tmpMessage.valVector2_0.set(mPosition);
+		tmpMessage.valShort = mBombExplosionSize;
+		
+		mRemoteConnections.broadcast(tmpMessage);
+		
+		
 	}
 
 	public boolean isImmune()
