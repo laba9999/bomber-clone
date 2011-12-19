@@ -9,6 +9,3 @@ level4
 
 #nº de bónus
 2
-
-#seed para os bonus
-1234

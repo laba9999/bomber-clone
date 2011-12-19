@@ -9,6 +9,3 @@ level1
 
 #nº de bónus
 3
-
-#seed para os bonus
-5432

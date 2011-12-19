@@ -79,7 +79,7 @@ public class Level {
 			loadLevelInfo(_world);
 			setupLevel(_world);
 			
-			_world.mMap.setupBonus(mInfo.mNumberBonus, mInfo.mBonusSeed);
+			_world.mMap.setupBonus(mInfo.mNumberBonus);
 			_world.mClock.reset(mInfo.mMinutes, mInfo.mSeconds);
 			
 			mIsLoaded = true;

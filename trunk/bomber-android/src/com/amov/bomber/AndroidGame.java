@@ -33,8 +33,11 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge {
 		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 		super.onCreate(savedInstanceState);
 
-		Game newGame = new Game(this, DebugSettings.GAME_TYPE);
+		Game newGame = new Game(this, DebugSettings.GAME_TYPE, DebugSettings.LEVEL_TO_LOAD);
 		initialize(newGame, false);
+
+		if (!Game.mIsPVPGame)
+			return;
 
 		RemoteConnections tmpConnections = RemoteConnections.create(DebugSettings.REMOTE_PROTOCOL_IN_USE, DebugSettings.START_ANDROID_AS_SERVER, DebugSettings.REMOTE_SERVER_ADDRESS);
 		if (tmpConnections == null)

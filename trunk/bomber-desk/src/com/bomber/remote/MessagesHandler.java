@@ -2,7 +2,9 @@ package com.bomber.remote;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
+import java.util.Random;
 
+import com.badlogic.gdx.utils.Logger;
 import com.bomber.Game;
 import com.bomber.gameobjects.Player;
 import com.bomber.gamestates.GameStateLoading;
@@ -59,8 +61,6 @@ public class MessagesHandler {
 		{
 		case EventType.SET_ID:
 			mRemoteConnections.setLocalID(_msg.valShort);
-			if (mWorld == null)
-				throw new InvalidParameterException("world == null");
 			mWorld.setLocalPlayer(_msg.valShort);
 			break;
 
@@ -172,6 +172,13 @@ public class MessagesHandler {
 			Game.mHasStarted = true;
 			break;
 			
+		case EventType.RANDOM_SEED:
+			Game.mRandomSeed = _msg.valInt;
+			Game.mRandomGenerator = new Random(_msg.valInt);
+			mWorld.reset(Game.mLevelToLoad);
+			mWorld.setLocalPlayer(RemoteConnections.mLocalID);
+			Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID);
+			break;
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
 		}
