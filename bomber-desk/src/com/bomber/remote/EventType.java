@@ -26,4 +26,5 @@ public class EventType {
 	// Indica os segundos até o jogo iniciar
 	// o valor dos segundos vem no valShort
 	public static final short COUNTDOWN = 13;
+	public static final short RANDOM_SEED = 14;
 }

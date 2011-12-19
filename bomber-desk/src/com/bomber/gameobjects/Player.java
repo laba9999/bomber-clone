@@ -240,6 +240,7 @@ public class Player extends KillableObject {
 		mPointsMultiplier = 1;
 		
 		mTicksSinceSpawn = 0;
+		mIsLocalPlayer = false;
 	}
 
 	public String getPoints()

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.DebugSettings;
+import com.bomber.Game;
 import com.bomber.common.Directions;
 import com.bomber.gameobjects.KillableObject;
 import com.bomber.gameobjects.Player;
@@ -19,11 +20,6 @@ public class Monster extends KillableObject {
 
 	public Monster(GameWorld _world) {
 		mWorld = _world;
-
-		// TODO : ter muito cuidado pk em multiplayer isto tem de estar
-		// sincronizado.
-		mRandomGenerator = new Random(mUUID);
-
 	}
 
 	@Override
@@ -32,6 +28,7 @@ public class Monster extends KillableObject {
 		super.reset();
 		mDirection = Directions.DOWN;
 		mIsMoving = true;
+		mRandomGenerator = Game.mRandomGenerator;
 	}
 
 	@Override

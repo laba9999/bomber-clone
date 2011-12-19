@@ -1,5 +1,7 @@
 package com.bomber;
 
+import java.util.Random;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,8 +11,8 @@ import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.gamestates.GameStatePlaying;
-import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.gametypes.GameTypeCampaign;
+import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.MessagesHandler;
 import com.bomber.remote.RemoteConnections;
 import com.bomber.renderers.WorldRenderer;
@@ -47,23 +49,31 @@ public class Game implements ApplicationListener {
 	private MessagesHandler mMessagesHandler;
 	public static boolean mHasStarted;
 	public static RemoteConnections mRemoteConnections;
-
+	public static Random mRandomGenerator;
+	public static int mRandomSeed;
 	private static AndroidBridge mMainActivity;
+	
+	public static String mLevelToLoad;
 
-	public Game(AndroidBridge _bridge, short _gameType) {
+	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		setGameType(_gameType);
+		
+		mRandomSeed = (int) System.currentTimeMillis();
+		mRandomGenerator = new Random(mRandomSeed);
 		
 		mMainActivity = _bridge;
 		mHasStarted = false;
 		mRemoteConnections = null;
-
+		mLevelToLoad = _levelToLoad;
+		
 		mMessagesHandler = new MessagesHandler();
 	}
+
 
 	public void setConnections(RemoteConnections _conns)
 	{
 		mMessagesHandler.setConnections(_conns);
-		_conns.mGame = this;
+		RemoteConnections.mGame = this;
 		mRemoteConnections = _conns;
 	}
 
@@ -133,7 +143,7 @@ public class Game implements ApplicationListener {
 
 		mGameState = new GameStateLoading(this);
 
-		mWorld = new GameWorld(new GameTypeCampaign(), "level1");
+		mWorld = new GameWorld(new GameTypeCampaign(), mLevelToLoad);
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 
 		mMessagesHandler.mWorld = mWorld;

@@ -13,8 +13,12 @@ public class BomberDesktop {
 	 */
 	public static void main(String[] args)
 	{
-		Game newGame = new Game(null, DebugSettings.GAME_TYPE);
+		Game newGame = new Game(null, DebugSettings.GAME_TYPE, DebugSettings.LEVEL_TO_LOAD);
 		new LwjglApplication(newGame, "Bomber", 800, 480, false);
+		
+		if(!Game.mIsPVPGame)
+			return;
+		
 		RemoteConnections tmpConnections = RemoteConnections.create(DebugSettings.REMOTE_PROTOCOL_IN_USE, DebugSettings.START_DESKTOP_AS_SERVER, DebugSettings.REMOTE_SERVER_ADDRESS);
 		if (tmpConnections == null)
 			GameStateLoading.mFailedToConnectToServer = true;

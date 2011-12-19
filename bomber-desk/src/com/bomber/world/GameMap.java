@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
+import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
@@ -106,11 +107,11 @@ public class GameMap {
 			throw new InvalidParameterException();
 	}
 
-	public void setupBonus(short _quantity, short _seed)
+	public void setupBonus(short _quantity)
 	{
 		Tile tileAtPosition = null;
 		boolean positionIsAvailable;
-		Random randomGenerator = new Random(_seed);
+		Random randomGenerator = Game.mRandomGenerator;
 	
 		for (int i = 0; i < _quantity; i++)
 		{
@@ -727,7 +728,7 @@ public class GameMap {
 			throw new InvalidParameterException("Tipo inválido");
 		}
 
-		Random randomGenerator = new Random();
+		Random randomGenerator = Game.mRandomGenerator;
 		short col;
 		short lin;
 		Tile tileAtPosition = null;

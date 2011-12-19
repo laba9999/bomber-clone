@@ -102,6 +102,7 @@ public class GameWorld {
 			{
 				p.mIsLocalPlayer = true;
 				mLocalPlayer = p;
+				break;
 			}
 	}
 
@@ -148,6 +149,7 @@ public class GameWorld {
 	public void reset(String _levelToload)
 	{
 		mMonsters.clear();
+		mPlayers.clear();
 		mSpawnedBonus.clear();
 		mBombs.clear();
 		mExplosions.clear();
@@ -156,7 +158,7 @@ public class GameWorld {
 
 		Level.loadLevel(_levelToload, this, Game.mNumberPlayers);
 
-		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
+		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
 			mMap.placePortal();
 
 		mClock.start();

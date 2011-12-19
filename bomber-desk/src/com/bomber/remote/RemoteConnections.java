@@ -32,7 +32,7 @@ public class RemoteConnections {
 		mProtocolInUse = _protocol;
 		mGame = null;
 		mLocalID = 0;
-		
+
 		mRecvMessages = new MessageContainer();
 		mPlayers = new ArrayList<Connection>();
 
@@ -45,14 +45,17 @@ public class RemoteConnections {
 	public synchronized void removePlayer(short _id)
 	{
 		// Se for o servidor então retorna
-		if(!mGameServer.isConnected() && !mIsGameServer)
+		if (!mGameServer.isConnected() && !mIsGameServer)
 			return;
-		
+
 		int idx = 0;
 		for (; idx < mPlayers.size(); idx++)
 		{
 			if (mPlayers.get(idx).mRemoteID == _id)
+			{
+				mGameServer.mAvailableIds.push(_id);
 				break;
+			}
 		}
 
 		if (idx == mPlayers.size())
@@ -143,12 +146,11 @@ public class RemoteConnections {
 
 		Connection tmpConn = ObjectFactory.CreateConnection.Create(_protocol, _connectionString, mRecvMessages);
 
-		
 		if (tmpConn == null)
 			return false;
-		
+
 		tmpConn.mLocalID = mLocalID;
-		
+
 		tmpConn.setDaemon(true);
 		tmpConn.start();
 		mPlayers.add(tmpConn);

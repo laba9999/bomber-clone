@@ -1,6 +1,7 @@
 package com.bomber.remote;
 
 import java.util.List;
+import java.util.Stack;
 
 import com.bomber.DebugSettings;
 import com.bomber.Game;
@@ -11,7 +12,7 @@ public class GameServer {
 	private Connection mConnection = null;
 	private List<Connection> mPlayers;
 
-	private static short mLastGivenId = 0;
+	public Stack<Short> mAvailableIds;
 
 	// Esta variável é muito importante!!!
 	public boolean mReadyToStart = false;
@@ -26,7 +27,11 @@ public class GameServer {
 	public GameServer(Connection _server, List<Connection> _players) {
 		mConnection = _server;
 		mPlayers = _players;
-		mLastGivenId = 0;
+
+		mAvailableIds = new Stack<Short>();
+		mAvailableIds.push((short) 1);
+		mAvailableIds.push((short) 2);
+		mAvailableIds.push((short) 3);
 	}
 
 	public boolean isConnected()
@@ -70,7 +75,6 @@ public class GameServer {
 			if (Game.mHasStarted && mPlayers.size() == 0)
 				RemoteConnections.mGame.setGameState(new GameStateServerConnectionError(RemoteConnections.mGame, "Sem clientes..."));
 		}
-
 	}
 
 	private void continueCountdown()
@@ -104,11 +108,18 @@ public class GameServer {
 		tmpMessage.eventType = EventType.SET_ID;
 
 		// Atribui os id's finais a cada um dos players
-		for (; _starIdx < mPlayers.size(); _starIdx++)
+		for (short i = _starIdx; i < mPlayers.size(); i++)
 		{
-			tmpMessage.valShort = ++mLastGivenId;
+			tmpMessage.valShort = mAvailableIds.pop();
 			mPlayers.get(_starIdx).sendMessage(tmpMessage);
 		}
+
+		// Envia a seed a usar nos randoms
+		tmpMessage.messageType = MessageType.GAME;
+		tmpMessage.eventType = EventType.RANDOM_SEED;
+		tmpMessage.valInt = Game.mRandomSeed;
+		for (; _starIdx < mPlayers.size(); _starIdx++)
+			mPlayers.get(_starIdx).sendMessage(tmpMessage);
 	}
 
 	public boolean startInterconnectSequence()
