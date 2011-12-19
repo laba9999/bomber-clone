@@ -13,11 +13,20 @@ import com.bomber.remote.RemoteConnections;
 
 public class AndroidGame extends AndroidApplication implements AndroidBridge{
 
+
+    @Override
+    protected void onDestroy()
+    {
+            super.onDestroy();
+            Game.mRemoteConnections.closeAll("Aplication exited!");
+            
+            // Para grandes males grandes remédios...
+            //System.exit(1);
+    }
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO Auto-generated method stub
-
 		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		super.onCreate(savedInstanceState);
@@ -26,6 +35,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge{
 
 	public void goBackToMenu() {
 		finishActivity(0);
+		
 		this.exit();
 	}
 	
