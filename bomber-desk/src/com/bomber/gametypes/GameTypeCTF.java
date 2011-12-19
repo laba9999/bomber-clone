@@ -1,7 +1,7 @@
 package com.bomber.gametypes;
 
 
-public class GameTypeCTF extends GameType {
+public class GameTypeCTF extends GameTypeHandler {
 
 	
 	public GameTypeCTF() {

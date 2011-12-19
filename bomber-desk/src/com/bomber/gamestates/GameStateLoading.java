@@ -8,23 +8,31 @@ import com.bomber.world.Level;
 public class GameStateLoading extends GameState {
 
 	public static boolean mServerAuthorizedStart = false;
-
+	public static boolean mFailedToConnectToServer = false;
+	public static Integer mCountdownSeconds = -1;
+	
 	public GameStateLoading(Game _gameScreen) {
 		super(_gameScreen);
-		// TODO Auto-generated constructor stub
+		
+		mServerAuthorizedStart = false;
+		mFailedToConnectToServer = false;
+		mCountdownSeconds = -1;
 	}
 
 	@Override
 	public void onUpdate()
 	{
-		if(Level.mIsLoaded) 
-		{
-			if( Game.mIsPVPGame && !mServerAuthorizedStart)
-				return;
-			
-			mGame.mGameState = new GameStatePlaying(mGame);
-		}
+		if (Game.mIsPVPGame && mFailedToConnectToServer)
+			mGame.setGameState(new GameStateServerConnectionError(mGame, "Error connecting.."));
 		
+		if (Level.mIsLoaded)
+		{
+			if (Game.mIsPVPGame && !mServerAuthorizedStart)
+				return;
+
+			mGame.setGameState(new GameStatePlaying(mGame));
+		}
+
 	}
 
 	public void parseInput()
@@ -34,25 +42,30 @@ public class GameStateLoading extends GameState {
 
 	public void onPresent(float _interpolation)
 	{
-		mBatcher.setProjectionMatrix(mUICamera.combined);		
+		mBatcher.setProjectionMatrix(mUICamera.combined);
 		BitmapFont font = Assets.mFont;
-	
-		//desenha "paused" ao canto
-		font.draw(mBatcher,"LOADING", 350 , 250);
 
+		
+		if(mCountdownSeconds != -1)
+			font.draw(mBatcher, "Inicio em " + mCountdownSeconds.toString(), 340, 250);
+		else
+			font.draw(mBatcher, "A carregar... ", 320, 250);
+
+		
+			
 	}
 
 	@Override
 	protected void onFinish()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	protected void onUpdateFinishing()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 }

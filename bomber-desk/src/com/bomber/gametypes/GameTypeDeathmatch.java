@@ -2,7 +2,7 @@ package com.bomber.gametypes;
 
 
 
-public class GameTypeDeathmatch extends GameType {
+public class GameTypeDeathmatch extends GameTypeHandler {
 	
 	public GameTypeDeathmatch() {
 		// TODO Auto-generated constructor stub

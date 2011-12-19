@@ -3,151 +3,221 @@ package com.bomber.remote;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
-import com.bomber.DebugSettings;
 import com.bomber.Game;
-import com.bomber.gametypes.GameType;
+import com.bomber.common.ObjectFactory;
+import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.remote.tcp.TCPLocalServer;
-import com.bomber.remote.tcp.TCPMessageSocketIO;
 
 public class RemoteConnections {
-	private Connection mGameServer = null;
 
+	private GameServer mGameServer = null;
 	private ArrayList<Connection> mPlayers;
 	private LocalServer mLocalServer = null;
 
 	private boolean mAcceptingConnections = false;
-	public MessageContainer mRecvMessages = null;
+
+	public static Game mGame = null;
+	public static short mLocalID = 0;
+	public static short mProtocolInUse = -1;
 
 	public boolean mIsGameServer = false;
-
+	public MessageContainer mRecvMessages = null;
 	public Message mMessageToSend = new Message();
 
-	public RemoteConnections(boolean _isGameServer) {
+	public RemoteConnections(boolean _isGameServer, short _protocol) {
+		mProtocolInUse = _protocol;
+		mGame = null;
+		mLocalID = 0;
+		
 		mRecvMessages = new MessageContainer();
 		mPlayers = new ArrayList<Connection>();
 
 		mIsGameServer = _isGameServer;
+
+		if (mIsGameServer)
+			mGameServer = new GameServer(null, mPlayers);
 	}
 
+	public synchronized void removePlayer(short _id)
+	{
+		// Se for o servidor então retorna
+		if(!mGameServer.isConnected() && !mIsGameServer)
+			return;
+		
+		int idx = 0;
+		for (; idx < mPlayers.size(); idx++)
+		{
+			if (mPlayers.get(idx).mRemoteID == _id)
+				break;
+		}
+
+		if (idx == mPlayers.size())
+			throw new InvalidParameterException("O id não existe");
+
+		mPlayers.remove(idx);
+
+		mLocalServer.nAdded--;
+	}
+
+	/**
+	 * Atribui um ID único a este cliente para ser identificado perante o
+	 * servidor.
+	 * 
+	 * @param _id
+	 *            O novo id.
+	 */
 	public void setLocalID(short _id)
 	{
-		if (mGameServer != null)
-			mGameServer.setLocalId(_id);
+		mGameServer.setLocalId(_id);
 
 		for (int i = 0; i < mPlayers.size(); i++)
 			mPlayers.get(i).setLocalId(_id);
+
+		mLocalID = _id;
 	}
 
-	public boolean isConnectedToServer()
+	public boolean connectedToServer()
 	{
-		return mGameServer != null || mIsGameServer;
+		return mGameServer.isConnected();
 	}
 
-	public void connectToGameServer(short _protocol, String _ip, int _port) throws IOException
+	/**
+	 * 
+	 * @param _protocol
+	 *            Protocolo a usar.
+	 * @param _connectionString
+	 *            Dados da ligação. Varia consoante o protocolo. TCP p.e:
+	 *            "localhost:50087"
+	 * @return <b>true</b> caso a conexão seja bem sucedida. <b>false</b> caso a
+	 *         ligação falhe.
+	 */
+	public boolean connectToGameServer(short _protocol, String _connectionString) throws IOException
 	{
+		// Cria uma ligação ao servidor
+		Connection tmpConn = ObjectFactory.CreateConnection.Create(_protocol, _connectionString, mRecvMessages);
 
-		switch (_protocol)
+		if (tmpConn == null)
+			return false;
+
+		if (_protocol == Protocols.TCP)
 		{
-		case Protocols.TCP:
-			mGameServer = new Connection(new TCPMessageSocketIO(_ip, _port), mRecvMessages);
-
+			// Envia mensagem ao servidor a indicar a porta local onde estamos a
+			// aceitar ligações por parte de outros jogadores
 			mMessageToSend.messageType = MessageType.CONNECTION;
 			mMessageToSend.eventType = EventType.LOCAL_SERVER_PORT;
 			mMessageToSend.valInt = ((TCPLocalServer) mLocalServer).getLocalPort();
-			mGameServer.sendMessage(mMessageToSend);
-			break;
+			tmpConn.sendMessage(mMessageToSend);
 		}
 
-		if (mGameServer != null)
-		{
-			mGameServer.setDaemon(true);
-			mGameServer.start();
-		}
+		tmpConn.setDaemon(true);
+		tmpConn.start();
+
+		// Cria uma instância do objecto que representa o servidor
+		mGameServer = new GameServer(tmpConn, mPlayers);
+
+		return true;
 	}
 
-	public void connectToPlayer(short _protocol, String _ip, int _port) throws IOException
+	/**
+	 * Função chamada quando é recebida uma {@link Message} com um
+	 * {@link MessageType.CONNECTION} e um {@link EventType.CONNECT_TO} do
+	 * servidor. É efectuada uma ligação a um outro player com um endereço
+	 * constante da mensagem.
+	 * 
+	 * @param _protocol
+	 *            Protocolo a usar.
+	 * @param _connectionString
+	 *            Dados da ligação. Varia consoante o protocolo. TCP p.e:
+	 *            "localhost:50087"
+	 * @return <b>true</b> caso a conexão seja bem sucedida. <b>false</b> caso a
+	 *         ligação falhe.
+	 * @throws IOException
+	 */
+	public boolean connectToPlayer(short _protocol, String _connectionString) throws IOException
 	{
-		Connection tmpConn = null;
-		switch (_protocol)
-		{
-		case Protocols.TCP:
-			tmpConn = new Connection(new TCPMessageSocketIO(_ip, _port), mRecvMessages);
-			break;
-		}
+		Game.LOGGER.log("A tentar ligar ao cliente: " + _connectionString);
 
-		if (tmpConn != null)
-		{
-			tmpConn.setDaemon(true);
-			tmpConn.start();
-			mPlayers.add(tmpConn);
-		}
+		Connection tmpConn = ObjectFactory.CreateConnection.Create(_protocol, _connectionString, mRecvMessages);
 
+		
+		if (tmpConn == null)
+			return false;
+		
+		tmpConn.mLocalID = mLocalID;
+		
+		tmpConn.setDaemon(true);
+		tmpConn.start();
+		mPlayers.add(tmpConn);
+
+		Game.LOGGER.log("Agora também ligado a: " + _connectionString);
+		return true;
 	}
 
 	public void update()
 	{
-		mRecvMessages.update();
-		
-		if (mAcceptingConnections)
+
+		// Verifica se ainda estamos ligados ao servidor.
+		if (!mIsGameServer && !connectedToServer())
 		{
-			mLocalServer.getCachedConnections(mPlayers);
-			mAcceptingConnections = !mLocalServer.mAllConnected;
-
-			if (!mAcceptingConnections)
-			{
-
-				// TODO : comentar os sysout's
-				Game.LOGGER.log("Clientes ligados:");
-				for (int i = 0; i < mPlayers.size(); i++)
-					Game.LOGGER.log(mPlayers.get(i).toString());
-
-				if (mIsGameServer)
-				{
-					Message tmpMessage = new Message();
-					tmpMessage.messageType = MessageType.CONNECTION;
-					tmpMessage.eventType = EventType.SET_ID;
-
-					// Actualiza os id's
-					for (short i = 0; i < mPlayers.size(); i++)
-					{
-						tmpMessage.valShort = (short) (i + 1);
-						mPlayers.get(i).sendMessage(tmpMessage);
-					}
-
-					// Envia o endereço de todos a todos para que se liguem
-					// entre si
-					tmpMessage.eventType = EventType.CONNECT_TO;
-					for (short i = 0; i < mPlayers.size(); i++)
-					{
-						String address = mPlayers.get(i).getSocketAddressString();
-						String [] components  = address.split(":");
-						address = components[0] + ":" + mPlayers.get(i).mRemoteServerPort;
-						for (short c = (short) (i + 1); c < mPlayers.size(); c++)
-						{
-							tmpMessage.setStringValue(address);
-							mPlayers.get(c).sendMessage(tmpMessage);
-						}
-					}
-					
-					// Inicia o jogo
-					tmpMessage.eventType = EventType.START;
-					for (short i = 0; i < mPlayers.size(); i++)
-						mPlayers.get(i).sendMessage(tmpMessage);
-					
-					mRecvMessages.add(tmpMessage);
-				}
-
-			}
+			Game.LOGGER.log("Foi perdida a ligação ao servidor... ");
+			Game.mRemoteConnections = null;
+			if (mGame != null)
+				mGame.setGameState(new GameStateServerConnectionError(mGame, "Servidor perdido..."));
+			else
+				Game.goBackToActivities();
 		}
+
+		// TODO : comentar a linha abaixo na release.
+		// Serve apenas para actualizar a estatistica de mensagens por segundo
+		mRecvMessages.update();
+
+		if (mAcceptingConnections)
+			updateLocalServer();
 
 		// Actualiza as ligações já existentes
 		for (int i = 0; i < mPlayers.size(); i++)
 			mPlayers.get(i).update();
 
-		if (mGameServer != null && mGameServer.mIsConnected)
+		// Actualiza o servidor
+		if (mGameServer != null)
 			mGameServer.update();
+	}
+
+	private synchronized void updateLocalServer()
+	{
+		if (mLocalServer == null)
+			return;
+
+		// Verifica se existem novas ligações disponiveis
+		short nPlayers = (short) mPlayers.size();
+		mLocalServer.getCachedConnections(mPlayers);
+
+		if (mIsGameServer && nPlayers < mPlayers.size())
+		{
+			// Foram adicionados mais players por isso atribui-lhes um id
+			mGameServer.giveIds(nPlayers);
+		}
+
+		mAcceptingConnections = !mLocalServer.mAllConnected;
+
+		if (!mAcceptingConnections)
+		{
+			//
+			// Entrar aqui significa se já foram aceites o número total de
+			// ligações previstas.
+
+			// TODO : comentar este bloco na release
+			Game.LOGGER.log("Clientes ligados:");
+			for (int i = 0; i < mPlayers.size(); i++)
+				Game.LOGGER.log(mPlayers.get(i).toString());
+
+			if (mIsGameServer)
+				mGameServer.mReadyToStart = true;
+		}
 	}
 
 	/**
@@ -155,26 +225,29 @@ public class RemoteConnections {
 	 * 
 	 * @param _protocol
 	 *            O protocolo a usar um dos {@link Protocols}.
-	 * @param _port
-	 *            O porto onde ficar à escuta. Null se não se aplicar.
+	 * @param _connectionString
+	 *            Dados da ligação. Varia consoante o protocolo. TCP p.e:
+	 *            "localhost:50087"
 	 * @param _maxConnections
 	 *            O número máximo de conexões a aceitar.
 	 * @throws IOException
 	 */
-	public void acceptConnections(short _protocol, int _port, short _maxConnections) throws IOException
+	public boolean acceptConnections(short _protocol, String _connectionString, short _maxConnections) throws IOException
 	{
 		switch (_protocol)
 		{
 		case Protocols.TCP:
-			mLocalServer = new TCPLocalServer(mRecvMessages, _port, _maxConnections);
+			mLocalServer = new TCPLocalServer(mRecvMessages, Integer.valueOf(_connectionString), _maxConnections);
 		}
 
-		if (null != mLocalServer)
-		{
-			mAcceptingConnections = true;
-			mLocalServer.setDaemon(true);
-			mLocalServer.start();
-		}
+		if (null == mLocalServer)
+			return false;
+
+		mAcceptingConnections = true;
+		mLocalServer.setDaemon(true);
+		mLocalServer.start();
+
+		return true;
 	}
 
 	public void broadcast(Message _msg)
@@ -195,65 +268,63 @@ public class RemoteConnections {
 			tmpConn.sendMessage(_msg);
 		}
 
-		if (mGameServer != null && mGameServer.mIsConnected)
+		if (mGameServer != null)
 			mGameServer.sendMessage(_msg);
 	}
 
-	public static RemoteConnections create(short _gameType, boolean _isServer, String _serverAddress, int _serverPort)
+	public static RemoteConnections create(short _protocol, boolean _isServer, String _serverAddress)
 	{
-		RemoteConnections connections = new RemoteConnections(_isServer);
-
-		short nPlayers;
-		switch (_gameType)
-		{
-		case GameType.CTF:
-		case GameType.DEADMATCH:
-			nPlayers = 2;
-			break;
-		case GameType.TEAM_CTF:
-		case GameType.TEAM_DEADMATCH:
-			nPlayers = 4;
-			break;
-		default:
-			throw new InvalidParameterException("Tipo de jogo PvP desconhecido!");
-		}
-
-		nPlayers = DebugSettings.NUMBER_OF_PLAYERS;
+		RemoteConnections connections = new RemoteConnections(_isServer, _protocol);
 		if (!_isServer)
 		{
+
+			// Cria um servidor local que vai aceitar ligações por parte de
+			// outros jogadores, num porto aleatório. Isto tem que ser lançado
+			// antes da ligação ao servidor porque é necessário indicar ao
+			// servidor o porto em que vamos estar à escuta.
 			Random r = new Random(System.nanoTime());
+			Integer port = r.nextInt(100) + 50006;
 			try
 			{
-				System.out.println("À espera de ligações...");
-				connections.acceptConnections(Protocols.TCP, r.nextInt(100) + 50006, (short) (nPlayers - 1));
+				Game.LOGGER.log("A ligar o servidor local no porto: " + port);
+				connections.acceptConnections(_protocol, port.toString(), (short) (Game.mNumberPlayers - 1));
+				Game.LOGGER.log("À espera de ligações...");
 			} catch (IOException e)
 			{
+				Game.LOGGER.log("Erro ao lançar o servidor local.");
 				e.printStackTrace();
-				System.exit(-1);
+				return null;
 			}
 
 			// Liga ao servidor
 			try
 			{
-				connections.connectToGameServer(Protocols.TCP, _serverAddress, _serverPort);
-				// Game.LOGGER.log("Connectado ao servidor!");
+				Game.LOGGER.log("A tentar ligar ao servidor de jogo...");
+				connections.connectToGameServer(_protocol, _serverAddress);
+				Game.LOGGER.log("Connectado ao servidor!");
 			} catch (IOException e)
 			{
+				Game.LOGGER.log("Erro ao ligar ao servidor de jogo.");
 				e.printStackTrace();
-				System.exit(1);
+				return null;
 			}
 		} else
 		{
+
+			// Inicializa o servidor
 			try
 			{
-				System.out.println("À espera de ligações...");
-				connections.acceptConnections(Protocols.TCP, _serverPort, (short) (nPlayers - 1));
+				String[] addressComponents = _serverAddress.split(":");
+
+				Game.LOGGER.log("A inicializar o servidor de jogo no porto " + addressComponents[1]);
+				connections.acceptConnections(_protocol, addressComponents[1], (short) (Game.mNumberPlayers - 1));
 				if (_isServer)
-					System.out.println("Server online!");
+					Game.LOGGER.log("Server online!");
 			} catch (IOException e)
 			{
+				Game.LOGGER.log("Erro ao inicializar o servidor.");
 				e.printStackTrace();
-				System.exit(-1);
+				return null;
 			}
 		}
 
@@ -262,7 +333,6 @@ public class RemoteConnections {
 
 	public void closeAll(String _reason)
 	{
-
 		try
 		{
 			// Fecha tudo
@@ -285,7 +355,7 @@ public class RemoteConnections {
 			}
 		} catch (InterruptedException e)
 		{
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 	}
 }

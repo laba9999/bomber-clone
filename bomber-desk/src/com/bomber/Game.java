@@ -9,6 +9,7 @@ import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.gamestates.GameStatePlaying;
+import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.remote.MessagesHandler;
 import com.bomber.remote.RemoteConnections;
@@ -24,31 +25,46 @@ public class Game implements ApplicationListener {
 	public static long mCurrentTick = 0;
 	public static Integer mTicksPerSecond = 100;
 
-	public static Logger LOGGER = new Logger("TAG");
+	public static Logger LOGGER = new Logger("GAM");
 	private int mLoops;
 	private long startTime;
 	private long mNextGameTick;
 	private float mInterpolation;
 	private int ticksPerSecondCounter;
 
-	public static boolean mIsPVPGame = true;
-	
+	public static short mGameType = -1;
+	public static boolean mIsPVPGame = false;
+	public static short mNumberPlayers = 0;
+
 	public GameWorld mWorld;
 	public SpriteBatch mBatcher;
 	public OrthographicCamera mUICamera;
 	public WorldRenderer mWorldRenderer;
 
-	public GameState mGameState;
+	private GameState mGameState;
 	private long mLastGameStateChangeTime = System.currentTimeMillis();
 
 	private MessagesHandler mMessagesHandler;
+	public static boolean mHasStarted;
 	public static RemoteConnections mRemoteConnections;
-	
-	public AndroidBridge mMainActivity;
 
-	public Game(AndroidBridge _bridge,RemoteConnections _connections) {
-		mRemoteConnections = _connections;
+	private static AndroidBridge mMainActivity;
+
+	public Game(AndroidBridge _bridge, short _gameType) {
+		setGameType(_gameType);
+		
 		mMainActivity = _bridge;
+		mHasStarted = false;
+		mRemoteConnections = null;
+
+		mMessagesHandler = new MessagesHandler();
+	}
+
+	public void setConnections(RemoteConnections _conns)
+	{
+		mMessagesHandler.setConnections(_conns);
+		_conns.mGame = this;
+		mRemoteConnections = _conns;
 	}
 
 	public GameState getGameState()
@@ -56,9 +72,41 @@ public class Game implements ApplicationListener {
 		return mGameState;
 	}
 
-	public void goBackToActivities()
+	public static void goBackToActivities()
 	{
-		mMainActivity.goBackToMenu();
+		if (mMainActivity != null)
+		{
+			mMainActivity.goBackToMenu();
+		} else
+		{
+			System.exit(-1);
+		}
+	}
+
+	// A chamar antes de instanciar o objecto
+	public static void setGameType(short _type)
+	{
+		mGameType = _type;
+
+		switch (_type)
+		{
+		case GameTypeHandler.CAMPAIGN:
+			mIsPVPGame = false;
+			mNumberPlayers = 1;
+			break;
+
+		case GameTypeHandler.CTF:
+		case GameTypeHandler.DEADMATCH:
+			mIsPVPGame = true;
+			mNumberPlayers = 2;
+			break;
+
+		case GameTypeHandler.TEAM_CTF:
+		case GameTypeHandler.TEAM_DEADMATCH:
+			mIsPVPGame = true;
+			mNumberPlayers = 4;
+			break;
+		}
 	}
 
 	public void setGameState(GameState _newGameState)
@@ -87,11 +135,12 @@ public class Game implements ApplicationListener {
 
 		mWorld = new GameWorld(new GameTypeCampaign(), "level1");
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
-		mMessagesHandler = new MessagesHandler(mRemoteConnections, mWorld);
 
-		//mGameState = new GameStatePlaying(this);
+		mMessagesHandler.mWorld = mWorld;
+		// mGameState = new GameStatePlaying(this);
 
 		mNextGameTick = System.nanoTime();
+
 	}
 
 	@Override
@@ -116,10 +165,14 @@ public class Game implements ApplicationListener {
 			}
 
 			mGameState.update();
-			mRemoteConnections.update();
-			
-			for (short i = 0; i < MAX_PARSED_MESSAGES_PER_TICK; i++)
-				mMessagesHandler.parseNextMessage();
+
+			if (mIsPVPGame && mRemoteConnections != null)
+			{
+				mRemoteConnections.update();
+
+				for (short i = 0; i < MAX_PARSED_MESSAGES_PER_TICK; i++)
+					mMessagesHandler.parseNextMessage();
+			}
 
 			mNextGameTick += SKIP_TICKS;
 			mLoops++;

@@ -1,6 +1,7 @@
 package com.bomber.remote;
 
 import java.io.IOException;
+import java.security.InvalidParameterException;
 
 import com.bomber.Game;
 import com.bomber.gameobjects.Player;
@@ -8,12 +9,12 @@ import com.bomber.gamestates.GameStateLoading;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
-	GameWorld mWorld;
-	public MessageContainer mMessageContainer;
+	public GameWorld mWorld;
+	MessageContainer mMessageContainer;
 	RemoteConnections mRemoteConnections;
 
-	public MessagesHandler(RemoteConnections _connections, GameWorld _world) {
-		mWorld = _world;
+	public void setConnections(RemoteConnections _connections)
+	{
 		mMessageContainer = _connections.mRecvMessages;
 		mRemoteConnections = _connections;
 	}
@@ -25,12 +26,6 @@ public class MessagesHandler {
 
 		// TODO : Adicionar os restantes tipos
 		Message tmpMessage = mMessageContainer.getNext();
-
-		if (tmpMessage.eventType == EventType.DISCONNECT)
-		{
-			Game.LOGGER.log(tmpMessage.getStringValue());
-			return;
-		}
 
 		switch (tmpMessage.messageType)
 		{
@@ -47,6 +42,9 @@ public class MessagesHandler {
 		case MessageType.CONNECTION:
 			parseConnectionMessage(tmpMessage);
 			break;
+		case MessageType.GAME:
+			parseGameMessage(tmpMessage);
+			break;
 		default:
 			break;
 		}
@@ -61,16 +59,15 @@ public class MessagesHandler {
 		{
 		case EventType.SET_ID:
 			mRemoteConnections.setLocalID(_msg.valShort);
+			if (mWorld == null)
+				throw new InvalidParameterException("world == null");
 			mWorld.setLocalPlayer(_msg.valShort);
 			break;
 
 		case EventType.CONNECT_TO:
-			
-			Game.LOGGER.log("A tentar ligar ao cliente: " + _msg.getStringValue());
-			String[] data = _msg.getStringValue().split(":");
 			try
 			{
-				mRemoteConnections.connectToPlayer(Protocols.TCP, data[0], Integer.valueOf(data[1]));
+				mRemoteConnections.connectToPlayer(RemoteConnections.mProtocolInUse, _msg.getStringValue());
 			} catch (IOException e)
 			{
 				e.printStackTrace();
@@ -78,8 +75,16 @@ public class MessagesHandler {
 
 			break;
 
-		case EventType.START:
-			GameStateLoading.mServerAuthorizedStart = true;
+		case EventType.DISCONNECTED:
+			Game.LOGGER.log(_msg.getStringValue());
+
+			if (Game.mHasStarted)
+				mWorld.onPlayerDisconnect(_msg.valShort);
+			else
+			{
+				// Abre mais uma vaga
+				mRemoteConnections.removePlayer(_msg.valShort);
+			}
 			break;
 		}
 	}
@@ -140,8 +145,8 @@ public class MessagesHandler {
 		{
 		case EventType.CREATE:
 			mWorld.spawnBomb(_msg.valShort, _msg.valVector2_0);
-
 			break;
+
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
 		}
@@ -152,6 +157,24 @@ public class MessagesHandler {
 		System.out.println("Nova mensagem:");
 		System.out.println("Tipo: BOMB");
 		System.out.println(_msg.toString());
+	}
+
+	private void parseGameMessage(Message _msg)
+	{
+		switch (_msg.eventType)
+		{
+		case EventType.COUNTDOWN:
+			GameStateLoading.mCountdownSeconds =  _msg.valInt;
+			break;
+
+		case EventType.START:
+			GameStateLoading.mServerAuthorizedStart = true;
+			Game.mHasStarted = true;
+			break;
+			
+		default:
+			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+		}
 	}
 
 	private void parseBonusMessage(Message _msg)

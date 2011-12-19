@@ -1,6 +1,8 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -11,6 +13,7 @@ import com.bomber.Game;
 import com.bomber.common.Assets;
 import com.bomber.input.Input;
 import com.bomber.remote.MessageContainer;
+import com.bomber.remote.RemoteConnections;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
@@ -63,6 +66,9 @@ public abstract class GameState {
 	public void present(float _interpolation)
 	{
 		mBatcher.begin();
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
 		onPresent(_interpolation);
 
 		// Informação de debug
@@ -85,8 +91,9 @@ public abstract class GameState {
 		{
 			Integer fps = Gdx.graphics.getFramesPerSecond();
 			font.draw(mBatcher, "F: " + fps.toString(), 100, 470);
-			font.draw(mBatcher, "T: " +Game.mTicksPerSecond.toString(), 165, 470);
-			font.draw(mBatcher, "M: " +MessageContainer.mMessagesPerSecond.toString(), 570, 470);
+			font.draw(mBatcher, "T: " + Game.mTicksPerSecond.toString(), 165, 470);
+			font.draw(mBatcher, "M: " + MessageContainer.mMessagesPerSecond.toString(), 570, 470);
+			font.draw(mBatcher, "ID: " + RemoteConnections.mLocalID, 645, 470);
 		}
 	}
 

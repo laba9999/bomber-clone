@@ -1,5 +1,6 @@
 package com.bomber.common;
 
+import java.io.IOException;
 import java.security.InvalidParameterException;
 
 import com.bomber.OverlayingText;
@@ -16,10 +17,30 @@ import com.bomber.gameobjects.bonus.BonusPush;
 import com.bomber.gameobjects.bonus.BonusShield;
 import com.bomber.gameobjects.bonus.BonusSpeed;
 import com.bomber.gameobjects.monsters.Monster;
+import com.bomber.remote.Connection;
 import com.bomber.remote.Message;
+import com.bomber.remote.MessageContainer;
+import com.bomber.remote.Protocols;
+import com.bomber.remote.tcp.TCPMessageSocketIO;
 import com.bomber.world.GameWorld;
 
 public final class ObjectFactory {
+
+	public static class CreateConnection {
+
+		public static Connection Create(short _protocol, String _connectionString, MessageContainer _msgContainer) throws NumberFormatException, IOException
+		{
+			switch (_protocol)
+			{
+			case Protocols.TCP:
+				String[] data = _connectionString.split(":");
+				return new Connection(new TCPMessageSocketIO(data[0], Integer.valueOf(data[1])), _msgContainer);
+			default:
+				throw new InvalidParameterException("Protocolo não implementado!");
+			}
+		}
+	}
+
 	public static class CreatePlayer extends Factory<Player> {
 
 		GameWorld mWorld;

@@ -2,12 +2,12 @@ package com.bomber.gametypes;
 
 import com.bomber.world.GameWorld;
 
-public abstract class GameType {	
+public abstract class GameTypeHandler {	
 	
 	public GameWorld mGameWorld = null;
 	public boolean mNeedsPortal = false;
 	
-	public GameType() {
+	public GameTypeHandler() {
 		mGameWorld = null;
 	}
 	

@@ -72,7 +72,7 @@ public class MessageContainer {
 			mMessages.addFirst(tmpMessage);
 			break;
 
-		case EventType.DISCONNECT:
+		case EventType.DISCONNECTED:
 			tmpMessage = mMessagesPool.getFreeObject();
 			_message.cloneTo(tmpMessage);
 			mMessages.addFirst(tmpMessage);
