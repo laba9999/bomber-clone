@@ -2,7 +2,7 @@
 level4
 
 #minutos
-1
+5
 
 #segundos
 13

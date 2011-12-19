@@ -28,6 +28,7 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 	@Override
 	public String toString()
 	{
+		//return mSocket.getInetAddress().toString() + ":" + mSocket.getPort();
 		return mSocket.getInetAddress().getHostAddress().toString() + ":" + mSocket.getPort();
 	}
 

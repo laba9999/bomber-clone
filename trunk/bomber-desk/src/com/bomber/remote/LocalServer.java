@@ -19,7 +19,7 @@ public abstract class LocalServer extends Thread {
 	private MessageContainer mMessageContainer;
 
 	private short mMax = 0;
-	
+	public  short nAdded = 0;
 	public boolean mAllConnected = false;
 	
 	public LocalServer(MessageContainer _msgContainer, short _max) {
@@ -42,7 +42,7 @@ public abstract class LocalServer extends Thread {
 	@Override
 	public void run()
 	{
-		short nAdded = 0;
+
 		while (mKeepReceiving && nAdded++ < mMax)
 		{
 			waitForConnection();
@@ -68,7 +68,7 @@ public abstract class LocalServer extends Thread {
 		while (!mConnectionsCache.isEmpty())
 		{
 			tmpConnection = mConnectionsCache.remove();
-			_container.add(tmpConnection.mLocalID, tmpConnection);
+			_container.add(tmpConnection);
 		}
 	}
 

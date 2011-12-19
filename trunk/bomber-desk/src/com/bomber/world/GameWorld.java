@@ -22,7 +22,7 @@ import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
-import com.bomber.gametypes.GameType;
+import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.gametypes.GameTypeCTF;
 import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.gametypes.GameTypeDeathmatch;
@@ -37,20 +37,18 @@ public class GameWorld {
 	public ObjectsPool<Drawable> mExplosions;
 	public ObjectsPool<OverlayingText> mOverlayingPoints;
 
-	public GameType mGameType;
+	public GameTypeHandler mGameTypeHandler;
 	public GameMap mMap;
 	public ArrayList<Team> mTeams = new ArrayList<Team>();
 	public Clock mClock;
 
 	public String mNextLevelName;
-
-	private short mNumberPlayers;
 	private Player mLocalPlayer = null;
 
-	public GameWorld(GameType _gameType, String _startLevelName) {
+	public GameWorld(GameTypeHandler _gameType, String _startLevelName) {
 
-		mGameType = _gameType;
-		mGameType.mGameWorld = this;
+		mGameTypeHandler = _gameType;
+		mGameTypeHandler.mGameWorld = this;
 
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
@@ -58,11 +56,11 @@ public class GameWorld {
 
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
-		mPlayers = new ObjectsPool<Player>(mNumberPlayers, new ObjectFactory.CreatePlayer(this));
+		mPlayers = new ObjectsPool<Player>(Game.mNumberPlayers, new ObjectFactory.CreatePlayer(this));
 
 		// Assumimos que cada player vai poder colocar em termos médios 2 bombas
 		// de cada vez
-		short nBombs = (short) (2 * mNumberPlayers);
+		short nBombs = (short) (2 * Game.mNumberPlayers);
 		mBombs = new ObjectsPool<Bomb>(nBombs, new ObjectFactory.CreateBomb(this));
 
 		// Assumimos que cada bomba vai ter um poder de explosão médio de 3,
@@ -78,15 +76,23 @@ public class GameWorld {
 
 		// Lê o nivel
 		mClock = new Clock();
-		
-		// TODO : apagar a linha seguinte
-		mNumberPlayers = DebugSettings.NUMBER_OF_PLAYERS;
-		Level.loadLevel(_startLevelName, this, mNumberPlayers);
 
-		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
+		Level.loadLevel(_startLevelName, this, Game.mNumberPlayers);
+
+		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
 			mMap.placePortal();
 
 		mClock.start();
+	}
+
+	public void onPlayerDisconnect(short _color)
+	{
+		for (Player p : mPlayers)
+			if (p.mColor == _color)
+			{
+				mPlayers.releaseObject(p);
+				break;
+			}
 	}
 
 	public void setLocalPlayer(short _color)
@@ -104,19 +110,19 @@ public class GameWorld {
 		if (mLocalPlayer != null)
 			return mLocalPlayer;
 
-//		if (!Game.mIsPVPGame)
-//		{
-			for (Player p : mPlayers)
-				if (p.mColor == Player.WHITE)
-				{
-					mLocalPlayer = p;
-					p.mIsLocalPlayer = true;
-					break;
-				}
-//		} else
-//		{
-//
-//		}
+		// if (!Game.mIsPVPGame)
+		// {
+		for (Player p : mPlayers)
+			if (p.mColor == Player.WHITE)
+			{
+				mLocalPlayer = p;
+				p.mIsLocalPlayer = true;
+				break;
+			}
+		// } else
+		// {
+		//
+		// }
 
 		return mLocalPlayer;
 	}
@@ -148,7 +154,7 @@ public class GameWorld {
 		mOverlayingPoints.clear();
 		mMap.reset(mMap.mWidth, mMap.mHeight);
 
-		Level.loadLevel(_levelToload, this, mNumberPlayers);
+		Level.loadLevel(_levelToload, this, Game.mNumberPlayers);
 
 		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
 			mMap.placePortal();
@@ -173,19 +179,21 @@ public class GameWorld {
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
 
-//		if (mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
-//		{
-//			mLocalPlayer.reset();
-//			mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
-//			mLocalPlayer.mColor = Player.getColorFromString(_type);
-//			mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-//			mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-//			return;
-//		}
-		
-		for(Player p : mPlayers)
+		// if (mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
+		// {
+		// mLocalPlayer.reset();
+		// mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
+		// mLocalPlayer.mColor = Player.getColorFromString(_type);
+		// mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE +
+		// Tile.TILE_SIZE_HALF;
+		// mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE +
+		// Tile.TILE_SIZE_HALF;
+		// return;
+		// }
+
+		for (Player p : mPlayers)
 		{
-			if(p.mColor == Player.getColorFromString(_type))
+			if (p.mColor == Player.getColorFromString(_type))
 			{
 				p.reset();
 				p.setMovableAnimations(Assets.mPlayers.get(_type));
@@ -196,7 +204,7 @@ public class GameWorld {
 				p.stop();
 				return;
 			}
-		}	
+		}
 
 		Player tmpPlayer = mPlayers.getFreeObject();
 
@@ -447,7 +455,7 @@ public class GameWorld {
 		updateOverlayingText();
 
 		// TODO: Alterar Textura
-		if (mGameType.mNeedsPortal && mGameType.isObjectiveAcomplished() && mMap.mPortal != null && !mMap.mPortal.mPlayAnimation)
+		if (mGameTypeHandler.mNeedsPortal && mGameTypeHandler.isObjectiveAcomplished() && mMap.mPortal != null && !mMap.mPortal.mPlayAnimation)
 		{
 			mMap.mPortal.mPlayAnimation = true;
 			mMap.mPortal.mAutoRepeat = true;

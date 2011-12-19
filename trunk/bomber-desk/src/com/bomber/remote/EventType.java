@@ -12,12 +12,18 @@ public class EventType {
 	
 	// short contém o remoteid da ligação que corresponde ao mRemoteId do Player
 	// string contém a razão
-	public static final short DISCONNECT = 7;
+	public static final short DISCONNECTED = 7;
 	
 	// Indica ao cliente para se ligar a outro
+	// string contém os dados da ligação p.e "ip:porto"
 	public static final short CONNECT_TO = 8;
 	public static final short PING = 9;
 	public static final short PONG = 10;
 	public static final short SET_ID = 11;
 	public static final short LOCAL_SERVER_PORT = 12;
+	public static final short STOP_LOCAL_SERVER = 13;
+	
+	// Indica os segundos até o jogo iniciar
+	// o valor dos segundos vem no valShort
+	public static final short COUNTDOWN = 13;
 }

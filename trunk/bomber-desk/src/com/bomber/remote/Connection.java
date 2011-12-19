@@ -79,7 +79,7 @@ public class Connection extends Thread {
 		// Avisa o World através de uma mensagem
 		// Para verificar se foi o server basta comparar o valShort com o
 		// RemoteId do atributo mGameServer
-		mMessageForInternalUse.eventType = EventType.DISCONNECT;
+		mMessageForInternalUse.eventType = EventType.DISCONNECTED;
 		mMessageForInternalUse.valShort = mRemoteID;
 		mMessageForInternalUse.setStringValue(_reason);
 		mMessagesContainer.add(mMessageForInternalUse);
@@ -99,7 +99,7 @@ public class Connection extends Thread {
 		{
 			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE && mTimeoutsCounter++ > MAX_TIMEOUTS)
 			{
-				Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - Conexion " + mLocalID + " timed out...");
+				Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - Conexion " + mRemoteID + " timed out...");
 				disconnect("Timeout!");
 			}
 		} else

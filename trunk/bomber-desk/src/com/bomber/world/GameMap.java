@@ -767,7 +767,7 @@ public class GameMap {
 		mPortal.mPositionInArray = _t.mPositionInArray;
 		mTilesMap.set(_t.mPositionInArray, mPortal);
 
-		if(!mWorld.mGameType.isObjectiveAcomplished())
+		if(!mWorld.mGameTypeHandler.isObjectiveAcomplished())
 			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, false, false);
 		else
 			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, true, true);

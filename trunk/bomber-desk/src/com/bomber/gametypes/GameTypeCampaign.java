@@ -3,7 +3,7 @@ package com.bomber.gametypes;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 
-public class GameTypeCampaign extends GameType {
+public class GameTypeCampaign extends GameTypeHandler {
 
 	public GameTypeCampaign() {
 		super();
