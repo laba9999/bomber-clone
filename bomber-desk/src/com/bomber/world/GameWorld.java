@@ -2,7 +2,6 @@ package com.bomber.world;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
@@ -23,11 +22,6 @@ import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
 import com.bomber.gametypes.GameTypeHandler;
-import com.bomber.gametypes.GameTypeCTF;
-import com.bomber.gametypes.GameTypeCampaign;
-import com.bomber.gametypes.GameTypeDeathmatch;
-import com.bomber.remote.Message;
-import com.bomber.remote.RemoteConnections;
 
 public class GameWorld {
 	public ObjectsPool<Monster> mMonsters;
@@ -226,16 +220,17 @@ public class GameWorld {
 		tmpBonus.mPosition.y = _container.mPosition.y + Tile.TILE_SIZE_HALF;
 	}
 
-	public boolean spawnBomb(short _bombPower, Vector2 _playerPosition)
+	public boolean spawnBomb(short _playerColor, short _bombPower, Vector2 _position)
 	{
-		Tile tmpTile = mMap.getTile(_playerPosition);
+		Tile tmpTile = mMap.getTile(_position);
 		if (tmpTile.mContainsBomb)
 			return false;
 
 		Bomb tmpBomb = mBombs.getFreeObject();
-
+		
 		tmpTile.mContainsBomb = true;
 		tmpBomb.mContainer = tmpTile;
+		tmpBomb.mDropedBy = _playerColor;
 
 		// Actualiza os atributos
 		tmpBomb.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
@@ -265,7 +260,7 @@ public class GameWorld {
 
 	}
 
-	private void explodeObjects(Tile _tile)
+	private void explodeObjects(Tile _tile, Bomb _bomb)
 	{
 		int objTileIdx;
 
@@ -277,7 +272,7 @@ public class GameWorld {
 			// Verifica se estão no mesmo tile
 			if (objTileIdx == _tile.mPositionInArray)
 			{
-				m.kill();
+				m.kill(_bomb.mDropedBy);
 				continue;
 			}
 
@@ -286,7 +281,7 @@ public class GameWorld {
 			{
 				if (objectCloseToExplosion(_tile, m, objTileIdx, Directions.UP))
 				{
-					m.kill();
+					m.kill(_bomb.mDropedBy);
 					continue;
 				}
 			}
@@ -295,7 +290,7 @@ public class GameWorld {
 		// Verifica outras bombas
 		for (Bomb b : mBombs)
 			if (b.mContainer.mPositionInArray == _tile.mPositionInArray)
-				b.kill();
+				b.kill(_bomb.mDropedBy);
 
 		if (!DebugSettings.PLAYER_DIE_WITH_EXPLOSIONS)
 			return;
@@ -306,7 +301,7 @@ public class GameWorld {
 			objTileIdx = mMap.calcTileIndex(p.mPosition);
 			if (objTileIdx == _tile.mPositionInArray)
 			{
-				p.kill();
+				p.kill(_bomb.mDropedBy);
 				continue;
 			}
 		}
@@ -332,7 +327,7 @@ public class GameWorld {
 		tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
 
 		// Limpa o sarampo ao que estiver neste tile
-		explodeObjects(tmpTile);
+		explodeObjects(tmpTile, _bomb);
 
 		//
 		// Para cada um dos lados, calcula o tamanho da explosão e adiciona
@@ -350,7 +345,7 @@ public class GameWorld {
 
 				// Se o tile é destrutivel, explode-o
 				if (tmpTile.mType == Tile.DESTROYABLE)
-					mMap.explodeTile(tmpTile);
+					mMap.explodeTile(tmpTile, _bomb);
 
 				// Cria os restantes componentes da explosão, não incluindo o
 				// central e o tile encontrado
@@ -362,7 +357,7 @@ public class GameWorld {
 					tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
 
 					// Limpa o sarampo ao que estiver neste tile
-					explodeObjects(tmpTile);
+					explodeObjects(tmpTile, _bomb);
 
 					if (i == Directions.LEFT || i == Directions.RIGHT)
 						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_hor"), (short) 4, true, false);
@@ -383,7 +378,7 @@ public class GameWorld {
 					tmpExplosion = mExplosions.getFreeObject();
 					tmpExplosion.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
 					tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
-					explodeObjects(tmpTile);
+					explodeObjects(tmpTile, _bomb);
 
 					if (i == Directions.LEFT || i == Directions.RIGHT)
 						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_hor"), (short) 4, true, false);
@@ -398,7 +393,7 @@ public class GameWorld {
 				tmpExplosion.mPosition.y = tmpTile.mPosition.y + Tile.TILE_SIZE_HALF;
 
 				// Limpa o sarampo ao que estiver neste tile
-				explodeObjects(tmpTile);
+				explodeObjects(tmpTile, _bomb);
 
 				// Adiciona a ponta
 				if (i == Directions.LEFT)

@@ -17,6 +17,7 @@ import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
 import com.bomber.gameobjects.Bomb;
+import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.WorldMovableObject;
 
@@ -112,20 +113,20 @@ public class GameMap {
 		Tile tileAtPosition = null;
 		boolean positionIsAvailable;
 		Random randomGenerator = Game.mRandomGenerator;
-	
+
 		for (int i = 0; i < _quantity; i++)
 		{
 			do
 			{
 				// gera posição aleatória
 				short positionInArray = (short) randomGenerator.nextInt(mWidth * mHeight);
-	
+
 				// verifica se o tile na posição gerada é walkable
 				tileAtPosition = mTilesMap.get(positionInArray);
-	
+
 				positionIsAvailable = tileAtPosition.mType == Tile.DESTROYABLE && !tileAtPosition.containsBonus() && !tileAtPosition.mIsPortal;
 			} while (!positionIsAvailable);
-	
+
 			if (positionIsAvailable)
 				tileAtPosition.mContainedBonusType = (short) randomGenerator.nextInt(7);
 		}
@@ -147,7 +148,7 @@ public class GameMap {
 
 		mImutableTiles.clear(true);
 		mDestroyableTiles.clear();
-		
+
 		mPortal = null;
 	}
 
@@ -169,7 +170,7 @@ public class GameMap {
 			mTilesMap.set(tl.mPositionInArray, tl);
 	}
 
-	public void explodeTile(Tile _tile)
+	public void explodeTile(Tile _tile, Bomb _bomb)
 	{
 		if (_tile.mType != Tile.DESTROYABLE)
 			return;
@@ -177,8 +178,16 @@ public class GameMap {
 		_tile.explode();
 
 		// Prémio! :)
-		mWorld.spawnOverlayingPoints("+100", _tile.mPosition.x, _tile.mPosition.y + Tile.TILE_SIZE);
-		mWorld.getLocalPlayer().mPoints += Tile.POINTS;
+		for (Player p : mWorld.mPlayers)
+		{
+			if (p.mColor == _bomb.mDropedBy)
+			{
+				p.mPoints += Tile.POINTS;
+
+				if (mWorld.getLocalPlayer().mColor == p.mColor)
+					mWorld.spawnOverlayingPoints("+100", _tile.mPosition.x, _tile.mPosition.y + Tile.TILE_SIZE);
+			}
+		}
 
 		// Verifica se tem bónus
 		if (_tile.containsBonus())
@@ -192,7 +201,7 @@ public class GameMap {
 		_tile.clone(tmpTile);
 
 		// Verifica se é o portal
-		if (_tile.mIsPortal)
+		if (!Game.mIsPVPGame && _tile.mIsPortal)
 		{
 			spawnPortal(_tile);
 			return;
@@ -466,10 +475,10 @@ public class GameMap {
 			if (tmpTile.mLooped)
 				mTilesBeingDestroyed.releaseObject(tmpTile);
 		}
-		
-		if( mPortal!= null)
+
+		if (mPortal != null)
 			mPortal.update();
-		
+
 	}
 
 	/**
@@ -768,13 +777,11 @@ public class GameMap {
 		mPortal.mPositionInArray = _t.mPositionInArray;
 		mTilesMap.set(_t.mPositionInArray, mPortal);
 
-		if(!mWorld.mGameTypeHandler.isObjectiveAcomplished())
+		if (!mWorld.mGameTypeHandler.isObjectiveAcomplished())
 			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, false, false);
 		else
 			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, true, true);
 
 	}
-	
-
 
 }

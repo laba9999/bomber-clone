@@ -81,7 +81,7 @@ public class Monster extends KillableObject {
 	{
 		for (Player p : mWorld.mPlayers)
 			if (getBoundingBox().contains(p.mPosition.x, p.mPosition.y))
-				p.kill();
+				p.kill((short) -1);
 	}
 
 	@Override
@@ -130,17 +130,17 @@ public class Monster extends KillableObject {
 	}
 
 	@Override
-	protected boolean onKill()
+	protected boolean onKill(short _killerId)
 	{
-		// TODO : colocar isto num metodo do GameWorld?
-		mWorld.spawnOverlayingPoints(mInfo.mPointsValueString, mPosition.x , mPosition.y+ Tile.TILE_SIZE_HALF);
-
-		mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
-
+		if (_killerId == mWorld.getLocalPlayer().mColor)
+		{
+			mWorld.spawnOverlayingPoints(mInfo.mPointsValueString, mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
+			mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
+		}
+		
 		return false;
 	}
 
-	
 	@Override
 	protected void onChangedDirection()
 	{

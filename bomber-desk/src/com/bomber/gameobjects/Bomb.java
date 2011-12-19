@@ -13,11 +13,12 @@ import com.bomber.world.GameWorld;
 public class Bomb extends KillableObject {
 
 	public short mBombPower;
+	public short mDropedBy;
 	public Tile mContainer = null;
 
 	private int mTicksSinceDrop = 0;
 
-	private static final int mTicksToExplode = 10; // 100/sec = 3secs;
+	private static final int mTicksToExplode = 300; // 100/sec = 3secs;
 
 
 	public Bomb(GameWorld _world) {
@@ -107,7 +108,7 @@ public class Bomb extends KillableObject {
 	}
 
 	@Override
-	protected boolean onKill()
+	protected boolean onKill(short _killerId)
 	{
 		return false;
 	}

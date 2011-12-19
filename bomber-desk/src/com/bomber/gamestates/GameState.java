@@ -93,7 +93,7 @@ public abstract class GameState {
 			font.draw(mBatcher, "F: " + fps.toString(), 100, 470);
 			font.draw(mBatcher, "T: " + Game.mTicksPerSecond.toString(), 165, 470);
 			font.draw(mBatcher, "M: " + MessageContainer.mMessagesPerSecond.toString(), 570, 470);
-			font.draw(mBatcher, "ID: " + RemoteConnections.mLocalID, 645, 470);
+			font.draw(mBatcher, "Id: " + RemoteConnections.mLocalID, 645, 470);
 		}
 	}
 

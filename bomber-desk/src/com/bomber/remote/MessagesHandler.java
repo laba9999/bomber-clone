@@ -136,7 +136,6 @@ public class MessagesHandler {
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
 		}
-
 	}
 
 	private void parseBombMessage(Message _msg)
@@ -144,7 +143,7 @@ public class MessagesHandler {
 		switch (_msg.eventType)
 		{
 		case EventType.CREATE:
-			mWorld.spawnBomb(_msg.valShort, _msg.valVector2_0);
+			mWorld.spawnBomb((short) _msg.valInt, _msg.valShort, _msg.valVector2_0);
 			break;
 
 		default:
