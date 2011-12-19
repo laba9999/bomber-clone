@@ -7,12 +7,12 @@ public abstract class KillableObject extends WorldMovableObject {
 
 	public boolean mIsDead = false;
 
-	final public void kill()
+	final public void kill(short _killerColor)
 	{
 		if(mIsDead)
 			return;
 		
-		boolean ignoreKill = onKill();
+		boolean ignoreKill = onKill(_killerColor);
 		
 		if( ignoreKill )
 			return;
@@ -46,5 +46,5 @@ public abstract class KillableObject extends WorldMovableObject {
 	 * 
 	 * @return Deve devolver se é suposto ignorar a morte ou não.
 	 */
-	protected abstract boolean onKill();
+	protected abstract boolean onKill(short _killerId);
 }

@@ -28,7 +28,6 @@ public class Player extends KillableObject {
 	public static final short BLUE = 2;
 	public static final short GREEN = 3;
 
-	
 	public static final float MAX_SPEED = 2;
 
 	public static final short MAX_EXPLOSION_SIZE = 6;
@@ -43,7 +42,7 @@ public class Player extends KillableObject {
 
 	public String mName;
 	private String mPointsAsString;
-	
+
 	public short mLives = 3;
 	public short mPointsMultiplier = 1;
 	public short mBombExplosionSize = 1;
@@ -73,7 +72,7 @@ public class Player extends KillableObject {
 	public ObjectsPool<PlayerEffect> mEffects;
 
 	private RemoteConnections mRemoteConnections = Game.mRemoteConnections;
-	
+
 	public Player(GameWorld _world) {
 		mWorld = _world;
 
@@ -83,27 +82,27 @@ public class Player extends KillableObject {
 
 	public void dropBomb()
 	{
-		mWorld.spawnBomb(mBombExplosionSize, mPosition);
-		
-		if(mRemoteConnections== null || !mIsLocalPlayer)
+		mWorld.spawnBomb(mColor, mBombExplosionSize, mPosition);
+
+		if (mRemoteConnections == null || !mIsLocalPlayer)
 			return;
-		
+
 		Message tmpMessage = mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.BOMB;
 		tmpMessage.eventType = EventType.CREATE;
 		tmpMessage.valVector2_0.set(mPosition);
+		tmpMessage.valShort = mColor;
 		tmpMessage.valShort = mBombExplosionSize;
-		
+
 		mRemoteConnections.broadcast(tmpMessage);
-		
-		
+
 	}
 
 	public boolean isImmune()
 	{
 		return mTicksSinceSpawn <= SPAWN_IMMUNITY_TICKS;
 	}
-	
+
 	public String getPointsAsString()
 	{
 		if (mPoints == mLastTickPoints)
@@ -238,7 +237,7 @@ public class Player extends KillableObject {
 
 		mLives = 3;
 		mPointsMultiplier = 1;
-		
+
 		mTicksSinceSpawn = 0;
 		mIsLocalPlayer = false;
 	}
@@ -249,7 +248,7 @@ public class Player extends KillableObject {
 	}
 
 	@Override
-	protected boolean onKill()
+	protected boolean onKill(short _killerId)
 	{
 		if (mTicksSinceSpawn <= SPAWN_IMMUNITY_TICKS)
 			return true;
@@ -268,7 +267,13 @@ public class Player extends KillableObject {
 			return true;
 		}
 
-		mLives--;
+		if (!Game.mIsPVPGame)
+			mLives--;
+		else if (!mIsLocalPlayer && _killerId == mWorld.getLocalPlayer().mColor)
+		{
+			mWorld.getLocalPlayer().mPoints += 500;
+			mWorld.spawnOverlayingPoints("500", mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
+		}
 
 		return false;
 	}
@@ -278,18 +283,18 @@ public class Player extends KillableObject {
 	{
 
 		mMovedSinceLastStop = true;
-		
-		if(mRemoteConnections== null || !mIsLocalPlayer || mDirection == mLastDirectionSent)
+
+		if (mRemoteConnections == null || !mIsLocalPlayer || mDirection == mLastDirectionSent)
 			return;
 		mLastDirectionSent = mDirection;
-		
+
 		Message tmpMessage = mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.PLAYER;
 		tmpMessage.eventType = EventType.MOVE;
 		tmpMessage.valVector2_0.set(mPosition);
 		tmpMessage.valShort = mDirection;
 		tmpMessage.UUID = mUUID;
-		
+
 		mRemoteConnections.broadcast(tmpMessage);
 	}
 
@@ -298,21 +303,20 @@ public class Player extends KillableObject {
 	{
 		if (!mIsDead)
 			stopCurrentAnimation();
-		
-		
-		if(mRemoteConnections== null || !mIsLocalPlayer || !mMovedSinceLastStop)
+
+		if (mRemoteConnections == null || !mIsLocalPlayer || !mMovedSinceLastStop)
 			return;
-		
+
 		mMovedSinceLastStop = false;
 		mLastDirectionSent = -1;
-		
+
 		Message tmpMessage = mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.PLAYER;
 		tmpMessage.eventType = EventType.STOP;
 		tmpMessage.valVector2_0.set(mPosition);
 		tmpMessage.valShort = mDirection;
 		tmpMessage.UUID = mUUID;
-		
+
 		mRemoteConnections.broadcast(tmpMessage);
 	}
 
