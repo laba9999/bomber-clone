@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, AndroidGame!</string>
+    <string name="app_name">Bomber-android</string>
+    <string name="arcade">Arcade</string>    
+    <string name="multiplayer">Multiplayer</string>
+    <string name="top">Top</string>
+    <string name="achievements">Achievements</string>
+    <string name="help">\?</string>
+</resources>
