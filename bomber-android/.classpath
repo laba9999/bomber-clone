@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="/bomber-desk/libs/gdx.jar" sourcepath="/bomber-desk/libs/gdx-sources.jar"/>
 	<classpathentry kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/bomber-desk"/>
+	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

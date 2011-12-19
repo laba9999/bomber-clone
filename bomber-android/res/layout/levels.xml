@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/levelsScrollView"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:background="@drawable/background_castle">
-
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_castle">
+
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/levelsLinearLayout"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent">
 
@@ -13,15 +15,15 @@
             android:layout_width="200sp"
             android:layout_height="200sp"
             android:background="@drawable/placeholder"
-            android:text="Button"
+            android:text="@string/help"
             android:width="200sp" android:height="200sp" android:layout_gravity="center" android:layout_margin="20sp"/>
 
         <Button
             android:id="@+id/b2"
             android:layout_width="200sp"
             android:layout_height="200sp"
-            android:background="@drawable/placeholder"
-            android:text="Button"
+            android:background="@drawable/placeholder2"
+            android:text="@string/help"
             android:width="200sp" android:height="200sp" android:layout_gravity="center" android:layout_margin="20sp"/>
 
         <Button
@@ -29,15 +31,15 @@
             android:layout_width="200sp"
             android:layout_height="200sp"
             android:background="@drawable/placeholder"
-            android:text="Button"
+            android:text="@string/help"
             android:width="200sp" android:height="200sp" android:layout_gravity="center" android:layout_margin="20sp"/>
 
         <Button
             android:id="@+id/b4"
             android:layout_width="200sp"
             android:layout_height="200sp"
-            android:background="@drawable/placeholder"
-            android:text="Button"
+            android:background="@drawable/placeholder2"
+            android:text="@string/help"
             android:width="200sp" android:height="200sp" android:layout_gravity="center" android:layout_margin="20sp"/>
 
         <Button
@@ -45,15 +47,15 @@
             android:layout_width="200sp"
             android:layout_height="200sp"
             android:background="@drawable/placeholder"
-            android:text="Button"
+            android:text="@string/help"
             android:width="200sp" android:height="200sp" android:layout_gravity="center" android:layout_margin="20sp"/>
 
         <Button
             android:id="@+id/b6"
             android:layout_width="200sp"
             android:layout_height="200sp"
-            android:background="@drawable/placeholder"
-            android:text="Button"
+            android:background="@drawable/placeholder2"
+            android:text="@string/help"
             android:width="200sp" android:height="200sp" android:layout_gravity="center" android:layout_margin="20sp"/>
 
     </LinearLayout>
