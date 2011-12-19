@@ -43,9 +43,12 @@ public class Game implements ApplicationListener {
 
 	private MessagesHandler mMessagesHandler;
 	public static RemoteConnections mRemoteConnections;
+	
+	public AndroidBridge mMainActivity;
 
-	public Game(RemoteConnections _connections) {
+	public Game(AndroidBridge _bridge,RemoteConnections _connections) {
 		mRemoteConnections = _connections;
+		mMainActivity = _bridge;
 	}
 
 	public GameState getGameState()
@@ -55,8 +58,7 @@ public class Game implements ApplicationListener {
 
 	public void goBackToActivities()
 	{
-		// TODO : implementar voltar às actividades do android
-		throw new UnsupportedOperationException();
+		mMainActivity.goBackToMenu();
 	}
 
 	public void setGameState(GameState _newGameState)

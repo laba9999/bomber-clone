@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:background="@drawable/background_castle">
 
-    <TextView
-        android:layout_width="fill_parent"
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="50sp"
         android:layout_height="wrap_content"
-        android:text="@string/hello" />
+        android:text="@string/help" android:layout_alignParentRight="true" android:layout_alignParentBottom="true"/>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/Button04"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/menu_button"
+        android:onClick="onStartButton"
+        android:text="@string/achievements"
+        android:textSize="24sp" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+    
+    <Button
+        android:id="@+id/Button03"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:background="@drawable/menu_button"
+        android:onClick="onStartButton"
+        android:text="@string/top"
+        android:textSize="24sp" android:layout_above="@id/Button04" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+   
+    <Button
+        android:id="@+id/Button02"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:background="@drawable/menu_button"
+        android:onClick="onStartButton"
+        android:text="@string/multiplayer"
+        android:textSize="24sp" android:layout_above="@id/Button03" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="300sp"
+        android:layout_height="40sp"
+        android:background="@drawable/menu_button"
+        android:onClick="onArcadeButton"
+        android:text="@string/arcade"
+        android:textSize="24sp" android:layout_above="@id/Button02" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button01"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/logo" />
+
+</RelativeLayout>
