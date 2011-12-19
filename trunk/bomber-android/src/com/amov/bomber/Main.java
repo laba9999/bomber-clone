@@ -22,7 +22,9 @@ public class Main extends Activity {
 	}
 
 	public void onArcadeButton(View v) {
-		Intent myIntent = new Intent(this, LevelChooser.class);
+		Intent myIntent = new Intent(this, LevelChooserGallery.class);
+		//proibe a animação na transição entre activities
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivityForResult(myIntent, 0);
 	}
 }
