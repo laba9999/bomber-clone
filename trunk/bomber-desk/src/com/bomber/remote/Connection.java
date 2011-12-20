@@ -7,7 +7,7 @@ public class Connection extends Thread {
 	private static final short RTT_CHECK_INTERVAL = Game.TICKS_PER_SECOND * 2;
 	private static final short TIMEOUT_VALUE = (short) (Game.TICKS_PER_SECOND * 5);
 	private static final short MAX_TIMEOUTS = 3;
-	
+
 	/**
 	 * ID que identifica este cliente perante todos os outros é atribuido pelo
 	 * servidor.
@@ -28,7 +28,7 @@ public class Connection extends Thread {
 
 	private short mTimeoutsCounter = 0;
 	public boolean mIsConnected = true;
-	
+
 	public int mRemoteServerPort = -1;
 
 	public Connection(MessageSocketIO _socket, MessageContainer _msgContainer) {
@@ -135,6 +135,7 @@ public class Connection extends Thread {
 
 	private void addMessageToContainer(Message _msg)
 	{
+
 		switch (_msg.eventType)
 		{
 		case EventType.PING:
@@ -149,7 +150,7 @@ public class Connection extends Thread {
 			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
 			Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			break;
-			
+
 		case EventType.LOCAL_SERVER_PORT:
 			mRemoteServerPort = _msg.valInt;
 			break;

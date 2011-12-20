@@ -2,11 +2,11 @@ package com.bomber.gametypes;
 
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
+import com.bomber.world.GameWorld;
 
 public class GameTypeCampaign extends GameTypeHandler {
 
 	public GameTypeCampaign() {
-		super();
 		mNeedsPortal = true;
 	}
 

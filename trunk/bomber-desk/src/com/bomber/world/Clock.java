@@ -1,5 +1,11 @@
 package com.bomber.world;
 
+import com.bomber.Game;
+import com.bomber.remote.EventType;
+import com.bomber.remote.Message;
+import com.bomber.remote.MessageType;
+import com.bomber.remote.RemoteConnections;
+
 public class Clock {
 
 	public boolean mReachedZero = false;
@@ -16,6 +22,14 @@ public class Clock {
 
 	private String mLastTimeString;
 	private StringBuilder mTimeStringBuilder = new StringBuilder("00:00");
+
+	private Message syncMessage;
+
+	public Clock() {
+		syncMessage = new Message();
+		syncMessage.messageType = MessageType.CLOCK;
+		syncMessage.eventType = EventType.SYNC;
+	}
 
 	/**
 	 * Prepara o clock para começar uma nova contagem decrescente.
@@ -37,6 +51,21 @@ public class Clock {
 		mTotalTimeEllapsed = 0;
 	}
 
+	public void sync(long _totalTimeEllapsed)
+	{
+		mTotalTimeEllapsed = _totalTimeEllapsed;
+		mLastTimeMilis = System.currentTimeMillis();
+
+		long interval = mCountdownValue - mTotalTimeEllapsed;
+		interval /= 1000;
+
+		int minutes = java.lang.Math.max(0, (int) (interval / 60));
+		int seconds = java.lang.Math.max(0, (int) (interval % 60));
+
+		updateTimeString(minutes, seconds);
+
+	}
+
 	public boolean hasCompletedUpdateInterval()
 	{
 		boolean res = mCompletedUpdateInterval;
@@ -49,6 +78,7 @@ public class Clock {
 	public void setUpdateInterval(int _value)
 	{
 		mUpdateInterval = _value;
+		mLastTimeMilis = 0;
 	}
 
 	public int getRemainingSeconds()
@@ -125,6 +155,15 @@ public class Clock {
 		updateTimeString(minutes, seconds);
 
 		mReachedZero = (minutes == 0) && (seconds == 0);
+
+		if (Game.mIsPVPGame && RemoteConnections.mIsGameServer)
+		{
+			// Sincroniza o relógio e os ticks
+			syncMessage.valLong1 = mTotalTimeEllapsed;
+			syncMessage.valLong2 = Game.mCurrentTick;
+
+			Game.mRemoteConnections.broadcast(syncMessage);
+		}
 
 		return mLastTimeString;
 	}

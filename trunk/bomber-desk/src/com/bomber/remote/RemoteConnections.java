@@ -24,7 +24,7 @@ public class RemoteConnections {
 	public static short mLocalID = 0;
 	public static short mProtocolInUse = -1;
 
-	public boolean mIsGameServer = false;
+	public static boolean mIsGameServer = false;
 	public MessageContainer mRecvMessages = null;
 	public Message mMessageToSend = new Message();
 
@@ -105,7 +105,7 @@ public class RemoteConnections {
 
 		if (tmpConn == null)
 			return false;
-
+		
 		if (_protocol == Protocols.TCP)
 		{
 			// Envia mensagem ao servidor a indicar a porta local onde estamos a

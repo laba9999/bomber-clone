@@ -17,6 +17,9 @@ import com.bomber.gameobjects.bonus.BonusPush;
 import com.bomber.gameobjects.bonus.BonusShield;
 import com.bomber.gameobjects.bonus.BonusSpeed;
 import com.bomber.gameobjects.monsters.Monster;
+import com.bomber.gametypes.GameTypeCampaign;
+import com.bomber.gametypes.GameTypeDeathmatch;
+import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Connection;
 import com.bomber.remote.Message;
 import com.bomber.remote.MessageContainer;
@@ -41,6 +44,24 @@ public final class ObjectFactory {
 		}
 	}
 
+	public static class CreateGameTypeHandler {
+
+		public static GameTypeHandler Create(short _gameType)
+		{
+			switch (_gameType)
+			{
+			case GameTypeHandler.CAMPAIGN:
+				return new GameTypeCampaign();
+				
+			case GameTypeHandler.DEADMATCH:
+				return new GameTypeDeathmatch();
+				
+			default:
+				throw new InvalidParameterException("Tipo de jogo não implementado!");
+			}
+		}
+	}
+	
 	public static class CreatePlayer extends Factory<Player> {
 
 		GameWorld mWorld;
