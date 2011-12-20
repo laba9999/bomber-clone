@@ -1,9 +1,11 @@
 package com.bomber.gametypes;
 
+import com.bomber.world.GameWorld;
+
 
 public class GameTypeCTF extends GameTypeHandler {
 
-	
+
 	public GameTypeCTF() {
 		// TODO Auto-generated constructor stub
 	}

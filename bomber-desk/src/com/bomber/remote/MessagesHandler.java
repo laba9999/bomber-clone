@@ -47,6 +47,10 @@ public class MessagesHandler {
 		case MessageType.GAME:
 			parseGameMessage(tmpMessage);
 			break;
+
+		case MessageType.CLOCK:
+			parseClockMessage(tmpMessage);
+			break;
 		default:
 			break;
 		}
@@ -163,14 +167,14 @@ public class MessagesHandler {
 		switch (_msg.eventType)
 		{
 		case EventType.COUNTDOWN:
-			GameStateLoading.mCountdownSeconds =  _msg.valInt;
+			GameStateLoading.mCountdownSeconds = _msg.valInt;
 			break;
 
 		case EventType.START:
 			GameStateLoading.mServerAuthorizedStart = true;
 			Game.mHasStarted = true;
 			break;
-			
+
 		case EventType.RANDOM_SEED:
 			Game.mRandomSeed = _msg.valInt;
 			Game.mRandomGenerator = new Random(_msg.valInt);
@@ -195,6 +199,23 @@ public class MessagesHandler {
 
 	private void parseClockMessage(Message _msg)
 	{
-		throw new UnsupportedOperationException();
+		switch (_msg.eventType)
+		{
+		case EventType.SYNC:
+
+			// Sincroniza os ticks
+//			int diff = (int) (Game.mCurrentTick - _msg.valLong2);
+//			Game.LOGGER.log("Diferença de ticks: " + String.valueOf(diff));
+//			if (Math.abs(diff) < 250)
+//				Game.mCurrentTick += (diff / 2) * Game.SKIP_TICKS;
+//			else
+//				Game.mCurrentTick = _msg.valLong2;
+
+			// Sincroniza o relógio
+			mWorld.mClock.sync(_msg.valLong1);
+			break;
+		default:
+			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+		}
 	}
 }

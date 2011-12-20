@@ -29,9 +29,10 @@ public class GameServer {
 		mPlayers = _players;
 
 		mAvailableIds = new Stack<Short>();
-		mAvailableIds.push((short) 1);
-		mAvailableIds.push((short) 2);
+
 		mAvailableIds.push((short) 3);
+		mAvailableIds.push((short) 2);
+		mAvailableIds.push((short) 1);
 	}
 
 	public boolean isConnected()

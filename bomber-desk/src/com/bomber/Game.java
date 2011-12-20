@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Assets;
+import com.bomber.common.ObjectFactory;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStatePaused;
@@ -22,7 +23,7 @@ public class Game implements ApplicationListener {
 	private static final short MAX_PARSED_MESSAGES_PER_TICK = 2;
 	private static final int MAX_FRAMESKIP = 5;
 	public static final int TICKS_PER_SECOND = 100;
-	private static final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
+	public static final long SKIP_TICKS = 1000000000 / TICKS_PER_SECOND;
 
 	public static long mCurrentTick = 0;
 	public static Integer mTicksPerSecond = 100;
@@ -30,13 +31,13 @@ public class Game implements ApplicationListener {
 	public static Logger LOGGER = new Logger("GAM");
 	private int mLoops;
 	private long startTime;
-	private long mNextGameTick;
 	private float mInterpolation;
 	private int ticksPerSecondCounter;
 
 	public static short mGameType = -1;
 	public static boolean mIsPVPGame = false;
 	public static short mNumberPlayers = 0;
+	public static long mNextGameTick;
 
 	public GameWorld mWorld;
 	public SpriteBatch mBatcher;
@@ -52,23 +53,22 @@ public class Game implements ApplicationListener {
 	public static Random mRandomGenerator;
 	public static int mRandomSeed;
 	private static AndroidBridge mMainActivity;
-	
+
 	public static String mLevelToLoad;
 
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		setGameType(_gameType);
-		
+
 		mRandomSeed = (int) System.currentTimeMillis();
 		mRandomGenerator = new Random(mRandomSeed);
-		
+
 		mMainActivity = _bridge;
 		mHasStarted = false;
 		mRemoteConnections = null;
 		mLevelToLoad = _levelToLoad;
-		
+
 		mMessagesHandler = new MessagesHandler();
 	}
-
 
 	public void setConnections(RemoteConnections _conns)
 	{
@@ -142,8 +142,10 @@ public class Game implements ApplicationListener {
 		Assets.loadAssets();
 
 		mGameState = new GameStateLoading(this);
-
 		mWorld = new GameWorld(new GameTypeCampaign(), mLevelToLoad);
+		// mWorld = new
+		// GameWorld(ObjectFactory.CreateGameTypeHandler.Create(mGameType),
+		// mLevelToLoad);
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 
 		mMessagesHandler.mWorld = mWorld;

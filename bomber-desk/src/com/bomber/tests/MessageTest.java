@@ -20,7 +20,6 @@ public class MessageTest {
 		m.valInt = 123456;
 		m.valShort = 321;
 		m.valVector2_0.set(0.01f,0.02f);
-		m.valVector2_1.set(0.03f,0.04f);
 		m.setStringValue("01234567890123456789012345678901");
 		
 		byte[] array = new byte[MessageSocketIO.MESSAGE_SIZE];

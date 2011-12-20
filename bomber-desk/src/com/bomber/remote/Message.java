@@ -31,12 +31,12 @@ public class Message extends PoolObject {
 
 	public short eventType;
 	public Vector2 valVector2_0 = new Vector2();
-	public Vector2 valVector2_1 = new Vector2();
 	public short valShort;
 	public int valInt;
 	
 	// Sempre que o servidor enviar uma mensagem envia também o número de ticks
-	public long valTicks;
+	public long valLong1;
+	public long valLong2;
 	private String valString ="";
 
 	private byte[] valStringBuffer = new byte[STRING_MAX_SIZE];
@@ -70,14 +70,14 @@ public class Message extends PoolObject {
 		UUID = _buff.getInt();
 		messageType = _buff.getShort();
 		eventType = _buff.getShort();
+		
 		valVector2_0.x = _buff.getFloat();
 		valVector2_0.y = _buff.getFloat();
-		valVector2_1.x = _buff.getFloat();
-		valVector2_1.y = _buff.getFloat();
 
 		valShort = _buff.getShort();
 		valInt = _buff.getInt();
-		valTicks = _buff.getLong();
+		valLong1 = _buff.getLong();
+		valLong2 = _buff.getLong();
 		
 		_buff.get(valStringBuffer, 0, valStringBuffer.length);
 		valString = new String(valStringBuffer).trim();
@@ -98,12 +98,11 @@ public class Message extends PoolObject {
 
 		_destination.putFloat(valVector2_0.x);
 		_destination.putFloat(valVector2_0.y);
-		_destination.putFloat(valVector2_1.x);
-		_destination.putFloat(valVector2_1.y);
 
 		_destination.putShort(valShort);
 		_destination.putInt(valInt);
-		_destination.putLong(valTicks);
+		_destination.putLong(valLong1);
+		_destination.putLong(valLong2);
 		
 		_destination.put(valString.getBytes());
 
@@ -117,9 +116,10 @@ public class Message extends PoolObject {
 		_newMessage.messageType = messageType;
 		_newMessage.eventType = eventType;
 		_newMessage.valVector2_0.set(valVector2_0);
-		_newMessage.valVector2_1.set(valVector2_1);
 		_newMessage.valShort = valShort;
 		_newMessage.valInt = valInt;
+		_newMessage.valLong1 = valLong1;
+		_newMessage.valLong2 = valLong2;
 		_newMessage.valString = new String(valString);
 	}
 	
@@ -130,7 +130,6 @@ public class Message extends PoolObject {
 		str.append("Sender ID: " + senderID).append("\r\n");
 		str.append("UUID: " + UUID).append("\r\n");
 		str.append("valVector2_0: (" + valVector2_0.x + ", "+ valVector2_0.y+")").append("\r\n");
-		str.append("valVector2_1: (" + valVector2_1.x + ", "+ valVector2_1.y+")").append("\r\n");
 		str.append("valShort: " + valShort).append("\r\n");
 		str.append("valInt: " + valInt).append("\r\n");
 		str.append("valString: " + valString);

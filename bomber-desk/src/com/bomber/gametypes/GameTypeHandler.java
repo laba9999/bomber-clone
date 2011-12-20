@@ -8,7 +8,7 @@ public abstract class GameTypeHandler {
 	public boolean mNeedsPortal = false;
 	
 	public GameTypeHandler() {
-		mGameWorld = null;
+
 	}
 	
 	/*

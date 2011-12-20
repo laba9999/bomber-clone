@@ -9,4 +9,5 @@ public class MessageType {
 	public static final short POINTS = 5;
 	public static final short CLOCK = 6;
 	public static final short CONNECTION = 7;
+	public static final short TICKS = 8;
 }
