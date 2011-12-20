@@ -22,6 +22,7 @@ public class LevelChooser extends Activity {
 
 		sv.setBackgroundColor(Color.WHITE);
 
+
 	}
 
 	@Override
