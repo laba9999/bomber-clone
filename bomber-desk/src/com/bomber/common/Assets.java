@@ -26,34 +26,36 @@ public class Assets {
 	private static final float PLAYER_SHIELD_FRAME_DURATION = 20f;
 	private static final short PLAYER_DIE_FRAMES_COUNT = 8;
 	private static final short PLAYER_WALK_FRAMES_COUNT = 4;
-	
+
 	public static final short PORTAL_FRAMES_COUNT = 2;
 	public static final short PORTAL_FRAME_DURATION = 50;
-	
+
 	private static final float BONUS_FRAME_DURATION = 10f;
 	private static final float BOMB_EXPLOSIONS_FRAME_DURATION = 10f;
 	private static final float BOMB_FRAME_DURATION = 50f;
-	
+
 	private static final float TILE_EXPLOSION_FRAME_DURATION = 5;
 	private static final short TILE_EXPLOSION_FRAME_COUNT = 7;
-	
+
 	private static final float N_MONSTER_WALK_FRAME_DURATION = 30f;
 	private static final float N_MONSTER_DIE_WALK_FRAME_DURATION = 30f;
 	private static final short N_MONSTER_DIE_FRAME_COUNT = 6;
 	private static final short N_MONSTER_WALK_FRAME_COUNT = 3;
-	
+
 	private static final float G_MONSTER_WALK_FRAME_DURATION = 30f;
 	private static final float G_MONSTER_DIE_FRAME_DURATION = 30f;
 	private static final short G_MONSTER_DIE_FRAME_COUNT = 6;
 	private static final short G_MONSTER_WALK_FRAME_COUNT = 3;
-	
+
 	private static final String ATLAS_FILE = "atlas.txt";
 	private static final String ATLAS_HD_FILE = "atlas_hd.txt";
-	
+
 	public static TextureAtlas mAtlas;
 	public static HashMap<String, MovableObjectAnimation> mMonsters;
 	public static HashMap<String, MovableObjectAnimation> mPlayers;
 	public static HashMap<String, TextureRegion> mPlayersHeads;
+	public static HashMap<String, TextureRegion> mPlayersSad;
+	public static HashMap<String, TextureRegion> mPlayersHappy;
 	public static HashMap<String, Animation> mBonusAnimations;
 	public static HashMap<String, TextureRegion> mBonusIcons;
 	public static HashMap<String, Animation> mPlayerEffects;
@@ -67,14 +69,14 @@ public class Assets {
 	public static HashMap<String, Animation> mExplosions;
 
 	public static MovableObjectAnimation mBomb;
-	
+
 	public static HashMap<String, TextureRegion> mScreens = new HashMap<String, TextureRegion>();
 
 	public static Animation mSoundButton;
 	public static Animation mPortal;
-	
-	public static TextureRegion mTrophy;
-	
+
+	public static TextureRegion[] mTrophy = new TextureRegion[3];
+
 	public static HashMap<String, TextureRegion> mPauseButtons;
 
 	public static BitmapFont mFont;
@@ -90,11 +92,14 @@ public class Assets {
 		mMonsters = new HashMap<String, MovableObjectAnimation>();
 		mNonDestroyableTiles = new HashMap<String, TextureRegion>();
 		mDestroyableTiles = new HashMap<String, Animation>();
+		mPlayersSad = new HashMap<String, TextureRegion>();
+		mPlayersHappy = new HashMap<String, TextureRegion>();
 
 		loadAtlas();
 		loadPortal();
 		loadPlayerAnimations();
 		loadPlayersHeads();
+		loadPlayersFaceExpressions();
 		loadPlayerEffects();
 		loadExplosions();
 		loadBonus();
@@ -107,12 +112,26 @@ public class Assets {
 		mAtlas = new TextureAtlas(Gdx.files.internal(ATLAS_FILE));
 	}
 
-	
 	private static void loadPortal()
 	{
 		mPortal = loadAnimation("portal_", PORTAL_FRAME_DURATION);
 	}
-	
+
+	private static void loadPlayersFaceExpressions()
+	{
+		String[] players = { "b_white", "b_blue", "b_green", "b_red" };
+
+		// Tristes
+		List<AtlasRegion> regions = mAtlas.findRegions("b_sad_");
+		for (int i = 0; i < regions.size(); i++)
+			mPlayersSad.put(players[i], regions.get(i));
+		
+		// Contentes
+		regions = mAtlas.findRegions("b_happy_");
+		for (int i = 0; i < regions.size(); i++)
+			mPlayersHappy.put(players[i], regions.get(i));
+	}
+
 	private static void loadPlayerAnimations()
 	{
 
@@ -142,7 +161,6 @@ public class Assets {
 	 */
 	private static MovableObjectAnimation loadPlayerMovableObjectAnimation(String _id)
 	{
-
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
@@ -241,16 +259,16 @@ public class Assets {
 	private static void loadPlayersHeads()
 	{
 		TextureRegion r = mAtlas.findRegion("face_white");
-		mPlayersHeads.put("face_white", r);
+		mPlayersHeads.put("b_white", r);
 
 		r = mAtlas.findRegion("face_green");
-		mPlayersHeads.put("face_green", r);
+		mPlayersHeads.put("b_green", r);
 
 		r = mAtlas.findRegion("face_red");
-		mPlayersHeads.put("face_red", r);
+		mPlayersHeads.put("b_red", r);
 
 		r = mAtlas.findRegion("face_blue");
-		mPlayersHeads.put("face_blue", r);
+		mPlayersHeads.put("b_blue", r);
 
 	}
 
@@ -344,30 +362,34 @@ public class Assets {
 		// mMainScreen = mAtlas.findRegion("TO BE DEFINED");
 		// mSoundButton = loadAnimation("TO BE DEFINED");
 		// mPauseButtons.put("TO BE DEFINED",
-		TextureAtlas atlasHD =  new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
-		
+		TextureAtlas atlasHD = new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
+
 		mScreens.put("controller", atlasHD.findRegion("controller"));
 		mScreens.put("pause", atlasHD.findRegion("pause_screen"));
 		mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
 		mScreens.put("gameover", atlasHD.findRegion("gameover"));
 
 		mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
-		mTrophy = atlasHD.findRegion("trophy");
+		
+		mTrophy[0] = atlasHD.findRegion("trophy");
+		mTrophy[1] = mAtlas.findRegion("trophyBig");
+		mTrophy[2] = mAtlas.findRegion("trophySmall");
+		
 		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);
 		mFont.setScale(1);
 
 	}
-	
+
 	public static TextureRegion getSoundButtonTexture()
 	{
-		if(Settings.isSoundOn)
-			return mSoundButton.getKeyFrame(1, false);		
+		if (Settings.isSoundOn)
+			return mSoundButton.getKeyFrame(1, false);
 		else
 			return mSoundButton.getKeyFrame(0, false);
-		
+
 	}
-	
+
 	public static void reset()
 	{
 		mMonsters.clear();
@@ -381,9 +403,9 @@ public class Assets {
 
 		public static void dispose()
 		{
-			if( mPixmap == null)
+			if (mPixmap == null)
 				return;
-			
+
 			mPixmap.dispose();
 			mDarkGlass.dispose();
 
@@ -397,7 +419,7 @@ public class Assets {
 				return mDarkGlass;
 
 			create();
-			
+
 			return mDarkGlass;
 		}
 
