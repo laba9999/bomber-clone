@@ -21,4 +21,6 @@
     <string name="top_name">Name</string>
     <string name="top_points">Points</string>
     <string name="top_position">Position</string>
+    <string name="ip">IP:</string>
+    <string name="port">Port:</string>
 </resources>

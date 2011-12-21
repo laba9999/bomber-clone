@@ -7,8 +7,8 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="50sp"
-        android:layout_height="wrap_content"
-        android:text="@string/help" android:layout_alignParentRight="true" android:layout_alignParentBottom="true"/>
+        android:layout_height="50sp"
+        android:text="@string/help" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:background="@drawable/menu_button_round" android:textColor="#eeeeee" android:textSize="30sp"/>
 
     <Button
         android:id="@+id/Button04"
@@ -18,7 +18,7 @@
         android:background="@drawable/menu_button"
         android:onClick="onAchievementsButton"
         android:text="@string/achievements"
-        android:textSize="24sp" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+        android:textSize="24sp" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
     
     <Button
         android:id="@+id/Button03"
@@ -27,7 +27,7 @@
         android:background="@drawable/menu_button"
         android:onClick="onTopButton"
         android:text="@string/top"
-        android:textSize="24sp" android:layout_above="@id/Button04" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+        android:textSize="24sp" android:layout_above="@id/Button04" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
    
     <Button
         android:id="@+id/Button02"
@@ -36,7 +36,7 @@
         android:background="@drawable/menu_button"
         android:onClick="onMultiplayerButton"
         android:text="@string/multiplayer"
-        android:textSize="24sp" android:layout_above="@id/Button03" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+        android:textSize="24sp" android:layout_above="@id/Button03" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
 
     <Button
         android:id="@+id/Button01"
@@ -45,7 +45,7 @@
         android:background="@drawable/menu_button"
         android:onClick="onArcadeButton"
         android:text="@string/arcade"
-        android:textSize="24sp" android:layout_above="@id/Button02" android:textStyle="bold" android:layout_centerHorizontal="true"/>
+        android:textSize="24sp" android:layout_above="@id/Button02" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
 
     <ImageView
         android:id="@+id/logo"

@@ -21,11 +21,7 @@ public class MainActivity extends Activity
 
 	}
 
-	public void onStartButton(View v)
-	{
-		Intent myIntent = new Intent(this, AndroidGame.class);
-		startActivityForResult(myIntent, 0);
-	}
+
 
 	public void onArcadeButton(View v)
 	{
@@ -42,7 +38,7 @@ public class MainActivity extends Activity
 		// proibe a animação na transição entre activities
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivityForResult(myIntent, 0);	*/
-		Intent myIntent = new Intent(this, AndroidGame.class);
+		Intent myIntent = new Intent(this, MultiplayerActivity.class);
 		startActivityForResult(myIntent, 0);
 		}
 		
