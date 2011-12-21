@@ -24,7 +24,7 @@ import android.widget.Toast;
  * http://stackoverflow.com/questions/7797641/android-galleryview-recycling
  */
 
-public class LevelChooserGallery extends Activity
+public class LevelChooserActivity extends Activity
 {
 	Gallery gallery;
 
@@ -38,7 +38,7 @@ public class LevelChooserGallery extends Activity
 
 		gallery.onFling(null, null, 30, 0);
 
-		gallery.setAdapter(new AddImgAdp(this));
+		gallery.setAdapter(new ImageAdapter(this));
 
 		gallery.setOnItemClickListener(new OnItemClickListener()
 		{
@@ -60,6 +60,8 @@ public class LevelChooserGallery extends Activity
 
 			}
 		});
+		
+
 	}
 
 	private void setIndicatorOn(int _position)
@@ -102,7 +104,7 @@ public class LevelChooserGallery extends Activity
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public class AddImgAdp extends BaseAdapter
+	public class ImageAdapter extends BaseAdapter
 	{
 		int mGalleryItemBackground;
 		private Context mContext;
@@ -111,7 +113,7 @@ public class LevelChooserGallery extends Activity
 		private Integer[] Imgid = { R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2,
 				R.drawable.placeholder, R.drawable.placeholder2 };
 
-		public AddImgAdp(Context c)
+		public ImageAdapter(Context c)
 		{
 			mContext = c;
 			TypedArray typArray = obtainStyledAttributes(R.styleable.GalleryTheme);
@@ -142,7 +144,7 @@ public class LevelChooserGallery extends Activity
 				ImageView iv = new ImageView(mContext);
 				// iv.setLayoutParams(new Gallery.LayoutParams(350, 350));
 				// iv.setScaleType(ImageView.ScaleType.FIT_XY);
-				// iv.setBackgroundResource(mGalleryItemBackground);
+				iv.setBackgroundResource(mGalleryItemBackground);
 				iv.setImageResource(Imgid[position]);
 				return iv;
 			}

@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
-    <string name="arcade">Arcade</string>
+    <string name="arcade">Arcade</string>    
     <string name="multiplayer">Multiplayer</string>
     <string name="top">Top</string>
     <string name="achievements">Achievements</string>
     <string name="help">\?</string>
+    <string name="wifi">Wifi</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="connection">Connection:</string>
+    <string name="role">Role:</string>
+    <string name="server">Server</string>
+    <string name="client">Client</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_multiplayer_text">Select the connection type and role wanted.</string>
+    <string name="achievement_text_placeholder">Achievement name</string>
+    <string name="achievement_progress_placeholder">1 out of 10</string>
+    <string name="top_name">Name</string>
+    <string name="top_points">Points</string>
+    <string name="top_position">Position</string>
 </resources>

@@ -22,7 +22,7 @@
 
         </activity>
         
-        <activity android:name=".Main" 
+        <activity android:name=".MainActivity" 
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape" >
@@ -33,24 +33,23 @@
             </intent-filter>
         </activity>
        
-        <activity android:name=".LevelChooser" 
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-            android:screenOrientation="landscape" >
-        </activity>
-   
-        <activity android:name=".LevelChooserGallery" 
+        <activity android:name=".LevelChooserActivity" 
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape" >
         </activity>
         
-        <activity android:name=".SampleCirclesDefault" 
+        <activity android:name=".AchievementsActivity" 
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
             android:screenOrientation="landscape" >
         </activity>
         
+        <activity android:name=".TopActivity" 
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape" >
+        </activity>    
     </application>
 
 </manifest>

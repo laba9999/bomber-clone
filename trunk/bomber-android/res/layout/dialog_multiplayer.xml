@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_margin="20sp" android:weightSum="3">
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10sp"
+            android:text="@string/connection"
+            android:textAppearance="?android:attr/textAppearanceMedium" android:layout_weight="1"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupConnection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10sp"
+            android:orientation="horizontal" android:layout_weight="2">
+
+            <RadioButton
+                android:id="@+id/radioWifi"
+                android:layout_width="50sp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="@string/wifi" android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/radioBluetooth"
+                android:layout_width="50sp"
+                android:layout_height="wrap_content"
+                android:text="@string/bluetooth" android:layout_weight="1"/>
+        </RadioGroup>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:layout_margin="20sp" android:weightSum="3">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10sp"
+            android:layout_weight="1"
+            android:text="@string/role"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10sp"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioClient"
+                android:layout_width="50sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/client" android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radioServer"
+                android:layout_width="50sp"
+                android:layout_height="wrap_content"
+                android:text="@string/server" android:layout_weight="1"/>
+        </RadioGroup>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/tableRow3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        android:baselineAligned="true"
+        android:weightSum="2" >
+
+        <Button
+            android:id="@+id/buttonOkDialogMultiplayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_weight="1"
+            android:text="@string/ok" />
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10sp"
+            android:text="@string/cancel" android:layout_width="wrap_content" android:layout_weight="1"/>
+    </TableRow>
+
+</TableLayout>
