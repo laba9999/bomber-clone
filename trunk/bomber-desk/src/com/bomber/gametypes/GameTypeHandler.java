@@ -1,5 +1,6 @@
 package com.bomber.gametypes;
 
+import com.bomber.gameobjects.Player;
 import com.bomber.world.GameWorld;
 
 public abstract class GameTypeHandler {	
@@ -21,6 +22,13 @@ public abstract class GameTypeHandler {
 	 */
 	public abstract boolean isOver();
 	public abstract boolean isLost();
+	public abstract boolean onPlayerKill(Player _player);
+	
+	/**
+	 *  Quando este método é chamado o player já foi morto e as suas vidas foram colocadas a 0.
+	 * @param _player
+	 */
+	public abstract void onPlayerDisconnect(Player _player);
 	
 	public static final short CAMPAIGN = 0;
 	public static final short CTF = 1;

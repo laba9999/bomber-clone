@@ -1,8 +1,9 @@
-package com.bomber.world;
+package com.bomber.common.assets;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
 
 public class TilesetXMLHandler extends DefaultHandler
 {

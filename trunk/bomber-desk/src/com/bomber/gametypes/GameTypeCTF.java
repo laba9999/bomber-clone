@@ -1,24 +1,51 @@
 package com.bomber.gametypes;
 
-import com.bomber.world.GameWorld;
-
+import com.badlogic.gdx.math.Rectangle;
+import com.bomber.Game;
+import com.bomber.Team;
+import com.bomber.gameobjects.Flag;
+import com.bomber.gameobjects.Player;
+import com.bomber.gameobjects.Tile;
 
 public class GameTypeCTF extends GameTypeHandler {
-
+	Team mTeam1;
+	Team mTeam2;
 
 	public GameTypeCTF() {
-		// TODO Auto-generated constructor stub
+		mTeam1 = Game.mTeams[0];
+		mTeam2 = Game.mTeams[1];
 	}
 
 	@Override
-	public boolean isObjectiveAcomplished() {
+	public boolean isObjectiveAcomplished()
+	{
 		return false;
 	}
 
 	@Override
-	public boolean isOver() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isOver()
+	{
+		for (int c = 0; c < 2; c++)
+		{
+			for (int i = 0; i < mTeam1.mNumberPlayers; i++)
+			{
+				if (!Game.mTeams[c].mTransportingEnemyFlag)
+					continue;
+
+				Player p = Game.mTeams[c].mPlayers.get(i);
+				if (p.mEnemyFlag == null)
+					continue;
+
+				Flag flag = p.mTeam.mId == 1 ? mGameWorld.mFlags[0] : mGameWorld.mFlags[1];
+				Rectangle bb = p.getBoundingBox();
+				if (!bb.contains(flag.mSpawnPosition.x + Tile.TILE_SIZE_HALF, flag.mSpawnPosition.y))
+					continue;
+
+				Game.mTeams[c].mCapturedEnemyFlag = true;
+			}
+		}
+
+		return mGameWorld.mClock.mReachedZero || Game.mTeams[0].mCapturedEnemyFlag || Game.mTeams[1].mCapturedEnemyFlag;
 	}
 
 	@Override
@@ -26,6 +53,26 @@ public class GameTypeCTF extends GameTypeHandler {
 	{
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public boolean onPlayerKill(Player _player)
+	{
+		if (_player.mEnemyFlag != null)
+		{
+			_player.mEnemyFlag.reset();
+			_player.mEnemyFlag = null;
+			_player.mTeam.mTransportingEnemyFlag = false;
+		}
+
+		return false;
+	}
+
+	@Override
+	public void onPlayerDisconnect(Player _player)
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 }

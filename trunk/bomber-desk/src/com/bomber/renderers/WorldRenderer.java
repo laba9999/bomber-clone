@@ -9,15 +9,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.Game;
 import com.bomber.OverlayingText;
-import com.bomber.common.Assets;
 import com.bomber.common.PlayerEffect;
+import com.bomber.common.assets.Assets;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
+import com.bomber.gameobjects.Flag;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.monsters.Monster;
+import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.world.GameMap;
 import com.bomber.world.GameWorld;
 
@@ -60,11 +63,28 @@ public class WorldRenderer {
 		mBatch.begin();
 		renderBonus();
 		renderTilesExplosions();
+		renderFlags();
 		renderBombs();
 		renderExplosions();
 		renderPlayers();
 		renderMonsters();
+
 		renderOverlayingText();
+	}
+
+	private void renderFlags()
+	{
+		if (Game.mGameType != GameTypeHandler.CTF && Game.mGameType != GameTypeHandler.TEAM_CTF)
+			return;
+
+		Flag flag = mWorld.mFlags[0];
+		Vector2 drawingPos = flag.drawingPoint();
+		mBatch.draw(flag.getTexture(), drawingPos.x, drawingPos.y);
+
+		flag = mWorld.mFlags[1];
+		drawingPos = flag.drawingPoint();
+		mBatch.draw(flag.getTexture(), drawingPos.x, drawingPos.y);
+
 	}
 
 	private void updateCameraPosition()

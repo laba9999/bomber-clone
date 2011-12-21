@@ -4,8 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
-import com.bomber.common.Assets;
-import com.bomber.world.Level;
+import com.bomber.common.assets.Assets;
 
 public class GameStateServerConnectionError extends GameState {
 

@@ -13,12 +13,16 @@ public abstract class WorldMovableObject extends Drawable {
 	public MovableObjectAnimation mMovableAnimations;
 
 	public boolean mIsMoving = false;
+	
+	public boolean mAcceptPlayerInput = true;
+	
 	private final Collision mCollision = new Collision();
 
 	
 	@Override
 	public void reset()
 	{
+		mAcceptPlayerInput = true;
 		mIsMoving = false;
 		super.reset();
 	}
@@ -31,6 +35,7 @@ public abstract class WorldMovableObject extends Drawable {
 
 	public void changeDirection(short _newDirection)
 	{
+		
 	
 		if (mDirection != _newDirection || !mIsMoving)
 		{

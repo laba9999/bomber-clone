@@ -1,6 +1,7 @@
 package com.bomber.common;
 
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.common.assets.Assets;
 import com.bomber.gameobjects.Drawable;
 
 public class PlayerEffect extends Drawable {

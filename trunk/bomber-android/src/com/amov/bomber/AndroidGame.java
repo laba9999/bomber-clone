@@ -5,17 +5,14 @@ import android.view.KeyEvent;
 import android.view.WindowManager.LayoutParams;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.utils.Logger;
 import com.bomber.AndroidBridge;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
-import com.bomber.gamestates.GameStateLoading;
-import com.bomber.gamestates.GameStateServerConnectionError;
-import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.remote.RemoteConnections;
 
-public class AndroidGame extends AndroidApplication implements AndroidBridge {
-
+public class AndroidGame extends AndroidApplication implements AndroidBridge
+{
 	@Override
 	protected void onDestroy()
 	{
@@ -41,7 +38,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge {
 
 		RemoteConnections tmpConnections = RemoteConnections.create(DebugSettings.REMOTE_PROTOCOL_IN_USE, DebugSettings.START_ANDROID_AS_SERVER, DebugSettings.REMOTE_SERVER_ADDRESS);
 		if (tmpConnections == null)
-			GameStateLoading.mFailedToConnectToServer = true;
+			GameStateLoadingPVP.mFailedToConnectToServer = true;
 		else
 			newGame.setConnections(tmpConnections);
 	}

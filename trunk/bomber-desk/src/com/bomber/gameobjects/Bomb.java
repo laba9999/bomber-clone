@@ -1,8 +1,8 @@
 package com.bomber.gameobjects;
 
-import com.bomber.common.Assets;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectsPool;
+import com.bomber.common.assets.Assets;
 import com.bomber.world.GameMap;
 import com.bomber.world.GameWorld;
 
@@ -18,7 +18,7 @@ public class Bomb extends KillableObject {
 
 	private int mTicksSinceDrop = 0;
 
-	private static final int mTicksToExplode = 30; // 100/sec = 3secs;
+	private static final int mTicksToExplode = 5; // 100/sec = 3secs;
 
 
 	public Bomb(GameWorld _world) {

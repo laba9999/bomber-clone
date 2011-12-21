@@ -10,16 +10,17 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
-import com.bomber.common.Assets;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
+import com.bomber.common.assets.Assets;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.WorldMovableObject;
+import com.bomber.gametypes.GameTypeHandler;
 
 /**
  * Os Tiles vão ser lidos do nivel por camadas, imutáveis(mImutableTiles)e
@@ -148,6 +149,7 @@ public class GameMap {
 
 		mImutableTiles.clear(true);
 		mDestroyableTiles.clear();
+		mTilesBeingDestroyed.clear();
 
 		mPortal = null;
 	}
@@ -168,6 +170,13 @@ public class GameMap {
 
 		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
+		
+		if (Game.mGameType != GameTypeHandler.CTF && Game.mGameType != GameTypeHandler.TEAM_CTF)
+			return;
+		// Coloca as bases das flags
+		getTile(mWorld.mFlags[0].mPosition).setCurrentAnimation(Assets.mPortal, (short)2, false, false);
+		getTile(mWorld.mFlags[1].mPosition).setCurrentAnimation(Assets.mPortal, (short)2, false, false);
+
 	}
 
 	public void explodeTile(Tile _tile, Bomb _bomb)

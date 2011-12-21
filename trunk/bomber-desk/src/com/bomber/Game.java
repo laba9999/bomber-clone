@@ -6,14 +6,17 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
-import com.bomber.common.Assets;
 import com.bomber.common.ObjectFactory;
+import com.bomber.common.assets.Assets;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
+import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.gamestates.GameStatePlaying;
-import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.remote.EventType;
+import com.bomber.remote.Message;
+import com.bomber.remote.MessageType;
 import com.bomber.remote.MessagesHandler;
 import com.bomber.remote.RemoteConnections;
 import com.bomber.renderers.WorldRenderer;
@@ -47,14 +50,23 @@ public class Game implements ApplicationListener {
 	private GameState mGameState;
 	private long mLastGameStateChangeTime = System.currentTimeMillis();
 
-	private MessagesHandler mMessagesHandler;
+	public short mRoundsToPlay;
+	public short mRoundsPlayed;
+
+	public static boolean mGameIsOver;
 	public static boolean mHasStarted;
-	public static RemoteConnections mRemoteConnections;
-	public static Random mRandomGenerator;
+
 	public static int mRandomSeed;
+	public static Random mRandomGenerator;
+
+	private MessagesHandler mMessagesHandler;
+	public static RemoteConnections mRemoteConnections;
+
 	private static AndroidBridge mMainActivity;
 
 	public static String mLevelToLoad;
+
+	public static Team[] mTeams;
 
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		setGameType(_gameType);
@@ -66,6 +78,17 @@ public class Game implements ApplicationListener {
 		mHasStarted = false;
 		mRemoteConnections = null;
 		mLevelToLoad = _levelToLoad;
+		mGameIsOver = false;
+		
+		mRoundsPlayed = 1;
+		mRoundsToPlay = DebugSettings.GAME_ROUNDS;
+
+		if (mIsPVPGame)
+		{
+			mTeams = new Team[2];
+			mTeams[0] = new Team((short) (mNumberPlayers / 2), (short) 1);
+			mTeams[1] = new Team((short) (mNumberPlayers / 2), (short) 2);
+		}
 
 		mMessagesHandler = new MessagesHandler();
 	}
@@ -77,6 +100,27 @@ public class Game implements ApplicationListener {
 		mRemoteConnections = _conns;
 	}
 
+	public void updateRandomSeed(int _newSeed)
+	{
+		Game.mRandomSeed = _newSeed;
+		Game.mRandomGenerator = new Random(Game.mRandomSeed);
+		
+		mWorld.reset(Game.mLevelToLoad);
+		mWorld.setLocalPlayer(RemoteConnections.mLocalID);
+		
+		if (RemoteConnections.mIsGameServer)
+		{
+			// Envia uma mensagem de SYNC para a seed
+			Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
+
+			tmpMessage.messageType = MessageType.GAME;
+			tmpMessage.eventType = EventType.RANDOM_SEED;
+			tmpMessage.valInt = Game.mRandomSeed;
+			
+			mRemoteConnections.broadcast(tmpMessage);			
+		}
+	}
+	
 	public GameState getGameState()
 	{
 		return mGameState;
@@ -141,14 +185,17 @@ public class Game implements ApplicationListener {
 
 		Assets.loadAssets();
 
-		mGameState = new GameStateLoading(this);
-		mWorld = new GameWorld(new GameTypeCampaign(), mLevelToLoad);
-		// mWorld = new
-		// GameWorld(ObjectFactory.CreateGameTypeHandler.Create(mGameType),
-		// mLevelToLoad);
+		if( !mIsPVPGame)
+			mGameState = new GameStateLoading(this);
+		else
+			mGameState = new GameStateLoadingPVP(this);
+		
+		// mWorld = new GameWorld(new GameTypeCampaign(), mLevelToLoad);
+		mWorld = new GameWorld(ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 
 		mMessagesHandler.mWorld = mWorld;
+		mMessagesHandler.mGame = this;
 		// mGameState = new GameStatePlaying(this);
 
 		mNextGameTick = System.nanoTime();
@@ -178,7 +225,7 @@ public class Game implements ApplicationListener {
 
 			mGameState.update();
 
-			if (mIsPVPGame && mRemoteConnections != null)
+			if (mIsPVPGame && mRemoteConnections != null && !mGameIsOver)
 			{
 				mRemoteConnections.update();
 
@@ -200,6 +247,9 @@ public class Game implements ApplicationListener {
 	@Override
 	public void pause()
 	{
+		if( mIsPVPGame)
+			goBackToActivities();
+		
 		if (mGameState instanceof GameStatePlaying)
 			setGameState(new GameStatePaused(this));
 

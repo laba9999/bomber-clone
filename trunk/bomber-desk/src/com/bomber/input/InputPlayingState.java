@@ -3,6 +3,7 @@ package com.bomber.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.Game;
 import com.bomber.common.Directions;
 import com.bomber.gameobjects.Player;
 import com.bomber.gamestates.GameState;
@@ -71,15 +72,20 @@ public class InputPlayingState extends Input {
 		{
 			mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(p - 1), Gdx.input.getY(p - 1), 0));
 
-			if (mInputZones[INPUT_PAUSE].contains(mTouchPoint.x, mTouchPoint.y))
+			if (!Game.mIsPVPGame)
 			{
-				mGameState.mGame.setGameState(new GameStatePaused(mGameState.mGame));
-				return;
+				if (mInputZones[INPUT_PAUSE].contains(mTouchPoint.x, mTouchPoint.y))
+				{
+					mGameState.mGame.setGameState(new GameStatePaused(mGameState.mGame));
+					return;
+				}
 			}
 
-			if (mGameWorld.getLocalPlayer().mIsDead)
+			if (!mGameWorld.getLocalPlayer().mAcceptPlayerInput)
 			{
 				mDirectionsPointerIdx = -1;
+				mJustPlacedBomb = false;
+				mBombPointerIdx = -1;
 				return;
 			}
 
@@ -92,7 +98,6 @@ public class InputPlayingState extends Input {
 					break;
 				}
 			}
-
 
 			if (!mJustPlacedBomb && mInputZones[INPUT_BOMB].contains(mTouchPoint.x, mTouchPoint.y))
 			{
@@ -108,7 +113,7 @@ public class InputPlayingState extends Input {
 			mGameWorld.getLocalPlayer().stop();
 			mDirectionsPointerIdx = -1;
 		}
-		
+
 		if (mBombPointerIdx != -1 && !Gdx.input.isTouched(mBombPointerIdx))
 		{
 			mJustPlacedBomb = false;
@@ -120,8 +125,8 @@ public class InputPlayingState extends Input {
 	protected void parseInputZone(short _zone)
 	{
 		mLocalPlayer = mGameWorld.getLocalPlayer();
-		
-		if(mLocalPlayer == null)
+
+		if (mLocalPlayer == null)
 			return;
 		switch (_zone)
 		{
@@ -175,13 +180,13 @@ public class InputPlayingState extends Input {
 	protected void parseKeyboardInput()
 	{
 		mLocalPlayer = mGameWorld.getLocalPlayer();
-		if(mLocalPlayer == null)
+		if (mLocalPlayer == null)
 			return;
-		
-		if (Gdx.input.isKeyPressed(Keys.P))
+
+		if (Gdx.input.isKeyPressed(Keys.P) && !Game.mIsPVPGame)
 			mGameState.mGame.setGameState(new GameStatePaused(mGameState.mGame));
 
-		if (mLocalPlayer.mIsDead)
+		if (!mLocalPlayer.mAcceptPlayerInput)
 			return;
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT))

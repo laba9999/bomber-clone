@@ -1,6 +1,5 @@
 package com.bomber.gameobjects;
 
-import com.bomber.common.Directions;
 
 public abstract class KillableObject extends WorldMovableObject {
 
@@ -18,7 +17,6 @@ public abstract class KillableObject extends WorldMovableObject {
 			return;
 		
 		mIsDead = true;
-		mDirection = Directions.NONE;
 		
 		if (mMovableAnimations != null)
 			setCurrentAnimation(mMovableAnimations.die, mMovableAnimations.numberOfFramesDying, true, false);

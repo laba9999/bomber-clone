@@ -3,18 +3,17 @@ package com.bomber.remote;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import com.bomber.Game;
 import com.bomber.common.ObjectFactory;
+import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.remote.tcp.TCPLocalServer;
 
 public class RemoteConnections {
 
-	private GameServer mGameServer = null;
+	public GameServer mGameServer = null;
 	private ArrayList<Connection> mPlayers;
 	private LocalServer mLocalServer = null;
 
@@ -53,7 +52,7 @@ public class RemoteConnections {
 		{
 			if (mPlayers.get(idx).mRemoteID == _id)
 			{
-				mGameServer.mAvailableIds.push(_id);
+				mGameServer.releaseId(_id);
 				break;
 			}
 		}
@@ -105,7 +104,8 @@ public class RemoteConnections {
 
 		if (tmpConn == null)
 			return false;
-		
+
+
 		if (_protocol == Protocols.TCP)
 		{
 			// Envia mensagem ao servidor a indicar a porta local onde estamos a
@@ -163,7 +163,7 @@ public class RemoteConnections {
 	{
 
 		// Verifica se ainda estamos ligados ao servidor.
-		if (!mIsGameServer && !connectedToServer())
+		if (!mIsGameServer && !connectedToServer() && !Game.mGameIsOver)
 		{
 			Game.LOGGER.log("Foi perdida a ligação ao servidor... ");
 			Game.mRemoteConnections = null;
@@ -308,6 +308,7 @@ public class RemoteConnections {
 			{
 				Game.LOGGER.log("Erro ao ligar ao servidor de jogo.");
 				e.printStackTrace();
+				GameStateLoadingPVP.mFailedToConnectToServer = true;
 				return null;
 			}
 		} else

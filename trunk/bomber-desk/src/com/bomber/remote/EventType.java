@@ -9,7 +9,6 @@ public class EventType {
 	public static final short SYNC = 5;
 	public static final short SELECTED_TEAM = 6;
 
-	
 	// short contém o remoteid da ligação que corresponde ao mRemoteId do Player
 	// string contém a razão
 	public static final short DISCONNECTED = 7;
@@ -27,4 +26,9 @@ public class EventType {
 	// o valor dos segundos vem no valShort
 	public static final short COUNTDOWN = 13;
 	public static final short RANDOM_SEED = 14;
+	
+	// int indica o id da team
+	// short a cor do player
+	public static final short JOINED_TEAM = 15;
+	public static final short LEFT_TEAM = 16;
 }

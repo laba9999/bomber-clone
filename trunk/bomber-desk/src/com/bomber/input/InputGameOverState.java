@@ -3,8 +3,9 @@ package com.bomber.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.Game;
+import com.bomber.common.assets.Level;
 import com.bomber.gamestates.GameState;
-import com.bomber.world.Level;
 
 public class InputGameOverState extends Input {
 	private static final short INPUT_RELOAD = 0;
@@ -54,7 +55,7 @@ public class InputGameOverState extends Input {
 			break;
 			
 		case INPUT_MENU:
-			mGameState.mGame.goBackToActivities();
+			Game.goBackToActivities();
 			break;
 		}
 		

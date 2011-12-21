@@ -1,20 +1,19 @@
 package com.bomber.world;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.OverlayingText;
-import com.bomber.Team;
-import com.bomber.common.Assets;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
+import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.Level;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
+import com.bomber.gameobjects.Flag;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 import com.bomber.gameobjects.WorldMovableObject;
@@ -33,7 +32,8 @@ public class GameWorld {
 
 	public GameTypeHandler mGameTypeHandler;
 	public GameMap mMap;
-	public ArrayList<Team> mTeams = new ArrayList<Team>();
+	
+	public Flag[] mFlags;
 	public Clock mClock;
 
 	public String mNextLevelName;
@@ -51,6 +51,9 @@ public class GameWorld {
 		mMonsters = new ObjectsPool<Monster>((short) 5, new ObjectFactory.CreateMonster(this));
 
 		mPlayers = new ObjectsPool<Player>(Game.mNumberPlayers, new ObjectFactory.CreatePlayer(this));
+
+		if (Game.mGameType == GameTypeHandler.CTF || Game.mGameType == GameTypeHandler.TEAM_CTF)
+			mFlags = new Flag[2];
 
 		// Assumimos que cada player vai poder colocar em termos médios 2 bombas
 		// de cada vez
@@ -84,9 +87,18 @@ public class GameWorld {
 		for (Player p : mPlayers)
 			if (p.mColor == _color)
 			{
-				mPlayers.releaseObject(p);
+				p.kill((short) -1);
+				p.mLives = 0;
+				p.mIsConnected = false;
+				mGameTypeHandler.onPlayerDisconnect(p);
 				break;
 			}
+	}
+
+	public void setLocalPlayer(Player _newLocalPlayer)
+	{
+		mLocalPlayer = _newLocalPlayer;
+		mLocalPlayer.mAcceptPlayerInput = true;
 	}
 
 	public void setLocalPlayer(short _color)
@@ -96,6 +108,7 @@ public class GameWorld {
 			{
 				p.mIsLocalPlayer = true;
 				mLocalPlayer = p;
+				p.mAcceptPlayerInput = true;
 				break;
 			}
 	}
@@ -152,6 +165,12 @@ public class GameWorld {
 
 		Level.loadLevel(_levelToload, this, Game.mNumberPlayers);
 
+		if (Game.mIsPVPGame)
+		{
+			Game.mTeams[0].reset(mPlayers);
+			Game.mTeams[1].reset(mPlayers);
+		}
+
 		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
 			mMap.placePortal();
 
@@ -174,42 +193,54 @@ public class GameWorld {
 
 	public void spawnPlayer(String _type, short _line, short _col)
 	{
-
-		// if (mGameType instanceof GameTypeCampaign && mLocalPlayer != null)
+		// for (Player p : mPlayers)
 		// {
-		// mLocalPlayer.reset();
-		// mLocalPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
-		// mLocalPlayer.mColor = Player.getColorFromString(_type);
-		// mLocalPlayer.mPosition.x = _col * Tile.TILE_SIZE +
-		// Tile.TILE_SIZE_HALF;
-		// mLocalPlayer.mPosition.y = _line * Tile.TILE_SIZE +
-		// Tile.TILE_SIZE_HALF;
+		// if (p.mColor == Player.getColorFromString(_type))
+		// {
+		// p.reset();
+		// p.setMovableAnimations(Assets.mPlayers.get(_type));
+		//
+		//
+		//
+		// p.mColor = Player.getColorFromString(_type);
+		// p.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+		// p.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
+		// p.changeDirection(Directions.DOWN);
+		// p.stop();
 		// return;
 		// }
-
-		for (Player p : mPlayers)
-		{
-			if (p.mColor == Player.getColorFromString(_type))
-			{
-				p.reset();
-				p.setMovableAnimations(Assets.mPlayers.get(_type));
-				p.mColor = Player.getColorFromString(_type);
-				p.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-				p.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
-				p.changeDirection(Directions.DOWN);
-				p.stop();
-				return;
-			}
-		}
+		// }
 
 		Player tmpPlayer = mPlayers.getFreeObject();
 
 		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
+
+		tmpPlayer.mExtraTextures.put("head", Assets.mPlayersHeads.get(_type));
+		tmpPlayer.mExtraTextures.put("sad", Assets.mPlayersSad.get(_type));
+		tmpPlayer.mExtraTextures.put("happy", Assets.mPlayersHappy.get(_type));
+
 		tmpPlayer.mColor = Player.getColorFromString(_type);
+
+		// O jogador branco é sempre o primeiro elemento da equipa 1
+		if (tmpPlayer.mColor == Player.WHITE && Game.mIsPVPGame)
+			Game.mTeams[0].addElement(tmpPlayer);
+
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 
 		tmpPlayer.mSpawnPosition.set(tmpPlayer.mPosition);
+	}
+
+	public void spawnFlag(String _type, short _line, short _col)
+	{
+		if (Game.mGameType != GameTypeHandler.TEAM_CTF && Game.mGameType != GameTypeHandler.CTF)
+			return;
+
+		short id = (short) (_type.contains("1") ? 0 : 1);
+		float x = _col * Tile.TILE_SIZE;
+		float y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF/2;
+		
+		mFlags[id] = new Flag(id, new Vector2(x, y));
 	}
 
 	public void spawnBonus(Tile _container)
@@ -227,7 +258,7 @@ public class GameWorld {
 			return false;
 
 		Bomb tmpBomb = mBombs.getFreeObject();
-		
+
 		tmpTile.mContainsBomb = true;
 		tmpBomb.mContainer = tmpTile;
 		tmpBomb.mDropedBy = _playerColor;
@@ -449,6 +480,7 @@ public class GameWorld {
 		updateMonsters();
 		updateExplosions();
 		updateBonus();
+		updateFlags();
 		updateOverlayingText();
 
 		// TODO: Alterar Textura
@@ -457,6 +489,16 @@ public class GameWorld {
 			mMap.mPortal.mPlayAnimation = true;
 			mMap.mPortal.mAutoRepeat = true;
 		}
+	}
+
+	private void updateFlags()
+	{
+		if (Game.mGameType != GameTypeHandler.CTF && Game.mGameType != GameTypeHandler.TEAM_CTF)
+			return;
+
+		
+		mFlags[0].update();
+		mFlags[1].update();
 	}
 
 	private void updateMonsters()

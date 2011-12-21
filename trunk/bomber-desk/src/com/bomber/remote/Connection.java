@@ -88,6 +88,8 @@ public class Connection extends Thread {
 		mSocket.close();
 
 		Game.LOGGER.log("Conexion " + mRemoteID + " has disconnected...");
+
+
 	}
 
 	public void update()
@@ -101,6 +103,11 @@ public class Connection extends Thread {
 			{
 				Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - Conexion " + mRemoteID + " timed out...");
 				disconnect("Timeout!");
+
+				
+				// TODO : caso uma ligação seja perdida com outro cliente é necessário
+				// avisar o servidor, para que esse se certifique que o player cuja
+				// ligação terminou é desconectado.
 			}
 		} else
 		{

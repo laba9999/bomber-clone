@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 import com.bomber.remote.MessageSocketIO;
 
@@ -14,7 +15,9 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 	private BufferedInputStream mInput;
 
 	public TCPMessageSocketIO(String _addressToConnect, int _portToConnect) throws IOException {
+
 		mSocket = new Socket(_addressToConnect, _portToConnect);
+
 		mSocket.setTcpNoDelay(true);
 		initializeIOStreams();
 	}
@@ -24,11 +27,11 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 		mSocket.setTcpNoDelay(true);
 		initializeIOStreams();
 	}
-	
+
 	@Override
 	public String toString()
 	{
-		//return mSocket.getInetAddress().toString() + ":" + mSocket.getPort();
+		// return mSocket.getInetAddress().toString() + ":" + mSocket.getPort();
 		return mSocket.getInetAddress().getHostAddress().toString() + ":" + mSocket.getPort();
 	}
 
@@ -60,7 +63,7 @@ public class TCPMessageSocketIO extends MessageSocketIO {
 	{
 		try
 		{
-			if(mInput.read(mRecvBytes) <= 0)
+			if (mInput.read(mRecvBytes) <= 0)
 				throw new IOException("Falha ao ler do socket!");
 		} catch (Throwable e)
 		{

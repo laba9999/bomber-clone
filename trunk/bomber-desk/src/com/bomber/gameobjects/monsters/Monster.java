@@ -138,6 +138,8 @@ public class Monster extends KillableObject {
 			mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
 		}
 		
+		mDirection = Directions.NONE;
+		
 		return false;
 	}
 

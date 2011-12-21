@@ -2,9 +2,9 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
-import com.bomber.common.Assets;
+import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.Level;
 import com.bomber.input.InputGameOverState;
-import com.bomber.world.Level;
 
 public class GameStateGameOver extends GameState {
 

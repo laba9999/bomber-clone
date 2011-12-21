@@ -2,7 +2,6 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
-import com.bomber.common.Assets;
+import com.bomber.common.assets.Assets;
 import com.bomber.input.Input;
 import com.bomber.remote.MessageContainer;
 import com.bomber.remote.RemoteConnections;
@@ -30,14 +29,14 @@ public abstract class GameState {
 
 	protected boolean mIsFinishing;
 
-	public GameState(Game _gameScreen) {
-		mGame = _gameScreen;
-		mGameWorld = _gameScreen.mWorld;
-		mPreviousGameState = _gameScreen.getGameState();
-		mUICamera = _gameScreen.mUICamera;
-		mWorldRenderer = _gameScreen.mWorldRenderer;
+	public GameState(Game _game) {
+		mGame = _game;
+		mGameWorld = _game.mWorld;
+		mPreviousGameState = _game.getGameState();
+		mUICamera = _game.mUICamera;
+		mWorldRenderer = _game.mWorldRenderer;
 		mTouchPoint = new Vector3();
-		mBatcher = _gameScreen.mBatcher;
+		mBatcher = _game.mBatcher;
 
 		mIsFinishing = false;
 	}

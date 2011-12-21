@@ -1,8 +1,9 @@
-package com.bomber.world;
+package com.bomber.common.assets;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
 
 public class LevelXMLHandler extends DefaultHandler
 {
@@ -91,6 +92,9 @@ public class LevelXMLHandler extends DefaultHandler
 		} else if (mCurrentLayer.equals("collidables"))
 		{
 			Level.mCollidableIDs = parsedValues;
+		}else if (mCurrentLayer.equals("flags"))
+		{
+			Level.mFlags = parsedValues;
 		}
 
 	}

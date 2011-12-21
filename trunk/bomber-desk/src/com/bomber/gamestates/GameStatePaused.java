@@ -1,8 +1,7 @@
 package com.bomber.gamestates;
 
 import com.bomber.Game;
-import com.bomber.common.Assets;
-import com.bomber.common.Settings;
+import com.bomber.common.assets.Assets;
 import com.bomber.gameobjects.UIMovableObject;
 import com.bomber.input.InputPausedState;
 

@@ -2,9 +2,11 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
-import com.bomber.common.Assets;
+import com.bomber.common.assets.Assets;
 import com.bomber.gameobjects.Player;
+import com.bomber.gametypes.GameTypeCTF;
 import com.bomber.gametypes.GameTypeCampaign;
+import com.bomber.gametypes.GameTypeDeathmatch;
 import com.bomber.input.InputPlayingState;
 import com.bomber.world.Clock;
 
@@ -34,9 +36,12 @@ public class GameStatePlaying extends GameState {
 		{
 			if (mGameWorld.mGameTypeHandler instanceof GameTypeCampaign)
 				mGame.setGameState(new GameStateLevelCompleted(mGame));
-
-			// TODO : outros gametypes
-
+			else if (mGameWorld.mGameTypeHandler instanceof GameTypeDeathmatch)
+				mGame.setGameState(new GameStateRoundEndDM(mGame));
+			if (mGameWorld.mGameTypeHandler instanceof GameTypeCTF)
+				mGame.setGameState(new GameStateRoundEndCTF(mGame));
+			//else
+				//throw new InvalidParameterException(" final de gamestate não definido!");
 		} else if (mGameWorld.mGameTypeHandler.isLost())
 			mGame.setGameState(new GameStateGameOver(mGame));
 
@@ -46,7 +51,7 @@ public class GameStatePlaying extends GameState {
 	{
 		// Renderiza o mundo
 		mWorldRenderer.render();
-		
+
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 
 		// Cache
