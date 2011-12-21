@@ -162,6 +162,7 @@ public class Clock {
 			syncMessage.valLong1 = mTotalTimeEllapsed;
 			syncMessage.valLong2 = Game.mCurrentTick;
 
+			//
 			Game.mRemoteConnections.broadcast(syncMessage);
 		}
 
