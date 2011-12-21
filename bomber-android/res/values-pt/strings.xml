@@ -16,10 +16,12 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancelar</string>
     <string name="dialog_multiplayer_text">Seleccione o tipo de ligação e papel pretendidos.</string>
-        <string name="achievement_text_placeholder">Nome do Achievement</string>
-        <string name="achievement_progress_placeholder">1 de 10</string>
+    <string name="achievement_text_placeholder">Nome do Achievement</string>
+    <string name="achievement_progress_placeholder">1 de 10</string>
     <string name="top_name">Nome</string>
     <string name="top_points">Pontuação</string>
-        <string name="top_position">Lugar</string>
+    <string name="top_position">Lugar</string>
+    <string name="ip">IP:</string>
+    <string name="port">Porto:</string>
     
 </resources>
