@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a project file for TaT Tile Map Editor. -->
+<!-- This file is only used to load a project into the tile map editor. -->
+<!-- This file is not needed when loading maps into games. -->
+
+<TaT_TileMapEditor version="1.0.0">
+	<project name="bombermanLevels" author="null">
+		<tiles defaultTileWidth="40" defaultTileHeight="40" tilesetFile="tileset.xml"/>
+		<description>
+
+		</description>
+	</project>
+	<tilepalette name="level2" tileWidth="40" tileHeight="40">
+		<image file="flag_pole_team2_scaled.png"/>
+		<image file="tiles_44.png"/>
+		<image file="tiles_48.png"/>
+		<image file="flag_pole_team1_scaled.png"/>
+		<image file="tiles_45.png"/>
+		<image file="tiles_54.png"/>
+		<image file="tiles_53.png"/>
+		<image file="spawn_p3.png"/>
+		<image file="tiles_56.png"/>
+		<image file="tiles_41.png"/>
+		<image file="spawn_p4.png"/>
+		<image file="tiles_49.png"/>
+		<image file="tiles_43.png"/>
+		<image file="tiles_52.png"/>
+		<image file="tiles_46.png"/>
+		<image file="tiles_92.png"/>
+		<image file="tiles_42.png"/>
+		<image file="tiles_57.png"/>
+		<image file="tiles_63.png"/>
+		<image file="spawn_p1.png"/>
+		<image file="spawn_p2.png"/>
+		<image file="tiles_60.png"/>
+		<image file="tiles_55.png"/>
+	</tilepalette>
+	<tilepalette name="level3" tileWidth="40" tileHeight="40">
+		<image file="tiles_86.png"/>
+		<image file="tiles_114.png"/>
+		<image file="tiles_87.png"/>
+		<image file="tiles_116.png"/>
+		<image file="tiles_85.png"/>
+		<image file="tiles_97.png"/>
+		<image file="spawn_p3.png"/>
+		<image file="tiles_84.png"/>
+		<image file="tiles_89.png"/>
+		<image file="spawn_p4.png"/>
+		<image file="tiles_92.png"/>
+		<image file="tiles_112.png"/>
+		<image file="spawn_p1.png"/>
+		<image file="spawn_p2.png"/>
+		<image file="tiles_104.png"/>
+		<image file="tiles_94.png"/>
+		<image file="tiles_113.png"/>
+		<image file="tiles_115.png"/>
+		<image file="tiles_83.png"/>
+		<image file="tiles_99.png"/>
+		<image file="tiles_106.png"/>
+		<image file="tiles_101.png"/>
+		<image file="tiles_98.png"/>
+		<image file="tiles_91.png"/>
+		<image file="tiles_111.png"/>
+		<image file="tiles_90.png"/>
+		<image file="tiles_105.png"/>
+		<image file="tiles_93.png"/>
+		<image file="tiles_110.png"/>
+	</tilepalette>
+	<editorwindow mapName="Level2" dotsBelowTiles="true" dotColor="128,128,128" collisionColor="255,0,0,64" showCollision="true" codeColor="255,0,0" codeFont="SansSerif,0,9" showCode="true" fps="30" measureFps="false" visible="true">
+		<mapFile file="Level2.xml"/>
+	</editorwindow>
+	<editorwindow mapName="Level3" dotsBelowTiles="true" dotColor="128,128,128" collisionColor="255,0,0,64" showCollision="true" codeColor="255,0,0" codeFont="SansSerif,0,9" showCode="true" fps="30" measureFps="false" visible="true">
+		<mapFile file="Level3.xml"/>
+	</editorwindow>
+</TaT_TileMapEditor>

@@ -1,7 +1,7 @@
 package com.bomber.gameobjects.bonus;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.bomber.common.Assets;
+import com.bomber.common.assets.Assets;
 import com.bomber.gameobjects.Player;
 
 public class BonusNewLife extends Bonus {

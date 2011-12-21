@@ -37,10 +37,15 @@ public class MainActivity extends Activity
 
 	public void onMultiplayerButton(View v)
 	{
+		/*
 		Intent myIntent = new Intent(this, MultiplayerActivity.class);
 		// proibe a animação na transição entre activities
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivityForResult(myIntent, 0);	}
+		startActivityForResult(myIntent, 0);	*/
+		Intent myIntent = new Intent(this, AndroidGame.class);
+		startActivityForResult(myIntent, 0);
+		}
+		
 	
 	public void onTopButton(View v)
 	{

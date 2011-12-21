@@ -1,10 +1,13 @@
 package com.bomber.gameobjects;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.Game;
+import com.bomber.Team;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
@@ -15,6 +18,7 @@ import com.bomber.gameobjects.bonus.BonusExplosionSize;
 import com.bomber.gameobjects.bonus.BonusShield;
 import com.bomber.gameobjects.bonus.BonusSpeed;
 import com.bomber.gameobjects.bonus.TemporaryBonus;
+import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.EventType;
 import com.bomber.remote.Message;
 import com.bomber.remote.MessageType;
@@ -36,6 +40,8 @@ public class Player extends KillableObject {
 	public static final short SPAWN_IMMUNITY_TICKS = 300;
 	public static final short PLAYER_BLINK_SPEED = 10;
 
+	public Map<String, TextureRegion> mExtraTextures;
+
 	public int mPoints = 0;
 	public int mStartLevelPoints = 0;
 	private int mLastTickPoints = -1;
@@ -50,10 +56,14 @@ public class Player extends KillableObject {
 	public short mSpeedFactor = 1;
 	public short mColor;
 
+	public boolean mIsConnected = true;
 	public boolean mIsShieldActive = false;
 	public boolean mIsAbleToPushBombs = false;
 
 	public Vector2 mSpawnPosition = new Vector2();
+
+	public Flag mEnemyFlag = null;
+	public Team mTeam = null;
 
 	public boolean mIsLocalPlayer = false;
 	private short mTicksSinceSpawn;
@@ -78,6 +88,7 @@ public class Player extends KillableObject {
 
 		mEffects = new ObjectsPool<PlayerEffect>((short) 0, null);
 		mActiveBonus = new ObjectsPool<TemporaryBonus>((short) 0, null);
+		mExtraTextures = new HashMap<String, TextureRegion>(3);
 	}
 
 	public void dropBomb()
@@ -142,7 +153,7 @@ public class Player extends KillableObject {
 
 		if (mIsDead)
 		{
-			if (mLooped && mLives > 0)
+			if (mLooped && mLives > 0 && mIsConnected)
 			{
 				mIsDead = false;
 				mPosition.set(mSpawnPosition);
@@ -150,7 +161,10 @@ public class Player extends KillableObject {
 				mTicksSinceSpawn = 0;
 				mIsMoving = false;
 				stopCurrentAnimation();
-			}
+				mAcceptPlayerInput = true;
+			} else if (mLooped && mLives == 0)
+				mWorld.mPlayers.releaseObject(this);
+
 			return;
 		}
 
@@ -158,6 +172,9 @@ public class Player extends KillableObject {
 
 		// Verifica se colidiu com algum bónus
 		checkBonusCollision();
+
+		// Verifica se apanhou algum bónus
+		checkFlagCollision();
 
 		// Actualiza os bonus activos
 		for (Bonus b : mActiveBonus)
@@ -169,6 +186,36 @@ public class Player extends KillableObject {
 			ef.update();
 			ef.mPosition = mPosition;
 		}
+	}
+
+	private void checkFlagCollision()
+	{
+		if (Game.mGameType != GameTypeHandler.CTF && Game.mGameType != GameTypeHandler.TEAM_CTF)
+			return;
+
+		Rectangle bb = getBoundingBox();
+
+		for (int i = 0; i < 2; i++)
+		{
+			Flag flag = mWorld.mFlags[i];
+
+			if (flag.mTransporter != null)
+				continue;
+
+			boolean isEnemyFlag = !Game.mTeams[flag.mBelongsToTeamId].mPlayers.contains(this);
+			if (!isEnemyFlag)
+				continue;
+
+			if (bb.contains(flag.mPosition.x + Tile.TILE_SIZE_HALF, flag.mPosition.y + Tile.TILE_SIZE_HALF))
+			{
+				flag.mTransporter = this;
+				flag.update();
+				mEnemyFlag = flag;
+				mTeam.mTransportingEnemyFlag = true;
+				break;
+			}
+		}
+
 	}
 
 	private void checkBonusCollision()
@@ -198,6 +245,8 @@ public class Player extends KillableObject {
 				bonus.clone(tmpBonus);
 
 				mActiveBonus.addObject(tmpBonus);
+				
+				tmpBonus = tmpBonus;
 			}
 		}
 	}
@@ -240,6 +289,13 @@ public class Player extends KillableObject {
 
 		mTicksSinceSpawn = 0;
 		mIsLocalPlayer = false;
+
+		mIsConnected = true;
+		mExtraTextures.clear();
+
+		mAcceptPlayerInput = true;
+		mEnemyFlag = null;
+		mTeam = null;
 	}
 
 	public String getPoints()
@@ -265,15 +321,14 @@ public class Player extends KillableObject {
 			}
 
 			return true;
-		}
-
-		if (!Game.mIsPVPGame)
-			mLives--;
-		else if (!mIsLocalPlayer && _killerId == mWorld.getLocalPlayer().mColor)
+		} else if (!mIsLocalPlayer && _killerId == mWorld.getLocalPlayer().mColor)
 		{
 			mWorld.getLocalPlayer().mPoints += 500;
 			mWorld.spawnOverlayingPoints("500", mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
 		}
+
+		mAcceptPlayerInput = false;
+		mWorld.mGameTypeHandler.onPlayerKill(this);
 
 		return false;
 	}

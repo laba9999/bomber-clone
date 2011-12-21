@@ -1,4 +1,4 @@
-package com.bomber.common;
+package com.bomber.common.assets;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.bomber.common.Directions;
+import com.bomber.common.Settings;
 import com.bomber.gameobjects.MovableObjectAnimation;
 import com.bomber.gameobjects.bonus.Bonus;
 
@@ -77,6 +79,8 @@ public class Assets {
 
 	public static TextureRegion[] mTrophy = new TextureRegion[3];
 
+	public static HashMap<String, TextureRegion> mFlags;
+
 	public static HashMap<String, TextureRegion> mPauseButtons;
 
 	public static BitmapFont mFont;
@@ -94,6 +98,8 @@ public class Assets {
 		mDestroyableTiles = new HashMap<String, Animation>();
 		mPlayersSad = new HashMap<String, TextureRegion>();
 		mPlayersHappy = new HashMap<String, TextureRegion>();
+		
+		mFlags = new HashMap<String, TextureRegion>();
 
 		loadAtlas();
 		loadPortal();
@@ -104,12 +110,25 @@ public class Assets {
 		loadExplosions();
 		loadBonus();
 		loadBomb();
+		loadFlags();
 		loadUI();
 	}
 
 	private static void loadAtlas()
 	{
 		mAtlas = new TextureAtlas(Gdx.files.internal(ATLAS_FILE));
+	}
+
+	private static void loadFlags()
+	{
+		// Com o varão
+		mFlags.put("flag_pole_team1", mAtlas.findRegion("flag_pole_team",1));
+		mFlags.put("flag_pole_team2", mAtlas.findRegion("flag_pole_team",2));
+
+		// Transportáveis
+		mFlags.put("flag_transport_team1", mAtlas.findRegion("flag_transport_team",1));
+		mFlags.put("flag_transport_team2", mAtlas.findRegion("flag_transport_team",2));
+
 	}
 
 	private static void loadPortal()
@@ -125,7 +144,7 @@ public class Assets {
 		List<AtlasRegion> regions = mAtlas.findRegions("b_sad_");
 		for (int i = 0; i < regions.size(); i++)
 			mPlayersSad.put(players[i], regions.get(i));
-		
+
 		// Contentes
 		regions = mAtlas.findRegions("b_happy_");
 		for (int i = 0; i < regions.size(); i++)
@@ -370,11 +389,11 @@ public class Assets {
 		mScreens.put("gameover", atlasHD.findRegion("gameover"));
 
 		mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
-		
+
 		mTrophy[0] = atlasHD.findRegion("trophy");
 		mTrophy[1] = mAtlas.findRegion("trophyBig");
 		mTrophy[2] = mAtlas.findRegion("trophySmall");
-		
+
 		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);
 		mFont.setScale(1);

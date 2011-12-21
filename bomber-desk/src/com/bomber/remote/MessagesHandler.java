@@ -1,17 +1,16 @@
 package com.bomber.remote;
 
 import java.io.IOException;
-import java.security.InvalidParameterException;
-import java.util.Random;
 
-import com.badlogic.gdx.utils.Logger;
 import com.bomber.Game;
 import com.bomber.gameobjects.Player;
-import com.bomber.gamestates.GameStateLoading;
+import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.world.GameWorld;
 
 public class MessagesHandler {
 	public GameWorld mWorld;
+	public Game mGame;
+
 	MessageContainer mMessageContainer;
 	RemoteConnections mRemoteConnections;
 
@@ -82,9 +81,9 @@ public class MessagesHandler {
 		case EventType.DISCONNECTED:
 			Game.LOGGER.log(_msg.getStringValue());
 
-			if (Game.mHasStarted)
+			if (Game.mHasStarted && !Game.mGameIsOver)
 				mWorld.onPlayerDisconnect(_msg.valShort);
-			else
+			else if (!Game.mHasStarted)
 			{
 				// Abre mais uma vaga
 				mRemoteConnections.removePlayer(_msg.valShort);
@@ -121,6 +120,7 @@ public class MessagesHandler {
 
 			}
 			break;
+
 		case EventType.SYNC:
 			for (Player player : mWorld.mPlayers)
 			{
@@ -137,6 +137,7 @@ public class MessagesHandler {
 				}
 			}
 			break;
+
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
 		}
@@ -167,50 +168,52 @@ public class MessagesHandler {
 		switch (_msg.eventType)
 		{
 		case EventType.COUNTDOWN:
-			GameStateLoading.mCountdownSeconds = _msg.valInt;
+			GameStateLoadingPVP.mCountdownSeconds = _msg.valInt;
 			break;
 
 		case EventType.START:
-			GameStateLoading.mServerAuthorizedStart = true;
+			GameStateLoadingPVP.mServerAuthorizedStart = true;
 			Game.mHasStarted = true;
 			break;
 
 		case EventType.RANDOM_SEED:
-			Game.mRandomSeed = _msg.valInt;
-			Game.mRandomGenerator = new Random(_msg.valInt);
-			mWorld.reset(Game.mLevelToLoad);
-			mWorld.setLocalPlayer(RemoteConnections.mLocalID);
+			mGame.updateRandomSeed(_msg.valInt);
 			Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID);
 			break;
+
+		case EventType.JOINED_TEAM:
+			for (Player p : mWorld.mPlayers)
+			{
+				if (p.mColor == _msg.valShort)
+				{
+					Game.mTeams[_msg.valInt].addElement(p);
+					break;
+				}
+			}
+			break;
+
+		case EventType.LEFT_TEAM:
+			for (Player p : mWorld.mPlayers)
+			{
+				if (p.mColor == _msg.valShort)
+				{
+					Game.mTeams[_msg.valInt].remove(p);
+					break;
+				}
+			}
+			break;
+			
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
 		}
 	}
 
-	private void parseBonusMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
-
-	private void parsePointsMessage(Message _msg)
-	{
-		throw new UnsupportedOperationException();
-	}
 
 	private void parseClockMessage(Message _msg)
 	{
 		switch (_msg.eventType)
 		{
 		case EventType.SYNC:
-
-			// Sincroniza os ticks
-//			int diff = (int) (Game.mCurrentTick - _msg.valLong2);
-//			Game.LOGGER.log("Diferença de ticks: " + String.valueOf(diff));
-//			if (Math.abs(diff) < 250)
-//				Game.mCurrentTick += (diff / 2) * Game.SKIP_TICKS;
-//			else
-//				Game.mCurrentTick = _msg.valLong2;
-
 			// Sincroniza o relógio
 			mWorld.mClock.sync(_msg.valLong1);
 			break;

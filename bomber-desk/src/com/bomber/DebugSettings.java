@@ -4,7 +4,6 @@ import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
 
 public class DebugSettings {
-
 	// Remote
 	public static final boolean START_ANDROID_AS_SERVER = true;
 	public static final boolean START_DESKTOP_AS_SERVER = false;
@@ -14,7 +13,8 @@ public class DebugSettings {
 	// Game
 	public static final String LEVEL_TO_LOAD = "level1";
 	public static final short GAME_TYPE = GameTypeHandler.TEAM_CTF;
-	public static final short GAME_COUNTDOWN_SECONDS = 5;
+	public static final short GAME_ROUNDS = 3;
+	public static final short GAME_COUNTDOWN_SECONDS = 2;
 	
 	// Players
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;

@@ -3,7 +3,7 @@
 <!-- This file is used to describe all the tiles and animations. -->
 <!-- This file is common for all the maps in the project. -->
 
-<tilesetFile version="1.0.0" animations="0" tiles="23">
+<tilesetFile version="1.0.0" animations="0" tiles="25">
 	<tiles>
 		<imageTile id="1" width="40" height="40">
 			<image file="tiles_1.png"/>
@@ -146,7 +146,7 @@
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="21" width="40" height="40">
-			<image file="m_5_walk_0_scaled.png"/>
+			<image file="m_generic1_walk_0_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
@@ -161,6 +161,20 @@
 		</imageTile>
 		<imageTile id="23" width="40" height="40">
 			<image file="spawn_p2.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="24" width="40" height="40">
+			<image file="flag_pole_team1.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="25" width="40" height="40">
+			<image file="flag_pole_team2.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>

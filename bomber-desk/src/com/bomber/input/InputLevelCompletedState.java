@@ -3,9 +3,9 @@ package com.bomber.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.common.assets.Level;
 import com.bomber.gamestates.GameState;
 import com.bomber.world.GameWorld;
-import com.bomber.world.Level;
 
 public class InputLevelCompletedState extends Input {
 

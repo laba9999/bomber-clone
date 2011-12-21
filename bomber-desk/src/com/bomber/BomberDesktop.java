@@ -1,9 +1,7 @@
 package com.bomber;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.utils.Logger;
-import com.bomber.gamestates.GameStateLoading;
-import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.remote.RemoteConnections;
 
 public class BomberDesktop {
@@ -21,7 +19,7 @@ public class BomberDesktop {
 		
 		RemoteConnections tmpConnections = RemoteConnections.create(DebugSettings.REMOTE_PROTOCOL_IN_USE, DebugSettings.START_DESKTOP_AS_SERVER, DebugSettings.REMOTE_SERVER_ADDRESS);
 		if (tmpConnections == null)
-			GameStateLoading.mFailedToConnectToServer = true;
+			GameStateLoadingPVP.mFailedToConnectToServer = true;
 		else
 			newGame.setConnections(tmpConnections);
 		

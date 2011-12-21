@@ -1,4 +1,4 @@
-package com.bomber.world;
+package com.bomber.common.assets;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,8 +14,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 import com.badlogic.gdx.Gdx;
-import com.bomber.common.Assets;
 import com.bomber.gameobjects.Tile;
+import com.bomber.world.GameWorld;
+import com.bomber.world.LevelInfo;
 
 public class Level {
 
@@ -30,13 +31,13 @@ public class Level {
 	public static short mColumns;
 	public static short[][] mWalkableIDs;
 	public static short[][] mCollidableIDs;
+	public static short[][] mFlags;
 	public static short[][] mDestroyableIDs;
 	public static short[][] mSpawnIDs;
 
 	public static HashMap<Short, String> mImageTiles = new HashMap<Short, String>();
 
 	public static boolean mIsLoaded;
-
 
 	public static LevelInfo mInfo = new LevelInfo();
 
@@ -45,7 +46,7 @@ public class Level {
 		mIsLoaded = false;
 		mNumberOfPlayers = _howManyPlayers;
 		mInfo.mCurrentLevelName = _levelID;
-		
+
 		try
 		{
 			// setup parser
@@ -75,13 +76,21 @@ public class Level {
 			flipMatrixVertically(mCollidableIDs);
 			flipMatrixVertically(mDestroyableIDs);
 			flipMatrixVertically(mSpawnIDs);
+			flipMatrixVertically(mFlags);
 
 			loadLevelInfo(_world);
 			setupLevel(_world);
-			
+
 			_world.mMap.setupBonus(mInfo.mNumberBonus);
 			_world.mClock.reset(mInfo.mMinutes, mInfo.mSeconds);
-			
+
+			// Deixem o GC trabalhar
+			mWalkableIDs = null;
+			mCollidableIDs = null;
+			mDestroyableIDs = null;
+			mSpawnIDs = null;
+			mFlags = null;
+
 			mIsLoaded = true;
 		} catch (Exception e)
 		{
@@ -108,14 +117,16 @@ public class Level {
 		} finally
 		{
 			scanner.close();
-			
+
 			try
 			{
 				inputStream.close();
-			} catch (IOException e){}
+			} catch (IOException e)
+			{
+			}
 
 		}
-		
+
 		mInfo.set(levelInfo);
 	}
 
@@ -172,6 +183,11 @@ public class Level {
 					setupSpawn(id, j, i, _world);
 				}
 
+				id = mFlags[i][j];
+				if (id != 0)
+				{
+					_world.spawnFlag(mImageTiles.get(id), i, j);
+				}
 			}
 		}
 
@@ -214,6 +230,5 @@ public class Level {
 
 		}
 	}
-
 
 }

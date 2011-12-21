@@ -1,8 +1,8 @@
 package com.bomber.gametypes;
 
+import com.bomber.common.Directions;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
-import com.bomber.world.GameWorld;
 
 public class GameTypeCampaign extends GameTypeHandler {
 
@@ -50,5 +50,20 @@ public class GameTypeCampaign extends GameTypeHandler {
 	{
 		Player localPlayer = mGameWorld.getLocalPlayer();
 		return (localPlayer.mLives == 0 && localPlayer.mLooped) || mGameWorld.mClock.mReachedZero;
+	}
+
+	@Override
+	public boolean onPlayerKill(Player _player)
+	{
+		_player.mLives--;
+		_player.mDirection = Directions.NONE;
+		return true;
+	}
+
+	@Override
+	public void onPlayerDisconnect(Player _player)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

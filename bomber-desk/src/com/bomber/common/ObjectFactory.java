@@ -1,6 +1,7 @@
 package com.bomber.common;
 
 import java.io.IOException;
+import java.net.SocketException;
 import java.security.InvalidParameterException;
 
 import com.bomber.OverlayingText;
@@ -17,6 +18,7 @@ import com.bomber.gameobjects.bonus.BonusPush;
 import com.bomber.gameobjects.bonus.BonusShield;
 import com.bomber.gameobjects.bonus.BonusSpeed;
 import com.bomber.gameobjects.monsters.Monster;
+import com.bomber.gametypes.GameTypeCTF;
 import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.gametypes.GameTypeDeathmatch;
 import com.bomber.gametypes.GameTypeHandler;
@@ -52,16 +54,21 @@ public final class ObjectFactory {
 			{
 			case GameTypeHandler.CAMPAIGN:
 				return new GameTypeCampaign();
-				
+
 			case GameTypeHandler.DEADMATCH:
+			case GameTypeHandler.TEAM_DEADMATCH:
 				return new GameTypeDeathmatch();
-				
+
+			case GameTypeHandler.CTF:
+			case GameTypeHandler.TEAM_CTF:
+				return new GameTypeCTF();
+
 			default:
 				throw new InvalidParameterException("Tipo de jogo não implementado!");
 			}
 		}
 	}
-	
+
 	public static class CreatePlayer extends Factory<Player> {
 
 		GameWorld mWorld;

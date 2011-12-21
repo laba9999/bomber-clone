@@ -3,13 +3,13 @@ package com.bomber.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
-import com.bomber.common.Assets;
+import com.bomber.Game;
 import com.bomber.common.Settings;
-import com.bomber.gameobjects.UIMovableObject;
+import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.Level;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.world.GameWorld;
-import com.bomber.world.Level;
 
 public class InputPausedState extends Input {
 	private static final short INPUT_CONTINUE = 0;
@@ -96,7 +96,7 @@ public class InputPausedState extends Input {
 			break;
 
 		case INPUT_BACK:
-			mGameState.mGame.goBackToActivities();
+			Game.goBackToActivities();
 			break;
 		}
 	}

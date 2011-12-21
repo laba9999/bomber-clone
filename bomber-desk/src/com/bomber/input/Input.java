@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.bomber.gamestates.GameState;
-import com.bomber.remote.RemoteConnections;
 
 
 public abstract class Input {
