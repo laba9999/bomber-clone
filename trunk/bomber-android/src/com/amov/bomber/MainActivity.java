@@ -37,8 +37,10 @@ public class MainActivity extends Activity
 
 	public void onMultiplayerButton(View v)
 	{
-		showDialog(DIALOG_MULTIPLAYER);
-	}
+		Intent myIntent = new Intent(this, MultiplayerActivity.class);
+		// proibe a animação na transição entre activities
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		startActivityForResult(myIntent, 0);	}
 	
 	public void onTopButton(View v)
 	{
@@ -56,24 +58,5 @@ public class MainActivity extends Activity
 		startActivityForResult(myIntent, 0);
 	}
 
-	@Override
-	protected Dialog onCreateDialog(int _id)
-	{
-		// TODO Auto-generated method stub
-		Dialog dialog = null;
-
-		switch (_id)
-		{
-		case DIALOG_MULTIPLAYER:
-			dialog = new Dialog(MainActivity.this);
-
-			dialog.setContentView(R.layout.dialog_multiplayer);
-			dialog.setTitle(getString(R.string.dialog_multiplayer_text));
-			
-
-			break;
-		}
-		return dialog;
-	}
-
+	
 }
