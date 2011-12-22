@@ -3,7 +3,7 @@
 	    android:id="@+id/RelativeLayout01"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
-	    android:background="@drawable/background_castle" >
+	    android:background="@drawable/background_bomb" >
 
 <!-- 		<com.amov.bomber.FlingGallery -->
 		<Gallery
