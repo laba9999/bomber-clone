@@ -3,7 +3,7 @@
     android:id="@+id/levelsScrollView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background_castle">
+    android:background="@drawable/background_explode">
 
     <LinearLayout
         android:id="@+id/levelsLinearLayout"
