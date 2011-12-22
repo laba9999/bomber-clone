@@ -1,60 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayout1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" android:background="@drawable/background_castle">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayoutMain"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_bomb"
+    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:text="@string/help" android:layout_alignParentRight="true" android:layout_alignParentBottom="true" android:background="@drawable/menu_button_round" android:textColor="#eeeeee" android:textSize="30sp"/>
-
-    <Button
-        android:id="@+id/Button04"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/menu_button"
-        android:onClick="onAchievementsButton"
-        android:text="@string/achievements"
-        android:textSize="24sp" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
-    
-    <Button
-        android:id="@+id/Button03"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:background="@drawable/menu_button"
-        android:onClick="onTopButton"
-        android:text="@string/top"
-        android:textSize="24sp" android:layout_above="@id/Button04" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
-   
-    <Button
-        android:id="@+id/Button02"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:background="@drawable/menu_button"
-        android:onClick="onMultiplayerButton"
-        android:text="@string/multiplayer"
-        android:textSize="24sp" android:layout_above="@id/Button03" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
-
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="300sp"
-        android:layout_height="40sp"
-        android:background="@drawable/menu_button"
-        android:onClick="onArcadeButton"
-        android:text="@string/arcade"
-        android:textSize="24sp" android:layout_above="@id/Button02" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee"/>
-
     <ImageView
         android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Button01"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo" />
+        android:src="@drawable/logo_bomberman" android:layout_marginTop="20sp" android:layout_gravity="center_horizontal" android:layout_marginBottom="10sp"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutMainButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/menu_container"
+        android:orientation="vertical" >
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/Button01"
+            android:layout_width="300sp"
+            android:background="@drawable/menu_button_old"
+            android:onClick="onArcadeButton"
+            android:text="@string/arcade"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" android:layout_gravity="center_horizontal" android:layout_weight="1" android:layout_marginTop="20sp" android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/Button02"
+            android:layout_width="300sp"
+            android:background="@drawable/menu_button_old"
+            android:onClick="onMultiplayerButton"
+            android:text="@string/multiplayer"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" android:layout_gravity="center_horizontal" android:layout_weight="1" android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/Button03"
+            android:layout_width="300sp"
+            android:background="@drawable/menu_button_old"
+            android:onClick="onTopButton"
+            android:text="@string/top"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" android:layout_gravity="center_horizontal" android:layout_weight="1" android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/Button04"
+            android:layout_width="300sp"
+            android:background="@drawable/menu_button_old"
+            android:onClick="onAchievementsButton"
+            android:text="@string/achievements"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" android:layout_gravity="center_horizontal" android:layout_weight="1" android:layout_marginBottom="20sp" android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+</LinearLayout>
+    

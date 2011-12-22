@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background_castle" >
+    android:background="@drawable/background_bomb" >
 
     <TextView
         android:id="@+id/textMultiplayerTitle"
@@ -156,7 +156,7 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/tableLayout1"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/menu_button"
+        android:background="@drawable/menu_button_old"
         android:onClick="onStartButton"
         android:text="@string/ok"
         android:textColor="#ffffff"
