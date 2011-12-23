@@ -25,6 +25,7 @@ import com.bomber.remote.Connection;
 import com.bomber.remote.Message;
 import com.bomber.remote.MessageContainer;
 import com.bomber.remote.Protocols;
+import com.bomber.remote.bluetooth.BluetoothMessageSocketIO;
 import com.bomber.remote.tcp.TCPMessageSocketIO;
 import com.bomber.remote.udp.UDPMessage;
 import com.bomber.remote.udp.UDPMessageSocketIO;
@@ -43,6 +44,8 @@ public final class ObjectFactory {
 				return new Connection(new TCPMessageSocketIO(data[0], Integer.valueOf(data[1])), _msgContainer);
 			case Protocols.UDP:
 				return new Connection(new UDPMessageSocketIO(data[0], Integer.valueOf(data[1])), _msgContainer);
+			case Protocols.BLUETOOTH:
+				return new Connection(new BluetoothMessageSocketIO(_connectionString), _msgContainer);
 			default:
 				throw new InvalidParameterException("Protocolo não implementado!");
 			}

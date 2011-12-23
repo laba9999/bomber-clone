@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
     <string name="arcade">Arcade</string>
@@ -10,10 +11,12 @@
     <string name="wifi">Wifi</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="connection">Ligação:</string>
+    <string name="protocol">Protocolo:</string>
     <string name="role">Papel:</string>
-    <string name="server">Servidor</string>
+    <string name="server">Servidor:</string>
     <string name="client">Cliente</string>
-    <string name="ok">Ok</string>
+    <string name="searching_bt_devices">À procura de dispositivos bluetooth..</string>
+    <string name="ok">Iniciar</string>
     <string name="cancel">Cancelar</string>
     <string name="dialog_multiplayer_text">Seleccione o tipo de ligação e papel pretendidos.</string>
     <string name="achievement_text_placeholder">Nome do Achievement</string>
@@ -38,4 +41,5 @@
     <string name="achievement_completed_campaign">Campanha completa</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+
 </resources>

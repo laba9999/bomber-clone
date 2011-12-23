@@ -7,6 +7,7 @@ import com.bomber.common.Achievements;
 import com.bomber.gameobjects.Flag;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
+import com.bomber.gamestates.GameStateServerConnectionError;
 
 public class GameTypeCTF extends GameTypeHandler {
 	Team mTeam1;
@@ -46,12 +47,10 @@ public class GameTypeCTF extends GameTypeHandler {
 			}
 		}
 
-		if(mGameWorld.mClock.mReachedZero || Game.mTeams[0].mCapturedEnemyFlag || Game.mTeams[1].mCapturedEnemyFlag)
-		{
-			Achievements.mNumberCTFWins++;
+		if (mGameWorld.mClock.mReachedZero || Game.mTeams[0].mCapturedEnemyFlag || Game.mTeams[1].mCapturedEnemyFlag)
 			return true;
-		}
 		
+
 		return false;
 	}
 
@@ -78,7 +77,6 @@ public class GameTypeCTF extends GameTypeHandler {
 	@Override
 	public void onPlayerDisconnect(Player _player)
 	{
-		// TODO Auto-generated method stub
 
 	}
 

@@ -1,0 +1,440 @@
+package com.amov.bomber;
+
+import java.util.Set;
+
+import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.bomber.DebugSettings;
+import com.bomber.Game;
+import com.bomber.remote.Protocols;
+
+public class MultiplayerConnectionActivity extends Activity
+{
+
+	public final int REQUEST_ENABLE_BT = 0;
+	public final int REQUEST_DISCOVERABLE_BT = 1;
+
+	public static final int DIALOG_MULTIPLAYER = 0;
+
+	RadioButton mRadioWifi;
+	RadioButton mRadioBluetooth;
+	RadioButton mRadioClient;
+	RadioButton mRadioServer;
+	RadioButton mRadioTCP;
+	RadioButton mRadioUDP;
+
+	Button mButtonStart;
+
+	TableRow mTableRowIpPort;
+	TableRow mTableRowProtocols;
+	TableRow mTableRowBluetoothDevices;
+	EditText mEditIp;
+	TextView mTextIp;
+	EditText mEditPort;
+	Spinner mSpinnerBTDevices;
+
+	ArrayAdapter<String> mBTArrayAdapter;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.multiplayer_connection);
+
+		mBTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
+
+		mTableRowIpPort = (TableRow) findViewById(R.id.tableRowIpPort);
+		mTableRowProtocols = (TableRow) findViewById(R.id.tableRowProtocols);
+		mTableRowBluetoothDevices = (TableRow) findViewById(R.id.tableRowBluetoothDevices);
+		mSpinnerBTDevices = (Spinner) this.findViewById(R.id.spinnerBluetoothDevices);
+
+		mTableRowProtocols.setVisibility(RadioGroup.GONE);
+		mTableRowIpPort.setVisibility(RadioGroup.GONE);
+		mTableRowBluetoothDevices.setVisibility(RadioGroup.GONE);
+
+		mEditIp = (EditText) findViewById(R.id.editIP);
+		mTextIp = (TextView) findViewById(R.id.textIp);
+		mEditPort = (EditText) findViewById(R.id.editPort);
+
+		mRadioWifi = (RadioButton) findViewById(R.id.radioWifi);
+		mRadioBluetooth = (RadioButton) findViewById(R.id.radioBluetooth);
+		mRadioClient = (RadioButton) findViewById(R.id.radioClient);
+		mRadioServer = (RadioButton) findViewById(R.id.radioServer);
+		mRadioTCP = (RadioButton) findViewById(R.id.radioTCP);
+		mRadioUDP = (RadioButton) findViewById(R.id.radioUDP);
+
+		mButtonStart = (Button) findViewById(R.id.buttonOkDialogMultiplayer);
+		mButtonStart.setVisibility(Button.INVISIBLE);
+
+		if (BluetoothAdapter.getDefaultAdapter() == null)
+		{
+			mTableRowProtocols.setVisibility(RadioGroup.VISIBLE);
+			mRadioBluetooth.setVisibility(RadioButton.INVISIBLE);
+			mRadioWifi.setChecked(true);
+		}
+
+		// Listeners dos radio buttons
+		mRadioWifi.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+
+			public void onCheckedChanged(CompoundButton _buttonView, boolean _isChecked)
+			{
+				if (mRadioWifi.isChecked())
+					mTableRowBluetoothDevices.setVisibility(RadioGroup.INVISIBLE);
+
+				if (_isChecked && !checkWifiConnection())
+				{
+					((WifiManager) getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
+				}
+
+				mRadioClient.setChecked(false);
+				mRadioServer.setChecked(false);
+
+				mTableRowProtocols.setVisibility(_isChecked ? RadioGroup.VISIBLE : RadioGroup.GONE);
+				mTableRowIpPort.setVisibility(_isChecked && (mRadioClient.isChecked() || mRadioServer.isChecked()) ? RadioGroup.VISIBLE : RadioGroup.GONE);
+
+				if (_isChecked && mRadioClient.isChecked())
+				{
+					mTableRowIpPort.setVisibility(RadioButton.VISIBLE);
+					mEditIp.setVisibility(EditText.VISIBLE);
+					mTextIp.setVisibility(TextView.VISIBLE);
+				} else if (_isChecked && mRadioServer.isChecked())
+				{
+					mTableRowIpPort.setVisibility(RadioButton.VISIBLE);
+					mEditIp.setVisibility(EditText.INVISIBLE);
+					mTextIp.setVisibility(TextView.INVISIBLE);
+				}
+			}
+		});
+
+		mRadioClient.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			public void onCheckedChanged(CompoundButton _buttonView, boolean _isChecked)
+			{
+				mButtonStart.setVisibility(mRadioServer.isChecked() && mRadioWifi.isChecked() || mRadioClient.isChecked() && mRadioWifi.isChecked() ? RadioGroup.VISIBLE : RadioGroup.INVISIBLE);
+
+				if (_isChecked && mRadioWifi.isChecked())
+				{
+					mTableRowIpPort.setVisibility(RadioButton.VISIBLE);
+					mEditIp.setVisibility(EditText.VISIBLE);
+					mTextIp.setVisibility(TextView.VISIBLE);
+				} else if (_isChecked && mRadioBluetooth.isChecked())
+				{
+					if (!checkBluetoothConnection())
+					{
+						Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+						startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+					} else
+						listAvailableBTDevices();
+				}
+			}
+		});
+
+		mRadioServer.setOnCheckedChangeListener(new OnCheckedChangeListener()
+		{
+			public void onCheckedChanged(CompoundButton _buttonView, boolean _isChecked)
+			{
+				mButtonStart.setVisibility(mRadioServer.isChecked() && mRadioWifi.isChecked() || mRadioClient.isChecked() && mRadioWifi.isChecked() ? RadioGroup.VISIBLE : RadioGroup.INVISIBLE);
+				mTableRowBluetoothDevices.setVisibility(RadioGroup.INVISIBLE);
+
+				if (_isChecked && mRadioWifi.isChecked())
+				{
+					mTableRowIpPort.setVisibility(RadioButton.VISIBLE);
+					mEditIp.setVisibility(EditText.INVISIBLE);
+					mTextIp.setVisibility(TextView.INVISIBLE);
+				} else if (_isChecked && mRadioBluetooth.isChecked())
+				{
+					if (!checkBluetoothConnection())
+					{
+						Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+						discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 120);
+						startActivityForResult(discoverableIntent, REQUEST_DISCOVERABLE_BT);
+					} else
+						startGameAsBluetoothServer();
+				}
+			}
+		});
+
+		mSpinnerBTDevices.setOnItemSelectedListener(new OnItemSelectedListener()
+		{
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+			{
+				mButtonStart.setVisibility(Button.VISIBLE);
+
+				String[] device = ((String) mSpinnerBTDevices.getItemAtPosition(position)).split("\n");
+				DebugSettings.REMOTE_SERVER_ADDRESS = device[1];
+				System.out.println("seleccionado bt: " + DebugSettings.REMOTE_SERVER_ADDRESS);
+			}
+
+			public void onNothingSelected(AdapterView<?> _arg0)
+			{
+
+			}
+		});
+
+		// Regista o BroadcastReceiver para dispositivos encontrados
+		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+		registerReceiver(mReceiver, filter);
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		unregisterReceiver(mReceiver);
+
+		super.onDestroy();
+	}
+
+	private void listAvailableBTDevices()
+	{
+		mTableRowBluetoothDevices.setVisibility(RadioGroup.VISIBLE);
+
+		BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+
+		if (!btAdapter.startDiscovery())
+			Game.LOGGER.log("Falhada o inicio de descoberta.");
+
+		// Apresenta toast a indicar que estamos à procura de devices
+		Toast.makeText(this, this.getString(R.string.searching_bt_devices), Toast.LENGTH_SHORT).show();
+
+		mBTArrayAdapter.clear();
+		mBTArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		mSpinnerBTDevices.setAdapter(mBTArrayAdapter);
+
+		Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
+
+		// Verifica se já existem dispositivos emparelhados
+		if (pairedDevices.size() > 0)
+			for (BluetoothDevice device : pairedDevices)
+				mBTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+
+		mSpinnerBTDevices.performClick();
+		mSpinnerBTDevices.refreshDrawableState();
+	}
+
+	private final BroadcastReceiver mReceiver = new BroadcastReceiver()
+	{
+		public void onReceive(Context context, Intent intent)
+		{
+			String action = intent.getAction();
+			if (BluetoothDevice.ACTION_FOUND.equals(action))
+			{
+				// Obtém o BluetoothDevice do Intent
+				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+				mBTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+			}
+		}
+	};
+
+	@Override
+	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
+	{
+		switch (_requestCode)
+		{
+		case REQUEST_ENABLE_BT:
+			if (_resultCode == RESULT_CANCELED)
+			{
+				mRadioBluetooth.setChecked(false);
+				Toast t = Toast.makeText(this, this.getString(R.string.error_bluetoothconnection), Toast.LENGTH_SHORT);
+				t.show();
+			} else
+				listAvailableBTDevices();
+
+			break;
+
+		case REQUEST_DISCOVERABLE_BT:
+			if (_resultCode == RESULT_CANCELED)
+			{
+				mRadioBluetooth.setChecked(false);
+				Toast.makeText(this, this.getString(R.string.error_bluetoothconnection), Toast.LENGTH_SHORT).show();
+
+			} else
+				startGameAsBluetoothServer();
+			break;
+		}
+
+		super.onActivityResult(_requestCode, _resultCode, _data);
+	}
+
+	private void startGameAsBluetoothServer()
+	{
+		// Prepara as settings para o jogo
+		DebugSettings.BLUETOOTH_ADAPTER = BluetoothAdapter.getDefaultAdapter();
+		DebugSettings.START_ANDROID_AS_SERVER = true;
+		DebugSettings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
+
+		// Inicia o jogo
+		Intent myIntent = new Intent(this, BuildActivity.class);
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		startActivity(myIntent);
+	}
+
+	private void startGameAsBluetoothClient()
+	{
+		// Prepara as settings para o jogo
+		DebugSettings.BLUETOOTH_ADAPTER = BluetoothAdapter.getDefaultAdapter();
+		DebugSettings.START_ANDROID_AS_SERVER = false;
+		DebugSettings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
+
+		// Inicia o jogo
+		Intent myIntent = new Intent(this, BuildActivity.class);
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		startActivity(myIntent);
+	}
+
+	public void onStartButton(View v)
+	{
+		boolean connected = false;
+
+		if (mRadioWifi.isChecked())
+		{
+			connected = checkWifiConnection();
+
+			if (!connected)
+				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
+			else
+			{
+				DebugSettings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
+				DebugSettings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
+
+				if (mRadioServer.isChecked())
+					DebugSettings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
+				else
+					DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
+
+				System.out.println(DebugSettings.REMOTE_SERVER_ADDRESS);
+				System.out.println(DebugSettings.REMOTE_PROTOCOL_IN_USE);
+			}
+		} else
+		{
+			connected = checkBluetoothConnection();
+			if (!connected)
+				Toast.makeText(this, this.getString(R.string.error_bluetoothconnection), Toast.LENGTH_SHORT).show();
+			else
+				startGameAsBluetoothClient();
+		}
+
+		if (connected)
+		{
+			Intent myIntent = new Intent(this, AndroidGame.class);
+			startActivityForResult(myIntent, 0);
+		}
+
+	}
+
+	private boolean checkWifiConnection()
+	{
+		// http://stackoverflow.com/questions/1811852/android-if-wifi-is-enabled-and-active-launch-an-intent
+
+		ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = null;
+		if (cm != null)
+		{
+			networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		}
+		return networkInfo == null ? false : networkInfo.isConnected();
+	}
+
+	private boolean checkBluetoothConnection()
+	{// http://stackoverflow.com/questions/7672334/how-to-check-if-bluetooth-is-enabled-programmatically
+		BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBluetoothAdapter == null)
+		{
+			// dispositivo nao suporta bluetooth
+			return false;
+		}
+
+		if (!mBluetoothAdapter.isEnabled())
+		{
+			// Bluetooth não está activo
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+		{
+			Intent resultIntent = new Intent();
+			setResult(Activity.RESULT_OK, resultIntent);
+			finish();
+			// desactiva animação na transição entre activities
+			overridePendingTransition(0, 0);
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
+
+	private final BroadcastReceiver BluetoothReceiver = new BroadcastReceiver()
+	{
+		@Override
+		public void onReceive(Context context, Intent intent)
+		{
+			String strMode = "";
+			String action = intent.getAction();
+			if (BluetoothAdapter.ACTION_SCAN_MODE_CHANGED.equals(action))
+			{
+				int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
+
+				switch (mode)
+				{
+				case BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE:
+					strMode = "mode changed: SCAN_MODE_CONNECTABLE_DISCOVERABLE";
+					break;
+				case BluetoothAdapter.SCAN_MODE_CONNECTABLE:
+					strMode = "mode changed: SCAN_MODE_CONNECTABLE";
+					break;
+				case BluetoothAdapter.SCAN_MODE_NONE:
+					strMode = "mode changed: SCAN_MODE_NONE";
+					break;
+				}
+			} else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action))
+			{
+				int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+
+				switch (mode)
+				{
+				case BluetoothAdapter.STATE_ON:
+
+					break;
+				case BluetoothAdapter.STATE_OFF:
+					strMode = "mode changed: SCAN_MODE_CONNECTABLE";
+					break;
+				}
+			}
+
+			Toast.makeText(MultiplayerConnectionActivity.this, strMode, Toast.LENGTH_LONG).show();
+		}
+	};
+
+}

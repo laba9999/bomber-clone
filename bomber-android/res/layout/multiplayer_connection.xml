@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background_explode" >
@@ -14,19 +14,20 @@
         android:layout_marginTop="10sp"
         android:text="@string/multiplayer"
         android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000"
         android:textSize="30sp"
-        android:textStyle="bold" android:textColor="#000000"/>
+        android:textStyle="bold" />
 
     <TableLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textMultiplayerTitle"
-        android:background="#aa333333">
+        android:background="#aa333333" >
 
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
-            android:layout_margin="10sp"
+            android:layout_margin="1sp"
             android:weightSum="3" >
 
             <TextView
@@ -52,7 +53,7 @@
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/wifi" />
 
                 <RadioButton
@@ -65,9 +66,50 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow2"
+            android:id="@+id/tableRowProtocols"
             android:layout_width="wrap_content"
-            android:layout_margin="10sp"
+            android:layout_margin="1sp"
+            android:weightSum="3" >
+
+            <TextView
+                android:id="@+id/textViewProtocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/protocol"
+                android:textAppearance="?android:attr/textAppearanceMedium" android:visibility="visible"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroupProtocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10sp"
+                android:layout_weight="2"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/radioTCP"
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="TCP" android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/radioUDP"
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="false"
+                    android:text="UDP" />
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_margin="1sp"
             android:weightSum="3" >
 
             <TextView
@@ -93,7 +135,7 @@
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/client" />
 
                 <RadioButton
@@ -104,12 +146,12 @@
                     android:text="@string/server" />
             </RadioGroup>
         </TableRow>
-
+
         <TableRow
             android:id="@+id/tableRowIpPort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10sp"
+            android:layout_margin="1sp"
             android:focusable="true"
             android:weightSum="3" >
 
@@ -117,15 +159,18 @@
                 android:id="@+id/textIp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1.3"
                 android:text="@string/ip"
-                android:textAppearance="?android:attr/textAppearanceMedium" android:layout_gravity="center_vertical"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/editIP"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:maxLength="15" android:layout_gravity="center_vertical" android:layout_width="wrap_content">
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.6"
+                android:maxLength="15" android:text="192.168.1.110">
 
                 <requestFocus />
             </EditText>
@@ -134,19 +179,45 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginLeft="10sp"
+                android:layout_weight="0.1"
                 android:text="@string/port"
-                android:textAppearance="?android:attr/textAppearanceMedium" android:layout_gravity="center_vertical"/>
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <EditText
                 android:id="@+id/editPort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:inputType="number"
-                android:maxLength="6" android:layout_gravity="center_vertical"/>
+                android:maxLength="5"
+                android:numeric="signed" android:text="50005" android:maxWidth="35sp" android:layout_weight="0.8"/>
         </TableRow>
+        
+                <TableRow
+            android:id="@+id/tableRowBluetoothDevices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1sp"
+            android:focusable="true"
+            android:weightSum="3" >
 
+            <TextView
+                android:id="@+id/textDevices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/server"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/spinnerBluetoothDevices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_weight="2"/>
+
+        </TableRow>
     </TableLayout>
 
     <Button
@@ -154,13 +225,12 @@
         android:layout_width="200sp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/tableLayout1"
         android:layout_centerHorizontal="true"
         android:background="@drawable/menu_button"
         android:onClick="onStartButton"
         android:text="@string/ok"
         android:textColor="#ffffff"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
 </RelativeLayout>

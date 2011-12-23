@@ -4,11 +4,17 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Utils {
 	private static int mUUID = 0;
-	
+
 	public static int getNextUUID()
 	{
 		return ++mUUID;
 	}
+
+	public static void resetUUID()
+	{
+		mUUID = 0;
+	}
+
 	public static boolean rectsOverlap(Rectangle r1, Rectangle r2)
 	{
 		if (r2.x >= r1.x + r1.width)

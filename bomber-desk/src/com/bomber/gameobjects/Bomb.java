@@ -20,7 +20,6 @@ public class Bomb extends KillableObject {
 
 	private static final int mTicksToExplode = 300; // 100/sec = 3secs;
 
-
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
 		mIgnoreDestroyables = false;
@@ -43,20 +42,26 @@ public class Bomb extends KillableObject {
 		}
 
 		if (mIsMoving)
-		{
-			// Verifica as colisões
-			GameMap map = mWorld.mMap;
-			int currentTileIdx = map.calcTileIndex(mPosition);
-			int forbiddenTileIdx = map.calcTileIndex(mPosition, mDirection, (short) 1);
+			checkCollisions();
 
-			// Contra monstros
-			if (checkCollisionsAgainstMovableObjects(mWorld.mMonsters, currentTileIdx, forbiddenTileIdx))
-				return;
+	}
 
-			// Contra outros players
-			if (checkCollisionsAgainstMovableObjects(mWorld.mPlayers, currentTileIdx, forbiddenTileIdx))
-				return;
-		}
+	private boolean checkCollisions()
+	{
+		// Verifica as colisões
+		GameMap map = mWorld.mMap;
+		int currentTileIdx = map.calcTileIndex(mPosition);
+		int forbiddenTileIdx = map.calcTileIndex(mPosition, mDirection, (short) 1);
+
+		// Contra monstros
+		if (checkCollisionsAgainstMovableObjects(mWorld.mMonsters, currentTileIdx, forbiddenTileIdx))
+			return true;
+
+		// Contra outros players
+		if (checkCollisionsAgainstMovableObjects(mWorld.mPlayers, currentTileIdx, forbiddenTileIdx))
+			return true;
+
+		return false;
 	}
 
 	private <T extends KillableObject> boolean checkCollisionsAgainstMovableObjects(ObjectsPool<T> pool, int _currentTileIdx, int _forbiddenTileIdx)
@@ -93,6 +98,10 @@ public class Bomb extends KillableObject {
 	@Override
 	protected void onChangedDirection()
 	{
+		// De certeza que pode andar??
+		if (checkCollisions())
+			return;
+
 		mContainer.mContainsBomb = false;
 		mSpeed = 3.5f;
 	}
@@ -102,7 +111,7 @@ public class Bomb extends KillableObject {
 	{
 		mContainer = mWorld.mMap.getTile(mPosition);
 		mContainer.mContainsBomb = true;
-		
+
 		// Centra a bomba no tile em que está actualmente
 		mPosition.set(mContainer.mPosition.x + Tile.TILE_SIZE_HALF, mContainer.mPosition.y + Tile.TILE_SIZE_HALF);
 	}

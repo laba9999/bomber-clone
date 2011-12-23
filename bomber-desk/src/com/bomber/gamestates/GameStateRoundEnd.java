@@ -46,6 +46,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 		if (mGame.mRoundsPlayed++ == mGame.mRoundsToPlay)
 		{
 			Game.mGameIsOver = true;
+			onAllRoundsPlayed();
 		} else if (RemoteConnections.mIsGameServer)
 		{
 			mGame.updateRandomSeed((int) System.currentTimeMillis());
@@ -54,6 +55,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 
 	}
 
+	protected abstract void onAllRoundsPlayed();
 	@Override
 	public void onUpdate()
 	{

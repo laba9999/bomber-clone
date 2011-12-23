@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
-    <string name="arcade">Arcade</string>    
+    <string name="arcade">Arcade</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="top">Top</string>
     <string name="achievements">Achievements</string>
@@ -10,10 +11,12 @@
     <string name="wifi">Wifi</string>
     <string name="bluetooth">Bluetooth</string>
     <string name="connection">Connection:</string>
+    <string name="protocol">Protocol:</string>
     <string name="role">Role:</string>
-    <string name="server">Server</string>
+    <string name="server">Server:</string>
     <string name="client">Client</string>
-    <string name="ok">Ok</string>
+    <string name="searching_bt_devices">Searching bluetooth devices..</string>
+    <string name="ok">Start</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_multiplayer_text">Select the connection type and role wanted.</string>
     <string name="achievement_text_placeholder">Achievement name</string>
@@ -21,7 +24,7 @@
     <string name="top_name">Name</string>
     <string name="top_points">Points</string>
     <string name="top_position">Position</string>
-    <string name="ip">IP:</string>
+    <string name="ip">Server IP:</string>
     <string name="port">Port:</string>
     <string name="error_wificonnection">Please connect to a network!</string>
     <string name="error_bluetoothconnection">Please turn on Bluetooth!</string>
@@ -38,4 +41,5 @@
     <string name="achievement_completed_campaign">Completed Campaign</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
 </resources>

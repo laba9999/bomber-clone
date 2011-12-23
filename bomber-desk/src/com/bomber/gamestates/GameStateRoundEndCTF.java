@@ -1,6 +1,7 @@
 package com.bomber.gamestates;
 
 import com.bomber.Game;
+import com.bomber.common.Achievements;
 
 public class GameStateRoundEndCTF extends GameStateRoundEnd {
 
@@ -43,6 +44,18 @@ public class GameStateRoundEndCTF extends GameStateRoundEnd {
 			// Team 2 ganhou
 			mTeam2.mRoundsWon++;
 		}
+	}
+
+	@Override
+	protected void onAllRoundsPlayed()
+	{
+		if (mTeam1.mPlayers.contains(mGameWorld.getLocalPlayer()))
+		{
+			if (mTeam1.mRoundsWon >= mTeam2.mRoundsWon)
+				Achievements.mNumberCTFWins++;
+		} else if (mTeam2.mPlayers.contains(mGameWorld.getLocalPlayer()))
+			if (mTeam2.mRoundsWon >= mTeam1.mRoundsWon)
+				Achievements.mNumberCTFWins++;
 	}
 
 }
