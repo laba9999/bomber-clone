@@ -1,16 +1,19 @@
 package com.amov.bomber;
 
-import com.bomber.common.Achievements;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bomber.common.Achievements;
+import com.bomber.remote.Message;
 
 public class BuildActivity extends Activity
 {
@@ -32,7 +35,8 @@ public class BuildActivity extends Activity
 	int mSpeedPoints = 0;
 	
 	TextView mTextAvailablePoints;
-
+	EditText mEditUsername;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -53,6 +57,10 @@ public class BuildActivity extends Activity
 			mAvailablePoints++;
 		if(Achievements.isCampaignCompleted())
 			mAvailablePoints++;
+		
+		mEditUsername = (EditText) findViewById(R.id.editBuildUsername);
+		InputFilter maxLengthFilter = new InputFilter.LengthFilter(Message.STRING_MAX_SIZE);
+		mEditUsername.setFilters(new InputFilter[]{maxLengthFilter});
 		
 		mTextAvailablePoints = (TextView) findViewById(R.id.textBuildAvailablePointsValue);
 		mTextAvailablePoints.setText(mAvailablePoints.toString());			

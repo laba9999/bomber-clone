@@ -27,8 +27,8 @@
           <TableRow
               android:id="@+id/tableRowBuildUsername"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_margin="5sp"
+              android:layout_height="wrap_content"
+              android:layout_margin="2sp"
               android:layout_weight="1" >
 
               <TextView
@@ -46,16 +46,15 @@
                   android:id="@+id/editBuildUsername"
                   android:layout_width="20sp"
                   android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:maxLength="22" />
+                  android:layout_weight="1"/>
 
           </TableRow>
 
           <TableRow
               android:id="@+id/tableRowBuild0"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_margin="5sp"
+              android:layout_height="wrap_content"
+              android:layout_margin="2sp"
               android:layout_weight="1" >
 
               <TextView
@@ -82,8 +81,8 @@
           <TableRow
               android:id="@+id/tableRowBuild1"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_margin="5sp"
+              android:layout_height="wrap_content"
+              android:layout_margin="2sp"
               android:layout_weight="1"
               android:background="#aa333333" >
 
@@ -157,8 +156,8 @@
           <TableRow
               android:id="@+id/tableRowBuild2"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_margin="5sp"
+              android:layout_height="wrap_content"
+              android:layout_margin="2sp"
               android:layout_weight="1"
               android:background="#aa333333" >
 
@@ -229,8 +228,8 @@
           <TableRow
               android:id="@+id/tableRowBuild3"
               android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:layout_margin="5sp"
+              android:layout_height="wrap_content"
+              android:layout_margin="2sp"
               android:layout_weight="1"
               android:background="#aa333333" >
 
