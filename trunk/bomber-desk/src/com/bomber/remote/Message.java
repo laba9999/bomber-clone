@@ -11,9 +11,9 @@ import com.bomber.common.PoolObject;
  * qualquer tipo de evento.
  */
 public class Message extends PoolObject {
-
-
-	public static final short STRING_MAX_SIZE = 24;
+	// O número de bytes que será enviado por mensagem
+	public static final short MESSAGE_SIZE = 62;
+	public static final short STRING_MAX_SIZE = 22;
 	/**
 	 * este senderID identifica unicamente o jogador que a enviou. Este sender
 	 * id é colocado durante a criação pela pool que por sua vez é um atributo
@@ -33,11 +33,11 @@ public class Message extends PoolObject {
 	public Vector2 valVector2_0 = new Vector2();
 	public short valShort;
 	public int valInt;
-	
+
 	// Sempre que o servidor enviar uma mensagem envia também o número de ticks
 	public long valLong1;
 	public long valLong2;
-	private String valString ="";
+	private String valString = "";
 
 	private byte[] valStringBuffer = new byte[STRING_MAX_SIZE];
 
@@ -66,11 +66,13 @@ public class Message extends PoolObject {
 	 */
 	public void parse(ByteBuffer _buff)
 	{
+		_buff.position(0);
+		
 		senderID = _buff.getShort();
 		UUID = _buff.getInt();
 		messageType = _buff.getShort();
 		eventType = _buff.getShort();
-		
+
 		valVector2_0.x = _buff.getFloat();
 		valVector2_0.y = _buff.getFloat();
 
@@ -78,7 +80,7 @@ public class Message extends PoolObject {
 		valInt = _buff.getInt();
 		valLong1 = _buff.getLong();
 		valLong2 = _buff.getLong();
-		
+
 		_buff.get(valStringBuffer, 0, valStringBuffer.length);
 		valString = new String(valStringBuffer).trim();
 
@@ -91,6 +93,7 @@ public class Message extends PoolObject {
 	 */
 	public void fillBuffer(ByteBuffer _destination)
 	{
+		_destination.position(0);
 		_destination.putShort(senderID);
 		_destination.putInt(UUID);
 		_destination.putShort(messageType);
@@ -103,7 +106,7 @@ public class Message extends PoolObject {
 		_destination.putInt(valInt);
 		_destination.putLong(valLong1);
 		_destination.putLong(valLong2);
-		
+
 		_destination.put(valString.getBytes());
 
 		_destination.position(0);
@@ -122,18 +125,18 @@ public class Message extends PoolObject {
 		_newMessage.valLong2 = valLong2;
 		_newMessage.valString = new String(valString);
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		StringBuilder str = new StringBuilder();
 		str.append("Sender ID: " + senderID).append("\r\n");
 		str.append("UUID: " + UUID).append("\r\n");
-		str.append("valVector2_0: (" + valVector2_0.x + ", "+ valVector2_0.y+")").append("\r\n");
+		str.append("valVector2_0: (" + valVector2_0.x + ", " + valVector2_0.y + ")").append("\r\n");
 		str.append("valShort: " + valShort).append("\r\n");
 		str.append("valInt: " + valInt).append("\r\n");
 		str.append("valString: " + valString);
-		
+
 		return str.toString();
 	}
 

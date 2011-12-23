@@ -95,4 +95,6 @@ public abstract class LocalServer extends Thread {
 	public abstract void waitForConnection();
 	
 	public abstract void onStopReceiving();
+	
+	public abstract int getLocalPort();
 }

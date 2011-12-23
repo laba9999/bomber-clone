@@ -22,7 +22,7 @@ public class MessageTest {
 		m.valVector2_0.set(0.01f,0.02f);
 		m.setStringValue("01234567890123456789012345678901");
 		
-		byte[] array = new byte[MessageSocketIO.MESSAGE_SIZE];
+		byte[] array = new byte[Message.MESSAGE_SIZE];
 		ByteBuffer buffer = ByteBuffer.wrap(array);
 		
 		m.fillBuffer(buffer);

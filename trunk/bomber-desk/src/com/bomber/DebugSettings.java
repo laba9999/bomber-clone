@@ -7,7 +7,7 @@ public class DebugSettings {
 	// Remote
 	public static final boolean START_ANDROID_AS_SERVER = true;
 	public static final boolean START_DESKTOP_AS_SERVER = false;
-	public static final short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
+	public static final short REMOTE_PROTOCOL_IN_USE = Protocols.UDP;
 	public static final String REMOTE_SERVER_ADDRESS = "192.168.1.111:50005";
 
 	// Game

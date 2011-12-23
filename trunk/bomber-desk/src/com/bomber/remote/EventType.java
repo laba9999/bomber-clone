@@ -24,11 +24,14 @@ public class EventType {
 	
 	// Indica os segundos até o jogo iniciar
 	// o valor dos segundos vem no valShort
-	public static final short COUNTDOWN = 13;
-	public static final short RANDOM_SEED = 14;
+	public static final short COUNTDOWN = 14;
+	public static final short RANDOM_SEED = 15;
 	
 	// int indica o id da team
 	// short a cor do player
-	public static final short JOINED_TEAM = 15;
-	public static final short LEFT_TEAM = 16;
+	public static final short JOINED_TEAM = 16;
+	public static final short LEFT_TEAM = 17;
+	
+	public static final short UDP_RESEND = 18;
+	public static final short UDP_ACK = 19;
 }
