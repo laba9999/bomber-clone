@@ -76,7 +76,7 @@ public class Player extends KillableObject {
 	 * tempo, 3.
 	 */
 	public ObjectsPool<TemporaryBonus> mActiveBonus;
-	
+
 	/**
 	 * Efeitos que devem ser desenhados por cima do jogador, shield e splash da
 	 * água...
@@ -318,11 +318,11 @@ public class Player extends KillableObject {
 				}
 			}
 			return true;
-			
+
 		} else if (!mIsLocalPlayer && _killerId == mWorld.getLocalPlayer().mColor)
 		{
 			mWorld.getLocalPlayer().mPoints += 500;
-			mWorld.spawnOverlayingPoints("500", mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
+			mWorld.spawnOverlayingPoints("+500", mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
 			Achievements.mNumberPlayersKills++;
 		}
 
