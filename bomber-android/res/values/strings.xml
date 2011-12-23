@@ -23,4 +23,19 @@
     <string name="top_position">Position</string>
     <string name="ip">IP:</string>
     <string name="port">Port:</string>
+    <string name="error_wificonnection">Please connect to a network!</string>
+    <string name="error_bluetoothconnection">Please turn on Bluetooth!</string>
+    <string name="build_explosion">Explosion size</string>
+    <string name="build_bombs">Simultaneous bombs</string>
+    <string name="build_speed">Speed</string>
+    <string name="build">Build</string>
+    <string name="build_available_points">Available points:</string>
+    <string name="achievement_monster_kills">Monster killed</string>
+    <string name="achievement_player_kills">Players killed</string>
+    <string name="achievement_dm_wins">Deathmatch wins</string>
+    <string name="achievement_ctf_wins">Catch The Flag wins</string>
+    <string name="achievement_time_played">Time played</string>
+    <string name="achievement_completed_campaign">Completed Campaign</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

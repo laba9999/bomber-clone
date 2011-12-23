@@ -3,6 +3,7 @@ package com.bomber.gametypes;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.Game;
 import com.bomber.Team;
+import com.bomber.common.Achievements;
 import com.bomber.gameobjects.Flag;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
@@ -45,7 +46,13 @@ public class GameTypeCTF extends GameTypeHandler {
 			}
 		}
 
-		return mGameWorld.mClock.mReachedZero || Game.mTeams[0].mCapturedEnemyFlag || Game.mTeams[1].mCapturedEnemyFlag;
+		if(mGameWorld.mClock.mReachedZero || Game.mTeams[0].mCapturedEnemyFlag || Game.mTeams[1].mCapturedEnemyFlag)
+		{
+			Achievements.mNumberCTFWins++;
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override

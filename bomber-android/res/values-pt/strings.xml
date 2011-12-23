@@ -23,5 +23,19 @@
     <string name="top_position">Lugar</string>
     <string name="ip">IP:</string>
     <string name="port">Porto:</string>
-    
+    <string name="error_wificonnection">Deve ligar-se a uma rede primeiro!</string>
+    <string name="error_bluetoothconnection">Deve activar o Bluetooth!</string>
+    <string name="build_explosion">Alcance da explosão</string>
+    <string name="build_bombs">Bombas simultâneas</string>
+    <string name="build_speed">Velocidade</string>
+    <string name="build">Build</string>
+    <string name="build_available_points">Pontos disponíveis:</string>
+    <string name="achievement_monster_kills">Monstros mortos</string>
+    <string name="achievement_player_kills">Jogadores mortos</string>
+    <string name="achievement_dm_wins">Deathmatch ganhos</string>
+    <string name="achievement_ctf_wins">Catch The Flag ganhos</string>
+    <string name="achievement_time_played">Tempo jogado</string>
+    <string name="achievement_completed_campaign">Campanha completa</string>
+    <string name="yes">Sim</string>
+    <string name="no">Não</string>
 </resources>

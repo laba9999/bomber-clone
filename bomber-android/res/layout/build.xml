@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/LinearLayoutBuild"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:background="@drawable/background_explode"
+      android:orientation="vertical" >
+
+      <TextView
+          android:id="@+id/textBuildTitle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical|center_horizontal"
+          android:layout_margin="10sp"
+          android:text="@string/build"
+          android:textAppearance="?android:attr/textAppearanceLarge"
+          android:textColor="#000000"
+          android:textSize="30sp"
+          android:textStyle="bold" />
+
+      <TableLayout
+          android:id="@+id/TableLayoutBuild"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="1" >
+
+          <TableRow
+              android:id="@+id/tableRowBuild0"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="5sp"
+              android:layout_weight="1" >
+
+              <TextView
+                  android:id="@+id/textBuidlAvailablePoints"
+                  android:layout_width="20sp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"
+                  android:text="@string/build_available_points"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:textColor="#000000" android:textStyle="bold" android:layout_gravity="center_vertical"/>
+
+              <TextView
+                  android:id="@+id/textBuildAvailablePointsValue"
+                  android:layout_width="10sp"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:text="Medium Text"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:textColor="#000000" />
+
+          </TableRow>
+
+          <TableRow
+              android:id="@+id/tableRowBuild1"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="5sp"
+              android:layout_weight="1"
+              android:background="#aa333333" >
+
+              <ImageView
+                  android:id="@+id/imageBuildExplosion"
+                  android:layout_width="30sp"
+                  android:layout_height="30sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/bonus_potion" />
+
+              <TextView
+                  android:id="@+id/textBuildExplosion"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:text="@string/build_explosion"
+                  android:textAppearance="?android:attr/textAppearanceMedium" />
+
+              <Button
+                  android:id="@+id/buttonExplosionMinus"
+                  android:layout_width="15sp"
+                  android:layout_height="40sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:background="@drawable/menu_button_old"
+                  android:onClick="onExplosionMinusButton"
+                  android:text="-"
+                  android:textColor="#ffffff"
+                  android:textSize="30sp" />
+
+              <ImageView
+                  android:id="@+id/imageBuildExplosion1"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <ImageView
+                  android:id="@+id/imageBuildExplosion2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <ImageView
+                  android:id="@+id/imageBuildExplosion3"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <Button
+                  android:id="@+id/buttonExplosionPlus"
+                  android:layout_width="15sp"
+                  android:layout_height="40sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:background="@drawable/menu_button_old"
+                  android:onClick="onExplosionPlusButton"
+                  android:text="+"
+                  android:textColor="#ffffff"
+                  android:textSize="30sp" />
+
+          </TableRow>
+
+          <TableRow
+              android:id="@+id/tableRowBuild2"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="5sp"
+              android:layout_weight="1"
+              android:background="#aa333333" >
+
+              <ImageView
+                  android:id="@+id/imageBuildBombs"
+                  android:layout_width="30sp"
+                  android:layout_height="30sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/bonus_bomb" />
+
+              <TextView
+                  android:id="@+id/textBuildBombs"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:text="@string/build_bombs"
+                  android:textAppearance="?android:attr/textAppearanceMedium" />
+
+              <Button
+                  android:id="@+id/buttonBuildBombsMinus"
+                  android:layout_width="15sp"
+                  android:layout_height="40sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:background="@drawable/menu_button_old"
+                  android:text="-"
+                  android:textColor="#ffffff"
+                  android:textSize="30sp" android:onClick="onBombsMinusButton"/>
+
+              <ImageView
+                  android:id="@+id/imageBuildBombs1"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <ImageView
+                  android:id="@+id/imageBuildBombs2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <ImageView
+                  android:id="@+id/imageBuildBombs3"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <Button
+                  android:id="@+id/buttonBuildBombsPlus"
+                  android:layout_width="15sp"
+                  android:layout_height="40sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:background="@drawable/menu_button_old"
+                  android:text="+"
+                  android:textColor="#ffffff"
+                  android:textSize="30sp" android:onClick="onBombsPlusButton"/>
+          </TableRow>
+
+          <TableRow
+              android:id="@+id/tableRowBuild3"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_margin="5sp"
+              android:layout_weight="1"
+              android:background="#aa333333" >
+
+              <ImageView
+                  android:id="@+id/imageBuildSpeed"
+                  android:layout_width="30sp"
+                  android:layout_height="30sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/bonus_speed" />
+
+              <TextView
+                  android:id="@+id/textBuildSpeed"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:text="@string/build_speed"
+                  android:textAppearance="?android:attr/textAppearanceMedium" />
+
+              <Button
+                  android:id="@+id/buttonBuildSpeedMinus"
+                  android:layout_width="15sp"
+                  android:layout_height="40sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:background="@drawable/menu_button_old"
+                  android:text="-"
+                  android:textColor="#ffffff"
+                  android:textSize="30sp" android:onClick="onSpeedMinusButton"/>
+
+              <ImageView
+                  android:id="@+id/imageBuildSpeed1"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <ImageView
+                  android:id="@+id/imageBuildSpeed2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <ImageView
+                  android:id="@+id/imageBuildSpeed3"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:src="@drawable/indicator_off" />
+
+              <Button
+                  android:id="@+id/buttonBuildSpeedPlus"
+                  android:layout_width="15sp"
+                  android:layout_height="40sp"
+                  android:layout_gravity="center_vertical"
+                  android:layout_weight="1"
+                  android:background="@drawable/menu_button_old"
+                  android:text="+"
+                  android:textColor="#ffffff"
+                  android:textSize="30sp" android:onClick="onSpeedPlusButton"/>
+          </TableRow>
+      </TableLayout>
+
+      <Button
+          android:id="@+id/buttonBuildOk"
+          android:layout_width="100sp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center"
+          android:layout_margin="10sp"
+          android:background="@drawable/menu_button"
+          android:text="@string/ok"
+          android:textColor="#ffffff" />
+
+  </LinearLayout>

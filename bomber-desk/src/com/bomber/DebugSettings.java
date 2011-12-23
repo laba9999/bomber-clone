@@ -12,15 +12,15 @@ public class DebugSettings {
 
 	// Game
 	public static final String LEVEL_TO_LOAD = "level1";
-	public static final short GAME_TYPE = GameTypeHandler.TEAM_CTF;
+	public static final short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static final short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 2;
 	
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
 
 	// Monstros
-	public static final boolean MONSTERS_KILL_PLAYERS = false;
+	public static final boolean MONSTERS_KILL_PLAYERS = true;
 
 	// Mapa
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;

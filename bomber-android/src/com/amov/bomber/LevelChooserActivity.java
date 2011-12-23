@@ -26,6 +26,16 @@ import android.widget.Toast;
 
 public class LevelChooserActivity extends Activity
 {
+	private static int[] LEVEL_INDICATOR_RESOURCES = { R.id.indicator1,
+														R.id.indicator2,
+														R.id.indicator3,
+														R.id.indicator4,
+														R.id.indicator5,
+														R.id.indicator6,
+														R.id.indicator7,
+														R.id.indicator8};
+
+	
 	Gallery gallery;
 
 	@Override
@@ -66,9 +76,6 @@ public class LevelChooserActivity extends Activity
 
 	private void setIndicatorOn(int _position)
 	{
-		// Este método baseia-se no facto dos IDs dos elementos indicator
-		// estarem definidos de forma seguida e ordenada na classe R
-
 		ImageView img;
 		Bitmap on = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_on);
 		Bitmap off = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_off);
@@ -77,11 +84,12 @@ public class LevelChooserActivity extends Activity
 		{
 			if (i != _position)
 			{
-				img = (ImageView) findViewById(R.id.indicator1 + i);
+				img = (ImageView) findViewById(LEVEL_INDICATOR_RESOURCES[i]);
 				img.setImageBitmap(off);
-			} else
+			}
+			else
 			{
-				img = (ImageView) findViewById(R.id.indicator1 + i);
+				img = (ImageView) findViewById(LEVEL_INDICATOR_RESOURCES[i]);
 				img.setImageBitmap(on);
 			}
 

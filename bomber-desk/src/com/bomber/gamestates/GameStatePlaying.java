@@ -2,6 +2,7 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
+import com.bomber.common.Achievements;
 import com.bomber.common.assets.Assets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gametypes.GameTypeCTF;
@@ -17,10 +18,12 @@ public class GameStatePlaying extends GameState {
 	private short mClockBlinkInterval = 100;
 	private short mTicksSinceLastClockBlink = 100;
 	private boolean mPaintingClockRed = false;
-
+	
+	public long mStartingTime ;
+	
 	public GameStatePlaying(Game _gameScreen) {
 		super(_gameScreen);
-
+		mStartingTime = System.currentTimeMillis();
 		mInput = new InputPlayingState(this);
 	}
 
@@ -31,9 +34,12 @@ public class GameStatePlaying extends GameState {
 		mGameWorld.update();
 
 		mTicksSinceLastClockBlink++;
-
+		
+		
 		if (mGameWorld.mGameTypeHandler.isOver())
 		{
+			Achievements.mTotalTimePlayed += System.currentTimeMillis() - mStartingTime;
+			Achievements.saveFile();
 			if (mGameWorld.mGameTypeHandler instanceof GameTypeCampaign)
 				mGame.setGameState(new GameStateLevelCompleted(mGame));
 			else if (mGameWorld.mGameTypeHandler instanceof GameTypeDeathmatch)
@@ -43,8 +49,11 @@ public class GameStatePlaying extends GameState {
 			//else
 				//throw new InvalidParameterException(" final de gamestate não definido!");
 		} else if (mGameWorld.mGameTypeHandler.isLost())
+		{
+			Achievements.mTotalTimePlayed += System.currentTimeMillis() - mStartingTime;		
+			Achievements.saveFile();
 			mGame.setGameState(new GameStateGameOver(mGame));
-
+		}
 	}
 
 	public void onPresent(float _interpolation)

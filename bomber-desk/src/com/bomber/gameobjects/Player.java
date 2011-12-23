@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.Game;
 import com.bomber.Team;
+import com.bomber.common.Achievements;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
@@ -323,6 +324,7 @@ public class Player extends KillableObject {
 		{
 			mWorld.getLocalPlayer().mPoints += 500;
 			mWorld.spawnOverlayingPoints("500", mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
+			Achievements.mNumberPlayersKills++;
 		}
 
 		mAcceptPlayerInput = false;

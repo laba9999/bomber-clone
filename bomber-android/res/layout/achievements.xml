@@ -11,64 +11,233 @@
         android:layout_centerHorizontal="true"
         android:text="@string/achievements"
         android:textAppearance="?android:attr/textAppearanceLarge" android:textSize="30sp" android:textStyle="bold" android:layout_marginTop="10sp" android:textColor="#000000"/>
-    
-	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    
+	<TableLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="450sp"
-	    android:layout_height="wrap_content" android:layout_centerHorizontal="true" android:layout_centerVertical="true">
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:layout_centerVertical="true" android:layout_alignParentBottom="true" android:layout_marginBottom="10sp">
 
-		<TableRow
-		    android:id="@+id/tableRow1"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content" android:weightSum="3" android:padding="10sp" android:layout_margin="5sp" android:background="#aa333333">
+	    <TableRow
+	        android:id="@+id/tableRowAchievementMonsterKills"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#aa333333"
+	        android:padding="5sp" android:layout_margin="1sp">
 
-		    <ImageView
-		        android:id="@+id/imageAchivementIcon"
-		        android:layout_width="40sp"
-		        android:layout_height="40sp"
-		        android:src="@drawable/placeholder" android:layout_weight="1" android:layout_gravity="center_vertical"/>
-
-		    <TextView
-		        android:id="@+id/textAchivementText"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/achievement_text_placeholder"
-		        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_weight="1" android:layout_gravity="center_vertical" android:textColor="#ffffff"/>
-
-		    <TextView
-		        android:id="@+id/textAchievementProgress"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/achievement_progress_placeholder"
-		        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_weight="1" android:layout_gravity="center_vertical" android:textColor="#ffffff"/>
+	        <ImageView
+	            android:id="@+id/imageAchivementMonsterKills"
+	            android:layout_width="10sp"
+	            android:layout_height="30sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:src="@drawable/placeholder" />
+
+	        <TextView
+	            android:id="@+id/textAchievementMonsterKills"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_monster_kills"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
 
-		</TableRow>
-
-		<TableRow
-		    android:id="@+id/tableRow2"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content" android:padding="10sp" android:layout_margin="5sp" android:background="#aa333333">
+	        <TextView
+	            android:id="@+id/textAchievementMonsterKillsProgress"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_progress_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" android:layout_width="wrap_content"/>
+	    </TableRow>
 
-		    <ImageView
-		        android:id="@+id/ImageView01"
-		        android:layout_width="40sp"
-		        android:layout_height="40sp"
-		        android:src="@drawable/placeholder2" android:layout_weight="1" android:layout_gravity="center_vertical"/>
-
-		    <TextView
-		        android:id="@+id/TextView02"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/achievement_text_placeholder"
-		        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_weight="1" android:layout_gravity="center_vertical" android:textColor="#ffffff"/>
-
-		    <TextView
-		        android:id="@+id/TextView01"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="@string/achievement_progress_placeholder"
-		        android:textAppearance="?android:attr/textAppearanceLarge" android:layout_weight="1" android:layout_gravity="center_vertical" android:textColor="#ffffff"/>
+	    <TableRow
+	        android:id="@+id/tableRowAchievementPlayerKills"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#aa333333"
+	        android:padding="5sp" android:layout_margin="1sp">
 
-		</TableRow>
+	        <ImageView
+	            android:id="@+id/imageAchievementPlayerKills"
+	            android:layout_width="10sp"
+	            android:layout_height="30sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:src="@drawable/placeholder2" />
+
+	        <TextView
+	            android:id="@+id/textAchievementPlayerKills"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_player_kills"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	        <TextView
+	            android:id="@+id/textAchievementPlayerKillsProgress"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_progress_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRowAchievementDMWins"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#aa333333"
+	        android:padding="5sp" android:layout_margin="1sp">
+
+	        <ImageView
+	            android:id="@+id/imageAchievementDMWins"
+	            android:layout_width="10sp"
+	            android:layout_height="30sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:src="@drawable/placeholder2" />
+
+	        <TextView
+	            android:id="@+id/textAchievementDMWins"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_dm_wins"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	        <TextView
+	            android:id="@+id/textAchievementDMWinsProgress"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_progress_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRowAchievementCTFWins"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#aa333333"
+	        android:padding="5sp" android:layout_margin="1sp">
+
+	        <ImageView
+	            android:id="@+id/imageAchievementCTFWins"
+	            android:layout_width="10sp"
+	            android:layout_height="30sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:src="@drawable/placeholder2" />
+
+	        <TextView
+	            android:id="@+id/textAchievementCTFWins"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_ctf_wins"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	        <TextView
+	            android:id="@+id/textAchievementCTFWinsProgress"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_progress_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRowAchievementTimePlayed"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#aa333333"
+	        android:padding="5sp" android:layout_margin="1sp">
+
+	        <ImageView
+	            android:id="@+id/imageAchievementTimePlayed"
+	            android:layout_width="10sp"
+	            android:layout_height="30sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:src="@drawable/placeholder2" />
+
+	        <TextView
+	            android:id="@+id/textAchievementTimePlayed"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_time_played"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	        <TextView
+	            android:id="@+id/textAchievementTimePlayedProgress"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_progress_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRowAchievementCompletedCampaign"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:background="#aa333333"
+	        android:layout_margin="1sp" android:padding="5sp">
+
+	        <ImageView
+	            android:id="@+id/imageAchievementCompletedCampaign"
+	            android:layout_width="10sp"
+	            android:layout_height="30sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:src="@drawable/placeholder2" />
+
+	        <TextView
+	            android:id="@+id/textAchievementCompletedCampaign"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_completed_campaign"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	        <TextView
+	            android:id="@+id/textAchievementCompletedCampaignProgress"
+	            android:layout_width="wrap_content"
+	            android:layout_height="25sp"
+	            android:layout_gravity="center_vertical"
+	            android:layout_weight="1"
+	            android:text="@string/achievement_progress_placeholder"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="#ffffff" />
+
+	    </TableRow>
 	</TableLayout>
 	
 </RelativeLayout>
