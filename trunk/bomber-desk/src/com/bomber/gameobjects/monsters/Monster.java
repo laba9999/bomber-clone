@@ -6,6 +6,7 @@ import java.util.Random;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.common.Achievements;
 import com.bomber.common.Directions;
 import com.bomber.gameobjects.KillableObject;
 import com.bomber.gameobjects.Player;
@@ -136,6 +137,7 @@ public class Monster extends KillableObject {
 		{
 			mWorld.spawnOverlayingPoints(mInfo.mPointsValueString, mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
 			mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
+			Achievements.mNumberMonsterKills++;
 		}
 		
 		mDirection = Directions.NONE;

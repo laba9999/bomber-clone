@@ -2,6 +2,7 @@ package com.bomber.gametypes;
 
 import com.bomber.Game;
 import com.bomber.Team;
+import com.bomber.common.Achievements;
 import com.bomber.common.Directions;
 import com.bomber.gameobjects.Player;
 
@@ -22,7 +23,12 @@ public class GameTypeDeathmatch extends GameTypeHandler {
 	@Override
 	public boolean isOver()
 	{
-		return mGameWorld.mClock.mReachedZero || mTeams[0].areAllDead() || mTeams[1].areAllDead();
+		if(mGameWorld.mClock.mReachedZero || mTeams[0].areAllDead() || mTeams[1].areAllDead())
+		{
+			Achievements.mNumberDMWins++;
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -58,5 +58,11 @@ public class MainActivity extends Activity
 		startActivityForResult(myIntent, 0);
 	}
 
-	
+	public void onHelpButton(View v)
+	{
+		Intent myIntent = new Intent(this, BuildActivity.class);
+		// proibe a animação na transição entre activities
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		startActivityForResult(myIntent, 0);
+	}
 }

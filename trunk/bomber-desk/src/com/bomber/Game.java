@@ -6,6 +6,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
+import com.bomber.common.Achievements;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.assets.Assets;
 import com.bomber.gamestates.GameState;
@@ -197,9 +198,10 @@ public class Game implements ApplicationListener {
 		mMessagesHandler.mWorld = mWorld;
 		mMessagesHandler.mGame = this;
 		// mGameState = new GameStatePlaying(this);
-
+		Achievements.loadFile();
 		mNextGameTick = System.nanoTime();
 
+		
 	}
 
 	@Override
@@ -247,6 +249,9 @@ public class Game implements ApplicationListener {
 	@Override
 	public void pause()
 	{
+		
+		Achievements.saveFile();
+		
 		if( mIsPVPGame)
 			goBackToActivities();
 		

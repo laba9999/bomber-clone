@@ -2,6 +2,7 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
+import com.bomber.common.Achievements;
 import com.bomber.common.assets.Assets;
 import com.bomber.common.assets.Level;
 import com.bomber.gameobjects.Player;
@@ -16,6 +17,8 @@ public class GameStateLevelCompleted extends GameState {
 
 	public GameStateLevelCompleted(Game _gameScreen) {
 		super(_gameScreen);
+		
+
 		mEndScoreAnimation = false;
 		mInput = new InputLevelCompletedState(this);
 
@@ -98,7 +101,7 @@ public class GameStateLevelCompleted extends GameState {
 
 		for (int i = 0; i < mTrophiesEarned; i++)
 		{
-			mBatcher.draw(Assets.mTrophy[0], 304 + i * 63, 18);
+			mBatcher.draw(Assets.mTrophy[0], 304 + i * 63, 180);
 
 		}
 	}
