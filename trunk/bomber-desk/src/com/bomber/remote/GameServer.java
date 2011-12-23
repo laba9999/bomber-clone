@@ -22,7 +22,7 @@ public class GameServer {
 	public boolean mReadyToStart = false;
 	private boolean mInterconnectSequenceSent = false;
 	private boolean mIsOnline = true;
-	private boolean mStartedCountdown = false;
+	public boolean mStartedCountdown = false;
 
 	private short mCountdownSeconds = DebugSettings.GAME_COUNTDOWN_SECONDS;
 	private short mTicksSinceLastCountdownMessage = 0;

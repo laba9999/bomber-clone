@@ -106,6 +106,7 @@ public class MessagesHandler {
 					break;
 				}
 			}
+		
 			break;
 		case EventType.STOP:
 			for (Player player : mWorld.mPlayers)

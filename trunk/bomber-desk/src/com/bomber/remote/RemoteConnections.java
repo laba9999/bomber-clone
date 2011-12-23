@@ -9,6 +9,7 @@ import com.bomber.Game;
 import com.bomber.common.ObjectFactory;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
+import com.bomber.remote.bluetooth.BluetoothLocalServer;
 import com.bomber.remote.tcp.TCPLocalServer;
 import com.bomber.remote.udp.UDPLocalServer;
 
@@ -105,7 +106,6 @@ public class RemoteConnections {
 
 		if (tmpConn == null)
 			return false;
-
 
 		if (_protocol == Protocols.TCP || _protocol == Protocols.UDP)
 		{
@@ -244,6 +244,9 @@ public class RemoteConnections {
 			break;
 		case Protocols.UDP:
 			mLocalServer = new UDPLocalServer(mRecvMessages, Integer.valueOf(_connectionString), _maxConnections);
+			break;
+		case Protocols.BLUETOOTH:
+			mLocalServer = new BluetoothLocalServer(mRecvMessages);
 			break;
 		}
 

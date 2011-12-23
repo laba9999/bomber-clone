@@ -20,7 +20,9 @@ import com.bomber.gameobjects.WorldMovableObject;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
+import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.remote.RemoteConnections;
 
 public class GameWorld {
 	public ObjectsPool<Monster> mMonsters;
@@ -32,17 +34,19 @@ public class GameWorld {
 
 	public GameTypeHandler mGameTypeHandler;
 	public GameMap mMap;
-	
+	public Game mGame;
 	public Flag[] mFlags;
 	public Clock mClock;
 
 	public String mNextLevelName;
 	private Player mLocalPlayer = null;
 
-	public GameWorld(GameTypeHandler _gameType, String _startLevelName) {
+	public GameWorld(Game _game, GameTypeHandler _gameType, String _startLevelName) {
 
 		mGameTypeHandler = _gameType;
 		mGameTypeHandler.mGameWorld = this;
+
+		mGame = _game;
 
 		// Os bonus têm que ser adicionados manualmente porque existem vários
 		// tipos
@@ -93,11 +97,16 @@ public class GameWorld {
 				mGameTypeHandler.onPlayerDisconnect(p);
 				break;
 			}
+
+		if (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections.mGameServer.mStartedCountdown)
+			mGame.setGameState(new GameStateServerConnectionError(mGame, "Sem clientes suficientes..."));
+
 	}
 
 	public void setLocalPlayer(Player _newLocalPlayer)
 	{
 		mLocalPlayer = _newLocalPlayer;
+		mLocalPlayer.mIsLocalPlayer = true;
 		mLocalPlayer.mAcceptPlayerInput = true;
 	}
 
@@ -109,6 +118,7 @@ public class GameWorld {
 				p.mIsLocalPlayer = true;
 				mLocalPlayer = p;
 				p.mAcceptPlayerInput = true;
+				p.mIsLocalPlayer = true;
 				break;
 			}
 	}
@@ -238,8 +248,8 @@ public class GameWorld {
 
 		short id = (short) (_type.contains("1") ? 0 : 1);
 		float x = _col * Tile.TILE_SIZE;
-		float y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF/2;
-		
+		float y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF / 2;
+
 		mFlags[id] = new Flag(id, new Vector2(x, y));
 	}
 
@@ -496,7 +506,6 @@ public class GameWorld {
 		if (Game.mGameType != GameTypeHandler.CTF && Game.mGameType != GameTypeHandler.TEAM_CTF)
 			return;
 
-		
 		mFlags[0].update();
 		mFlags[1].update();
 	}

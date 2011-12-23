@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Achievements;
 import com.bomber.common.ObjectFactory;
+import com.bomber.common.Utils;
 import com.bomber.common.assets.Assets;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
@@ -72,6 +73,8 @@ public class Game implements ApplicationListener {
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		setGameType(_gameType);
 
+		Utils.resetUUID();
+		
 		mRandomSeed = (int) System.currentTimeMillis();
 		mRandomGenerator = new Random(mRandomSeed);
 
@@ -192,7 +195,7 @@ public class Game implements ApplicationListener {
 			mGameState = new GameStateLoadingPVP(this);
 		
 		// mWorld = new GameWorld(new GameTypeCampaign(), mLevelToLoad);
-		mWorld = new GameWorld(ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
+		mWorld = new GameWorld(this, ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
 		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 
 		mMessagesHandler.mWorld = mWorld;

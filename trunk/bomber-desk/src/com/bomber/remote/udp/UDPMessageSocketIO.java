@@ -47,7 +47,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 	private boolean mHasSetupSendPacket = false;
 
 	public UDPMessageSocketIO(String _remoteAddress, int _port) throws IOException {
-		BUFFERS_SIZE = (short) ((Game.mNumberPlayers -1) *32);
+		BUFFERS_SIZE = (short) ((Game.mNumberPlayers - 1) * 32);
 		mSocket = new DatagramSocket();
 		mSocket.setSoTimeout(5);
 
@@ -62,7 +62,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 	}
 
 	public UDPMessageSocketIO(DatagramPacket _packet) throws IOException {
-		BUFFERS_SIZE = (short) ((Game.mNumberPlayers -1) *32);
+		BUFFERS_SIZE = (short) ((Game.mNumberPlayers - 1) * 32);
 		mSocket = new DatagramSocket();
 		mSocket.setSoTimeout(5);
 
@@ -73,7 +73,6 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 		mRecvPacket = new DatagramPacket(mUDPReceiveBytes, mUDPReceiveBytes.length);
 	}
 
-	
 	@Override
 	public String toString()
 	{
@@ -112,7 +111,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 
 		if (!messageExists)
 		{
-			System.out.println("Tentativa de ACK de uma mensagem já não existente no buffer!");
+			System.out.println("Tentativa de ACK de uma mensagem já não existente no buffer: " + _sequenceId);
 			return;
 		}
 
@@ -121,6 +120,8 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 		mLastMessagesSent.mFreePositions = 0;
 		while (it.next().mReceivedAck && mLastMessagesSent.mFreePositions < BUFFERS_SIZE)
 			mLastMessagesSent.mFreePositions++;
+		
+		//System.out.println("Sent free positions: " + mLastMessagesSent.mFreePositions);
 	}
 
 	private synchronized void addMessageToSend()
@@ -137,8 +138,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 		_msg.getIOMessage(mRecvBytes);
 		mAuxiliarIOMsg.parse(mRecvByteBuffer);
 
-		// System.out.println("Adicionada msg, evento: " +
-		// mAuxiliarIOMsg.eventType + ", sequencia: " + _msg.mSequenceId);
+		//System.out.println("Adicionada msg, evento: " + mAuxiliarIOMsg.eventType + ", sequencia: " + _msg.mSequenceId);
 
 		//
 		// Coloca a mensagem no sitio correcto
@@ -233,9 +233,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 
 		msg.getIOMessage(mSendIOBytes);
 		mAuxiliarIOMsg.parse(mSendIOBuffer);
-		// System.out.println("Enviada msg tipo: " + mAuxiliarIOMsg.eventType +
-		// " para o porto: " + mSendPacket.getPort() + " do porto: " +
-		// mSocket.getLocalPort());
+		//System.out.println("Enviada msg tipo: " + mAuxiliarIOMsg.eventType + " para o porto: " + mSendPacket.getPort() + " do porto: " + mSocket.getLocalPort());
 
 	}
 
@@ -290,10 +288,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 					mSendPacket.setData(mAuxiliarUDPMsg.mMessage);
 					mSocket.send(mSendPacket);
 
-					// System.out.println("Enviada msg tipo: " +
-					// mAuxiliarIOMsg.eventType + " para o porto: " +
-					// mSendPacket.getPort() + " do porto: " +
-					// mSocket.getLocalPort());
+					//System.out.println("Enviado ACK para o porto: " + mSendPacket.getPort() + " do porto: " + mSocket.getLocalPort());
 				}
 
 			} catch (SocketTimeoutException e)

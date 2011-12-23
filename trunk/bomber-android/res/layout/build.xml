@@ -280,6 +280,6 @@
           android:layout_margin="10sp"
           android:background="@drawable/menu_button"
           android:text="@string/ok"
-          android:textColor="#ffffff" />
+          android:textColor="#ffffff" android:onClick="onStartClick"/>
 
   </LinearLayout>

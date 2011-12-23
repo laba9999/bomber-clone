@@ -87,6 +87,14 @@ public class BuildActivity extends Activity
 		}
 	}
 	
+	public void onStartClick(View v)
+	{
+		// TODO : guardar a build
+		
+		Intent myIntent = new Intent(this, AndroidGame.class);
+		startActivityForResult(myIntent, 0);
+	}
+	
 	public void onBombsMinusButton(View v)
 	{
 		if(mBombsPoints > 0)

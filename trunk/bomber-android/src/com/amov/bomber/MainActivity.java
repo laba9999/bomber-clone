@@ -34,7 +34,7 @@ public class MainActivity extends Activity
 	public void onMultiplayerButton(View v)
 	{
 		
-		Intent myIntent = new Intent(this, MultiplayerActivity.class);
+		Intent myIntent = new Intent(this, MultiplayerConnectionActivity.class);
 		// proibe a animação na transição entre activities
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivityForResult(myIntent, 0);	
