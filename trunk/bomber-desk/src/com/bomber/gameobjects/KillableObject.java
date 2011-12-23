@@ -16,7 +16,9 @@ public abstract class KillableObject extends WorldMovableObject {
 		if( ignoreKill )
 			return;
 		
+
 		mIsDead = true;
+		stop();
 		
 		if (mMovableAnimations != null)
 			setCurrentAnimation(mMovableAnimations.die, mMovableAnimations.numberOfFramesDying, true, false);
