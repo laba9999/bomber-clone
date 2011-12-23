@@ -41,5 +41,6 @@
     <string name="achievement_completed_campaign">Completed Campaign</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="username">Username:</string>
 
 </resources>
