@@ -10,7 +10,7 @@ import com.badlogic.gdx.Gdx;
 
 public class Achievements {
 	
-	private static final String FILE_PATH = "com.amov.bomber/achievements.txt";
+	public static final String FILE_PATH = "com.amov.bomber/achievements.txt";
 	public static final int NUMBER_OF_ACHIEVEMENTS = 6;
 	//Todo : ajustar
 	public static final int MONSTER_KILLS_GOAL = 1;
@@ -33,65 +33,51 @@ public class Achievements {
 		public int speed;
 	}
 	
-	
-	public static void loadFile()
+	public static boolean isMonsterKillsCompleted()
 	{
-		InputStream inputStream = null;
-		Scanner scanner = null;
-		String[] achievementsInfo = new String[NUMBER_OF_ACHIEVEMENTS];
+		return mNumberMonsterKills >= MONSTER_KILLS_GOAL;
+	}
+	
+	public static boolean isPlayerKillsCompleted()
+	{
+		return mNumberPlayersKills >= PLAYER_KILLS_GOAL;
+	}
+	
+	public static boolean isCTFWinsCompleted()
+	{
+		return mNumberCTFWins >= CTF_WINS_GOAL;
+	}
+	
+	public static boolean isDMWinsCompleted()
+	{
+		return mNumberDMWins >= DM_WINS_GOAL;
+	}
+	
+	public static boolean isTimePlayedCompleted()
+	{
+		return mTotalTimePlayed >= TIME_PLAYED_GOAL;
+	}
+	
+	public static boolean isCampaignCompleted()
+	{
+		return mHasCompletedCampaign;
+	}
 
-		try
-		{	
-			inputStream = Gdx.files.external(FILE_PATH).read();
-			scanner = new Scanner(inputStream);
-			
-			short i = 0;
-			while (scanner.hasNextLine())
-			{
-				String nextLine = scanner.nextLine();
-				if (nextLine.length() > 0 && nextLine.charAt(0) != '#')
-					achievementsInfo[i++] = nextLine;
-			}
-			
-			mNumberMonsterKills = Integer.parseInt(achievementsInfo[0]);
-			mNumberPlayersKills = Integer.parseInt(achievementsInfo[1]);
-			mNumberCTFWins = Integer.parseInt(achievementsInfo[2]);
-			mNumberDMWins = Integer.parseInt(achievementsInfo[3]);
-			mTotalTimePlayed = Long.parseLong(achievementsInfo[4]);	
-			mHasCompletedCampaign = Boolean.parseBoolean(achievementsInfo[5]);
-			
-			
-		}
-		catch (Throwable t)
-		{
-			t.printStackTrace();
-			mNumberMonsterKills = 0;
-			mNumberPlayersKills = 0;
-			mNumberCTFWins = 0;
-			mNumberDMWins = 0;
-			mTotalTimePlayed = 0;
-			mHasCompletedCampaign = false;
-		}
-		finally
-		{
-			if(scanner != null)
-			{
-				scanner.close();
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-				}
-			} 
-
-
-		}
-
-
+	
+	public static void reset()
+	{
+		mNumberMonsterKills = 0;
+		mNumberPlayersKills = 0;
+		mNumberCTFWins = 0;
+		mNumberDMWins = 0;
+		mTotalTimePlayed = 0;
+		mHasCompletedCampaign = false;
 	}
 	
 	public static void saveFile()
 	{
-		PrintStream out = new PrintStream(Gdx.files.external(FILE_PATH).write(false));
+		String savepath = Gdx.files.getExternalStoragePath() + FILE_PATH;
+		PrintStream out = new PrintStream(Gdx.files.absolute(savepath).write(false));
 		out.println("#monster kills");		
 		out.println(mNumberMonsterKills);
 		out.println("#players kills");

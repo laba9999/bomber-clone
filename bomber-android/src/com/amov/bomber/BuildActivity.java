@@ -1,5 +1,7 @@
 package com.amov.bomber;
 
+import com.bomber.common.Achievements;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,8 +26,7 @@ public class BuildActivity extends Activity
 																R.id.imageBuildSpeed2,
 																R.id.imageBuildSpeed3};
 
-	int mMaxPoints = 5;
-	Integer mAvailablePoints = 5;
+	Integer mAvailablePoints = 0;
 	int mExplosionPoints = 0;
 	int mBombsPoints = 0;
 	int mSpeedPoints = 0;
@@ -39,6 +40,20 @@ public class BuildActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.build);		
 
+
+		if(Achievements.isMonsterKillsCompleted())
+			mAvailablePoints++;
+		if(Achievements.isPlayerKillsCompleted())
+			mAvailablePoints++;
+		if(Achievements.isDMWinsCompleted())
+			mAvailablePoints++;
+		if(Achievements.isCTFWinsCompleted())
+			mAvailablePoints++;
+		if(Achievements.isTimePlayedCompleted())
+			mAvailablePoints++;
+		if(Achievements.isCampaignCompleted())
+			mAvailablePoints++;
+		
 		mTextAvailablePoints = (TextView) findViewById(R.id.textBuildAvailablePointsValue);
 		mTextAvailablePoints.setText(mAvailablePoints.toString());			
 

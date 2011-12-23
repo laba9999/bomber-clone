@@ -25,7 +25,7 @@ public class DebugSettings {
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
 	
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
 
 	// Monstros
 	public static final boolean MONSTERS_KILL_PLAYERS = false;

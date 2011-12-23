@@ -19,8 +19,6 @@ public class AchievementsActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.achievements);
 		
-		Achievements.loadFile();
-		
 		//actualiza progressos
 		TextView tv = (TextView) findViewById(R.id.textAchievementMonsterKillsProgress);
 		tv.setText(new String(Achievements.mNumberMonsterKills + " / " + Achievements.MONSTER_KILLS_GOAL));
