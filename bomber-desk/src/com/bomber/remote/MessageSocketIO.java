@@ -3,25 +3,22 @@ package com.bomber.remote;
 import java.nio.ByteBuffer;
 
 public abstract class MessageSocketIO {
-
-	// O número de bytes que será enviado por mensagem
-	public static final short MESSAGE_SIZE = 64;
 	/**
 	 * O ByteBuffer que está ligado ao mRecvBytes
 	 */
-	private ByteBuffer mRecvByteBuffer;
+	protected ByteBuffer mRecvByteBuffer;
 	/**
 	 * O ByteBuffer que está ligado ao mSendBytes
 	 */
-	private ByteBuffer mSendByteBuffer;
+	protected ByteBuffer mSendByteBuffer;
 	/**
 	 * Os bytes que vão ser recebidos
 	 */
-	protected byte[] mRecvBytes = new byte[MESSAGE_SIZE];
+	protected byte[] mRecvBytes = new byte[Message.MESSAGE_SIZE];
 	/**
 	 * Os bytes que vão ser enviados
 	 */
-	protected byte[] mSendBytes = new byte[MESSAGE_SIZE];
+	protected byte[] mSendBytes = new byte[Message.MESSAGE_SIZE];
 	/**
 	 * È usada para as mensagens recebidas, evita ter que criar um objecto novo
 	 * de cada vez que é recebida uma nova mensagem.

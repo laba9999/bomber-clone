@@ -10,6 +10,7 @@ import com.bomber.common.ObjectFactory;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.remote.tcp.TCPLocalServer;
+import com.bomber.remote.udp.UDPLocalServer;
 
 public class RemoteConnections {
 
@@ -106,13 +107,13 @@ public class RemoteConnections {
 			return false;
 
 
-		if (_protocol == Protocols.TCP)
+		if (_protocol == Protocols.TCP || _protocol == Protocols.UDP)
 		{
 			// Envia mensagem ao servidor a indicar a porta local onde estamos a
 			// aceitar ligações por parte de outros jogadores
 			mMessageToSend.messageType = MessageType.CONNECTION;
 			mMessageToSend.eventType = EventType.LOCAL_SERVER_PORT;
-			mMessageToSend.valInt = ((TCPLocalServer) mLocalServer).getLocalPort();
+			mMessageToSend.valInt = mLocalServer.getLocalPort();
 			tmpConn.sendMessage(mMessageToSend);
 		}
 
@@ -240,6 +241,10 @@ public class RemoteConnections {
 		{
 		case Protocols.TCP:
 			mLocalServer = new TCPLocalServer(mRecvMessages, Integer.valueOf(_connectionString), _maxConnections);
+			break;
+		case Protocols.UDP:
+			mLocalServer = new UDPLocalServer(mRecvMessages, Integer.valueOf(_connectionString), _maxConnections);
+			break;
 		}
 
 		if (null == mLocalServer)

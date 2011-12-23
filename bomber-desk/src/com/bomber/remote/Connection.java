@@ -5,7 +5,7 @@ import com.bomber.Game;
 public class Connection extends Thread {
 
 	private static final short RTT_CHECK_INTERVAL = Game.TICKS_PER_SECOND * 2;
-	private static final short TIMEOUT_VALUE = (short) (Game.TICKS_PER_SECOND * 5);
+	private static final int TIMEOUT_VALUE = (Game.TICKS_PER_SECOND / 2);
 	private static final short MAX_TIMEOUTS = 3;
 
 	/**
@@ -89,7 +89,6 @@ public class Connection extends Thread {
 
 		Game.LOGGER.log("Conexion " + mRemoteID + " has disconnected...");
 
-
 	}
 
 	public void update()
@@ -101,12 +100,13 @@ public class Connection extends Thread {
 		{
 			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE && mTimeoutsCounter++ > MAX_TIMEOUTS)
 			{
-				Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - Conexion " + mRemoteID + " timed out...");
+				Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - Conexion " + mRemoteID + " timed out...");
 				disconnect("Timeout!");
 
-				
-				// TODO : caso uma ligação seja perdida com outro cliente é necessário
-				// avisar o servidor, para que esse se certifique que o player cuja
+				// TODO : caso uma ligação seja perdida com outro cliente é
+				// necessário
+				// avisar o servidor, para que esse se certifique que o player
+				// cuja
 				// ligação terminou é desconectado.
 			}
 		} else

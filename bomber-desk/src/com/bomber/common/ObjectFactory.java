@@ -1,7 +1,6 @@
 package com.bomber.common;
 
 import java.io.IOException;
-import java.net.SocketException;
 import java.security.InvalidParameterException;
 
 import com.bomber.OverlayingText;
@@ -27,6 +26,8 @@ import com.bomber.remote.Message;
 import com.bomber.remote.MessageContainer;
 import com.bomber.remote.Protocols;
 import com.bomber.remote.tcp.TCPMessageSocketIO;
+import com.bomber.remote.udp.UDPMessage;
+import com.bomber.remote.udp.UDPMessageSocketIO;
 import com.bomber.world.GameWorld;
 
 public final class ObjectFactory {
@@ -35,11 +36,13 @@ public final class ObjectFactory {
 
 		public static Connection Create(short _protocol, String _connectionString, MessageContainer _msgContainer) throws NumberFormatException, IOException
 		{
+			String[] data = _connectionString.split(":");
 			switch (_protocol)
 			{
 			case Protocols.TCP:
-				String[] data = _connectionString.split(":");
 				return new Connection(new TCPMessageSocketIO(data[0], Integer.valueOf(data[1])), _msgContainer);
+			case Protocols.UDP:
+				return new Connection(new UDPMessageSocketIO(data[0], Integer.valueOf(data[1])), _msgContainer);
 			default:
 				throw new InvalidParameterException("Protocolo não implementado!");
 			}
@@ -80,6 +83,13 @@ public final class ObjectFactory {
 		public Player onCreate()
 		{
 			return new Player(mWorld);
+		}
+	}
+
+	public static class CreateUDPMessage extends Factory<UDPMessage> {
+		public UDPMessage onCreate()
+		{
+			return new UDPMessage();
 		}
 	}
 

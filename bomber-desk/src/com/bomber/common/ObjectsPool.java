@@ -20,6 +20,20 @@ public class ObjectsPool<T extends PoolObject> implements Iterable<T> {
 
 	private int mUUID;
 	public short mLenght = 0;
+	
+	public ObjectsPool(boolean _useUUID, short _initialQuantity, Factory<T> _factory) {
+
+		mFactory = _factory;
+
+		if(_useUUID)
+			mUUID = Utils.getNextUUID();
+		
+		// Inicializa os containers
+		if (null != mFactory)
+			allocateNewObjects(_initialQuantity);
+
+		mObjectsIterator = new ObjectsPoolIterator<T>(mUsedObjects);
+	}
 	public ObjectsPool(short _initialQuantity, Factory<T> _factory) {
 
 		mFactory = _factory;

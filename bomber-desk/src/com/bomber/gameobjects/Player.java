@@ -245,8 +245,6 @@ public class Player extends KillableObject {
 				bonus.clone(tmpBonus);
 
 				mActiveBonus.addObject(tmpBonus);
-				
-				tmpBonus = tmpBonus;
 			}
 		}
 	}

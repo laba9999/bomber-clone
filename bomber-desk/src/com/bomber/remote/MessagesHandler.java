@@ -204,7 +204,7 @@ public class MessagesHandler {
 			break;
 			
 		default:
-			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
 		}
 	}
 
