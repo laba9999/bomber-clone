@@ -201,7 +201,7 @@ public class Game implements ApplicationListener {
 		mMessagesHandler.mWorld = mWorld;
 		mMessagesHandler.mGame = this;
 		// mGameState = new GameStatePlaying(this);
-		Achievements.loadFile();
+
 		mNextGameTick = System.nanoTime();
 
 		
