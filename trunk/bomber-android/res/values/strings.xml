@@ -4,6 +4,9 @@
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
     <string name="arcade">Arcade</string>
+    <string name="number_rounds">Rounds:</string>
+    <string name="game_type">Type:</string>
+    <string name="next">Next</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="top">Top</string>
     <string name="achievements">Achievements</string>
@@ -16,6 +19,7 @@
     <string name="server">Server:</string>
     <string name="client">Client</string>
     <string name="searching_bt_devices">Searching bluetooth devices..</string>
+    <string name="server_options">Server Options</string>
     <string name="ok">Start</string>
     <string name="cancel">Cancel</string>
     <string name="dialog_multiplayer_text">Select the connection type and role wanted.</string>

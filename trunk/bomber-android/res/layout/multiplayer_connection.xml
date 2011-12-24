@@ -19,6 +19,7 @@
         android:textStyle="bold" />
 
     <TableLayout
+        android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textMultiplayerTitle"
@@ -78,7 +79,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="@string/protocol"
-                android:textAppearance="?android:attr/textAppearanceMedium" android:visibility="visible"/>
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:visibility="visible" />
 
             <RadioGroup
                 android:id="@+id/radioGroupProtocol"
@@ -94,7 +96,8 @@
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TCP" android:checked="true"/>
+                    android:checked="true"
+                    android:text="TCP" />
 
                 <RadioButton
                     android:id="@+id/radioUDP"
@@ -170,7 +173,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.6"
-                android:maxLength="15" android:text="192.168.1.110">
+                android:maxLength="15"
+                android:text="192.168.1.110" >
 
                 <requestFocus />
             </EditText>
@@ -190,12 +194,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_weight="0.8"
                 android:inputType="number"
                 android:maxLength="5"
-                android:numeric="signed" android:text="50005" android:maxWidth="35sp" android:layout_weight="0.8"/>
+                android:maxWidth="35sp"
+                android:numeric="signed"
+                android:text="50005" />
         </TableRow>
-        
-                <TableRow
+
+        <TableRow
             android:id="@+id/tableRowBluetoothDevices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -215,22 +222,24 @@
             <Spinner
                 android:id="@+id/spinnerBluetoothDevices"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:layout_weight="2"/>
-
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
         </TableRow>
     </TableLayout>
 
     <Button
         android:id="@+id/buttonOkDialogMultiplayer"
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_width="120sp"
+        android:layout_height="45sp"
+        android:layout_alignBaseline="@+id/textMultiplayerTitle"
+        android:layout_alignBottom="@+id/textMultiplayerTitle"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
         android:background="@drawable/menu_button"
-        android:onClick="onStartButton"
-        android:text="@string/ok"
+        android:onClick="onContinueButton"
+        android:text="@string/next"
         android:textColor="#ffffff"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
 </RelativeLayout>
