@@ -13,7 +13,7 @@ public class DebugSettings {
 	public static boolean START_ANDROID_AS_SERVER = false;
 	public static boolean START_DESKTOP_AS_SERVER = false;
 	public static short REMOTE_PROTOCOL_IN_USE = Protocols.UDP;
-	public static String REMOTE_SERVER_ADDRESS = "192.168.1.111:50005";
+	public static String REMOTE_SERVER_ADDRESS = "192.168.1.110:50005";
 
 	// Alterar este valor não tem efeito nenhum
 	public static String LOCAL_SERVER_ADDRESS = "192.168.1.110:50005";
@@ -29,7 +29,7 @@ public class DebugSettings {
 	public static final short GAME_COUNTDOWN_SECONDS = 3;
 
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
 	public static String PLAYER_NAME = "zezao1";
 
 	// Monstros

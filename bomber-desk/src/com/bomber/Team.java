@@ -21,6 +21,12 @@ public class Team {
 		mId = _id;
 	}
 
+	public void clear()
+	{
+		mPlayerIds.clear();
+		mPlayers.clear();
+	}
+	
 	public void addElement(Player _player)
 	{
 		if (mPlayers.contains(_player))
