@@ -118,7 +118,7 @@ public class LevelChooserActivity extends Activity
 		private Context mContext;
 
 		// Adding images.
-		private Integer[] Imgid = { R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2,
+		private Integer[] mImgId = { R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2,
 				R.drawable.placeholder, R.drawable.placeholder2 };
 
 		public ImageAdapter(Context c)
@@ -131,7 +131,7 @@ public class LevelChooserActivity extends Activity
 
 		public int getCount()
 		{
-			return Imgid.length;
+			return mImgId.length;
 		}
 
 		public Object getItem(int position)
@@ -153,7 +153,7 @@ public class LevelChooserActivity extends Activity
 				// iv.setLayoutParams(new Gallery.LayoutParams(350, 350));
 				// iv.setScaleType(ImageView.ScaleType.FIT_XY);
 				iv.setBackgroundResource(mGalleryItemBackground);
-				iv.setImageResource(Imgid[position]);
+				iv.setImageResource(mImgId[position]);
 				return iv;
 			}
 

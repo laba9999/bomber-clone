@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
 
+<resources>
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
     <string name="arcade">Arcade</string>
@@ -46,5 +46,19 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="username">Username:</string>
-
+    <string name="help_title">Help</string>
+	<string name="help_subtitle_moving">Moving</string>
+	<string name="help_description_moving">You can use the directional buttons on the bottom left corner of the screen to move your character.</string>
+	<string name="help_subtitle_bombs">Bombs</string>
+	<string name="help_description_bombs">You can use the round button on the bottom right corner of the screen to place bombs near your character.</string>
+	<string name="help_subtitle_bonus">Bonus</string>
+	<string name="help_description_bonus">At the bottom of the screen you can see the overall status of the bonus you caught. Those bonus refer to : Lives, Explosion size, Simultaneous bombs and Speed. Also, at the top right corner of the screen will be shown the temporary bonus such as Shield, Points Multiplier or the Bomb Pushing Gloves.</string>
+	<string name="help_subtitle_campaign">Campaign Mode</string>
+	<string name="help_description_campaign">This is a single player mode where you have to find the blue Portal somewhere below the destroyable objects. Once you kill all your enemies, the Portal starts flashing indicating you can go for it and proceed to the next level.</string>
+	<string name="help_subtitle_ctf">Catch The Flag Mode</string>
+	<string name="help_description_ctf">This is a multi player mode where you have to defend your flag. At the same time you have to go catch the enemy\'s flag and bring it back to your base. You can also play it as team versus team.</string>
+	<string name="help_subtitle_dm">DeathMatch Mode</string>
+	<string name="help_description_dm">This is a multi player mode where you simply have to kill your opponents. You can also play it as team versus team.</string>
+	<string name="symbol_lesser">&lt;</string>
+	<string name="symbol_greater">&gt;</string>
 </resources>

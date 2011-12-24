@@ -159,7 +159,17 @@ public class Game implements ApplicationListener {
 			System.exit(-1);
 		}
 	}
-
+	
+	public static void goToHelpActivity()
+	{
+		if (mMainActivity != null)
+		{
+			mMainActivity.showHelpActivity();
+		} else
+		{
+			System.exit(-1);
+		}
+	}
 	// A chamar antes de instanciar o objecto
 	public static void setGameType(short _type)
 	{

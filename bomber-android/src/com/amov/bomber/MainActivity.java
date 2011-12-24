@@ -1,8 +1,6 @@
 package com.amov.bomber;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Scanner;
 
 import android.app.Activity;
@@ -11,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 
-import com.badlogic.gdx.Gdx;
 import com.bomber.common.Achievements;
 
 public class MainActivity extends Activity
@@ -107,7 +104,7 @@ public class MainActivity extends Activity
 
 	public void onHelpButton(View v)
 	{
-		Intent myIntent = new Intent(this, BuildActivity.class);
+		Intent myIntent = new Intent(this, HelpActivity.class);
 		// proibe a animação na transição entre activities
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivityForResult(myIntent, 0);

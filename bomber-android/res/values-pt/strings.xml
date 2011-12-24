@@ -4,6 +4,7 @@
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
     <string name="arcade">Arcade</string>
+    <string name="number_rounds">Rondas:</string>    
     <string name="multiplayer">Multiplayer</string>
     <string name="top">Top</string>
     <string name="achievements">Conquistas</string>
@@ -45,4 +46,5 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
 	<string name="username">Nome do utilizador:</string>
+	
 </resources>

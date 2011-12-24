@@ -1,5 +1,6 @@
 package com.amov.bomber;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.WindowManager.LayoutParams;
@@ -43,12 +44,20 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		else
 			newGame.setConnections(tmpConnections);
 	}
-
 	public void goBackToMenu()
 	{
 		finishActivity(0);
 		this.exit();
 	}
+	
+	public void showHelpActivity()
+	{
+		Intent myIntent = new Intent(this, HelpActivity.class);
+		// proibe a animação na transição entre activities
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		startActivityForResult(myIntent, 0);
+	}
+	
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
