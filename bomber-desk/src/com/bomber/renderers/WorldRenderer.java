@@ -184,7 +184,7 @@ public class WorldRenderer {
 
 			// Desenha o nome
 			if (Game.mIsPVPGame && p != mWorld.getLocalPlayer())
-				Assets.mFont.draw(mBatch, p.mName, drawingPoint.x - 10, drawingPoint.y + 80);
+				//Assets.mFont.draw(mBatch, p.mName, drawingPoint.x - 10, drawingPoint.y + 80);
 			
 
 			// Desenha os efeitos

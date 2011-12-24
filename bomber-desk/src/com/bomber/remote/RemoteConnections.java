@@ -47,7 +47,7 @@ public class RemoteConnections {
 	public synchronized void removePlayer(short _id)
 	{
 		// Se for o servidor então retorna
-		if (!mGameServer.isConnected() && !mIsGameServer)
+		if (!mGameServer.isConnected() || !mIsGameServer)
 			return;
 
 		int idx = 0;
