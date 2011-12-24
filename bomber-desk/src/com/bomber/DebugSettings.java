@@ -23,7 +23,7 @@ public class DebugSettings {
 	
 	// Game
 	public static  String LEVEL_TO_LOAD = "level1";
-	public static  short GAME_TYPE = GameTypeHandler.CTF;
+	public static  short GAME_TYPE = GameTypeHandler.TEAM_CTF;
 	public static  short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
 	

@@ -270,13 +270,6 @@ public class GameServer {
 		GameStateLoadingPVP.mServerAuthorizedStart = true;
 		Game.mHasStarted = true;
 	}
-
-	public void setLocalId(short _id)
-	{
-		if (mConnection != null)
-			mConnection.setLocalId(_id);
-	}
-
 	public void sendMessage(Message _msg)
 	{
 		if (mConnection != null)

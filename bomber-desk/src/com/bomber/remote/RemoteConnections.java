@@ -68,23 +68,6 @@ public class RemoteConnections {
 		mLocalServer.nAdded--;
 	}
 
-	/**
-	 * Atribui um ID único a este cliente para ser identificado perante o
-	 * servidor.
-	 * 
-	 * @param _id
-	 *            O novo id.
-	 */
-	public void setLocalID(short _id)
-	{
-		mGameServer.setLocalId(_id);
-
-		for (int i = 0; i < mPlayers.size(); i++)
-			mPlayers.get(i).setLocalId(_id);
-
-		mLocalID = _id;
-	}
-
 	public boolean connectedToServer()
 	{
 		return mGameServer.isConnected();
@@ -117,7 +100,7 @@ public class RemoteConnections {
 			mMessageToSend.valInt = mLocalServer.getLocalPort();
 			tmpConn.sendMessage(mMessageToSend);
 		}
-		
+
 		tmpConn.setDaemon(true);
 		tmpConn.start();
 
@@ -151,8 +134,6 @@ public class RemoteConnections {
 		if (tmpConn == null)
 			return false;
 
-		tmpConn.mLocalID = mLocalID;
-
 		tmpConn.setDaemon(true);
 		tmpConn.start();
 		mPlayers.add(tmpConn);
@@ -161,6 +142,17 @@ public class RemoteConnections {
 		return true;
 	}
 
+	public void broadcastPlayerName()
+	{
+		if (Game.mIsPVPGame)
+		{
+			mMessageToSend.messageType = MessageType.PLAYER;
+			mMessageToSend.eventType = EventType.NAME;
+			mMessageToSend.valShort = RemoteConnections.mLocalID;
+			mMessageToSend.setStringValue(DebugSettings.PLAYER_NAME);
+			Game.mRemoteConnections.broadcast(mMessageToSend);
+		}
+	}
 	public void update()
 	{
 

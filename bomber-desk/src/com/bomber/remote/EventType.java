@@ -1,5 +1,6 @@
 package com.bomber.remote;
 
+
 public class EventType {
 	public static final short CREATE = 0;
 	public static final short DESTROY = 1;
@@ -18,6 +19,8 @@ public class EventType {
 	public static final short CONNECT_TO = 8;
 	public static final short PING = 9;
 	public static final short PONG = 10;
+	
+	// short contém o id
 	public static final short SET_ID = 11;
 	public static final short LOCAL_SERVER_PORT = 12;
 	public static final short STOP_LOCAL_SERVER = 13;
@@ -36,4 +39,9 @@ public class EventType {
 	public static final short UDP_ACK = 19;
 	
 	public static final short NAME = 20;
+	
+	// short tem o tipo de jogo
+	// int tem o numero de rounds
+	// string tem o nivel a ler
+	public static final short INFO = 21;
 }

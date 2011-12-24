@@ -2,8 +2,10 @@ package com.bomber.remote;
 
 import java.nio.ByteBuffer;
 import java.security.InvalidParameterException;
+import java.util.Arrays;
 
 import com.badlogic.gdx.math.Vector2;
+import com.bomber.Game;
 import com.bomber.common.PoolObject;
 
 /**
@@ -39,6 +41,7 @@ public class Message extends PoolObject {
 	public long valLong2;
 	private String valString = "";
 
+	private static final byte[] cleanMsg = new byte[Message.MESSAGE_SIZE];
 	private byte[] valStringBuffer = new byte[STRING_MAX_SIZE];
 
 	//
@@ -66,8 +69,8 @@ public class Message extends PoolObject {
 	 */
 	public void parse(ByteBuffer _buff)
 	{
-		_buff.position(0);
-		
+		_buff.clear();
+
 		senderID = _buff.getShort();
 		UUID = _buff.getInt();
 		messageType = _buff.getShort();
@@ -84,7 +87,7 @@ public class Message extends PoolObject {
 		_buff.get(valStringBuffer, 0, valStringBuffer.length);
 		valString = new String(valStringBuffer).trim();
 
-		_buff.position(0);
+		_buff.clear();
 	}
 
 	/**
@@ -93,7 +96,10 @@ public class Message extends PoolObject {
 	 */
 	public void fillBuffer(ByteBuffer _destination)
 	{
-		_destination.position(0);
+		_destination.clear();
+		_destination.put(cleanMsg);
+		_destination.clear();
+		
 		_destination.putShort(senderID);
 		_destination.putInt(UUID);
 		_destination.putShort(messageType);
@@ -106,10 +112,10 @@ public class Message extends PoolObject {
 		_destination.putInt(valInt);
 		_destination.putLong(valLong1);
 		_destination.putLong(valLong2);
-
+		
 		_destination.put(valString.getBytes());
 
-		_destination.position(0);
+		_destination.clear();
 	}
 
 	public synchronized void cloneTo(Message _newMessage)
