@@ -38,6 +38,15 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	public GameStateRoundEnd(Game _game) {
 		super(_game);
 
+		if (RemoteConnections.mIsGameServer)
+		{
+			// faz broadcas das posições de todos os players
+			for (short i = 0; i < 2; i++)
+				for (short c = 0; c < Game.mNumberPlayers / 2; c++)
+					Game.mTeams[i].mPlayers.get(c).stop();
+		}
+		
+		
 		mTeam1 = Game.mTeams[0];
 		mTeam2 = Game.mTeams[1];
 
@@ -56,6 +65,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	}
 
 	protected abstract void onAllRoundsPlayed();
+
 	@Override
 	public void onUpdate()
 	{

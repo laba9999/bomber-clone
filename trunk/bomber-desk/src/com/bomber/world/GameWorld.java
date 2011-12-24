@@ -101,7 +101,7 @@ public class GameWorld {
 				break;
 			}
 
-		if (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections.mGameServer.mStartedCountdown)
+		if (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections == null || Game.mRemoteConnections.mGameServer.mStartedCountdown)
 			mGame.setGameState(new GameStateServerConnectionError(mGame, "Sem clientes suficientes..."));
 
 	}
@@ -125,17 +125,6 @@ public class GameWorld {
 
 				p.mName = DebugSettings.PLAYER_NAME;
 				
-				if (Game.mIsPVPGame)
-				{
-					// Actualiza o nome do jogador remotamente
-					Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
-
-					tmpMessage.messageType = MessageType.PLAYER;
-					tmpMessage.eventType = EventType.NAME;
-					tmpMessage.valShort = RemoteConnections.mLocalID;
-					tmpMessage.setStringValue(DebugSettings.PLAYER_NAME);
-					Game.mRemoteConnections.broadcast(tmpMessage);
-				}
 				break;
 			}
 	}

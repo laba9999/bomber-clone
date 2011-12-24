@@ -2,8 +2,12 @@ package com.bomber.remote;
 
 import java.io.IOException;
 
+import javax.rmi.CORBA.Util;
+
 import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.common.ObjectFactory;
+import com.bomber.common.Utils;
 import com.bomber.gameobjects.Player;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.world.GameWorld;
@@ -64,7 +68,7 @@ public class MessagesHandler {
 		switch (_msg.eventType)
 		{
 		case EventType.SET_ID:
-			mRemoteConnections.setLocalID(_msg.valShort);
+			RemoteConnections.mLocalID = _msg.valShort;
 			mWorld.setLocalPlayer(_msg.valShort);
 			break;
 
@@ -133,7 +137,7 @@ public class MessagesHandler {
 					break;
 				}
 			}
-			//mGame.mWorld.getLocalPlayer().mName = DebugSettings.PLAYER_NAME;
+			// mGame.mWorld.getLocalPlayer().mName = DebugSettings.PLAYER_NAME;
 			break;
 
 		case EventType.SYNC:
@@ -182,6 +186,10 @@ public class MessagesHandler {
 	{
 		switch (_msg.eventType)
 		{
+		case EventType.INFO:
+			//mGame.changeInfo(_msg);
+			break;
+
 		case EventType.COUNTDOWN:
 			GameStateLoadingPVP.mCountdownSeconds = _msg.valInt;
 			break;
@@ -189,6 +197,8 @@ public class MessagesHandler {
 		case EventType.START:
 			GameStateLoadingPVP.mServerAuthorizedStart = true;
 			Game.mHasStarted = true;
+
+			mRemoteConnections.broadcastPlayerName();
 			break;
 
 		case EventType.RANDOM_SEED:

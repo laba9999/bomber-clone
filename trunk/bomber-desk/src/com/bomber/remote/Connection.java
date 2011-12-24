@@ -12,7 +12,6 @@ public class Connection extends Thread {
 	 * ID que identifica este cliente perante todos os outros é atribuido pelo
 	 * servidor.
 	 */
-	public short mLocalID = 0;
 	public short mRemoteID = -1;
 
 	// Latência em ticks
@@ -36,14 +35,7 @@ public class Connection extends Thread {
 		mMessagesContainer = _msgContainer;
 
 		mMessageForInternalUse = new Message();
-		mMessageForInternalUse.senderID = mLocalID;
 		mMessageForInternalUse.messageType = MessageType.CONNECTION;
-	}
-
-	public void setLocalId(short _id)
-	{
-		mMessageForInternalUse.senderID = _id;
-		mLocalID = _id;
 	}
 
 	@Override
@@ -81,6 +73,7 @@ public class Connection extends Thread {
 		// RemoteId do atributo mGameServer
 		mMessageForInternalUse.eventType = EventType.DISCONNECTED;
 		mMessageForInternalUse.valShort = mRemoteID;
+		mMessageForInternalUse.senderID = RemoteConnections.mLocalID;
 		mMessageForInternalUse.setStringValue(_reason);
 		mMessagesContainer.add(mMessageForInternalUse);
 
@@ -148,6 +141,7 @@ public class Connection extends Thread {
 		case EventType.PING:
 			// Responde imediatamente e não adiciona a mensagem ao contentor
 			mMessageForInternalUse.eventType = EventType.PONG;
+			mMessageForInternalUse.senderID = RemoteConnections.mLocalID;
 			sendMessage(mMessageForInternalUse);
 			break;
 
@@ -155,7 +149,7 @@ public class Connection extends Thread {
 			// Actualiza o RTT e não adiciona a mensagem ao contentor
 			mSentPing = false;
 			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
-			Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + mLocalID + "<->" + mRemoteID + "): " + mRTT);
+			Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + RemoteConnections.mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			break;
 
 		case EventType.LOCAL_SERVER_PORT:
