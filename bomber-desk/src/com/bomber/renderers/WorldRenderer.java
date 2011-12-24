@@ -28,7 +28,7 @@ public class WorldRenderer {
 	static final float FRUSTUM_WIDTH = 800;
 	static final float FRUSTUM_HEIGHT = 480;
 
-	GameWorld mWorld;
+	public GameWorld mWorld;
 	SpriteBatch mBatch;
 	OrthographicCamera mCamera;
 

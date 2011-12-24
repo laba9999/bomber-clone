@@ -187,7 +187,7 @@ public class MessagesHandler {
 		switch (_msg.eventType)
 		{
 		case EventType.INFO:
-			//mGame.changeInfo(_msg);
+			mGame.changeInfo(_msg.valShort, (short) _msg.valInt, _msg.getStringValue());
 			break;
 
 		case EventType.COUNTDOWN:

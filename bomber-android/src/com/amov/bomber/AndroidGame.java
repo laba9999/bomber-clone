@@ -30,6 +30,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
 		super.onCreate(savedInstanceState);
 
+		RemoteConnections.mIsGameServer = DebugSettings.START_ANDROID_AS_SERVER;
 		Game newGame = new Game(this, DebugSettings.GAME_TYPE, DebugSettings.LEVEL_TO_LOAD);
 		initialize(newGame, false);
 
