@@ -2,6 +2,7 @@ package com.bomber.remote;
 
 import java.io.IOException;
 
+import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.gameobjects.Player;
 import com.bomber.gamestates.GameStateLoadingPVP;
@@ -106,7 +107,7 @@ public class MessagesHandler {
 					break;
 				}
 			}
-		
+
 			break;
 		case EventType.STOP:
 			for (Player player : mWorld.mPlayers)
@@ -118,8 +119,21 @@ public class MessagesHandler {
 					player.stop();
 					break;
 				}
-
 			}
+			break;
+
+		case EventType.NAME:
+			Game.LOGGER.log("Recebido nome!");
+			for (Player player : mWorld.mPlayers)
+			{
+				if (player.mColor == _msg.valShort)
+				{
+					player.mName = _msg.getStringValue();
+					Game.LOGGER.log("Atribuido nome!");
+					break;
+				}
+			}
+			//mGame.mWorld.getLocalPlayer().mName = DebugSettings.PLAYER_NAME;
 			break;
 
 		case EventType.SYNC:
@@ -203,12 +217,11 @@ public class MessagesHandler {
 				}
 			}
 			break;
-			
+
 		default:
 			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
 		}
 	}
-
 
 	private void parseClockMessage(Message _msg)
 	{

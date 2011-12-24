@@ -5,6 +5,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.common.ObjectFactory;
 import com.bomber.gamestates.GameStateLoadingPVP;
@@ -116,7 +117,7 @@ public class RemoteConnections {
 			mMessageToSend.valInt = mLocalServer.getLocalPort();
 			tmpConn.sendMessage(mMessageToSend);
 		}
-
+		
 		tmpConn.setDaemon(true);
 		tmpConn.start();
 

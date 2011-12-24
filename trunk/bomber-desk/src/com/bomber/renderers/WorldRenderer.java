@@ -182,6 +182,11 @@ public class WorldRenderer {
 			mBatch.draw(p.mCurrentFrame, drawingPoint.x, drawingPoint.y);
 			mBatch.setColor(1, 1, 1, 1);
 
+			// Desenha o nome
+			if (Game.mIsPVPGame && p != mWorld.getLocalPlayer())
+				Assets.mFont.draw(mBatch, p.mName, drawingPoint.x - 10, drawingPoint.y + 80);
+			
+
 			// Desenha os efeitos
 			for (PlayerEffect ef : p.mEffects)
 			{
