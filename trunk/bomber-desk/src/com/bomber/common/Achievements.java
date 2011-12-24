@@ -27,11 +27,7 @@ public class Achievements {
 	public static boolean mHasCompletedCampaign;
 
 	
-	public class BonusBuild {
-		public int explosionSize;
-		public int bombCount;
-		public int speed;
-	}
+
 	
 	public static boolean isMonsterKillsCompleted()
 	{
