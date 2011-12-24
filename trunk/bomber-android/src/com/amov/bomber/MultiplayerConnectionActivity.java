@@ -1,5 +1,9 @@
 package com.amov.bomber;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.Set;
 
 import android.app.Activity;
@@ -13,6 +17,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -308,7 +313,7 @@ public class MultiplayerConnectionActivity extends Activity
 		startActivity(myIntent);
 	}
 
-	public void onStartButton(View v)
+	public void onContinueButton(View v)
 	{
 		boolean connected = false;
 
@@ -316,10 +321,13 @@ public class MultiplayerConnectionActivity extends Activity
 		{
 			connected = checkWifiConnection();
 
-			if (!connected)
+			String localIp = getLocalIpAddress();
+
+			if (!connected || null == localIp)
 				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
 			else
 			{
+				DebugSettings.LOCAL_SERVER_ADDRESS = localIp + ":" + mEditPort.getText().toString();
 				DebugSettings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
 				DebugSettings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
 
@@ -327,9 +335,6 @@ public class MultiplayerConnectionActivity extends Activity
 					DebugSettings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
 				else
 					DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
-
-				System.out.println(DebugSettings.REMOTE_SERVER_ADDRESS);
-				System.out.println(DebugSettings.REMOTE_PROTOCOL_IN_USE);
 			}
 		} else
 		{
@@ -342,10 +347,34 @@ public class MultiplayerConnectionActivity extends Activity
 
 		if (connected)
 		{
-			Intent myIntent = new Intent(this, AndroidGame.class);
-			startActivityForResult(myIntent, 0);
+			Intent myIntent = new Intent(this, PVPServerOptionsActivity.class);
+			startActivity(myIntent);
 		}
 
+	}
+
+	// http://www.droidnova.com/get-the-ip-address-of-your-device,304.html
+	public String getLocalIpAddress()
+	{
+		try
+		{
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();)
+			{
+				NetworkInterface intf = en.nextElement();
+				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();)
+				{
+					InetAddress inetAddress = enumIpAddr.nextElement();
+					if (!inetAddress.isLoopbackAddress())
+					{
+						return inetAddress.getHostAddress().toString();
+					}
+				}
+			}
+		} catch (SocketException ex)
+		{
+			Log.e("Oops..", ex.toString());
+		}
+		return null;
 	}
 
 	private boolean checkWifiConnection()
@@ -394,47 +423,5 @@ public class MultiplayerConnectionActivity extends Activity
 
 		return super.onKeyDown(keyCode, event);
 	}
-
-	private final BroadcastReceiver BluetoothReceiver = new BroadcastReceiver()
-	{
-		@Override
-		public void onReceive(Context context, Intent intent)
-		{
-			String strMode = "";
-			String action = intent.getAction();
-			if (BluetoothAdapter.ACTION_SCAN_MODE_CHANGED.equals(action))
-			{
-				int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
-
-				switch (mode)
-				{
-				case BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE:
-					strMode = "mode changed: SCAN_MODE_CONNECTABLE_DISCOVERABLE";
-					break;
-				case BluetoothAdapter.SCAN_MODE_CONNECTABLE:
-					strMode = "mode changed: SCAN_MODE_CONNECTABLE";
-					break;
-				case BluetoothAdapter.SCAN_MODE_NONE:
-					strMode = "mode changed: SCAN_MODE_NONE";
-					break;
-				}
-			} else if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action))
-			{
-				int mode = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
-
-				switch (mode)
-				{
-				case BluetoothAdapter.STATE_ON:
-
-					break;
-				case BluetoothAdapter.STATE_OFF:
-					strMode = "mode changed: SCAN_MODE_CONNECTABLE";
-					break;
-				}
-			}
-
-			Toast.makeText(MultiplayerConnectionActivity.this, strMode, Toast.LENGTH_LONG).show();
-		}
-	};
 
 }
