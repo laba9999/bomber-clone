@@ -34,4 +34,6 @@ public class EventType {
 	
 	public static final short UDP_RESEND = 18;
 	public static final short UDP_ACK = 19;
+	
+	public static final short NAME = 20;
 }

@@ -189,6 +189,13 @@ public class GameServer {
 				tmpMessage.valShort = mTeamPlayerAssociations.get(c).mColor;
 				mPlayers.get(i).sendMessage(tmpMessage);
 			}
+			
+			// Envia o nome do jogador que está a fazer de server
+			tmpMessage.messageType = MessageType.PLAYER;
+			tmpMessage.eventType = EventType.NAME;
+			tmpMessage.setStringValue(DebugSettings.PLAYER_NAME);
+			tmpMessage.valShort = 0;
+			mPlayers.get(i).sendMessage(tmpMessage);
 		}
 
 		// Avisa todos os players das novas associações player/equipa

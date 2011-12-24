@@ -22,6 +22,9 @@ import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
 import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.remote.EventType;
+import com.bomber.remote.Message;
+import com.bomber.remote.MessageType;
 import com.bomber.remote.RemoteConnections;
 
 public class GameWorld {
@@ -119,6 +122,20 @@ public class GameWorld {
 				mLocalPlayer = p;
 				p.mAcceptPlayerInput = true;
 				p.mIsLocalPlayer = true;
+
+				p.mName = DebugSettings.PLAYER_NAME;
+				
+				if (Game.mIsPVPGame)
+				{
+					// Actualiza o nome do jogador remotamente
+					Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
+
+					tmpMessage.messageType = MessageType.PLAYER;
+					tmpMessage.eventType = EventType.NAME;
+					tmpMessage.valShort = RemoteConnections.mLocalID;
+					tmpMessage.setStringValue(DebugSettings.PLAYER_NAME);
+					Game.mRemoteConnections.broadcast(tmpMessage);
+				}
 				break;
 			}
 	}
