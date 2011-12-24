@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bomber.DebugSettings;
 import com.bomber.common.Achievements;
+import com.bomber.common.BonusBuild;
 import com.bomber.remote.Message;
 
 public class BuildActivity extends Activity
@@ -110,10 +112,13 @@ public class BuildActivity extends Activity
 		}
 	}
 	
-	public void onStartClick(View v)
+	public void onStartButton(View v)
 	{
-		// TODO : guardar a build
+		BonusBuild.mExplosionSize = mExplosionPoints;
+		BonusBuild.mBombCount = mBombsPoints;
+		BonusBuild.mSpeed = mSpeedPoints;
 		
+		DebugSettings.PLAYER_NAME = mEditUsername.getText().toString();
 		Intent myIntent = new Intent(this, AndroidGame.class);
 		startActivityForResult(myIntent, 0);
 	}
