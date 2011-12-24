@@ -49,7 +49,7 @@ public class Team {
 
 		Game.LOGGER.log("O jogador " + _player.mColor + " foi removido da equipa " + mId);
 
-		mPlayerIds.remove(_player.mColor);
+		mPlayerIds.remove((Object) _player.mColor);
 		mPlayers.remove(_player);
 		_player.mTeam = null;
 	}
