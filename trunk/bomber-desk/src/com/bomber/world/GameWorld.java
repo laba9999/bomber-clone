@@ -22,10 +22,6 @@ import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
 import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.gametypes.GameTypeHandler;
-import com.bomber.remote.EventType;
-import com.bomber.remote.Message;
-import com.bomber.remote.MessageType;
-import com.bomber.remote.RemoteConnections;
 
 public class GameWorld {
 	public ObjectsPool<Monster> mMonsters;

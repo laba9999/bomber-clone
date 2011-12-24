@@ -167,9 +167,19 @@ public class GameServer {
 	{
 		List<PlayerTeam> newAssociations = new ArrayList<PlayerTeam>();
 
-		// Atribui os id's finais a cada um dos players
+		
 		for (short i = _starIdx; i < mPlayers.size(); i++)
 		{
+			tmpMessage.messageType = MessageType.GAME;
+			tmpMessage.eventType = EventType.INFO;
+
+			tmpMessage.valShort = DebugSettings.GAME_TYPE;
+			tmpMessage.valInt = DebugSettings.GAME_ROUNDS;
+			tmpMessage.setStringValue(DebugSettings.LEVEL_TO_LOAD);
+			
+			mPlayers.get(_starIdx).sendMessage(tmpMessage);
+			
+			// Atribui os id's finais a cada um dos players
 			tmpMessage.messageType = MessageType.CONNECTION;
 			tmpMessage.eventType = EventType.SET_ID;
 

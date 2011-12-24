@@ -74,7 +74,7 @@ public class Game implements ApplicationListener {
 		setGameType(_gameType);
 
 		Utils.resetUUID();
-		
+
 		mRandomSeed = (int) System.currentTimeMillis();
 		mRandomGenerator = new Random(mRandomSeed);
 
@@ -83,7 +83,7 @@ public class Game implements ApplicationListener {
 		mRemoteConnections = null;
 		mLevelToLoad = _levelToLoad;
 		mGameIsOver = false;
-		
+
 		mRoundsPlayed = 1;
 		mRoundsToPlay = DebugSettings.GAME_ROUNDS;
 
@@ -104,14 +104,30 @@ public class Game implements ApplicationListener {
 		mRemoteConnections = _conns;
 	}
 
+	public void changeInfo(short _type, short _nRounds, String _levelToLoad)
+	{
+		Game.setGameType(_type);
+		mRoundsToPlay = _nRounds;
+		mLevelToLoad = _levelToLoad;
+		//Game.LOGGER.log("Received game info - Type: " + _type + " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
+
+		mTeams[0].mNumberPlayers = (short) (mNumberPlayers / 2);
+		mTeams[1].mNumberPlayers = (short) (mNumberPlayers / 2);
+
+		mWorld = new GameWorld(this, ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
+		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
+
+		mMessagesHandler.mWorld = mWorld;
+	}
+
 	public void updateRandomSeed(int _newSeed)
 	{
 		Game.mRandomSeed = _newSeed;
 		Game.mRandomGenerator = new Random(Game.mRandomSeed);
-		
+
 		mWorld.reset(Game.mLevelToLoad);
 		mWorld.setLocalPlayer(RemoteConnections.mLocalID);
-		
+
 		if (RemoteConnections.mIsGameServer)
 		{
 			// Envia uma mensagem de SYNC para a seed
@@ -120,11 +136,11 @@ public class Game implements ApplicationListener {
 			tmpMessage.messageType = MessageType.GAME;
 			tmpMessage.eventType = EventType.RANDOM_SEED;
 			tmpMessage.valInt = Game.mRandomSeed;
-			
-			mRemoteConnections.broadcast(tmpMessage);			
+
+			mRemoteConnections.broadcast(tmpMessage);
 		}
 	}
-	
+
 	public GameState getGameState()
 	{
 		return mGameState;
@@ -189,22 +205,17 @@ public class Game implements ApplicationListener {
 
 		Assets.loadAssets();
 
-		if( !mIsPVPGame)
+		if (!mIsPVPGame)
 			mGameState = new GameStateLoading(this);
 		else
 			mGameState = new GameStateLoadingPVP(this);
-		
-		// mWorld = new GameWorld(new GameTypeCampaign(), mLevelToLoad);
-		mWorld = new GameWorld(this, ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
-		mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 
-		mMessagesHandler.mWorld = mWorld;
+		if (Game.mIsPVPGame && RemoteConnections.mIsGameServer)
+			changeInfo(DebugSettings.GAME_TYPE, DebugSettings.GAME_ROUNDS, DebugSettings.LEVEL_TO_LOAD);
+
 		mMessagesHandler.mGame = this;
-		// mGameState = new GameStatePlaying(this);
 
 		mNextGameTick = System.nanoTime();
-
-		
 	}
 
 	@Override
@@ -252,12 +263,12 @@ public class Game implements ApplicationListener {
 	@Override
 	public void pause()
 	{
-		
+
 		Achievements.saveFile();
-		
-		if( mIsPVPGame)
+
+		if (mIsPVPGame)
 			goBackToActivities();
-		
+
 		if (mGameState instanceof GameStatePlaying)
 			setGameState(new GameStatePaused(this));
 
