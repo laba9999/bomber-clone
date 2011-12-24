@@ -63,6 +63,12 @@ public class Assets {
 	public static HashMap<String, Animation> mPlayerEffects;
 	public static HashMap<String, TextureRegion> mNonDestroyableTiles;
 
+	public static TextureRegion mControlPad;
+	public static TextureRegion mButtonPause;
+	public static TextureRegion mButtonBomb;
+	public static TextureRegion mClockBar;
+	public static TextureRegion mBonusBar;
+
 	/**
 	 * Posição 0 da animação é o tile antes de ser destruido. Daí para a frente
 	 * é a destruição do tile.
@@ -98,7 +104,7 @@ public class Assets {
 		mDestroyableTiles = new HashMap<String, Animation>();
 		mPlayersSad = new HashMap<String, TextureRegion>();
 		mPlayersHappy = new HashMap<String, TextureRegion>();
-		
+
 		mFlags = new HashMap<String, TextureRegion>();
 
 		loadAtlas();
@@ -122,12 +128,12 @@ public class Assets {
 	private static void loadFlags()
 	{
 		// Com o varão
-		mFlags.put("flag_pole_team1", mAtlas.findRegion("flag_pole_team",1));
-		mFlags.put("flag_pole_team2", mAtlas.findRegion("flag_pole_team",2));
+		mFlags.put("flag_pole_team1", mAtlas.findRegion("flag_pole_team", 1));
+		mFlags.put("flag_pole_team2", mAtlas.findRegion("flag_pole_team", 2));
 
 		// Transportáveis
-		mFlags.put("flag_transport_team1", mAtlas.findRegion("flag_transport_team",1));
-		mFlags.put("flag_transport_team2", mAtlas.findRegion("flag_transport_team",2));
+		mFlags.put("flag_transport_team1", mAtlas.findRegion("flag_transport_team", 1));
+		mFlags.put("flag_transport_team2", mAtlas.findRegion("flag_transport_team", 2));
 
 	}
 
@@ -383,7 +389,13 @@ public class Assets {
 		// mPauseButtons.put("TO BE DEFINED",
 		TextureAtlas atlasHD = new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
 
-		mScreens.put("controller", atlasHD.findRegion("controller"));
+		mControlPad = atlasHD.findRegion("d-pad");
+		mButtonPause = atlasHD.findRegion("btn_pause");
+		mButtonBomb = atlasHD.findRegion("btn_bomb");
+		mClockBar = atlasHD.findRegion("clock_bar");
+		mBonusBar = atlasHD.findRegion("bonus_bar");
+		
+
 		mScreens.put("pause", atlasHD.findRegion("pause_screen"));
 		mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
 		mScreens.put("gameover", atlasHD.findRegion("gameover"));

@@ -18,9 +18,9 @@ public class GameStatePlaying extends GameState {
 	private short mClockBlinkInterval = 100;
 	private short mTicksSinceLastClockBlink = 100;
 	private boolean mPaintingClockRed = false;
-	
-	public long mStartingTime ;
-	
+
+	public long mStartingTime;
+
 	public GameStatePlaying(Game _gameScreen) {
 		super(_gameScreen);
 		mStartingTime = System.currentTimeMillis();
@@ -34,8 +34,7 @@ public class GameStatePlaying extends GameState {
 		mGameWorld.update();
 
 		mTicksSinceLastClockBlink++;
-		
-		
+
 		if (mGameWorld.mGameTypeHandler.isOver())
 		{
 			Achievements.mTotalTimePlayed += System.currentTimeMillis() - mStartingTime;
@@ -46,11 +45,12 @@ public class GameStatePlaying extends GameState {
 				mGame.setGameState(new GameStateRoundEndDM(mGame));
 			if (mGameWorld.mGameTypeHandler instanceof GameTypeCTF)
 				mGame.setGameState(new GameStateRoundEndCTF(mGame));
-			//else
-				//throw new InvalidParameterException(" final de gamestate não definido!");
+			// else
+			// throw new
+			// InvalidParameterException(" final de gamestate não definido!");
 		} else if (mGameWorld.mGameTypeHandler.isLost())
 		{
-			Achievements.mTotalTimePlayed += System.currentTimeMillis() - mStartingTime;		
+			Achievements.mTotalTimePlayed += System.currentTimeMillis() - mStartingTime;
 			Achievements.saveFile();
 			mGame.setGameState(new GameStateGameOver(mGame));
 		}
@@ -67,8 +67,17 @@ public class GameStatePlaying extends GameState {
 		BitmapFont font = Assets.mFont;
 		Player player = mGameWorld.getLocalPlayer();
 
-		// desenha imagem do controller
-		mBatcher.draw(Assets.mScreens.get("controller"), 0, 0);
+		if (mGameWorld.getLocalPlayer().mAcceptPlayerInput)
+		{
+			// desenha imagem do d-pad
+			mBatcher.draw(Assets.mControlPad, 0, 0);
+
+			// desenha imagem do botao para colocar bombas
+			mBatcher.draw(Assets.mButtonBomb, 650, 0);
+		}
+
+		if (!Game.mIsPVPGame)
+			mBatcher.draw(Assets.mButtonPause, 0, 400);
 
 		// Relógio
 		drawClock(font);
@@ -88,7 +97,10 @@ public class GameStatePlaying extends GameState {
 
 	private void drawAcummulatedBonus(BitmapFont _font, Player _player)
 	{
+
 		// desenha quantidades de bonus ao fundo
+		mBatcher.draw(Assets.mBonusBar, 250, 0);
+
 		Integer value;
 
 		value = (int) _player.mLives;
@@ -132,6 +144,9 @@ public class GameStatePlaying extends GameState {
 
 	private void drawClock(BitmapFont _font)
 	{
+		// desenha quantidades de bonus ao fundo
+		mBatcher.draw(Assets.mClockBar, 200, 435);
+
 		mBatcher.setColor(1, 1, 1, 1);
 		Clock clock = mGameWorld.mClock;
 		if (clock.getRemainingSeconds() < SECONDS_TO_START_BLINK_CLOCK)

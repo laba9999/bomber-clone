@@ -24,11 +24,9 @@ public class GameTypeDeathmatch extends GameTypeHandler {
 	@Override
 	public boolean isOver()
 	{
-		if(mGameWorld.mClock.mReachedZero || mTeams[0].areAllDead() || mTeams[1].areAllDead())
-		{
-			Achievements.mNumberDMWins++;
+		if (mGameWorld.mClock.mReachedZero || mTeams[0].areAllDead() || mTeams[1].areAllDead())
 			return true;
-		}
+
 		return false;
 	}
 

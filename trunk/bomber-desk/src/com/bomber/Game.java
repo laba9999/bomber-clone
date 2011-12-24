@@ -111,6 +111,9 @@ public class Game implements ApplicationListener {
 		mLevelToLoad = _levelToLoad;
 		//Game.LOGGER.log("Received game info - Type: " + _type + " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
 
+		mTeams[0].clear();
+		mTeams[1].clear();
+		
 		mTeams[0].mNumberPlayers = (short) (mNumberPlayers / 2);
 		mTeams[1].mNumberPlayers = (short) (mNumberPlayers / 2);
 
@@ -212,7 +215,14 @@ public class Game implements ApplicationListener {
 
 		if (Game.mIsPVPGame && RemoteConnections.mIsGameServer)
 			changeInfo(DebugSettings.GAME_TYPE, DebugSettings.GAME_ROUNDS, DebugSettings.LEVEL_TO_LOAD);
+		else
+		{
+			mWorld = new GameWorld(this, ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
+			mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
 
+			mMessagesHandler.mWorld = mWorld;
+		}
+		
 		mMessagesHandler.mGame = this;
 
 		mNextGameTick = System.nanoTime();

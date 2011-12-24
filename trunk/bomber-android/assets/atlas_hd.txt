@@ -4,49 +4,77 @@ filter: Linear,Linear
 repeat: none
 trophy
   rotate: false
-  xy: 804, 109
+  xy: 310, 883
   size: 54, 52
   orig: 54, 52
   offset: 0, 0
   index: -1
-controller
+btn_pause
   rotate: false
-  xy: 2, 2
-  size: 800, 480
-  orig: 800, 480
+  xy: 216, 888
+  size: 92, 72
+  orig: 92, 72
+  offset: 0, 0
+  index: -1
+clock_bar
+  rotate: false
+  xy: 554, 2
+  size: 425, 48
+  orig: 425, 48
+  offset: 0, 0
+  index: -1
+d-pad
+  rotate: false
+  xy: 812, 52
+  size: 197, 177
+  orig: 197, 177
   offset: 0, 0
   index: -1
 pause_screen
   rotate: false
-  xy: 554, 484
+  xy: 2, 374
   size: 256, 512
   orig: 256, 512
   offset: 0, 0
   index: -1
 sound_
   rotate: false
-  xy: 911, 2
+  xy: 109, 888
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 0
 sound_
   rotate: false
-  xy: 804, 2
+  xy: 2, 888
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 1
 gameover
   rotate: false
-  xy: 2, 856
+  xy: 260, 374
   size: 550, 370
   orig: 550, 370
   offset: 0, 0
   index: -1
+btn_bomb
+  rotate: false
+  xy: 260, 746
+  size: 117, 135
+  orig: 117, 135
+  offset: 0, 0
+  index: -1
+bonus_bar
+  rotate: false
+  xy: 216, 962
+  size: 328, 52
+  orig: 328, 52
+  offset: 0, 0
+  index: -1
 level_completed
   rotate: false
-  xy: 2, 484
+  xy: 2, 2
   size: 550, 370
   orig: 550, 370
   offset: 0, 0
