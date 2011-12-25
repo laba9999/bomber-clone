@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bomber.DebugSettings;
 import com.bomber.common.Achievements;
 import com.bomber.common.BonusBuild;
+import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Message;
 
 public class BuildActivity extends GameActivity
@@ -58,23 +59,23 @@ public class BuildActivity extends GameActivity
 		mEditUsername.setText(DebugSettings.PLAYER_NAME);
 
 		// Lê a build das preferências
-		for(int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildExplosionSize", 0); i++)
+		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildExplosionSize", 0); i++)
 		{
 			onExplosionPlusButton(null);
 			mAvailablePoints--;
 		}
-		for(int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildBombCount", 0); i++)
+		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildBombCount", 0); i++)
 		{
 			onBombsPlusButton(null);
 			mAvailablePoints--;
 		}
-		
-		for(int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildSpeed", 0); i++)
+
+		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildSpeed", 0); i++)
 		{
 			onSpeedPlusButton(null);
 			mAvailablePoints--;
 		}
-		
+
 		mTextAvailablePoints = (TextView) findViewById(R.id.textBuildAvailablePointsValue);
 		mTextAvailablePoints.setText(mAvailablePoints.toString());
 	}
@@ -138,6 +139,7 @@ public class BuildActivity extends GameActivity
 		edit.putString("playerName", DebugSettings.PLAYER_NAME);
 		edit.commit();
 
+		DebugSettings.GAME_TYPE = GameTypeHandler.CTF;
 		launchActivity(AndroidGame.class);
 	}
 
