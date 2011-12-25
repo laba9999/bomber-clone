@@ -23,7 +23,7 @@ public class UDPBufferIterator implements Iterator<UDPMessage> {
 	public UDPMessage next()
 	{
 		if (mIsCircular)
-			return mBuffer.mBuffer[(mPosition + 1) % mBuffer.mSize];
+			return mBuffer.mBuffer[(mPosition++ + 1) % mBuffer.mSize];
 		else
 			return mBuffer.mBuffer[mPosition++];
 	}
