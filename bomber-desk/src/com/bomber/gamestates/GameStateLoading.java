@@ -2,6 +2,7 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
+import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
 
@@ -24,7 +25,7 @@ public class GameStateLoading extends GameState {
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 		BitmapFont font = GfxAssets.mFont;
 
-		font.draw(mBatcher, "A carregar... ", 320, 250);
+		font.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
 	}
 
 	@Override

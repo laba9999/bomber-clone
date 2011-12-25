@@ -8,6 +8,7 @@ import java.util.Random;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.common.ObjectFactory;
+import com.bomber.common.Strings;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.remote.bluetooth.BluetoothLocalServer;
@@ -163,7 +164,7 @@ public class RemoteConnections {
 			Game.LOGGER.log("Foi perdida a ligação ao servidor... ");
 			Game.mRemoteConnections = null;
 			if (mGame != null)
-				mGame.setGameState(new GameStateServerConnectionError(mGame, "Servidor perdido..."));
+				mGame.setGameState(new GameStateServerConnectionError(mGame, Strings.mStrings.get("lost_server")));
 			else
 				Game.goBackToActivities();
 		}

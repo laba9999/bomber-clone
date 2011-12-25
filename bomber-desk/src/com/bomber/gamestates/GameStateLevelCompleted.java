@@ -2,6 +2,7 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
+import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
 import com.bomber.common.assets.SoundAssets;
@@ -99,13 +100,13 @@ public class GameStateLevelCompleted extends GameState {
 		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);
 		font.setScale(1);
 
-		font.draw(mBatcher, "HIGHSCORE", 235, 330);
+		font.draw(mBatcher, Strings.mStrings.get("highscore"), 235, 330);
 		font.draw(mBatcher, mHighScoreDisplayed.toString(), 450, 330);
 
-		font.draw(mBatcher, "TIME", 235, 295);
+		font.draw(mBatcher, Strings.mStrings.get("time"), 235, 295);
 		font.draw(mBatcher, mGameWorld.mClock.toString(), 450, 295);
 
-		font.draw(mBatcher, "FINAL SCORE", 235, 260);
+		font.draw(mBatcher, Strings.mStrings.get("final_score"), 235, 260);
 		font.draw(mBatcher, mPointsDisplayed.toString(), 450, 260);
 
 		for (int i = 0; i < mTrophiesEarned; i++)

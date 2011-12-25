@@ -8,6 +8,7 @@ import com.bomber.OverlayingText;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
+import com.bomber.common.Strings;
 import com.bomber.common.Utils;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
@@ -99,7 +100,7 @@ public class GameWorld {
 			}
 
 		if (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections == null || Game.mRemoteConnections.mGameServer.mStartedCountdown)
-			mGame.setGameState(new GameStateServerConnectionError(mGame, "Sem clientes suficientes..."));
+			mGame.setGameState(new GameStateServerConnectionError(mGame, Strings.mStrings.get("no_suficient_clients")));
 
 	}
 

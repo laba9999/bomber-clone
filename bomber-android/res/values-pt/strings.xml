@@ -47,4 +47,20 @@
     <string name="no">Não</string>
 	<string name="username">Nome do utilizador:</string>
 	
+	<string name="game_highscore">MELHOR PONTUAÇÃO</string>
+	<string name="game_time">TEMPO</string>
+	<string name="game_final_score">PONTUAÇÃO FINAL</string>
+	<string name="game_loading">A carregar...</string>
+	<string name="game_starts_in">Inicio em </string>
+	<string name="game_waiting_clients">A esperar por clientes... </string>
+	<string name="game_connect_to">Ligar a - </string>
+	<string name="game_connecting">A ligar... </string>
+	<string name="game_score">PONTOS: </string>
+	<string name="game_round">Ronda </string>
+	<string name="game_starts_in_lowercase">inicia em </string>
+	<string name="game_no_suficient_clients">Sem clientes suficientes...</string>
+	<string name="game_error_connecting">Erro ao ligar...</string>
+	<string name="game_lost_client">Cliente perdido...</string>
+	<string name="game_lost_server">Servidor perdido...</string>
+	
 </resources>

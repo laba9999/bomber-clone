@@ -61,4 +61,21 @@
 	<string name="help_description_dm">This is a multi player mode where you simply have to kill your opponents. You can also play it as team versus team.</string>
 	<string name="symbol_lesser">&lt;</string>
 	<string name="symbol_greater">&gt;</string>
+	
+	<string name="game_highscore">HIGH SCORE</string>
+	<string name="game_time">TIME</string>
+	<string name="game_final_score">FINAL SCORE</string>
+	<string name="game_loading">Loading...</string>
+	<string name="game_starts_in">Starts in </string>
+	<string name="game_waiting_clients">Waiting for clients...  </string>
+	<string name="game_connect_to">Connect to - </string>
+	<string name="game_connecting">Connecting... </string>
+	<string name="game_score">SCORE: </string>
+	<string name="game_round">Round </string>
+	<string name="game_starts_in_lowercase">starts in </string>
+	<string name="game_no_suficient_clients">No suficient clients...</string>
+	<string name="game_error_connecting">Error connecting...</string>
+	<string name="game_lost_client">Lost client...</string>
+	<string name="game_lost_server">Lost server...</string>
+	
 </resources>

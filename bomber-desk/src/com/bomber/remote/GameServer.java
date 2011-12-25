@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.common.Strings;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
@@ -125,7 +126,7 @@ public class GameServer {
 			// durante o countdown
 			if (!Game.mHasStarted && mStartedCountdown && mPlayers.size() != Game.mNumberPlayers - 1)
 			{
-				RemoteConnections.mGame.setGameState(new GameStateServerConnectionError(RemoteConnections.mGame, "Cliente perdido..."));
+				RemoteConnections.mGame.setGameState(new GameStateServerConnectionError(RemoteConnections.mGame, Strings.mStrings.get("lost_client")));
 				for (short i = 0; i < mPlayers.size(); i++)
 					mPlayers.get(i).disconnect("O countdown falhou!");
 
