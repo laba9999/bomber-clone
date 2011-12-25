@@ -273,16 +273,6 @@ public class Game implements ApplicationListener {
 				startTime = System.nanoTime();
 			}
 
-			if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections != null && mRemoteConnections.connectedToServer())
-			{
-				Message msg = mRemoteConnections.mMessageToSend;
-				msg.messageType = MessageType.CONNECTION;
-				msg.eventType = EventType.READY;
-				mRemoteConnections.mGameServer.sendMessage(msg);
-
-				mSentReadyToServer = true;
-			}
-
 			mGameState.update();
 
 			if (mIsPVPGame && mRemoteConnections != null && !mGameIsOver)
@@ -299,6 +289,17 @@ public class Game implements ApplicationListener {
 			mCurrentTick++;
 		}
 
+		if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections != null && mRemoteConnections.connectedToServer())
+		{
+			Message msg = mRemoteConnections.mMessageToSend;
+			msg.messageType = MessageType.CONNECTION;
+			msg.eventType = EventType.READY;
+			mRemoteConnections.mGameServer.sendMessage(msg);
+
+			mSentReadyToServer = true;
+		}
+
+		
 		mInterpolation = (System.nanoTime() + SKIP_TICKS - mNextGameTick) / SKIP_TICKS;
 		mGameState.present(mInterpolation);
 
