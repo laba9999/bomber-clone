@@ -117,6 +117,8 @@ public class Connection extends Thread {
 				mMessageForInternalUse.eventType = EventType.PING;
 				mSentPing = true;
 				sendMessage(mMessageForInternalUse);
+				
+				Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - PING enviado!");
 			}
 		}
 	}
