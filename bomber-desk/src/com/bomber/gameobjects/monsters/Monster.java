@@ -135,13 +135,20 @@ public class Monster extends KillableObject {
 	{
 		if (_killerId == mWorld.getLocalPlayer().mColor)
 		{
-			mWorld.spawnOverlayingPoints(mInfo.mPointsValueString, mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
-			mWorld.getLocalPlayer().mPoints += mInfo.mPointsValue;
+			String pointsString = mInfo.mPointsValueString;
+			Integer points = mInfo.mPointsValue;
+			if (mWorld.getLocalPlayer().mPointsMultiplier > 1)
+			{
+				points *= mWorld.getLocalPlayer().mPointsMultiplier;
+				pointsString = "+" + points.toString();
+			}
+			mWorld.spawnOverlayingPoints(pointsString, mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
+			mWorld.getLocalPlayer().mPoints += points;
 			Achievements.mNumberMonsterKills++;
 		}
-		
+
 		mDirection = Directions.NONE;
-		
+
 		return false;
 	}
 
