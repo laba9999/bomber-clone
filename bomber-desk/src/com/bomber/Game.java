@@ -162,7 +162,7 @@ public class Game implements ApplicationListener {
 			System.exit(-1);
 		}
 	}
-	
+
 	public static void goToHelpActivity()
 	{
 		if (mMainActivity != null)
@@ -173,6 +173,7 @@ public class Game implements ApplicationListener {
 			System.exit(-1);
 		}
 	}
+
 	// A chamar antes de instanciar o objecto
 	public static void setGameType(short _type)
 	{
@@ -228,13 +229,12 @@ public class Game implements ApplicationListener {
 		{
 			mGameState = new GameStateLoading(this);
 			SoundAssets.play(Game.mLevelToLoad, true, 1.0f);
-		}
-		else
+		} else
 			mGameState = new GameStateLoadingPVP(this);
 
 		if (Game.mIsPVPGame && RemoteConnections.mIsGameServer)
 			changeInfo(DebugSettings.GAME_TYPE, DebugSettings.GAME_ROUNDS, DebugSettings.LEVEL_TO_LOAD);
-		else
+		else if (mGameType == GameTypeHandler.CAMPAIGN)
 		{
 			mWorld = new GameWorld(this, ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
 			mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
@@ -295,7 +295,7 @@ public class Game implements ApplicationListener {
 		Achievements.saveFile();
 
 		SoundAssets.pause();
-		
+
 		if (mIsPVPGame)
 			goBackToActivities();
 
