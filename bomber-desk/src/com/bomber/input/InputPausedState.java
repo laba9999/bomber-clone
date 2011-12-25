@@ -91,6 +91,7 @@ public class InputPausedState extends Input {
 
 		case INPUT_HELP:
 			Game.goToHelpActivity();
+			mTimeWhenLastPress = System.currentTimeMillis();
 			break;
 
 		case INPUT_BACK:
