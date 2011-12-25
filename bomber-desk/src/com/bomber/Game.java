@@ -70,7 +70,7 @@ public class Game implements ApplicationListener {
 	public static String mLevelToLoad;
 
 	public static Team[] mTeams;
-	
+
 	private boolean mSentReadyToServer = false;
 
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
@@ -233,7 +233,7 @@ public class Game implements ApplicationListener {
 		if (!mIsPVPGame)
 		{
 			mGameState = new GameStateLoading(this);
-			//SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
+			// SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 		} else
 			mGameState = new GameStateLoadingPVP(this);
 
@@ -248,16 +248,6 @@ public class Game implements ApplicationListener {
 		}
 
 		mMessagesHandler.mGame = this;
-
-		if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections.connectedToServer())
-		{
-			Message msg = mRemoteConnections.mMessageToSend;
-			msg.messageType = MessageType.CONNECTION;
-			msg.eventType = EventType.READY;
-			mRemoteConnections.mGameServer.sendMessage(msg);
-			
-			mSentReadyToServer = true;
-		}
 
 		mNextGameTick = System.nanoTime();
 	}
@@ -281,6 +271,16 @@ public class Game implements ApplicationListener {
 				mTicksPerSecond = ticksPerSecondCounter;
 				ticksPerSecondCounter = 0;
 				startTime = System.nanoTime();
+			}
+
+			if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections.connectedToServer())
+			{
+				Message msg = mRemoteConnections.mMessageToSend;
+				msg.messageType = MessageType.CONNECTION;
+				msg.eventType = EventType.READY;
+				mRemoteConnections.mGameServer.sendMessage(msg);
+
+				mSentReadyToServer = true;
 			}
 
 			mGameState.update();
