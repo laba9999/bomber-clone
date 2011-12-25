@@ -70,6 +70,8 @@ public class Game implements ApplicationListener {
 	public static String mLevelToLoad;
 
 	public static Team[] mTeams;
+	
+	private boolean mSentReadyToServer = false;
 
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		setGameType(_gameType);
@@ -247,7 +249,7 @@ public class Game implements ApplicationListener {
 
 		mMessagesHandler.mGame = this;
 
-		if (!RemoteConnections.mIsGameServer && mIsPVPGame)
+		if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections.connectedToServer())
 		{
 			Message msg = mRemoteConnections.mMessageToSend;
 			msg.messageType = MessageType.CONNECTION;
