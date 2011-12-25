@@ -14,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bomber.common.Directions;
-import com.bomber.common.Settings;
 import com.bomber.gameobjects.MovableObjectAnimation;
 import com.bomber.gameobjects.bonus.Bonus;
 
@@ -414,7 +413,7 @@ public class GfxAssets {
 
 	public static TextureRegion getSoundButtonTexture()
 	{
-		if (Settings.isSoundOn)
+		if (SoundAssets.mIsSoundActive)
 			return mSoundButton.getKeyFrame(1, false);
 		else
 			return mSoundButton.getKeyFrame(0, false);

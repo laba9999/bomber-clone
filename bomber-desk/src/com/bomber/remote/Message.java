@@ -2,10 +2,8 @@ package com.bomber.remote;
 
 import java.nio.ByteBuffer;
 import java.security.InvalidParameterException;
-import java.util.Arrays;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bomber.Game;
 import com.bomber.common.PoolObject;
 
 /**

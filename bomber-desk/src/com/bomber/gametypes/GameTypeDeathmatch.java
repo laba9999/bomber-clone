@@ -2,10 +2,8 @@ package com.bomber.gametypes;
 
 import com.bomber.Game;
 import com.bomber.Team;
-import com.bomber.common.Achievements;
 import com.bomber.common.Directions;
 import com.bomber.gameobjects.Player;
-import com.bomber.gamestates.GameStateServerConnectionError;
 
 public class GameTypeDeathmatch extends GameTypeHandler {
 

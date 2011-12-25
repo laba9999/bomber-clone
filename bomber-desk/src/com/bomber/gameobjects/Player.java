@@ -328,7 +328,7 @@ public class Player extends KillableObject {
 		}
 
 		if (mIsLocalPlayer)
-			SoundAssets.mDie.play();
+			SoundAssets.playSound("die");
 
 		mAcceptPlayerInput = false;
 		mWorld.mGameTypeHandler.onPlayerKill(this);

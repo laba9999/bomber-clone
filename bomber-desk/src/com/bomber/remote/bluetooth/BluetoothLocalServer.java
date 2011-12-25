@@ -10,7 +10,6 @@ import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.remote.LocalServer;
 import com.bomber.remote.MessageContainer;
-import com.bomber.remote.tcp.TCPMessageSocketIO;
 
 public class BluetoothLocalServer extends LocalServer {
 

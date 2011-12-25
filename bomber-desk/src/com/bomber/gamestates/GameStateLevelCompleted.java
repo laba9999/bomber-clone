@@ -2,7 +2,6 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
-import com.bomber.common.Achievements;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
 import com.bomber.common.assets.SoundAssets;
@@ -74,7 +73,7 @@ public class GameStateLevelCompleted extends GameState {
 
 			if (mPointsBlingCounter++ > 1)
 			{
-				SoundAssets.mRing.play();
+				SoundAssets.playSound("bling");
 				mPointsBlingCounter = 0;
 			}
 

@@ -293,7 +293,7 @@ public class GameWorld {
 
 	public void spawnExplosion(Bomb _bomb)
 	{
-		SoundAssets.mExplosion.play();
+		SoundAssets.playSound("explosion");
 		
 		// Remove a bomba da pool de bombas activas
 		mBombs.releaseObject(_bomb);

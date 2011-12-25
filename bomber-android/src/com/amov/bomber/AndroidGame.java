@@ -11,6 +11,7 @@ import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStateLoadingPVP;
+import com.bomber.gamestates.GameStatePaused;
 import com.bomber.remote.RemoteConnections;
 
 public class AndroidGame extends AndroidApplication implements AndroidBridge
@@ -22,9 +23,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 			if (!Game.mIsPVPGame)
 				return true;
 			else
-			{
-				SoundAssets.play("intro", true, 1.0f);
-			}
+				SoundAssets.playMusic("intro", true, 1.0f);
 		}
 
 		return super.onKeyDown(keyCode, event);
@@ -38,6 +37,8 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 			Game.mRemoteConnections.closeAll("Aplication exited!");
 
 		Game.mRemoteConnections = null;
+		GameStatePaused.mOptionsPanel = null;
+
 		System.gc();
 
 		// Para grandes males grandes remédios...
@@ -66,7 +67,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 
 	public void goBackToMenu()
 	{
-		SoundAssets.play("intro", true, 1.0f);
+		SoundAssets.playMusic("intro", true, 1.0f);
 		finishActivity(0);
 		this.exit();
 	}
