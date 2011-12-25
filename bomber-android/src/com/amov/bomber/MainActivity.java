@@ -1,18 +1,14 @@
 package com.amov.bomber;
 
-import java.io.File;
-import java.util.Scanner;
-
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 
+import com.bomber.DebugSettings;
 import com.bomber.common.Achievements;
 import com.bomber.common.assets.SoundAssets;
 
 public class MainActivity extends GameActivity
 {
-
 	public static final int DIALOG_MULTIPLAYER = 0;
 
 	@Override
@@ -21,50 +17,17 @@ public class MainActivity extends GameActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
+		// Lê os settings
+		DebugSettings.loadPreferences(getPreferences(0));
+		DebugSettings.PLAYER_NAME = DebugSettings.GAME_PREFS.getString("playerName", null);
+
 		// bota som!
+		SoundAssets.mIsSoundActive = DebugSettings.GAME_PREFS.getBoolean("soundEnabled", true);
 		SoundAssets.playMusic("intro", true, 0.6f);
 
-		loadAchievements();
+		Achievements.loadFile();
 	}
 
-	private void loadAchievements()
-	{
-		File f = null;
-		Scanner scanner = null;
-		String[] achievementsInfo = new String[Achievements.NUMBER_OF_ACHIEVEMENTS];
-
-		try
-		{
-			f = new File(Environment.getExternalStorageDirectory() + "/" + Achievements.FILE_PATH);
-			scanner = new Scanner(f);
-
-			short i = 0;
-			while (scanner.hasNextLine())
-			{
-				String nextLine = scanner.nextLine();
-				if (nextLine.length() > 0 && nextLine.charAt(0) != '#')
-					achievementsInfo[i++] = nextLine;
-			}
-
-			Achievements.mNumberMonsterKills = Integer.parseInt(achievementsInfo[0]);
-			Achievements.mNumberPlayersKills = Integer.parseInt(achievementsInfo[1]);
-			Achievements.mNumberCTFWins = Integer.parseInt(achievementsInfo[2]);
-			Achievements.mNumberDMWins = Integer.parseInt(achievementsInfo[3]);
-			Achievements.mTotalTimePlayed = Long.parseLong(achievementsInfo[4]);
-			Achievements.mHasCompletedCampaign = Boolean.parseBoolean(achievementsInfo[5]);
-
-		} catch (Throwable t)
-		{
-			t.printStackTrace();
-			Achievements.reset();
-		} finally
-		{
-			if (scanner != null)
-			{
-				scanner.close();
-			}
-		}
-	}
 
 	public void onArcadeButton(View v)
 	{

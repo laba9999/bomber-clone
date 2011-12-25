@@ -3,6 +3,7 @@ package com.bomber.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.Game;
 import com.bomber.common.assets.Level;
 import com.bomber.gamestates.GameState;
 import com.bomber.world.GameWorld;
@@ -19,7 +20,6 @@ public class InputLevelCompletedState extends Input {
 		mInputZones[INPUT_RELOAD] = new Rectangle(220, 75, 100, 100);
 		mInputZones[INPUT_MENU] = new Rectangle(340, 75, 100, 100);
 		mInputZones[INPUT_CONTINUE] = new Rectangle(480, 75, 100, 100);
-
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class InputLevelCompletedState extends Input {
 	{
 		if (Gdx.input.isKeyPressed(Keys.ENTER))
 			parseInputZone(INPUT_CONTINUE);
-		else if(Gdx.input.isKeyPressed(Keys.R))
+		else if (Gdx.input.isKeyPressed(Keys.R))
 			parseInputZone(INPUT_RELOAD);
 	}
 
@@ -46,7 +46,6 @@ public class InputLevelCompletedState extends Input {
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -56,21 +55,22 @@ public class InputLevelCompletedState extends Input {
 		switch (_zone)
 		{
 		case INPUT_CONTINUE:
-			
 			int tempScore = world.getLocalPlayer().mPoints;
-			
+
+			Game.mLevelToLoad = Level.mInfo.mNextLevelName;
 			world.getLocalPlayer().mStartLevelPoints = world.getLocalPlayer().mPoints;
-			world.reset(Level.mInfo.mNextLevelName);	
-			
+			world.reset(Level.mInfo.mNextLevelName);
 			world.getLocalPlayer().mPoints = tempScore;
-			
+
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
+
 		case INPUT_RELOAD:
 			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
 			mGameState.mGame.mWorld.reset(Level.mInfo.mCurrentLevelName);
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
+
 		case INPUT_MENU:
 			break;
 		}

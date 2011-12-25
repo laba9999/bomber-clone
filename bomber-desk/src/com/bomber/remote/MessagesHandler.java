@@ -198,7 +198,6 @@ public class MessagesHandler {
 			GameStateLoadingPVP.mServerAuthorizedStart = true;
 			Game.mHasStarted = true;
 
-			SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 			mRemoteConnections.broadcastPlayerName();
 			break;
 

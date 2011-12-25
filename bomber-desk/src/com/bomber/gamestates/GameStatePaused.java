@@ -33,9 +33,9 @@ public class GameStatePaused extends GameState {
 	
 
 	@Override
-	public void reset()
+	public void onReset()
 	{
-		super.reset();
+
 		mOptionsPanel.reset();
 		mOptionsPanel.setDirection(-1.0f, 0f);
 		mOptionsPanel.mIsMoving = true;

@@ -64,7 +64,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		else
 			newGame.setConnections(tmpConnections);
 	}
-
+	
 	public void goBackToMenu()
 	{
 		SoundAssets.playMusic("intro", true, 1.0f);

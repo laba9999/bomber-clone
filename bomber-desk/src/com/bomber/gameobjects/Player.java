@@ -383,12 +383,8 @@ public class Player extends KillableObject {
 	{
 		if (_collisionType == Collision.BOMB)
 		{
-			// TODO : descomentar:
-			// if(mIsAbleToPushBombs)
-			// {
-
-			pushBombAhead();
-			// }
+			if (mIsAbleToPushBombs)
+				pushBombAhead();
 		}
 	}
 

@@ -2,9 +2,12 @@ package com.bomber.common.assets;
 
 import java.util.HashMap;
 
+import android.content.SharedPreferences;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.bomber.DebugSettings;
 
 /**
  * 
@@ -31,14 +34,14 @@ public class SoundAssets {
 		mMusics = new HashMap<String, Music>(10);
 
 		mMusics.put("intro", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_011.ogg")));
-		mMusics.put("level1", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_002.ogg")));
+		mMusics.put("level1", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_009.ogg")));
 		mMusics.put("level2", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_003.ogg")));
 		mMusics.put("level3", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_004.ogg")));
 		mMusics.put("level4", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_005.ogg")));
 		mMusics.put("level5", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_006.ogg")));
 		mMusics.put("level6", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_007.ogg")));
 		mMusics.put("level7", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_008.ogg")));
-		mMusics.put("level8", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_009.ogg")));
+		mMusics.put("level8", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_002.ogg")));
 		mMusics.put("pvp", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_010.ogg")));
 
 		mSounds = new HashMap<String, Sound>();
@@ -103,7 +106,13 @@ public class SoundAssets {
 
 	public static void toggle()
 	{
+
 		mIsSoundActive = !mIsSoundActive;
+		
+		SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
+		edit.putBoolean("soundEnabled", mIsSoundActive);
+		edit.commit();
+
 		if (!mIsSoundActive && mMusicPlaying != null)
 			mMusicPlaying.stop();
 		else

@@ -1,5 +1,6 @@
 package com.amov.bomber;
 
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -50,13 +51,32 @@ public class BuildActivity extends GameActivity
 		if (Achievements.isCampaignCompleted())
 			mAvailablePoints++;
 
+		// Coloca o username que foi guardado nas preferencias
 		mEditUsername = (EditText) findViewById(R.id.editBuildUsername);
 		InputFilter maxLengthFilter = new InputFilter.LengthFilter(Message.STRING_MAX_SIZE);
 		mEditUsername.setFilters(new InputFilter[] { maxLengthFilter });
+		mEditUsername.setText(DebugSettings.PLAYER_NAME);
 
+		// Lê a build das preferências
+		for(int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildExplosionSize", 0); i++)
+		{
+			onExplosionPlusButton(null);
+			mAvailablePoints--;
+		}
+		for(int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildBombCount", 0); i++)
+		{
+			onBombsPlusButton(null);
+			mAvailablePoints--;
+		}
+		
+		for(int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildSpeed", 0); i++)
+		{
+			onSpeedPlusButton(null);
+			mAvailablePoints--;
+		}
+		
 		mTextAvailablePoints = (TextView) findViewById(R.id.textBuildAvailablePointsValue);
 		mTextAvailablePoints.setText(mAvailablePoints.toString());
-
 	}
 
 	public void onExplosionPlusButton(View v)
@@ -109,6 +129,14 @@ public class BuildActivity extends GameActivity
 		BonusBuild.mSpeed = mSpeedPoints;
 
 		DebugSettings.PLAYER_NAME = mEditUsername.getText().toString();
+
+		SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
+		edit.putInt("buildExplosionSize", mExplosionPoints);
+		edit.putInt("buildBombCount", mBombsPoints);
+		edit.putInt("buildSpeed", mSpeedPoints);
+
+		edit.putString("playerName", DebugSettings.PLAYER_NAME);
+		edit.commit();
 
 		launchActivity(AndroidGame.class);
 	}

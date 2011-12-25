@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
 import com.bomber.common.Achievements;
 import com.bomber.common.assets.GfxAssets;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gametypes.GameTypeCTF;
 import com.bomber.gametypes.GameTypeCampaign;
@@ -12,6 +13,8 @@ import com.bomber.input.InputPlayingState;
 import com.bomber.world.Clock;
 
 public class GameStatePlaying extends GameState {
+
+
 
 	private static final int SECONDS_TO_START_BLINK_CLOCK = 15000;
 
@@ -27,6 +30,12 @@ public class GameStatePlaying extends GameState {
 		mInput = new InputPlayingState(this);
 	}
 
+	@Override
+	protected void onReset()
+	{
+		SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
+	}
+	
 	@Override
 	public void onUpdate()
 	{

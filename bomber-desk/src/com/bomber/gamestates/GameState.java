@@ -41,10 +41,10 @@ public abstract class GameState {
 		mIsFinishing = false;
 	}
 
-	public void reset()
+	public final void reset()
 	{
 		mIsFinishing = false;
-
+		onReset();
 	}
 
 	public final void finish(GameState _newState)
@@ -103,4 +103,8 @@ public abstract class GameState {
 	protected abstract void onUpdateFinishing();
 
 	protected abstract void onFinish();
+
+	protected void onReset()
+	{
+	}
 }
