@@ -46,6 +46,7 @@ public abstract class LocalServer extends Thread {
 		while (mKeepReceiving && nAdded++ < mMax)
 		{
 			waitForConnection();
+
 		}
 		
 		mAllConnected = true;
@@ -85,6 +86,8 @@ public abstract class LocalServer extends Thread {
 		tmpConn.setDaemon(true);
 		tmpConn.start();
 		mConnectionsCache.add(tmpConn);
+		
+		Game.LOGGER.log("Recebida nova ligação: " + tmpConn.getSocketAddressString());
 	}
 
 	/**

@@ -95,6 +95,10 @@ public class MessagesHandler {
 				mRemoteConnections.removePlayer(_msg.valShort);
 			}
 			break;
+
+		case EventType.READY:
+			mRemoteConnections.mGameServer.mPlayersConfirmedCount++;
+			break;
 		}
 	}
 

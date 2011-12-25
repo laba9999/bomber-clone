@@ -14,7 +14,7 @@ public class AssetsLoader extends AndroidApplication
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
 		SoundAssets.mIsloaded = false;
-		exit();
+		System.exit(-1);
 	}
 
 	@Override

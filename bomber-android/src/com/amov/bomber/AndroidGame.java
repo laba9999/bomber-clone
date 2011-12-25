@@ -37,6 +37,9 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		if (Game.mRemoteConnections != null)
 			Game.mRemoteConnections.closeAll("Aplication exited!");
 
+		Game.mRemoteConnections = null;
+		System.gc();
+
 		// Para grandes males grandes remédios...
 		// System.exit(1);
 	}
