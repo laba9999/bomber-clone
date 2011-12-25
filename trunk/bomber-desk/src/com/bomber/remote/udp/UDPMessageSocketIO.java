@@ -90,7 +90,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 	{
 		if (mLastMessagesSent.mFreePositions == BUFFERS_SIZE)
 		{
-			System.out.println("Tentativa de ACK de uma mensagem já não existente no buffer!");
+			System.out.println("Tentativa de ACK de uma mensagem ainda não existente: " + _sequenceId);
 			return;
 		}
 
@@ -181,6 +181,8 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 			{
 				mSendPacket.setData(msg.mMessage);
 				mSocket.send(mSendPacket);
+				
+				System.out.println("Reenviada msg: " + _sequenceId);
 				return;
 			}
 		}
