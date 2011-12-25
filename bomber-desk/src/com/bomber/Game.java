@@ -255,6 +255,8 @@ public class Game implements ApplicationListener {
 			msg.messageType = MessageType.CONNECTION;
 			msg.eventType = EventType.READY;
 			mRemoteConnections.mGameServer.sendMessage(msg);
+			
+			mSentReadyToServer = true;
 		}
 
 		mNextGameTick = System.nanoTime();
