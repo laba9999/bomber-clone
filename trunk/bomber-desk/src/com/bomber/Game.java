@@ -273,7 +273,7 @@ public class Game implements ApplicationListener {
 				startTime = System.nanoTime();
 			}
 
-			if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections.connectedToServer())
+			if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections != null && mRemoteConnections.connectedToServer())
 			{
 				Message msg = mRemoteConnections.mMessageToSend;
 				msg.messageType = MessageType.CONNECTION;
