@@ -3,6 +3,7 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
 import com.bomber.common.Achievements;
+import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.Player;
@@ -92,7 +93,7 @@ public class GameStatePlaying extends GameState {
 		drawClock(font);
 
 		// Pontos
-		font.draw(mBatcher, "SCORE: " + player.getPointsAsString(), 365, 473);
+		font.draw(mBatcher, Strings.mStrings.get("score") + player.getPointsAsString(), 365, 473);
 
 		//
 		// Bonus

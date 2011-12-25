@@ -1,6 +1,7 @@
 package com.bomber;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import com.bomber.common.Strings;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.remote.RemoteConnections;
 
@@ -14,6 +15,8 @@ public class BomberDesktop {
 		Game newGame = new Game(null, DebugSettings.GAME_TYPE, DebugSettings.LEVEL_TO_LOAD);
 		new LwjglApplication(newGame, "Bomber", 800, 480, false);
 
+		Strings.loadForGdx();
+		
 		if (!Game.mIsPVPGame)
 			return;
 

@@ -3,6 +3,7 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.remote.RemoteConnections;
 
@@ -24,7 +25,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 	public void onUpdate()
 	{
 		if (mFailedToConnectToServer)
-			mGame.setGameState(new GameStateServerConnectionError(mGame, "Error connecting.."));
+			mGame.setGameState(new GameStateServerConnectionError(mGame, Strings.mStrings.get("error_connecting")));
 
 		if (!mServerAuthorizedStart || Game.mGameIsOver)
 			return;
@@ -37,17 +38,16 @@ public class GameStateLoadingPVP extends GameStateLoading {
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 		BitmapFont font = GfxAssets.mFont;
-
 		if (mCountdownSeconds != -1)
-			font.draw(mBatcher, "Inicio em " + mCountdownSeconds.toString(), 340, 250);
+			font.draw(mBatcher, Strings.mStrings.get("starts_in") + mCountdownSeconds.toString(), 340, 250);
 		else
 		{
 			if (RemoteConnections.mIsGameServer)
 			{
-				font.draw(mBatcher, "A esperar por clientes... ", 230, 250);
-				font.draw(mBatcher, "Ligar a - " + DebugSettings.LOCAL_SERVER_ADDRESS, 220, 200);
+				font.draw(mBatcher, Strings.mStrings.get("waiting_clients"), 230, 250);
+				font.draw(mBatcher, Strings.mStrings.get("connect_to") + DebugSettings.LOCAL_SERVER_ADDRESS, 220, 200);
 			} else
-				font.draw(mBatcher, "A ligar... ", 320, 250);
+				font.draw(mBatcher,Strings.mStrings.get("connecting"), 320, 250);
 		}
 	}
 
