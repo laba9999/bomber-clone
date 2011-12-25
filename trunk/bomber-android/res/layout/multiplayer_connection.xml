@@ -174,7 +174,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.6"
                 android:maxLength="15"
-                android:text="192.168.1.110" >
+                android:text="192.168.1.110" android:inputType="text">
 
                 <requestFocus />
             </EditText>

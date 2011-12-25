@@ -282,7 +282,7 @@ public class GameServer {
 		GameStateLoadingPVP.mServerAuthorizedStart = true;
 		Game.mHasStarted = true;
 
-		SoundAssets.play(Game.mLevelToLoad, true, 1.0f);
+		SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 	}
 
 	public void sendMessage(Message _msg)

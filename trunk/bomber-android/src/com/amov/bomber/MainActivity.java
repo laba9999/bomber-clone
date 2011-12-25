@@ -22,7 +22,7 @@ public class MainActivity extends GameActivity
 		setContentView(R.layout.main);
 
 		// bota som!
-		SoundAssets.play("intro", true, 0.6f);
+		SoundAssets.playMusic("intro", true, 0.6f);
 
 		loadAchievements();
 	}

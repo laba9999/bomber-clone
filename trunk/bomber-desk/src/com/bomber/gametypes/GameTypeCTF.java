@@ -3,11 +3,9 @@ package com.bomber.gametypes;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.Game;
 import com.bomber.Team;
-import com.bomber.common.Achievements;
 import com.bomber.gameobjects.Flag;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
-import com.bomber.gamestates.GameStateServerConnectionError;
 
 public class GameTypeCTF extends GameTypeHandler {
 	Team mTeam1;

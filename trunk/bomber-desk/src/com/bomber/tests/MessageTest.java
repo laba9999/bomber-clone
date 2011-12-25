@@ -5,7 +5,6 @@ import java.nio.ByteBuffer;
 import org.junit.Test;
 
 import com.bomber.remote.Message;
-import com.bomber.remote.MessageSocketIO;
 
 public class MessageTest {
 

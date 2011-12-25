@@ -231,7 +231,7 @@ public class Game implements ApplicationListener {
 		if (!mIsPVPGame)
 		{
 			mGameState = new GameStateLoading(this);
-			SoundAssets.play(Game.mLevelToLoad, true, 1.0f);
+			SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 		} else
 			mGameState = new GameStateLoadingPVP(this);
 
@@ -247,7 +247,7 @@ public class Game implements ApplicationListener {
 
 		mMessagesHandler.mGame = this;
 
-		if (!RemoteConnections.mIsGameServer)
+		if (!RemoteConnections.mIsGameServer && mIsPVPGame)
 		{
 			Message msg = mRemoteConnections.mMessageToSend;
 			msg.messageType = MessageType.CONNECTION;

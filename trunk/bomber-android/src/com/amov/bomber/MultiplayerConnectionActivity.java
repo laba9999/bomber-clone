@@ -338,7 +338,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 		}
 
 		if (connected)
-			launchActivity(PVPServerOptionsActivity.class);
+			launchActivity(mRadioServer.isChecked() ? PVPServerOptionsActivity.class : BuildActivity.class);
 
 	}
 

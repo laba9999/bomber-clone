@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.Game;
-import com.bomber.common.Settings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.world.GameWorld;
@@ -18,7 +18,7 @@ public class InputPausedState extends Input {
 	private static final short INPUT_HELP = 3;
 	private static final short INPUT_BACK = 4;
 	private long mTimeWhenLastPress = 0;
-	
+
 	public InputPausedState(GameState _gameState) {
 		super(_gameState);
 
@@ -33,16 +33,13 @@ public class InputPausedState extends Input {
 	@Override
 	protected void parseKeyboardInput()
 	{
-		
-
-		
 		if (Gdx.input.isKeyPressed(Keys.P))
 			parseInputZone(INPUT_CONTINUE);
 		else if (Gdx.input.isKeyPressed(Keys.R))
 			parseInputZone(INPUT_RELOAD);
 		else if (Gdx.input.isKeyPressed(Keys.S))
 		{
-			parseInputZone(INPUT_SOUND);			
+			parseInputZone(INPUT_SOUND);
 		}
 	}
 
@@ -66,12 +63,10 @@ public class InputPausedState extends Input {
 	@Override
 	protected void parseInputZone(short _zone)
 	{
-		
-		if(System.currentTimeMillis() - mTimeWhenLastPress < 500)
-		{
-		 return;	
-		}
-		
+
+		if (System.currentTimeMillis() - mTimeWhenLastPress < 500)
+			return;
+
 		GameWorld world = mGameState.mGame.mWorld;
 
 		switch (_zone)
@@ -79,18 +74,21 @@ public class InputPausedState extends Input {
 		case INPUT_CONTINUE:
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
+
 		case INPUT_RELOAD:
-			
 			world.reset(Level.mInfo.mCurrentLevelName);
 			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
 
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;
+
 		case INPUT_SOUND:
-			Settings.isSoundOn = !Settings.isSoundOn;			
-			GameStatePaused.mOptionsPanel.getChild((short)0).mTexture = GfxAssets.getSoundButtonTexture();				
+			SoundAssets.toggle();
+
+			GameStatePaused.mOptionsPanel.getChild((short) 0).mTexture = GfxAssets.getSoundButtonTexture();
 			mTimeWhenLastPress = System.currentTimeMillis();
 			break;
+
 		case INPUT_HELP:
 			Game.goToHelpActivity();
 			break;

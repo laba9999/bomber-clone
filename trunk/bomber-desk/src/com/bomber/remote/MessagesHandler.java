@@ -2,12 +2,7 @@ package com.bomber.remote;
 
 import java.io.IOException;
 
-import javax.rmi.CORBA.Util;
-
-import com.bomber.DebugSettings;
 import com.bomber.Game;
-import com.bomber.common.ObjectFactory;
-import com.bomber.common.Utils;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gamestates.GameStateLoadingPVP;
@@ -203,7 +198,7 @@ public class MessagesHandler {
 			GameStateLoadingPVP.mServerAuthorizedStart = true;
 			Game.mHasStarted = true;
 
-			SoundAssets.play(Game.mLevelToLoad, true, 1.0f);
+			SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 			mRemoteConnections.broadcastPlayerName();
 			break;
 
