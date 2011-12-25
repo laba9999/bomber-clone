@@ -76,6 +76,9 @@ public class Game implements ApplicationListener {
 
 		Utils.resetUUID();
 
+		GameStateLoadingPVP.mFailedToConnectToServer = false;
+		mCurrentTick = 0;
+
 		mRandomSeed = (int) System.currentTimeMillis();
 		mRandomGenerator = new Random(mRandomSeed);
 
@@ -243,6 +246,14 @@ public class Game implements ApplicationListener {
 		}
 
 		mMessagesHandler.mGame = this;
+
+		if (!RemoteConnections.mIsGameServer)
+		{
+			Message msg = mRemoteConnections.mMessageToSend;
+			msg.messageType = MessageType.CONNECTION;
+			msg.eventType = EventType.READY;
+			mRemoteConnections.mGameServer.sendMessage(msg);
+		}
 
 		mNextGameTick = System.nanoTime();
 	}

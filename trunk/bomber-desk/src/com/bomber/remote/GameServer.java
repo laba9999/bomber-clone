@@ -25,6 +25,8 @@ public class GameServer {
 	private boolean mIsOnline = true;
 	public boolean mStartedCountdown = false;
 
+	public short mPlayersConfirmedCount = 0;
+
 	private short mCountdownSeconds = DebugSettings.GAME_COUNTDOWN_SECONDS;
 	private short mTicksSinceLastCountdownMessage = 0;
 	private Message tmpMessage = new Message();
@@ -116,7 +118,7 @@ public class GameServer {
 				continueCountdown();
 
 			// Envia a sequencia de interconexão dos clientes
-			if (!Game.mHasStarted && mReadyToStart && !mInterconnectSequenceSent)
+			if (!Game.mHasStarted && mReadyToStart && (mPlayersConfirmedCount >= Game.mNumberPlayers - 1) && !mInterconnectSequenceSent)
 				mStartedCountdown = mInterconnectSequenceSent = startInterconnectSequence();
 
 			// Não é permitido iniciar o jogo se um dos clientes desligar
@@ -168,7 +170,6 @@ public class GameServer {
 	{
 		List<PlayerTeam> newAssociations = new ArrayList<PlayerTeam>();
 
-		
 		for (short i = _starIdx; i < mPlayers.size(); i++)
 		{
 			tmpMessage.messageType = MessageType.GAME;
@@ -177,9 +178,9 @@ public class GameServer {
 			tmpMessage.valShort = DebugSettings.GAME_TYPE;
 			tmpMessage.valInt = DebugSettings.GAME_ROUNDS;
 			tmpMessage.setStringValue(DebugSettings.LEVEL_TO_LOAD);
-			
+
 			mPlayers.get(_starIdx).sendMessage(tmpMessage);
-			
+
 			// Atribui os id's finais a cada um dos players
 			tmpMessage.messageType = MessageType.CONNECTION;
 			tmpMessage.eventType = EventType.SET_ID;
@@ -200,7 +201,7 @@ public class GameServer {
 				tmpMessage.valShort = mTeamPlayerAssociations.get(c).mColor;
 				mPlayers.get(i).sendMessage(tmpMessage);
 			}
-			
+
 			// Envia o nome do jogador que está a fazer de server
 			tmpMessage.messageType = MessageType.PLAYER;
 			tmpMessage.eventType = EventType.NAME;
@@ -280,9 +281,10 @@ public class GameServer {
 
 		GameStateLoadingPVP.mServerAuthorizedStart = true;
 		Game.mHasStarted = true;
-		
+
 		SoundAssets.play(Game.mLevelToLoad, true, 1.0f);
 	}
+
 	public void sendMessage(Message _msg)
 	{
 		if (mConnection != null)

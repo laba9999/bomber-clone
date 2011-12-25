@@ -44,4 +44,6 @@ public class EventType {
 	// int tem o numero de rounds
 	// string tem o nivel a ler
 	public static final short INFO = 21;
+	
+	public static final short READY = 22;
 }

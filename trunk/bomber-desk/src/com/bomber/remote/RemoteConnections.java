@@ -153,6 +153,7 @@ public class RemoteConnections {
 			Game.mRemoteConnections.broadcast(mMessageToSend);
 		}
 	}
+
 	public void update()
 	{
 
@@ -290,7 +291,7 @@ public class RemoteConnections {
 			try
 			{
 				Game.LOGGER.log("A ligar o servidor local no porto: " + port);
-				connections.acceptConnections(_protocol, port.toString(), (short) (Game.mNumberPlayers - 1));
+				connections.acceptConnections(_protocol, port.toString(), (short) 3);
 				Game.LOGGER.log("À espera de ligações...");
 			} catch (IOException e)
 			{
@@ -337,29 +338,39 @@ public class RemoteConnections {
 
 	public void closeAll(String _reason)
 	{
-		try
+
+		// Fecha tudo
+		for (int i = 0; i < mPlayers.size(); i++)
 		{
-			// Fecha tudo
-			for (int i = 0; i < mPlayers.size(); i++)
+			try
 			{
 				mPlayers.get(i).disconnect(_reason);
 				mPlayers.get(i).join();
+			} catch (Throwable t)
+			{
 			}
+		}
 
-			if (mGameServer != null)
+		if (mGameServer != null)
+		{
+			try
 			{
 				mGameServer.disconnect(_reason);
 				mGameServer.join();
+			} catch (Throwable t)
+			{
 			}
+		}
 
-			if (mLocalServer != null)
+		if (mLocalServer != null)
+		{
+			try
 			{
 				mLocalServer.stopReceiving();
 				mLocalServer.join();
+			} catch (Throwable t)
+			{
 			}
-		} catch (InterruptedException e)
-		{
-			// e.printStackTrace();
 		}
 	}
 }

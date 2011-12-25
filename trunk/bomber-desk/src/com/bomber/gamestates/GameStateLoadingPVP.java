@@ -16,7 +16,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 		super(_gameScreen);
 
 		mServerAuthorizedStart = false;
-		// mFailedToConnectToServer = false;
+		//mFailedToConnectToServer = false;
 		mCountdownSeconds = -1;
 	}
 

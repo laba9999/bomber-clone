@@ -49,13 +49,13 @@ public class SoundAssets {
 
 	public static void play(String _music, boolean _looping, float _volume)
 	{
-		if (mMusicPlaying != null)
-			mMusicPlaying.stop();
-		
-		mMusicPlaying = mMusics.get(_music);
-		mMusicPlaying.setVolume(_volume);
-		mMusicPlaying.setLooping(_looping);
-		mMusicPlaying.play();
+//		if (mMusicPlaying != null)
+//			mMusicPlaying.stop();
+//		
+//		mMusicPlaying = mMusics.get(_music);
+//		mMusicPlaying.setVolume(_volume);
+//		mMusicPlaying.setLooping(_looping);
+//		mMusicPlaying.play();
 	}
 
 	public static void resume()
