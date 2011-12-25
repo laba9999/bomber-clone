@@ -91,8 +91,14 @@ public class Connection extends Thread {
 
 		if (mSentPing)
 		{
-			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE && mTimeoutsCounter++ > MAX_TIMEOUTS)
+			if ((Game.mCurrentTick - mLastRTTCheckTick) > TIMEOUT_VALUE)
 			{
+				if (mTimeoutsCounter++ < MAX_TIMEOUTS)
+				{
+					mLastRTTCheckTick = Game.mCurrentTick;
+					return;
+				}
+
 				Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - Conexion " + mRemoteID + " timed out...");
 				disconnect("Timeout!");
 
