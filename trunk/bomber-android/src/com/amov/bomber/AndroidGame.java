@@ -77,6 +77,6 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		Intent myIntent = new Intent(this, HelpActivity.class);
 		// proibe a animação na transição entre activities
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivityForResult(myIntent, 0);
+		startActivity(myIntent);
 	}
 }

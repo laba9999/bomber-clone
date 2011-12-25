@@ -46,9 +46,10 @@ public abstract class GameActivity extends Activity
 		{
 			Intent resultIntent = new Intent();
 			setResult(Activity.RESULT_OK, resultIntent);
-			finish();
+			
 			// desactiva animação na transição entre activities
 			overridePendingTransition(0, 0);
+			finish();
 			return true;
 		}
 
