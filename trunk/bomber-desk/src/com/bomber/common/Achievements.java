@@ -1,7 +1,10 @@
 package com.bomber.common;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
 
@@ -71,7 +74,7 @@ public class Achievements {
 		File levelDirectory = new File(savepath);
 		levelDirectory.mkdirs();
 
-		savepath += "/achievements.txt";
+		savepath += "/achievements.dat";
 		PrintStream out = null;
 		try
 		{
@@ -88,11 +91,49 @@ public class Achievements {
 			out.println(mTotalTimePlayed);
 			out.println("#completed campaign");
 			out.println(mHasCompletedCampaign);
-		} catch (Throwable t)
-		{
-		}
-		
+		} catch (Throwable t){ }
+
 		if (out != null)
 			out.close();
+	}
+
+	public static void loadFile()
+	{
+		String[] achievementsInfo = new String[NUMBER_OF_ACHIEVEMENTS];
+
+		Scanner scanner = null;
+		InputStream inputStream = null;
+		try
+		{
+			inputStream = Gdx.files.internal("com.amov.bomber/achievements.dat").read();
+			scanner = new Scanner(inputStream);
+			short i = 0;
+			while (scanner.hasNextLine())
+			{
+				String nextLine = scanner.nextLine();
+				if (nextLine.length() > 0 && nextLine.charAt(0) != '#')
+					achievementsInfo[i++] = nextLine;
+			}
+
+			mNumberMonsterKills = Integer.parseInt(achievementsInfo[0]);
+			mNumberPlayersKills = Integer.parseInt(achievementsInfo[1]);
+			mNumberCTFWins = Integer.parseInt(achievementsInfo[2]);
+			mNumberDMWins = Integer.parseInt(achievementsInfo[3]);
+			mTotalTimePlayed = Long.parseLong(achievementsInfo[4]);
+			mHasCompletedCampaign = Boolean.parseBoolean(achievementsInfo[5]);
+			
+		} catch (Throwable t)
+		{
+			reset();
+		} finally
+		{
+			if (inputStream != null)
+			{
+				try
+				{
+					inputStream.close();
+				} catch (IOException e){}
+			}
+		}
 	}
 }

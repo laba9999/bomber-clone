@@ -3,6 +3,7 @@ package com.bomber;
 import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.SharedPreferences;
 
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
@@ -26,8 +27,8 @@ public class DebugSettings {
 	public static String LEVEL_TO_LOAD = "level1";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.DEADMATCH;
-	
+	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
+	public static SharedPreferences GAME_PREFS = null;
 	// Players
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
 	public static String PLAYER_NAME = "zezao1";
@@ -43,4 +44,27 @@ public class DebugSettings {
 	// UI
 	public static final boolean UI_DRAW_FPS = true;
 	public static final boolean UI_DRAW_INPUT_ZONES = false;
+
+	public static void loadPreferences(SharedPreferences _prefs)
+	{
+		GAME_PREFS = _prefs;
+
+		if (GAME_PREFS == null)
+			throw new NullPointerException();
+
+		if (!GAME_PREFS.contains("soundEnabled"))
+		{
+			// Valores por defeito
+			SharedPreferences.Editor editor = GAME_PREFS.edit();
+
+			editor.putBoolean("soundEnabled", true);
+			editor.putString("playerName", "Bomber");
+			editor.putInt("campaignLevelCompleted", 0);
+
+			editor.putInt("buildExplosionSize", 0);
+			editor.putInt("buildBombCount", 0);
+			editor.putInt("buildSpeed", 0);
+			editor.commit();
+		}
+	}
 }
