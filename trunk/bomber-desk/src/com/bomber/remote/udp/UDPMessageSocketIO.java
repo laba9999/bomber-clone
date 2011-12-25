@@ -116,19 +116,11 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 		}
 
 		// Actualiza manualmente o numero de mensagens livres neste buffer
-		// Iterator<UDPMessage> it =
-		// mLastMessagesSent.iterator(mLastMessagesSent.mInsertIdx);
-		// mLastMessagesSent.mFreePositions = 0;
-		//
-		// while (it.next().mReceivedAck && mLastMessagesSent.mFreePositions <
-		// BUFFERS_SIZE)
-		// mLastMessagesSent.mFreePositions++;
-
 		mLastMessagesSent.mFreePositions = 0;
 		for (int i = 0; i < BUFFERS_SIZE; i++)
 			if (mLastMessagesSent.mBuffer[i].mReceivedAck)
 				mLastMessagesSent.mFreePositions++;
-		System.out.println("Sent free positions: " + mLastMessagesSent.mFreePositions);
+		//System.out.println("Sent free positions: " + mLastMessagesSent.mFreePositions);
 	}
 
 	private synchronized void addMessageToSend()
@@ -139,6 +131,7 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 
 	private synchronized void addMessageToReceived(UDPMessage _msg) throws IOException
 	{
+		
 		UDPMessage newMsg = mMessagesReceivedPool.getFreeObject();
 		_msg.cloneTo(newMsg);
 
@@ -173,6 +166,10 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 
 		for (int i = 1; i < mMessagesReceived.size(); i++)
 		{
+			// Não queremos mensagens repetidas...
+			if(newMsg.mSequenceId == mMessagesReceived.get(i).mSequenceId)
+				return;
+			
 			if (newMsg.mSequenceId < mMessagesReceived.get(i).mSequenceId)
 			{
 				mMessagesReceived.add(i, newMsg);
