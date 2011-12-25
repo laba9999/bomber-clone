@@ -2,7 +2,7 @@ package com.bomber.gameobjects;
 
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectsPool;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.world.GameMap;
 import com.bomber.world.GameWorld;
 
@@ -86,7 +86,7 @@ public class Bomb extends KillableObject {
 	public void reset()
 	{
 		super.reset();
-		setMovableAnimations(Assets.mBomb);
+		setMovableAnimations(GfxAssets.mBomb);
 		mPlayAnimation = true;
 		mContainer = null;
 		mIsDead = false;

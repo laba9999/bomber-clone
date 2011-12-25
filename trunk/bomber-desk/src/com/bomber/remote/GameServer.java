@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
 
@@ -279,6 +280,8 @@ public class GameServer {
 
 		GameStateLoadingPVP.mServerAuthorizedStart = true;
 		Game.mHasStarted = true;
+		
+		SoundAssets.play(Game.mLevelToLoad, true, 1.0f);
 	}
 	public void sendMessage(Message _msg)
 	{

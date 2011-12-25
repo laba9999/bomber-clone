@@ -3,24 +3,27 @@ package com.amov.bomber;
 import java.io.File;
 import java.util.Scanner;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 
 import com.bomber.common.Achievements;
+import com.bomber.common.assets.SoundAssets;
 
-public class MainActivity extends Activity
+public class MainActivity extends GameActivity
 {
+
 	public static final int DIALOG_MULTIPLAYER = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+
+		// bota som!
+		SoundAssets.play("intro", true, 0.6f);
+
 		loadAchievements();
 	}
 
@@ -31,10 +34,10 @@ public class MainActivity extends Activity
 		String[] achievementsInfo = new String[Achievements.NUMBER_OF_ACHIEVEMENTS];
 
 		try
-		{	
-			f = new File(Environment.getExternalStorageDirectory() + "/" +  Achievements.FILE_PATH);
+		{
+			f = new File(Environment.getExternalStorageDirectory() + "/" + Achievements.FILE_PATH);
 			scanner = new Scanner(f);
-			
+
 			short i = 0;
 			while (scanner.hasNextLine())
 			{
@@ -42,71 +45,49 @@ public class MainActivity extends Activity
 				if (nextLine.length() > 0 && nextLine.charAt(0) != '#')
 					achievementsInfo[i++] = nextLine;
 			}
-			
+
 			Achievements.mNumberMonsterKills = Integer.parseInt(achievementsInfo[0]);
 			Achievements.mNumberPlayersKills = Integer.parseInt(achievementsInfo[1]);
 			Achievements.mNumberCTFWins = Integer.parseInt(achievementsInfo[2]);
 			Achievements.mNumberDMWins = Integer.parseInt(achievementsInfo[3]);
-			Achievements.mTotalTimePlayed = Long.parseLong(achievementsInfo[4]);	
+			Achievements.mTotalTimePlayed = Long.parseLong(achievementsInfo[4]);
 			Achievements.mHasCompletedCampaign = Boolean.parseBoolean(achievementsInfo[5]);
-			
-			
-		}
-		catch (Throwable t)
+
+		} catch (Throwable t)
 		{
 			t.printStackTrace();
 			Achievements.reset();
-		}
-		finally
+		} finally
 		{
-			if(scanner != null)
+			if (scanner != null)
 			{
 				scanner.close();
-			} 
-
+			}
 		}
 	}
 
 	public void onArcadeButton(View v)
 	{
-		Intent myIntent = new Intent(this, LevelChooserActivity.class);
-		// proibe a animação na transição entre activities
-		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivityForResult(myIntent, 0);
+		launchActivity(LevelChooserActivity.class);
 	}
 
 	public void onMultiplayerButton(View v)
 	{
-		
-		Intent myIntent = new Intent(this, MultiplayerConnectionActivity.class);
-		// proibe a animação na transição entre activities
-		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivityForResult(myIntent, 0);	
-
+		launchActivity(MultiplayerConnectionActivity.class);
 	}
-		
-	
+
 	public void onTopButton(View v)
 	{
-		Intent myIntent = new Intent(this, TopActivity.class);
-		// proibe a animação na transição entre activities
-		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivityForResult(myIntent, 0);
+		launchActivity(TopActivity.class);
 	}
 
 	public void onAchievementsButton(View v)
 	{
-		Intent myIntent = new Intent(this, AchievementsActivity.class);
-		// proibe a animação na transição entre activities
-		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivityForResult(myIntent, 0);
+		launchActivity(AchievementsActivity.class);
 	}
 
 	public void onHelpButton(View v)
 	{
-		Intent myIntent = new Intent(this, HelpActivity.class);
-		// proibe a animação na transição entre activities
-		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivityForResult(myIntent, 0);
+		launchActivity(HelpActivity.class);
 	}
 }

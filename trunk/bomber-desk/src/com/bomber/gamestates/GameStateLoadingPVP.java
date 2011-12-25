@@ -3,7 +3,7 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.remote.RemoteConnections;
 
 public class GameStateLoadingPVP extends GameStateLoading {
@@ -36,7 +36,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 
 		if (mCountdownSeconds != -1)
 			font.draw(mBatcher, "Inicio em " + mCountdownSeconds.toString(), 340, 250);

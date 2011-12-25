@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.Game;
 import com.bomber.common.Settings;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStatePaused;
@@ -88,7 +88,7 @@ public class InputPausedState extends Input {
 			break;
 		case INPUT_SOUND:
 			Settings.isSoundOn = !Settings.isSoundOn;			
-			GameStatePaused.mOptionsPanel.getChild((short)0).mTexture = Assets.getSoundButtonTexture();				
+			GameStatePaused.mOptionsPanel.getChild((short)0).mTexture = GfxAssets.getSoundButtonTexture();				
 			mTimeWhenLastPress = System.currentTimeMillis();
 			break;
 		case INPUT_HELP:

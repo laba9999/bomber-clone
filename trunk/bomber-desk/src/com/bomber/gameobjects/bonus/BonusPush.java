@@ -1,7 +1,7 @@
 package com.bomber.gameobjects.bonus;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 
 public class BonusPush extends TemporaryBonus {
 
@@ -9,7 +9,7 @@ public class BonusPush extends TemporaryBonus {
 	{
 		super(Bonus.PUSH, 600);
 		
-		Animation anim = Assets.mBonusAnimations.get("bonus_hand");
+		Animation anim = GfxAssets.mBonusAnimations.get("bonus_hand");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true, true);
 	}
     

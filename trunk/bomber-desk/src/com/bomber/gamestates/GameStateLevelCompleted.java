@@ -3,8 +3,9 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
 import com.bomber.common.Achievements;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.Player;
 import com.bomber.input.InputLevelCompletedState;
 
@@ -15,10 +16,13 @@ public class GameStateLevelCompleted extends GameState {
 	private boolean mEndScoreAnimation;
 	private short mTrophiesEarned;
 
+	private int mPointsBlingCounter = 2;
+
 	public GameStateLevelCompleted(Game _gameScreen) {
 		super(_gameScreen);
-		
 
+		SoundAssets.stop();
+		
 		mEndScoreAnimation = false;
 		mInput = new InputLevelCompletedState(this);
 
@@ -34,7 +38,7 @@ public class GameStateLevelCompleted extends GameState {
 		mHighScoreDisplayed = Level.mInfo.getHighScore();
 		int newHighScore = mPointsDisplayed + mGameWorld.mClock.getRemainingSeconds() / 100 + 10;
 		if (newHighScore >= mHighScoreDisplayed)
-			Level.mInfo.setHighScore( newHighScore);
+			Level.mInfo.setHighScore(newHighScore);
 
 		// calcula quantidade de troféus a apresentar
 		float x = (float) mPointsDisplayed / mGameWorld.getMaxPoints();
@@ -68,6 +72,12 @@ public class GameStateLevelCompleted extends GameState {
 				mEndScoreAnimation = true;
 			}
 
+			if (mPointsBlingCounter++ > 1)
+			{
+				SoundAssets.mRing.play();
+				mPointsBlingCounter = 0;
+			}
+
 			if (mPointsDisplayed > mHighScoreDisplayed)
 				mHighScoreDisplayed = mPointsDisplayed;
 		}
@@ -81,11 +91,11 @@ public class GameStateLevelCompleted extends GameState {
 
 		// Desenha o vidro escuro
 		mBatcher.enableBlending();
-		mBatcher.draw(Assets.DarkGlass.get(), 0, 0);
+		mBatcher.draw(GfxAssets.DarkGlass.get(), 0, 0);
 
-		mBatcher.draw(Assets.mScreens.get("levelcompleted"), 125, 60);
+		mBatcher.draw(GfxAssets.mScreens.get("levelcompleted"), 125, 60);
 
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 		font.setScale(1.8f);
 		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);
 		font.setScale(1);
@@ -101,7 +111,7 @@ public class GameStateLevelCompleted extends GameState {
 
 		for (int i = 0; i < mTrophiesEarned; i++)
 		{
-			mBatcher.draw(Assets.mTrophy[0], 304 + i * 63, 180);
+			mBatcher.draw(GfxAssets.mTrophy[0], 304 + i * 63, 180);
 
 		}
 	}

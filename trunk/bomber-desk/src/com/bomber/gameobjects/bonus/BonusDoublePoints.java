@@ -1,7 +1,7 @@
 package com.bomber.gameobjects.bonus;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 
 public class BonusDoublePoints extends TemporaryBonus {
 
@@ -9,7 +9,7 @@ public class BonusDoublePoints extends TemporaryBonus {
 	{
 		super(Bonus.DOUBLE_POINTS, 600);
 		
-		Animation anim = Assets.mBonusAnimations.get("bonus_star");
+		Animation anim = GfxAssets.mBonusAnimations.get("bonus_star");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true,true);
 	}
 

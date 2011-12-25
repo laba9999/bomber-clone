@@ -6,7 +6,6 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Set;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -18,7 +17,6 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -38,7 +36,7 @@ import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.remote.Protocols;
 
-public class MultiplayerConnectionActivity extends Activity
+public class MultiplayerConnectionActivity extends GameActivity
 {
 
 	public final int REQUEST_ENABLE_BT = 0;
@@ -294,10 +292,7 @@ public class MultiplayerConnectionActivity extends Activity
 		DebugSettings.START_ANDROID_AS_SERVER = true;
 		DebugSettings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
 
-		// Inicia o jogo
-		Intent myIntent = new Intent(this, BuildActivity.class);
-		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivity(myIntent);
+		launchActivity(BuildActivity.class);
 	}
 
 	private void startGameAsBluetoothClient()
@@ -307,10 +302,7 @@ public class MultiplayerConnectionActivity extends Activity
 		DebugSettings.START_ANDROID_AS_SERVER = false;
 		DebugSettings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
 
-		// Inicia o jogo
-		Intent myIntent = new Intent(this, BuildActivity.class);
-		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-		startActivity(myIntent);
+		launchActivity(BuildActivity.class);
 	}
 
 	public void onContinueButton(View v)
@@ -346,10 +338,7 @@ public class MultiplayerConnectionActivity extends Activity
 		}
 
 		if (connected)
-		{
-			Intent myIntent = new Intent(this, PVPServerOptionsActivity.class);
-			startActivity(myIntent);
-		}
+			launchActivity(PVPServerOptionsActivity.class);
 
 	}
 
@@ -407,21 +396,4 @@ public class MultiplayerConnectionActivity extends Activity
 
 		return true;
 	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
-		{
-			Intent resultIntent = new Intent();
-			setResult(Activity.RESULT_OK, resultIntent);
-			finish();
-			// desactiva animação na transição entre activities
-			overridePendingTransition(0, 0);
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
-	}
-
 }

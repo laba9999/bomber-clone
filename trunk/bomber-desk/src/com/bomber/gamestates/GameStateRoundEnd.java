@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bomber.Game;
 import com.bomber.Team;
 import com.bomber.common.BlinkObject;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.gameobjects.Player;
 import com.bomber.remote.RemoteConnections;
 
@@ -104,9 +104,9 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 		onUpdateResults();
 
 		if (mTeam1.mRoundsWon > team1OldRoundWon)
-			mBlinkTrophys.add(new BlinkObject(TROPHYS_BLINK_INTERVAL, TROPHYS_BLINK_DURATION, Assets.mTrophy[2], TROPHYS_POS_X + team1OldRoundWon * TROPHYS_DIST_X, TROPHYS_POS_Y));
+			mBlinkTrophys.add(new BlinkObject(TROPHYS_BLINK_INTERVAL, TROPHYS_BLINK_DURATION, GfxAssets.mTrophy[2], TROPHYS_POS_X + team1OldRoundWon * TROPHYS_DIST_X, TROPHYS_POS_Y));
 		if (mTeam2.mRoundsWon > team2OldRoundWon)
-			mBlinkTrophys.add(new BlinkObject(TROPHYS_BLINK_INTERVAL, TROPHYS_BLINK_DURATION, Assets.mTrophy[2], TROPHYS_POS_X + team2OldRoundWon * TROPHYS_DIST_X, TROPHYS_POS_Y - TROPHYS_DIST_Y));
+			mBlinkTrophys.add(new BlinkObject(TROPHYS_BLINK_INTERVAL, TROPHYS_BLINK_DURATION, GfxAssets.mTrophy[2], TROPHYS_POS_X + team2OldRoundWon * TROPHYS_DIST_X, TROPHYS_POS_Y - TROPHYS_DIST_Y));
 
 		// Resultados finais
 		if (mTeam1.mRoundsWon > mTeam2.mRoundsWon)
@@ -120,7 +120,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 
 		if (!Game.mGameIsOver || !mBlinkTrophys.get(0).mExceededDuration)
 			drawRoundResults();
@@ -140,7 +140,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 		for (int i = 0; i < mWonTrophys.size(); i++)
 		{
 			Vector2 tmpPos = mWonTrophys.get(i);
-			mBatcher.draw(Assets.mTrophy[2], tmpPos.x, tmpPos.y);
+			mBatcher.draw(GfxAssets.mTrophy[2], tmpPos.x, tmpPos.y);
 		}
 
 		for (int i = 0; i < mBlinkTrophys.size(); i++)
@@ -178,7 +178,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	private void drawFinalResults()
 	{
 		// Troféu grande centrado no ecrã
-		mBatcher.draw(Assets.mTrophy[1], 363, 160);
+		mBatcher.draw(GfxAssets.mTrophy[1], 363, 160);
 
 		short startX = 250;
 		short startY = 100;
@@ -201,9 +201,9 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 		}
 
 		if (mResult == 0 || (mResult == 1 && mTeam1.mPlayers.contains(mGameWorld.getLocalPlayer())) || (mResult == 2 && mTeam2.mPlayers.contains(mGameWorld.getLocalPlayer())))
-			Assets.mFont.draw(mBatcher, "GANHASTE!!", 320, 60);
+			GfxAssets.mFont.draw(mBatcher, "GANHASTE!!", 320, 60);
 		else
-			Assets.mFont.draw(mBatcher, "PERDESTE..", 320, 60);
+			GfxAssets.mFont.draw(mBatcher, "PERDESTE..", 320, 60);
 	}
 
 	@Override

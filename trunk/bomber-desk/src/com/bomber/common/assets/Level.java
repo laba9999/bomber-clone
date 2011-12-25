@@ -157,24 +157,24 @@ public class Level {
 				if (id != 0)
 				{
 					filename = mImageTiles.get(id);
-					Assets.loadNonDestroyableTile(filename);
-					_world.mMap.addNonDestroyableTile(i, j, Tile.WALKABLE, Assets.mNonDestroyableTiles.get(filename));
+					GfxAssets.loadNonDestroyableTile(filename);
+					_world.mMap.addNonDestroyableTile(i, j, Tile.WALKABLE, GfxAssets.mNonDestroyableTiles.get(filename));
 				}
 
 				id = mCollidableIDs[i][j];
 				if (id != 0)
 				{
 					filename = mImageTiles.get(id);
-					Assets.loadNonDestroyableTile(filename);
-					_world.mMap.addNonDestroyableTile(i, j, Tile.COLLIDABLE, Assets.mNonDestroyableTiles.get(filename));
+					GfxAssets.loadNonDestroyableTile(filename);
+					_world.mMap.addNonDestroyableTile(i, j, Tile.COLLIDABLE, GfxAssets.mNonDestroyableTiles.get(filename));
 				}
 
 				id = mDestroyableIDs[i][j];
 				if (id != 0)
 				{
 					filename = mImageTiles.get(id);
-					Assets.loadDestroyableTile(filename);
-					_world.mMap.addDestroyableTile(i, j, Assets.mDestroyableTiles.get(filename));
+					GfxAssets.loadDestroyableTile(filename);
+					_world.mMap.addDestroyableTile(i, j, GfxAssets.mDestroyableTiles.get(filename));
 				}
 
 				id = mSpawnIDs[i][j];
@@ -220,10 +220,10 @@ public class Level {
 
 			if (monsterID.contains("m_generic"))
 			{ // se é um monstro genérico
-				Assets.loadGenericMonster(monsterID);
+				GfxAssets.loadGenericMonster(monsterID);
 			} else
 			{
-				Assets.loadNormalMonster(monsterID);
+				GfxAssets.loadNormalMonster(monsterID);
 			}
 
 			_world.spawnMonster(monsterID, _positionY, _positionX);

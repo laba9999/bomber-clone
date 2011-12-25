@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.input.Input;
 import com.bomber.remote.MessageContainer;
 import com.bomber.remote.RemoteConnections;
@@ -78,12 +78,12 @@ public abstract class GameState {
 
 	private final void drawDebugInfo()
 	{
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 		if (DebugSettings.UI_DRAW_INPUT_ZONES)
 		{
 			Rectangle[] zones = mInput.getZones();
 			for (int i = 0; i < zones.length; i++)
-				mBatcher.draw(Assets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
+				mBatcher.draw(GfxAssets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
 		}
 
 		if (DebugSettings.UI_DRAW_FPS)

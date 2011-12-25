@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -20,11 +18,8 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.amov.bomber.LevelChooserActivity.ImageAdapter;
 import com.bomber.DebugSettings;
-import com.bomber.gametypes.GameTypeDeathmatch;
 import com.bomber.gametypes.GameTypeHandler;
 
 /*
@@ -32,7 +27,7 @@ import com.bomber.gametypes.GameTypeHandler;
  * http://stackoverflow.com/questions/7797641/android-galleryview-recycling
  */
 
-public class PVPServerOptionsActivity extends Activity
+public class PVPServerOptionsActivity extends GameActivity
 {
 	private static int[] LEVEL_INDICATOR_RESOURCES = { R.id.indicator1, R.id.indicator2, R.id.indicator3, R.id.indicator4, R.id.indicator5, R.id.indicator6, R.id.indicator7, R.id.indicator8 };
 
