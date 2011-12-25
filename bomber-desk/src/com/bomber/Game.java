@@ -9,7 +9,8 @@ import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Achievements;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.Utils;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameState;
 import com.bomber.gamestates.GameStateLoading;
 import com.bomber.gamestates.GameStateLoadingPVP;
@@ -109,11 +110,12 @@ public class Game implements ApplicationListener {
 		Game.setGameType(_type);
 		mRoundsToPlay = _nRounds;
 		mLevelToLoad = _levelToLoad;
-		//Game.LOGGER.log("Received game info - Type: " + _type + " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
+		// Game.LOGGER.log("Received game info - Type: " + _type +
+		// " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
 
 		mTeams[0].clear();
 		mTeams[1].clear();
-		
+
 		mTeams[0].mNumberPlayers = (short) (mNumberPlayers / 2);
 		mTeams[1].mNumberPlayers = (short) (mNumberPlayers / 2);
 
@@ -153,6 +155,7 @@ public class Game implements ApplicationListener {
 	{
 		if (mMainActivity != null)
 		{
+			SoundAssets.stop();
 			mMainActivity.goBackToMenu();
 		} else
 		{
@@ -216,10 +219,16 @@ public class Game implements ApplicationListener {
 
 		mBatcher = new SpriteBatch();
 
-		Assets.loadAssets();
+		if (!SoundAssets.mIsloaded)
+			SoundAssets.load();
+
+		GfxAssets.loadAssets();
 
 		if (!mIsPVPGame)
+		{
 			mGameState = new GameStateLoading(this);
+			SoundAssets.play(Game.mLevelToLoad, true, 1.0f);
+		}
 		else
 			mGameState = new GameStateLoadingPVP(this);
 
@@ -232,7 +241,7 @@ public class Game implements ApplicationListener {
 
 			mMessagesHandler.mWorld = mWorld;
 		}
-		
+
 		mMessagesHandler.mGame = this;
 
 		mNextGameTick = System.nanoTime();
@@ -283,22 +292,24 @@ public class Game implements ApplicationListener {
 	@Override
 	public void pause()
 	{
-
 		Achievements.saveFile();
 
+		SoundAssets.pause();
+		
 		if (mIsPVPGame)
 			goBackToActivities();
 
 		if (mGameState instanceof GameStatePlaying)
 			setGameState(new GameStatePaused(this));
 
-		Assets.DarkGlass.dispose();
+		GfxAssets.DarkGlass.dispose();
 	}
 
 	@Override
 	public void resume()
 	{
 		mNextGameTick = System.nanoTime();
+		SoundAssets.resume();
 	}
 
 	@Override

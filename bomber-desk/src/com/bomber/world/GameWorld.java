@@ -9,8 +9,9 @@ import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Flag;
@@ -193,7 +194,7 @@ public class GameWorld {
 	{
 		Monster tmpMonster = mMonsters.getFreeObject();
 
-		tmpMonster.setMovableAnimations(Assets.mMonsters.get(_type));
+		tmpMonster.setMovableAnimations(GfxAssets.mMonsters.get(_type));
 
 		tmpMonster.mPlayAnimation = true;
 
@@ -225,11 +226,11 @@ public class GameWorld {
 
 		Player tmpPlayer = mPlayers.getFreeObject();
 
-		tmpPlayer.setMovableAnimations(Assets.mPlayers.get(_type));
+		tmpPlayer.setMovableAnimations(GfxAssets.mPlayers.get(_type));
 
-		tmpPlayer.mExtraTextures.put("head", Assets.mPlayersHeads.get(_type));
-		tmpPlayer.mExtraTextures.put("sad", Assets.mPlayersSad.get(_type));
-		tmpPlayer.mExtraTextures.put("happy", Assets.mPlayersHappy.get(_type));
+		tmpPlayer.mExtraTextures.put("head", GfxAssets.mPlayersHeads.get(_type));
+		tmpPlayer.mExtraTextures.put("sad", GfxAssets.mPlayersSad.get(_type));
+		tmpPlayer.mExtraTextures.put("happy", GfxAssets.mPlayersHappy.get(_type));
 
 		tmpPlayer.mColor = Player.getColorFromString(_type);
 
@@ -292,6 +293,8 @@ public class GameWorld {
 
 	public void spawnExplosion(Bomb _bomb)
 	{
+		SoundAssets.mExplosion.play();
+		
 		// Remove a bomba da pool de bombas activas
 		mBombs.releaseObject(_bomb);
 
@@ -363,7 +366,7 @@ public class GameWorld {
 	{
 		// Adiciona a explosão central
 		Drawable tmpExplosion = mExplosions.getFreeObject();
-		tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_center"), (short) 4, true, false);
+		tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_center"), (short) 4, true, false);
 
 		Tile tmpTile = mMap.getTile(_bomb.mContainer.mPosition);
 		tmpExplosion.mPosition.x = tmpTile.mPosition.x + Tile.TILE_SIZE_HALF;
@@ -403,9 +406,9 @@ public class GameWorld {
 					explodeObjects(tmpTile, _bomb);
 
 					if (i == Directions.LEFT || i == Directions.RIGHT)
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_hor"), (short) 4, true, false);
+						tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_mid_hor"), (short) 4, true, false);
 					else
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_ver"), (short) 4, true, false);
+						tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_mid_ver"), (short) 4, true, false);
 
 				}
 			} else
@@ -424,9 +427,9 @@ public class GameWorld {
 					explodeObjects(tmpTile, _bomb);
 
 					if (i == Directions.LEFT || i == Directions.RIGHT)
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_hor"), (short) 4, true, false);
+						tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_mid_hor"), (short) 4, true, false);
 					else
-						tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_mid_ver"), (short) 4, true, false);
+						tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_mid_ver"), (short) 4, true, false);
 
 				}
 
@@ -440,13 +443,13 @@ public class GameWorld {
 
 				// Adiciona a ponta
 				if (i == Directions.LEFT)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_left"), (short) 4, true, false);
+					tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_tip_left"), (short) 4, true, false);
 				else if (i == Directions.RIGHT)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_right"), (short) 4, true, false);
+					tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_tip_right"), (short) 4, true, false);
 				else if (i == Directions.UP)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_up"), (short) 4, true, false);
+					tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_tip_up"), (short) 4, true, false);
 				else if (i == Directions.DOWN)
-					tmpExplosion.setCurrentAnimation(Assets.mExplosions.get("xplode_tip_down"), (short) 4, true, false);
+					tmpExplosion.setCurrentAnimation(GfxAssets.mExplosions.get("xplode_tip_down"), (short) 4, true, false);
 			}
 		}
 	}

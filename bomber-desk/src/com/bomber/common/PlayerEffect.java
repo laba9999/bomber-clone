@@ -1,7 +1,7 @@
 package com.bomber.common;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.gameobjects.Drawable;
 
 public class PlayerEffect extends Drawable {
@@ -15,7 +15,7 @@ public class PlayerEffect extends Drawable {
 		mType = _type;
 
 		if (mType == SHIELD)
-			setCurrentAnimation(Assets.mPlayerEffects.get("shield"), (short) 4, true, true);
+			setCurrentAnimation(GfxAssets.mPlayerEffects.get("shield"), (short) 4, true, true);
 
 	}
 

@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bomber.Game;
 import com.bomber.OverlayingText;
 import com.bomber.common.PlayerEffect;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Drawable;
 import com.bomber.gameobjects.Flag;
@@ -184,7 +184,7 @@ public class WorldRenderer {
 
 			// Desenha o nome
 			if (Game.mIsPVPGame && p != mWorld.getLocalPlayer() && p.mName != null)
-				Assets.mFont.draw(mBatch, p.mName, drawingPoint.x - 10, drawingPoint.y + 80);
+				GfxAssets.mFont.draw(mBatch, p.mName, drawingPoint.x - 10, drawingPoint.y + 80);
 
 			// Desenha os efeitos
 			for (PlayerEffect ef : p.mEffects)
@@ -216,7 +216,7 @@ public class WorldRenderer {
 	private void renderOverlayingText()
 	{
 		// TODO: alterar font
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 
 		for (OverlayingText t : mWorld.mOverlayingPoints)
 		{

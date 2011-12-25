@@ -2,7 +2,7 @@ package com.bomber.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 
 public class Flag extends GameObject {
 
@@ -24,12 +24,12 @@ public class Flag extends GameObject {
 
 		if (mBelongsToTeamId == 0)
 		{
-			mFlags[0] = Assets.mFlags.get("flag_pole_team1");
-			mFlags[1] = Assets.mFlags.get("flag_transport_team1");
+			mFlags[0] = GfxAssets.mFlags.get("flag_pole_team1");
+			mFlags[1] = GfxAssets.mFlags.get("flag_transport_team1");
 		} else
 		{
-			mFlags[0] = Assets.mFlags.get("flag_pole_team2");
-			mFlags[1] = Assets.mFlags.get("flag_transport_team2");
+			mFlags[0] = GfxAssets.mFlags.get("flag_pole_team2");
+			mFlags[1] = GfxAssets.mFlags.get("flag_transport_team2");
 		}
 	}
 

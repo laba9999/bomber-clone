@@ -1,12 +1,10 @@
 package com.amov.bomber;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.InputFilter;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,7 +15,7 @@ import com.bomber.common.Achievements;
 import com.bomber.common.BonusBuild;
 import com.bomber.remote.Message;
 
-public class BuildActivity extends Activity
+public class BuildActivity extends GameActivity
 {
 	private static final int[] EXPLOSION_INDICATORS_RESOURCES = {R.id.imageBuildExplosion1,
 																R.id.imageBuildExplosion2,
@@ -165,21 +163,4 @@ public class BuildActivity extends Activity
 			mTextAvailablePoints.setText(mAvailablePoints.toString());			
 		}
 	}
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
-		{
-			Intent resultIntent = new Intent();
-			setResult(Activity.RESULT_OK, resultIntent);
-			finish();
-			// desactiva animação na transição entre activities
-			overridePendingTransition(0, 0);
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
-	}
-	
 }

@@ -15,7 +15,7 @@ import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.Utils;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.gameobjects.Bomb;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
@@ -174,8 +174,8 @@ public class GameMap {
 		if (Game.mGameType != GameTypeHandler.CTF && Game.mGameType != GameTypeHandler.TEAM_CTF)
 			return;
 		// Coloca as bases das flags
-		getTile(mWorld.mFlags[0].mPosition).setCurrentAnimation(Assets.mPortal, (short)2, false, false);
-		getTile(mWorld.mFlags[1].mPosition).setCurrentAnimation(Assets.mPortal, (short)2, false, false);
+		getTile(mWorld.mFlags[0].mPosition).setCurrentAnimation(GfxAssets.mPortal, (short)2, false, false);
+		getTile(mWorld.mFlags[1].mPosition).setCurrentAnimation(GfxAssets.mPortal, (short)2, false, false);
 
 	}
 
@@ -787,9 +787,9 @@ public class GameMap {
 		mTilesMap.set(_t.mPositionInArray, mPortal);
 
 		if (!mWorld.mGameTypeHandler.isObjectiveAcomplished())
-			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, false, false);
+			mPortal.setCurrentAnimation(GfxAssets.mPortal, GfxAssets.PORTAL_FRAMES_COUNT, false, false);
 		else
-			mPortal.setCurrentAnimation(Assets.mPortal, Assets.PORTAL_FRAMES_COUNT, true, true);
+			mPortal.setCurrentAnimation(GfxAssets.mPortal, GfxAssets.PORTAL_FRAMES_COUNT, true, true);
 
 	}
 

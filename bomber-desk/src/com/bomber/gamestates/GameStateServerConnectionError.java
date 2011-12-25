@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 
 public class GameStateServerConnectionError extends GameState {
 
@@ -33,7 +33,7 @@ public class GameStateServerConnectionError extends GameState {
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 		font.draw(mBatcher, mMessage, 290, 250);
 
 	}

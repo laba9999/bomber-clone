@@ -2,7 +2,7 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
 
 public class GameStateLoading extends GameState {
@@ -22,7 +22,7 @@ public class GameStateLoading extends GameState {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 
 		font.draw(mBatcher, "A carregar... ", 320, 250);
 	}

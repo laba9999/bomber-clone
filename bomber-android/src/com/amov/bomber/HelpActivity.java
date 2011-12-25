@@ -1,6 +1,5 @@
 package com.amov.bomber;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class HelpActivity extends Activity
+public class HelpActivity extends GameActivity
 {
 	private static final int[] IMAGES_RESOURCES = new int[]{R.drawable.help_move,
 													R.drawable.help_bomb,

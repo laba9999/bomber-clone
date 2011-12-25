@@ -3,7 +3,7 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
 import com.bomber.common.Achievements;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.gameobjects.Player;
 import com.bomber.gametypes.GameTypeCTF;
 import com.bomber.gametypes.GameTypeCampaign;
@@ -64,20 +64,20 @@ public class GameStatePlaying extends GameState {
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 
 		// Cache
-		BitmapFont font = Assets.mFont;
+		BitmapFont font = GfxAssets.mFont;
 		Player player = mGameWorld.getLocalPlayer();
 
 		if (mGameWorld.getLocalPlayer().mAcceptPlayerInput)
 		{
 			// desenha imagem do d-pad
-			mBatcher.draw(Assets.mControlPad, 0, 0);
+			mBatcher.draw(GfxAssets.mControlPad, 0, 0);
 
 			// desenha imagem do botao para colocar bombas
-			mBatcher.draw(Assets.mButtonBomb, 650, 0);
+			mBatcher.draw(GfxAssets.mButtonBomb, 650, 0);
 		}
 
 		if (!Game.mIsPVPGame)
-			mBatcher.draw(Assets.mButtonPause, 0, 400);
+			mBatcher.draw(GfxAssets.mButtonPause, 0, 400);
 
 		// Relógio
 		drawClock(font);
@@ -99,7 +99,7 @@ public class GameStatePlaying extends GameState {
 	{
 
 		// desenha quantidades de bonus ao fundo
-		mBatcher.draw(Assets.mBonusBar, 250, 0);
+		mBatcher.draw(GfxAssets.mBonusBar, 250, 0);
 
 		Integer value;
 
@@ -127,17 +127,17 @@ public class GameStatePlaying extends GameState {
 
 		if (drawBonusHand)
 		{
-			mBatcher.draw(Assets.mBonusIcons.get("hand"), x, y);
+			mBatcher.draw(GfxAssets.mBonusIcons.get("hand"), x, y);
 			x -= 57;
 		}
 		if (drawBonusShield)
 		{
-			mBatcher.draw(Assets.mBonusIcons.get("shield"), x, y);
+			mBatcher.draw(GfxAssets.mBonusIcons.get("shield"), x, y);
 			x -= 57;
 		}
 		if (drawBonusStar)
 		{
-			mBatcher.draw(Assets.mBonusIcons.get("star"), x, y);
+			mBatcher.draw(GfxAssets.mBonusIcons.get("star"), x, y);
 			x -= 57;
 		}
 	}
@@ -145,7 +145,7 @@ public class GameStatePlaying extends GameState {
 	private void drawClock(BitmapFont _font)
 	{
 		// desenha quantidades de bonus ao fundo
-		mBatcher.draw(Assets.mClockBar, 200, 435);
+		mBatcher.draw(GfxAssets.mClockBar, 200, 435);
 
 		mBatcher.setColor(1, 1, 1, 1);
 		Clock clock = mGameWorld.mClock;

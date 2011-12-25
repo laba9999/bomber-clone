@@ -14,6 +14,7 @@ import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
 import com.bomber.common.PlayerEffect;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.bonus.Bonus;
 import com.bomber.gameobjects.bonus.BonusExplosionSize;
 import com.bomber.gameobjects.bonus.BonusShield;
@@ -325,6 +326,9 @@ public class Player extends KillableObject {
 			mWorld.spawnOverlayingPoints("+500", mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
 			Achievements.mNumberPlayersKills++;
 		}
+
+		if (mIsLocalPlayer)
+			SoundAssets.mDie.play();
 
 		mAcceptPlayerInput = false;
 		mWorld.mGameTypeHandler.onPlayerKill(this);

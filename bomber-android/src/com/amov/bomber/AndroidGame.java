@@ -9,11 +9,27 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.bomber.AndroidBridge;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.remote.RemoteConnections;
 
 public class AndroidGame extends AndroidApplication implements AndroidBridge
 {
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			if (!Game.mIsPVPGame)
+				return true;
+			else
+			{
+				SoundAssets.play("intro", true, 1.0f);
+			}
+		}
+
+		return super.onKeyDown(keyCode, event);
+	}
+
 	@Override
 	protected void onDestroy()
 	{
@@ -44,30 +60,19 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		else
 			newGame.setConnections(tmpConnections);
 	}
+
 	public void goBackToMenu()
 	{
+		SoundAssets.play("intro", true, 1.0f);
 		finishActivity(0);
 		this.exit();
 	}
-	
+
 	public void showHelpActivity()
 	{
 		Intent myIntent = new Intent(this, HelpActivity.class);
 		// proibe a animação na transição entre activities
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivityForResult(myIntent, 0);
-	}
-	
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
-		{
-			// Tira o efeito ao botão back
-			// return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
 	}
 }

@@ -23,14 +23,13 @@ public class DebugSettings {
 	public static final UUID APP_UUID = new UUID(4587L, 0215L);
 
 	// Game
-
 	public static  String LEVEL_TO_LOAD = "level1";
-	public static  short GAME_TYPE = GameTypeHandler.CTF;
+	public static  short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static  short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
 
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
 	public static String PLAYER_NAME = "zezao1";
 
 	// Monstros

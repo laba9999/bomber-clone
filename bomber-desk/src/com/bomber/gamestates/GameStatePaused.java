@@ -1,7 +1,7 @@
 package com.bomber.gamestates;
 
 import com.bomber.Game;
-import com.bomber.common.assets.Assets;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.gameobjects.UIMovableObject;
 import com.bomber.input.InputPausedState;
 
@@ -16,13 +16,13 @@ public class GameStatePaused extends GameState {
 		if (mOptionsPanel == null)
 		{
 			int animationSpeed = 25;
-			int animationDuration = Assets.mScreens.get("pause").getRegionWidth() / animationSpeed;
+			int animationDuration = GfxAssets.mScreens.get("pause").getRegionWidth() / animationSpeed;
 			animationDuration *=2;
-			float startX = 800 + Assets.mScreens.get("pause").getRegionWidth();
+			float startX = 800 + GfxAssets.mScreens.get("pause").getRegionWidth();
 			mOptionsPanel = new UIMovableObject(animationSpeed, startX, 0, -1.0f, 0f, animationDuration);
-			mOptionsPanel.mTexture = Assets.mScreens.get("pause") ;
+			mOptionsPanel.mTexture = GfxAssets.mScreens.get("pause") ;
 			UIMovableObject soundButton = new UIMovableObject(0, startX + 7, 5, 0, 0,0);
-			soundButton.mTexture = Assets.getSoundButtonTexture();
+			soundButton.mTexture = GfxAssets.getSoundButtonTexture();
 			mOptionsPanel.addChild(soundButton);
 		}
 
@@ -72,7 +72,7 @@ public class GameStatePaused extends GameState {
 
 		// Desenha o vidro escuro
 		mBatcher.enableBlending();
-		mBatcher.draw(Assets.DarkGlass.get(), 0, 0);
+		mBatcher.draw(GfxAssets.DarkGlass.get(), 0, 0);
 
 		// Desenha o painel de opções
 		mBatcher.draw(mOptionsPanel.mTexture, mOptionsPanel.mPosition.x, mOptionsPanel.mPosition.y);

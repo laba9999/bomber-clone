@@ -1,14 +1,10 @@
 package com.amov.bomber;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,26 +13,21 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import com.bomber.DebugSettings;
+import com.bomber.gametypes.GameTypeHandler;
 
 /*
  * http://www.androidpeople.com/android-gallery-example
  * http://stackoverflow.com/questions/7797641/android-galleryview-recycling
  */
 
-public class LevelChooserActivity extends Activity
+public class LevelChooserActivity extends GameActivity
 {
-	private static int[] LEVEL_INDICATOR_RESOURCES = { R.id.indicator1,
-														R.id.indicator2,
-														R.id.indicator3,
-														R.id.indicator4,
-														R.id.indicator5,
-														R.id.indicator6,
-														R.id.indicator7,
-														R.id.indicator8};
+	private static int[] LEVEL_INDICATOR_RESOURCES = { R.id.indicator1, R.id.indicator2, R.id.indicator3, R.id.indicator4, R.id.indicator5, R.id.indicator6, R.id.indicator7, R.id.indicator8 };
 
-	
 	Gallery gallery;
+	String[] valueLevels = { "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -52,9 +43,15 @@ public class LevelChooserActivity extends Activity
 
 		gallery.setOnItemClickListener(new OnItemClickListener()
 		{
-			public void onItemClick(AdapterView _parent, View _v, int _position, long _id)
+			public void onItemClick(AdapterView<?> _parent, View _v, int _position, long _id)
 			{
-					//PROXImA ACTIVITY
+				// Prepara as settings para o jogo
+				DebugSettings.BLUETOOTH_ADAPTER = null;
+				DebugSettings.START_ANDROID_AS_SERVER = false;
+				DebugSettings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
+				DebugSettings.LEVEL_TO_LOAD = valueLevels[_position];
+
+				launchActivity(AndroidGame.class);
 			}
 		});
 
@@ -70,7 +67,6 @@ public class LevelChooserActivity extends Activity
 
 			}
 		});
-		
 
 	}
 
@@ -86,30 +82,12 @@ public class LevelChooserActivity extends Activity
 			{
 				img = (ImageView) findViewById(LEVEL_INDICATOR_RESOURCES[i]);
 				img.setImageBitmap(off);
-			}
-			else
+			} else
 			{
 				img = (ImageView) findViewById(LEVEL_INDICATOR_RESOURCES[i]);
 				img.setImageBitmap(on);
 			}
-
 		}
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
-		{
-			Intent resultIntent = new Intent();
-			setResult(Activity.RESULT_OK, resultIntent);
-			finish();
-			// desactiva animação na transição entre activities
-			overridePendingTransition(0, 0);
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
 	}
 
 	public class ImageAdapter extends BaseAdapter
@@ -146,21 +124,15 @@ public class LevelChooserActivity extends Activity
 
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
-
 			if (!(convertView instanceof ImageView))
 			{
 				ImageView iv = new ImageView(mContext);
-				// iv.setLayoutParams(new Gallery.LayoutParams(350, 350));
-				// iv.setScaleType(ImageView.ScaleType.FIT_XY);
 				iv.setBackgroundResource(mGalleryItemBackground);
 				iv.setImageResource(mImgId[position]);
 				return iv;
 			}
 
 			return convertView;
-
 		}
-
 	}
-
 }
