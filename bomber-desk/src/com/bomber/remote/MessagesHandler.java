@@ -3,8 +3,8 @@ package com.bomber.remote;
 import java.io.IOException;
 
 import com.bomber.Game;
-import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.Player;
+import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.world.GameWorld;
 
@@ -177,9 +177,23 @@ public class MessagesHandler {
 
 	private void parseMonsterMessage(Message _msg)
 	{
-		System.out.println("Nova mensagem:");
-		System.out.println("Tipo: BOMB");
-		System.out.println(_msg.toString());
+		switch (_msg.eventType)
+		{
+		case EventType.KILL:
+			for (Monster m : mWorld.mMonsters)
+			{
+				if (m.mUUID == _msg.UUID)
+				{
+					m.mPosition.set(_msg.valVector2_0);
+					m.kill(_msg.valShort);
+					break;
+				}
+			}
+			break;
+
+		default:
+			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+		}
 	}
 
 	private void parseGameMessage(Message _msg)

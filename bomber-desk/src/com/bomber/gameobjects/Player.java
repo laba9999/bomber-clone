@@ -327,6 +327,7 @@ public class Player extends KillableObject {
 			Achievements.mNumberPlayersKills++;
 		}
 
+		
 		if (mIsLocalPlayer)
 			SoundAssets.playSound("die");
 

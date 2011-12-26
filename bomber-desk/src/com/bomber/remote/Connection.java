@@ -95,7 +95,7 @@ public class Connection extends Thread {
 			{
 				if (mTimeoutsCounter++ < MAX_TIMEOUTS)
 				{
-					Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - Timeout " + mTimeoutsCounter + "de " + MAX_TIMEOUTS);
+					Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - Timeout " + mTimeoutsCounter + " de " + MAX_TIMEOUTS);
 					mLastRTTCheckTick = Game.mCurrentTick;
 					return;
 				}

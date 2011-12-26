@@ -167,8 +167,8 @@ public class UDPMessageSocketIO extends MessageSocketIO {
 		for (int i = 1; i < mMessagesReceived.size(); i++)
 		{
 			// Não queremos mensagens repetidas...
-			if(newMsg.mSequenceId == mMessagesReceived.get(i).mSequenceId)
-				return;
+//			if(newMsg.mSequenceId == mMessagesReceived.get(i).mSequenceId)
+//				return;
 			
 			if (newMsg.mSequenceId < mMessagesReceived.get(i).mSequenceId)
 			{

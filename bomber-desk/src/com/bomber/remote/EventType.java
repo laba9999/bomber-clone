@@ -3,7 +3,7 @@ package com.bomber.remote;
 
 public class EventType {
 	public static final short CREATE = 0;
-	public static final short DESTROY = 1;
+	public static final short KILL = 1;
 	public static final short MOVE = 2;
 	public static final short STOP = 3;
 	public static final short START = 4;
