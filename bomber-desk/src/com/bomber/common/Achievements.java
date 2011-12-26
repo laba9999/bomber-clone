@@ -68,17 +68,17 @@ public class Achievements {
 
 	public static void saveFile()
 	{
-		String savepath = Gdx.files.getExternalStoragePath() + FILE_PATH;
+		String savepath =  FILE_PATH;
 
 		// Cria a directoria se não existir
 		File levelDirectory = new File(savepath);
 		levelDirectory.mkdirs();
 
-		savepath += "/achievements.dat";
+		savepath += "/achievements.txt";
 		PrintStream out = null;
 		try
 		{
-			out = new PrintStream(Gdx.files.absolute(savepath).write(false));
+			out = new PrintStream(Gdx.files.external(savepath).write(false));
 			out.println("#monster kills");
 			out.println(mNumberMonsterKills);
 			out.println("#players kills");
@@ -91,7 +91,10 @@ public class Achievements {
 			out.println(mTotalTimePlayed);
 			out.println("#completed campaign");
 			out.println(mHasCompletedCampaign);
-		} catch (Throwable t){ }
+		} catch (Throwable t)
+		{
+			t.printStackTrace();
+		}
 
 		if (out != null)
 			out.close();
@@ -103,9 +106,11 @@ public class Achievements {
 
 		Scanner scanner = null;
 		InputStream inputStream = null;
+
+		String loadPath = FILE_PATH + "/achievements.txt";
 		try
 		{
-			inputStream = Gdx.files.internal("com.amov.bomber/achievements.dat").read();
+			inputStream = Gdx.files.external(loadPath).read();
 			scanner = new Scanner(inputStream);
 			short i = 0;
 			while (scanner.hasNextLine())
@@ -121,9 +126,10 @@ public class Achievements {
 			mNumberDMWins = Integer.parseInt(achievementsInfo[3]);
 			mTotalTimePlayed = Long.parseLong(achievementsInfo[4]);
 			mHasCompletedCampaign = Boolean.parseBoolean(achievementsInfo[5]);
-			
+
 		} catch (Throwable t)
 		{
+			t.printStackTrace();
 			reset();
 		} finally
 		{
@@ -132,7 +138,9 @@ public class Achievements {
 				try
 				{
 					inputStream.close();
-				} catch (IOException e){}
+				} catch (IOException e)
+				{
+				}
 			}
 		}
 	}

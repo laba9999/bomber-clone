@@ -1,6 +1,7 @@
 package com.amov.bomber;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bomber.DebugSettings;
 import com.bomber.gametypes.GameTypeHandler;
@@ -24,6 +26,13 @@ import com.bomber.gametypes.GameTypeHandler;
 
 public class LevelChooserActivity extends GameActivity
 {
+	@Override
+	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
+	{
+		gallery.setAdapter(new ImageAdapter(this));
+		super.onActivityResult(_requestCode, _resultCode, _data);
+	}
+
 	private static int[] LEVEL_INDICATOR_RESOURCES = { R.id.indicator1, R.id.indicator2, R.id.indicator3, R.id.indicator4, R.id.indicator5, R.id.indicator6, R.id.indicator7, R.id.indicator8 };
 
 	Gallery gallery;
@@ -37,14 +46,18 @@ public class LevelChooserActivity extends GameActivity
 
 		gallery = (Gallery) findViewById(R.id.levelgallery);
 
-		gallery.onFling(null, null, 30, 0);
-
 		gallery.setAdapter(new ImageAdapter(this));
 
 		gallery.setOnItemClickListener(new OnItemClickListener()
 		{
 			public void onItemClick(AdapterView<?> _parent, View _v, int _position, long _id)
 			{
+				if (_position > DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
+				{
+					Toast.makeText(LevelChooserActivity.this, LevelChooserActivity.this.getString(R.string.error_inactive_level), Toast.LENGTH_SHORT).show();
+					return;
+				}
+
 				// Prepara as settings para o jogo
 				DebugSettings.BLUETOOTH_ADAPTER = null;
 				DebugSettings.START_ANDROID_AS_SERVER = false;
@@ -96,8 +109,10 @@ public class LevelChooserActivity extends GameActivity
 		private Context mContext;
 
 		// Adding images.
-		private Integer[] mImgId = { R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2,
-				R.drawable.placeholder, R.drawable.placeholder2 };
+		private Integer[] mImgIdActive = { R.drawable.tumb_level1, R.drawable.tumb_level2, R.drawable.tumb_level3, R.drawable.tumb_level4, R.drawable.tumb_level5, R.drawable.tumb_level6,
+				R.drawable.tumb_level7, R.drawable.tumb_level8 };
+		private Integer[] mImgIdInactive = { R.drawable.tumb_ina_level1, R.drawable.tumb_ina_level2, R.drawable.tumb_ina_level3, R.drawable.tumb_ina_level4, R.drawable.tumb_ina_level5,
+				R.drawable.tumb_ina_level6, R.drawable.tumb_ina_level7, R.drawable.tumb_ina_level8 };
 
 		public ImageAdapter(Context c)
 		{
@@ -109,7 +124,7 @@ public class LevelChooserActivity extends GameActivity
 
 		public int getCount()
 		{
-			return mImgId.length;
+			return mImgIdActive.length;
 		}
 
 		public Object getItem(int position)
@@ -128,7 +143,11 @@ public class LevelChooserActivity extends GameActivity
 			{
 				ImageView iv = new ImageView(mContext);
 				iv.setBackgroundResource(mGalleryItemBackground);
-				iv.setImageResource(mImgId[position]);
+				if (position <= DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
+					iv.setImageResource(mImgIdActive[position]);
+				else
+					iv.setImageResource(mImgIdInactive[position]);
+
 				return iv;
 			}
 

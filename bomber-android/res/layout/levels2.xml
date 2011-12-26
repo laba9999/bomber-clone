@@ -73,4 +73,16 @@
 		    
 		</LinearLayout>
 
+		<TextView
+		    android:id="@+id/textMultiplayerTitle"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="false"
+		    android:layout_alignParentTop="true"
+		    android:text="@string/level_choose"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:textColor="#000000"
+		    android:textSize="30sp"
+		    android:textStyle="bold" android:layout_centerHorizontal="true"/>
+
 	</RelativeLayout>

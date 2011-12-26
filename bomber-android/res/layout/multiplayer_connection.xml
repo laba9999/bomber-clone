@@ -234,7 +234,6 @@
         android:layout_alignBaseline="@+id/textMultiplayerTitle"
         android:layout_alignBottom="@+id/textMultiplayerTitle"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
         android:background="@drawable/menu_button"
         android:onClick="onContinueButton"
         android:text="@string/next"

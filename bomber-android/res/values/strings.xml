@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <resources>
+
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
     <string name="arcade">Arcade</string>
@@ -10,6 +10,7 @@
     <string name="multiplayer">Multiplayer</string>
     <string name="top">Top</string>
     <string name="achievements">Achievements</string>
+    <string name="level_choose">Level Selection</string>
     <string name="help">\?</string>
     <string name="wifi">Wifi</string>
     <string name="bluetooth">Bluetooth</string>
@@ -32,6 +33,7 @@
     <string name="port">Port:</string>
     <string name="error_wificonnection">Please connect to a network!</string>
     <string name="error_bluetoothconnection">Please turn on Bluetooth!</string>
+    <string name="error_inactive_level">You haven\'t unlocked this level yet.</string>
     <string name="build_explosion">Explosion size</string>
     <string name="build_bombs">Simultaneous bombs</string>
     <string name="build_speed">Speed</string>
@@ -47,6 +49,7 @@
     <string name="no">No</string>
     <string name="username">Username:</string>
     <string name="help_title">Help</string>
+
 	<string name="help_subtitle_moving">Moving</string>
 	<string name="help_description_moving">You can use the directional buttons on the bottom left corner of the screen to move your character.</string>
 	<string name="help_subtitle_bombs">Bombs</string>
@@ -65,17 +68,17 @@
 	<string name="game_highscore">HIGH SCORE</string>
 	<string name="game_time">TIME</string>
 	<string name="game_final_score">FINAL SCORE</string>
-	<string name="game_loading">Loading...</string>
+	<string name="game_loading">Loading..</string>
 	<string name="game_starts_in">Starts in&#160;</string>
-	<string name="game_waiting_clients">Waiting for players...&#160;</string>
+	<string name="game_waiting_clients">Waiting for players..&#160;</string>
 	<string name="game_connect_to">Connect to -&#160;</string>
-	<string name="game_connecting">Connecting...&#160;</string>
+	<string name="game_connecting">Connecting..&#160;</string>
 	<string name="game_score">SCORE:&#160;</string>
 	<string name="game_round">Round&#160;</string>
 	<string name="game_starts_in_lowercase">starts in&#160;</string>
-	<string name="game_no_suficient_clients">No sufficient players...</string>
-	<string name="game_error_connecting">Error connecting...</string>
-	<string name="game_lost_client">Lost player...</string>
-	<string name="game_lost_server">Lost server...</string>
-	
+	<string name="game_no_suficient_clients">No sufficient players..</string>
+	<string name="game_error_connecting">Error connecting..</string>
+	<string name="game_lost_client">Lost player..</string>
+	<string name="game_lost_server">Lost server..</string>
+
 </resources>

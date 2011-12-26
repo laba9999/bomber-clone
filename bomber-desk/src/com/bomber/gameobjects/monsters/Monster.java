@@ -148,20 +148,23 @@ public class Monster extends KillableObject {
 			mWorld.spawnOverlayingPoints(pointsString, mPosition.x, mPosition.y + Tile.TILE_SIZE_HALF);
 			mWorld.getLocalPlayer().mPoints += points;
 			Achievements.mNumberMonsterKills++;
+			Achievements.saveFile();
 		}
 
 		mDirection = Directions.NONE;
 
 		// Broadcast da kill
-		Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
-		tmpMessage.messageType = MessageType.MONSTER;
-		tmpMessage.eventType = EventType.KILL;
-		tmpMessage.valVector2_0.set(mPosition);
-		tmpMessage.valShort = _killerId;
-		tmpMessage.UUID = mUUID;
+		if (Game.mIsPVPGame)
+		{
+			Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
+			tmpMessage.messageType = MessageType.MONSTER;
+			tmpMessage.eventType = EventType.KILL;
+			tmpMessage.valVector2_0.set(mPosition);
+			tmpMessage.valShort = _killerId;
+			tmpMessage.UUID = mUUID;
 
-		Game.mRemoteConnections.broadcast(tmpMessage);
-		
+			Game.mRemoteConnections.broadcast(tmpMessage);
+		}
 		return false;
 	}
 

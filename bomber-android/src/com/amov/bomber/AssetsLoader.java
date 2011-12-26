@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.bomber.common.assets.SoundAssets;
 
@@ -14,7 +15,7 @@ public class AssetsLoader extends AndroidApplication
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
 		SoundAssets.mIsloaded = false;
-		System.exit(-1);
+		System.exit(0);
 	}
 
 	@Override
