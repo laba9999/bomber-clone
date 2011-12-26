@@ -7,7 +7,7 @@ import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
 
 public class GameStateLoading extends GameState {
-
+	
 	public GameStateLoading(Game _gameScreen) {
 		super(_gameScreen);
 
@@ -24,7 +24,7 @@ public class GameStateLoading extends GameState {
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 		BitmapFont font = GfxAssets.mFont;
-
+		mBatcher.draw(GfxAssets.mScreens.get("background_gradient_grey"), 0, 0);
 		font.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
 	}
 
