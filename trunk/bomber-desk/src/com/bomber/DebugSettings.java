@@ -27,7 +27,7 @@ public class DebugSettings {
 	public static String LEVEL_TO_LOAD = "level1";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.DEADMATCH;
+	public static short GAME_TYPE = GameTypeHandler.CTF;
 	public static SharedPreferences GAME_PREFS = null;
 	// Players
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;

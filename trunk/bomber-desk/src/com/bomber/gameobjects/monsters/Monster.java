@@ -11,6 +11,9 @@ import com.bomber.common.Directions;
 import com.bomber.gameobjects.KillableObject;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
+import com.bomber.remote.EventType;
+import com.bomber.remote.Message;
+import com.bomber.remote.MessageType;
 import com.bomber.world.GameWorld;
 
 public class Monster extends KillableObject {
@@ -149,6 +152,16 @@ public class Monster extends KillableObject {
 
 		mDirection = Directions.NONE;
 
+		// Broadcast da kill
+		Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
+		tmpMessage.messageType = MessageType.MONSTER;
+		tmpMessage.eventType = EventType.KILL;
+		tmpMessage.valVector2_0.set(mPosition);
+		tmpMessage.valShort = _killerId;
+		tmpMessage.UUID = mUUID;
+
+		Game.mRemoteConnections.broadcast(tmpMessage);
+		
 		return false;
 	}
 

@@ -80,7 +80,7 @@ public class SoundAssets {
 
 	public static void resume()
 	{
-		if (mMusicPlaying == null)
+		if (mMusicPlaying == null || !mIsSoundActive)
 			return;
 
 		mMusicPlaying.play();
