@@ -13,7 +13,7 @@ public class DebugSettings {
 	// Remote
 	public static boolean START_ANDROID_AS_SERVER = false;
 	public static boolean START_DESKTOP_AS_SERVER = true;
-	public static short REMOTE_PROTOCOL_IN_USE = Protocols.UDP;
+	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
 	public static String REMOTE_SERVER_ADDRESS = "192.168.1.110:50005";
 
 	// Alterar este valor não tem efeito nenhum

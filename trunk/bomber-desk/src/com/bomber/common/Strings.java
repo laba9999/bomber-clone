@@ -8,17 +8,17 @@ public class Strings {
 		"Connect to - ",
 		"Connecting... ",
 		"Error connecting...",
-		"FINAL SCORE",
-		"HIGH SCORE",
+		"PONTUAÇÃO FINAL",
+		"MELHOR PONTUAÇÃO",
 		"Loading...",
 		"Lost client...",
 		"Lost server...",
 		"No suficient clients...",
 		"Round ",
-		"SCORE: ",
+		"PONTOS: ",
 		"Starts in ",
 		"starts in ",
-		"TIME",
+		"TEMPO",
 		"Waiting for clients... "
 	};
 
