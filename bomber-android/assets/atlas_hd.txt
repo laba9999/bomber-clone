@@ -37,6 +37,13 @@ pause_screen
   orig: 256, 512
   offset: 0, 0
   index: -1
+waiting_animation_
+  rotate: false
+  xy: 433, 746
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 0
 sound_
   rotate: false
   xy: 109, 888
@@ -44,6 +51,13 @@ sound_
   orig: 105, 105
   offset: 0, 0
   index: 0
+waiting_animation_
+  rotate: false
+  xy: 420, 908
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 1
 sound_
   rotate: false
   xy: 2, 888
@@ -51,6 +65,34 @@ sound_
   orig: 105, 105
   offset: 0, 0
   index: 1
+waiting_animation_
+  rotate: false
+  xy: 420, 854
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 2
+waiting_animation_
+  rotate: false
+  xy: 379, 800
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 3
+waiting_animation_
+  rotate: false
+  xy: 379, 746
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 4
+waiting_animation_
+  rotate: false
+  xy: 366, 883
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 5
 gameover
   rotate: false
   xy: 260, 374
