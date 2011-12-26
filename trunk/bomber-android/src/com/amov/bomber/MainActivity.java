@@ -24,7 +24,7 @@ public class MainActivity extends GameActivity
 		setContentView(R.layout.main);
 
 		// Lê os settings
-		DebugSettings.loadPreferences(getPreferences(0));
+		DebugSettings.loadPreferences(getSharedPreferences("super_prefs", 0));
 		DebugSettings.PLAYER_NAME = DebugSettings.GAME_PREFS.getString("playerName", null);
 
 		// bota som!
@@ -35,46 +35,6 @@ public class MainActivity extends GameActivity
 		loadStrings();
 	}
 
-	private void loadAchievements()
-	{
-		
-		File f = null;
-		Scanner scanner = null;
-		String[] achievementsInfo = new String[Achievements.NUMBER_OF_ACHIEVEMENTS];
-
-
-		try
-		{
-			f = new File(Environment.getExternalStorageDirectory() + "/" + Achievements.FILE_PATH);
-			scanner = new Scanner(f);
-
-			short i = 0;
-			while (scanner.hasNextLine())
-			{
-				String nextLine = scanner.nextLine();
-				if (nextLine.length() > 0 && nextLine.charAt(0) != '#')
-					achievementsInfo[i++] = nextLine;
-			}
-
-			Achievements.mNumberMonsterKills = Integer.parseInt(achievementsInfo[0]);
-			Achievements.mNumberPlayersKills = Integer.parseInt(achievementsInfo[1]);
-			Achievements.mNumberCTFWins = Integer.parseInt(achievementsInfo[2]);
-			Achievements.mNumberDMWins = Integer.parseInt(achievementsInfo[3]);
-			Achievements.mTotalTimePlayed = Long.parseLong(achievementsInfo[4]);
-			Achievements.mHasCompletedCampaign = Boolean.parseBoolean(achievementsInfo[5]);
-
-		} catch (Throwable t)
-		{
-			t.printStackTrace();
-			Achievements.reset();
-		} finally
-		{
-			if (scanner != null)
-			{
-				scanner.close();
-			}
-		}
-	}
 	
 	private void loadStrings()
 	{

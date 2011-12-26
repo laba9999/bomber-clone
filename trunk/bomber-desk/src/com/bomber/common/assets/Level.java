@@ -13,7 +13,11 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
+import android.content.SharedPreferences;
+
 import com.badlogic.gdx.Gdx;
+import com.bomber.DebugSettings;
+import com.bomber.Game;
 import com.bomber.gameobjects.Tile;
 import com.bomber.world.GameWorld;
 import com.bomber.world.LevelInfo;
@@ -47,6 +51,17 @@ public class Level {
 		mNumberOfPlayers = _howManyPlayers;
 		mInfo.mCurrentLevelName = _levelID;
 
+		if (!Game.mIsPVPGame)
+		{
+			Integer id = Integer.valueOf(_levelID.substring(_levelID.length() - 1)) - 1;
+
+			if (id > DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
+			{
+				SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
+				edit.putInt("campaignLevelCompleted", id);
+				edit.commit();
+			}
+		}
 		try
 		{
 			// setup parser

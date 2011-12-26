@@ -42,10 +42,12 @@ public class GameTypeCampaign extends GameTypeHandler {
 			if (portal != null && portal.getBoundingBox().contains(x, y))
 			{
 				ret = true;
+				
 				//TODO:Testar
-				if(Level.mInfo.mNextLevelName.equals(""))
+				if(Level.mInfo.mNextLevelName.equals("none"))
 				{
 					Achievements.mHasCompletedCampaign = true;
+					Achievements.saveFile();
 				}
 			}
 		}
