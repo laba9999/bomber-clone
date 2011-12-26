@@ -70,6 +70,12 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		SoundAssets.playMusic("intro", true, 1.0f);
 		finishActivity(0);
 		this.exit();
+		
+		Intent myIntent = new Intent(this, MainActivity.class);		
+		// proibe a animação na transição entre activities
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(myIntent);
 	}
 
 	public void showHelpActivity()
