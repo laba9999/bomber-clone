@@ -177,6 +177,18 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 
 	private void drawFinalResults()
 	{
+
+		if (mResult == 0 || (mResult == 1 && mTeam1.mPlayers.contains(mGameWorld.getLocalPlayer())) || (mResult == 2 && mTeam2.mPlayers.contains(mGameWorld.getLocalPlayer())))
+		{
+			mBatcher.draw(GfxAssets.mScreens.get("background_gradient_green"), 0, 0);
+			GfxAssets.mFont.draw(mBatcher, "GANHASTE!!", 320, 60);
+		}
+		else
+		{
+			mBatcher.draw(GfxAssets.mScreens.get("background_gradient_red"), 0, 0);
+			GfxAssets.mFont.draw(mBatcher, "PERDESTE..", 320, 60);
+		}
+		
 		// Troféu grande centrado no ecrã
 		mBatcher.draw(GfxAssets.mTrophy[1], 363, 160);
 
@@ -200,10 +212,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 			startX += 80;
 		}
 
-		if (mResult == 0 || (mResult == 1 && mTeam1.mPlayers.contains(mGameWorld.getLocalPlayer())) || (mResult == 2 && mTeam2.mPlayers.contains(mGameWorld.getLocalPlayer())))
-			GfxAssets.mFont.draw(mBatcher, "GANHASTE!!", 320, 60);
-		else
-			GfxAssets.mFont.draw(mBatcher, "PERDESTE..", 320, 60);
+
 	}
 
 	@Override

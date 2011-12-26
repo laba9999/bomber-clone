@@ -32,7 +32,8 @@ public class GameStateServerConnectionError extends GameState {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-
+		
+		mBatcher.draw(GfxAssets.mScreens.get("background_gradient_red"), 0, 0);
 		BitmapFont font = GfxAssets.mFont;
 		font.draw(mBatcher, mMessage, 290, 250);
 

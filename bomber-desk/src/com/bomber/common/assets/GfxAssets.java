@@ -47,7 +47,9 @@ public class GfxAssets {
 	private static final float G_MONSTER_DIE_FRAME_DURATION = 30f;
 	private static final short G_MONSTER_DIE_FRAME_COUNT = 6;
 	private static final short G_MONSTER_WALK_FRAME_COUNT = 3;
-
+	
+	private static final float WAITING_FRAME_DURATION = 8f;
+	
 	private static final String ATLAS_FILE = "atlas.txt";
 	private static final String ATLAS_HD_FILE = "atlas_hd.txt";
 
@@ -89,6 +91,9 @@ public class GfxAssets {
 	public static HashMap<String, TextureRegion> mPauseButtons;
 
 	public static BitmapFont mFont;
+
+	public static Animation mWaitingAnimation;
+	
 
 	public static void loadAssets()
 	{
@@ -399,6 +404,10 @@ public class GfxAssets {
 		mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
 		mScreens.put("gameover", atlasHD.findRegion("gameover"));
 
+		mScreens.put("background_gradient_red", atlasHD.findRegion("background_gradient_red"));
+		mScreens.put("background_gradient_green", atlasHD.findRegion("background_gradient_green"));
+		mScreens.put("background_gradient_grey", atlasHD.findRegion("background_gradient_grey"));
+		
 		mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
 
 		mTrophy[0] = atlasHD.findRegion("trophy");
@@ -408,6 +417,8 @@ public class GfxAssets {
 		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
 		mFont.setColor(Color.WHITE);
 		mFont.setScale(1);
+		
+		mWaitingAnimation = new Animation(WAITING_FRAME_DURATION, atlasHD.findRegions("waiting_animation_"));
 
 	}
 
