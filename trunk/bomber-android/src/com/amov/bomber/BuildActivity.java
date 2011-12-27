@@ -58,6 +58,8 @@ public class BuildActivity extends GameActivity
 		mEditUsername.setFilters(new InputFilter[] { maxLengthFilter });
 		mEditUsername.setText(DebugSettings.PLAYER_NAME);
 
+		mTextAvailablePoints = (TextView) findViewById(R.id.textBuildAvailablePointsValue);
+
 		// Lê a build das preferências
 		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildExplosionSize", 0); i++)
 		{
@@ -76,7 +78,6 @@ public class BuildActivity extends GameActivity
 			mAvailablePoints--;
 		}
 
-		mTextAvailablePoints = (TextView) findViewById(R.id.textBuildAvailablePointsValue);
 		mTextAvailablePoints.setText(mAvailablePoints.toString());
 	}
 
@@ -139,7 +140,9 @@ public class BuildActivity extends GameActivity
 		edit.putString("playerName", DebugSettings.PLAYER_NAME);
 		edit.commit();
 
-		DebugSettings.GAME_TYPE = GameTypeHandler.CTF;
+		if (DebugSettings.GAME_TYPE == 0)
+			DebugSettings.GAME_TYPE = GameTypeHandler.CTF;
+		
 		launchActivity(AndroidGame.class);
 	}
 

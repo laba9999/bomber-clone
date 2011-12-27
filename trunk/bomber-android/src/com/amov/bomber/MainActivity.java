@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.bomber.DebugSettings;
 import com.bomber.common.Achievements;
 import com.bomber.common.Settings;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.SoundAssets;
+import com.bomber.gametypes.GameTypeHandler;
 
 
 public class MainActivity extends GameActivity
@@ -27,6 +29,8 @@ public class MainActivity extends GameActivity
 		if(Settings.isSoundOn)
 			SoundAssets.playMusic("intro", true, 0.6f);
 
+		DebugSettings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
+		
 		Achievements.loadFile();
 		loadStrings();
 		

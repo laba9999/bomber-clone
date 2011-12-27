@@ -84,6 +84,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 	public void goBackToWithoutExiting()
 	{
 		Intent myIntent = new Intent(this, AssetsLoader.class);		
+
 		// proibe a animação na transição entre activities
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

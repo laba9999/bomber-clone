@@ -14,8 +14,9 @@ public class DebugSettings {
 	// Remote
 	public static boolean START_ANDROID_AS_SERVER = false;
 	public static boolean START_DESKTOP_AS_SERVER = false;
-	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
-	public static String REMOTE_SERVER_ADDRESS = "192.168.43.1:50005";
+	public static short REMOTE_PROTOCOL_IN_USE = Protocols.UDP;
+	public static String REMOTE_SERVER_ADDRESS = "192.168.1.111:50005";
+
 
 	// Alterar este valor não tem efeito nenhum
 	public static String LOCAL_SERVER_ADDRESS = "192.168.1.110:50005";
@@ -62,10 +63,22 @@ public class DebugSettings {
 			editor.putString("playerName", "Bomber");
 			editor.putInt("campaignLevelCompleted", 0);
 
+			editor.putLong("totalPoints", 0);
+			
 			editor.putInt("buildExplosionSize", 0);
 			editor.putInt("buildBombCount", 0);
 			editor.putInt("buildSpeed", 0);
 			editor.commit();
 		}
+	}
+	
+	public static void addPlayerPoints(int _points)
+	{
+		long totalPoints = GAME_PREFS.getLong("totalPoints", 0);
+		totalPoints += _points;
+		
+		SharedPreferences.Editor edit = GAME_PREFS.edit();
+		edit.putLong("totalPoints", totalPoints);
+		edit.commit();
 	}
 }

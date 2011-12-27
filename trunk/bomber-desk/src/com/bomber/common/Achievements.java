@@ -138,9 +138,7 @@ public class Achievements {
 				try
 				{
 					inputStream.close();
-				} catch (IOException e)
-				{
-				}
+				} catch (IOException e){}
 			}
 		}
 	}
