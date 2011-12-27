@@ -1,6 +1,7 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
@@ -23,12 +24,15 @@ public class GameStateLevelCompleted extends GameState {
 		super(_gameScreen);
 
 		SoundAssets.stop();
-		
+
 		mEndScoreAnimation = false;
 		mInput = new InputLevelCompletedState(this);
 
 		Player localPlayer = mGameWorld.getLocalPlayer();
 		mPointsDisplayed = localPlayer.mPoints - mGameWorld.getLocalPlayer().mStartLevelPoints;
+
+		// Adiciona pontos aos pontos totais
+		DebugSettings.addPlayerPoints(mPointsDisplayed);
 
 		// atribui nova pontuação ao jogador pelo extra do tempo restante
 		localPlayer.mPoints += mGameWorld.mClock.getRemainingSeconds() / 100;
@@ -100,17 +104,15 @@ public class GameStateLevelCompleted extends GameState {
 		font.setScale(1.8f);
 		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);
 		font.setScale(1);
-		
-		
-		float valueX = findXPositionForValues();
-		
-		font.draw(mBatcher, Strings.mStrings.get("highscore"), START_X, 330);		
-		font.draw(mBatcher, mHighScoreDisplayed.toString(), valueX, 330);
 
+		float valueX = findXPositionForValues();
+
+		font.draw(mBatcher, Strings.mStrings.get("highscore"), START_X, 330);
+		font.draw(mBatcher, mHighScoreDisplayed.toString(), valueX, 330);
 
 		font.draw(mBatcher, Strings.mStrings.get("time"), START_X, 295);
 		font.draw(mBatcher, mGameWorld.mClock.toString(), valueX, 295);
-		
+
 		font.draw(mBatcher, Strings.mStrings.get("final_score"), START_X, 260);
 		font.draw(mBatcher, mPointsDisplayed.toString(), valueX, 260);
 
@@ -125,25 +127,25 @@ public class GameStateLevelCompleted extends GameState {
 	{
 		float ret;
 		BitmapFont font = GfxAssets.mFont;
-		
+
 		String str = Strings.mStrings.get("highscore");
 		ret = START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE;
-		
+
 		str = Strings.mStrings.get("time");
-		if(ret < START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE)
+		if (ret < START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE)
 		{
 			ret = START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE;
 		}
-		
+
 		str = Strings.mStrings.get("final_score");
-		if(ret < START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE)
+		if (ret < START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE)
 		{
 			ret = START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE;
 		}
-		
+
 		return ret;
 	}
-	
+
 	@Override
 	protected void onFinish()
 	{
