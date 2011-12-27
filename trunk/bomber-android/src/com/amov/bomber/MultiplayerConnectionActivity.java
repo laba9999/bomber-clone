@@ -7,7 +7,6 @@ import java.util.Enumeration;
 import java.util.Set;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;

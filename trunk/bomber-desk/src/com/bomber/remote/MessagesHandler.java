@@ -92,7 +92,7 @@ public class MessagesHandler {
 			break;
 
 		case EventType.READY:
-			mRemoteConnections.mGameServer.mPlayersConfirmedCount++;
+			RemoteConnections.mGameServer.mPlayersConfirmedCount++;
 			break;
 		}
 	}

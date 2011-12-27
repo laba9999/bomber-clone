@@ -3,11 +3,9 @@ package com.amov.bomber;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager.LayoutParams;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.bomber.AndroidBridge;
 import com.bomber.DebugSettings;

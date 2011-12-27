@@ -7,7 +7,6 @@ import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 import java.nio.ByteBuffer;
 import java.security.InvalidParameterException;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.bomber.Game;

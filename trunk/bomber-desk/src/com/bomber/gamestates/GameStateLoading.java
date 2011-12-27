@@ -23,7 +23,7 @@ public class GameStateLoading extends GameState {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		BitmapFont font = GfxAssets.mFont;
+		BitmapFont font = GfxAssets.mGenericFont;
 		mBatcher.draw(GfxAssets.mScreens.get("background_gradient_grey"), 0, 0);
 		font.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
 	}

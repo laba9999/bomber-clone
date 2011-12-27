@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -90,7 +89,8 @@ public class GfxAssets {
 
 	public static HashMap<String, TextureRegion> mPauseButtons;
 
-	public static BitmapFont mFont;
+	public static BitmapFont mGenericFont;
+	public static BitmapFont mNamesFont;
 
 	public static Animation mWaitingAnimation;
 	
@@ -414,9 +414,9 @@ public class GfxAssets {
 		mTrophy[1] = mAtlas.findRegion("trophyBig");
 		mTrophy[2] = mAtlas.findRegion("trophySmall");
 
-		mFont = new BitmapFont(Gdx.files.internal("white_22.fnt"), false);
-		mFont.setColor(Color.WHITE);
-		mFont.setScale(1);
+		mGenericFont = new BitmapFont(Gdx.files.internal("teste_22.fnt"), false);
+		mNamesFont = new BitmapFont(Gdx.files.internal("name_font.fnt"), false);
+
 		
 		mWaitingAnimation = new Animation(WAITING_FRAME_DURATION, atlasHD.findRegions("waiting_animation_"));
 
@@ -438,23 +438,29 @@ public class GfxAssets {
 		mDestroyableTiles.clear();
 	}
 
-	public static class DarkGlass {
-		private static Pixmap mPixmap = null;
+	public static class Pixmaps {
+		private static Pixmap mPixmapDarkGlass = null;
+		private static Pixmap mPixmapNamePlate = null;
 		private static Texture mDarkGlass = null;
+		private static Texture mNamePlate = null;
 
 		public static void dispose()
 		{
-			if (mPixmap == null)
+			if (mPixmapDarkGlass == null)
 				return;
 
-			mPixmap.dispose();
+			mPixmapDarkGlass.dispose();
+			mPixmapNamePlate.dispose();
 			mDarkGlass.dispose();
+			mNamePlate.dispose();
 
-			mPixmap = null;
+			mPixmapDarkGlass = null;
+			mPixmapNamePlate = null;
 			mDarkGlass = null;
+			mNamePlate = null;
 		}
 
-		public static Texture get()
+		public static Texture getDarkGlass()
 		{
 			if (mDarkGlass != null)
 				return mDarkGlass;
@@ -464,17 +470,37 @@ public class GfxAssets {
 			return mDarkGlass;
 		}
 
+		public static Texture getNamePlate()
+		{
+			if (mNamePlate != null)
+				return mNamePlate;
+
+			create();
+
+			return mNamePlate;
+		}
+		
 		private static void create()
 		{
-			mPixmap = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
+			mPixmapDarkGlass = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
 
 			// Cria o vidro escuro
-			mPixmap.setColor(0, 0, 0, 0.8f);
-			mPixmap.fill();
+			mPixmapDarkGlass.setColor(0, 0, 0, 0.8f);
+			mPixmapDarkGlass.fill();
 
-			mDarkGlass = new Texture(mPixmap);
-			mDarkGlass.draw(mPixmap, 0, 0);
+			mDarkGlass = new Texture(mPixmapDarkGlass);
+			mDarkGlass.draw(mPixmapDarkGlass, 0, 0);
 			mDarkGlass.bind();
+			
+			
+			// Cria os nameplates
+			mPixmapNamePlate= new Pixmap(256, 16, Pixmap.Format.RGBA4444);
+			mPixmapNamePlate.setColor(0, 0, 0, 0.8f);
+			mPixmapNamePlate.fill();
+
+			mNamePlate = new Texture(mPixmapNamePlate);
+			mNamePlate.draw(mPixmapNamePlate, 0, 0);
+			mNamePlate.bind();
 		}
 	}
 }

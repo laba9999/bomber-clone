@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-
+<resources xml:space="preserve">
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
     <string name="arcade">Arcade</string>
@@ -68,17 +67,20 @@
     <string name="help_description_dm">Este é um modo multi-jogador onde simplesmente tem de matar todos os seus oponentes. Pode ainda jogar em equipa contra equipa.</string>
     <string name="symbol_lesser">&lt;</string>
     <string name="symbol_greater">></string>
+    
+        <string name="game_won">GANHASTE!!!</string>
+    <string name="game_lost">PERDESTE...</string>
     <string name="game_highscore">MELHOR PONTUAÇÃO</string>
     <string name="game_time">TEMPO</string>
     <string name="game_final_score">PONTUAÇÃO FINAL</string>
     <string name="game_loading">A carregar..</string>
-    <string name="game_starts_in">Inicio em </string>
+    <string name="game_starts_in">Inicio em\u0020</string>
     <string name="game_waiting_clients">A esperar por jogadores.. </string>
-    <string name="game_connect_to">Ligar a - </string>
+    <string name="game_connect_to">Ligar a -\u0020</string>
     <string name="game_connecting">A ligar.. </string>
-    <string name="game_score">PONTOS: </string>
-    <string name="game_round">Ronda </string>
-    <string name="game_starts_in_lowercase">inicia em </string>
+    <string name="game_score">PONTOS:\u0020</string>
+    <string name="game_round">Ronda\u0020</string>
+    <string name="game_starts_in_lowercase">inicia em\u0020</string>
     <string name="game_no_suficient_clients">Sem jogadores suficientes..</string>
     <string name="game_error_connecting">Erro ao ligar..</string>
     <string name="game_lost_client">Jogador perdido..</string>

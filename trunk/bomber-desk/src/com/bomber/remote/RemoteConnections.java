@@ -17,7 +17,7 @@ import com.bomber.remote.udp.UDPLocalServer;
 
 public class RemoteConnections {
 
-	public GameServer mGameServer = null;
+	public static GameServer mGameServer = null;
 	private ArrayList<Connection> mPlayers;
 	private LocalServer mLocalServer = null;
 
@@ -41,6 +41,7 @@ public class RemoteConnections {
 
 		mIsGameServer = _isGameServer;
 
+		mGameServer = null;
 		if (mIsGameServer)
 			mGameServer = new GameServer(null, mPlayers);
 	}

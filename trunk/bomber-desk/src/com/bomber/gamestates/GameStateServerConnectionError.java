@@ -3,6 +3,7 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.bomber.Game;
 import com.bomber.common.assets.GfxAssets;
 
@@ -32,10 +33,12 @@ public class GameStateServerConnectionError extends GameState {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		
+
 		mBatcher.draw(GfxAssets.mScreens.get("background_gradient_red"), 0, 0);
-		BitmapFont font = GfxAssets.mFont;
-		font.draw(mBatcher, mMessage, 290, 250);
+		BitmapFont font = GfxAssets.mGenericFont;
+
+		TextBounds tx = font.getBounds(mMessage);
+		font.draw(mBatcher, mMessage, 400 - tx.width / 2, 250);
 
 	}
 

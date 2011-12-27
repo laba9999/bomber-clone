@@ -74,7 +74,7 @@ public class GameStatePlaying extends GameState {
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 
 		// Cache
-		BitmapFont font = GfxAssets.mFont;
+		BitmapFont font = GfxAssets.mGenericFont;
 		Player player = mGameWorld.getLocalPlayer();
 
 		if (mGameWorld.getLocalPlayer().mAcceptPlayerInput)
@@ -114,16 +114,16 @@ public class GameStatePlaying extends GameState {
 		Integer value;
 
 		value = (int) _player.mLives;
-		_font.draw(mBatcher, value.toString(), 312, 26);
+		_font.draw(mBatcher, value.toString(), 320, 26);
 
 		value = (int) _player.mBombExplosionSize;
-		_font.draw(mBatcher, value.toString(), 380, 26);
+		_font.draw(mBatcher, value.toString(), 390, 26);
 
 		value = (int) _player.mMaxSimultaneousBombs;
-		_font.draw(mBatcher, value.toString(), 453, 26);
+		_font.draw(mBatcher, value.toString(), 465, 26);
 
 		value = (int) _player.mSpeedFactor;
-		_font.draw(mBatcher, value.toString(), 523, 26);
+		_font.draw(mBatcher, value.toString(), 535, 26);
 	}
 
 	private void drawActiveBonus(Player _player)

@@ -7,7 +7,6 @@ import java.util.Stack;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.common.Strings;
-import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
 
@@ -57,6 +56,14 @@ public class GameServer {
 
 		if (Game.mNumberPlayers / 2 > 1)
 			mAvailableTeams.push((short) 0);
+	}
+
+	public short getRTT()
+	{
+		if (mConnection == null)
+			return 0;
+		else
+			return mConnection.mRTT;
 	}
 
 	public void releaseId(short _id)
@@ -283,7 +290,7 @@ public class GameServer {
 		GameStateLoadingPVP.mServerAuthorizedStart = true;
 		Game.mHasStarted = true;
 
-		//SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
+		// SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 	}
 
 	public void sendMessage(Message _msg)

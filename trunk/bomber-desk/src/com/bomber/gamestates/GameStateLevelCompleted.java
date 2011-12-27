@@ -96,11 +96,11 @@ public class GameStateLevelCompleted extends GameState {
 
 		// Desenha o vidro escuro
 		mBatcher.enableBlending();
-		mBatcher.draw(GfxAssets.DarkGlass.get(), 0, 0);
+		mBatcher.draw(GfxAssets.Pixmaps.getDarkGlass(), 0, 0);
 
 		mBatcher.draw(GfxAssets.mScreens.get("levelcompleted"), 125, 60);
 
-		BitmapFont font = GfxAssets.mFont;
+		BitmapFont font = GfxAssets.mGenericFont;
 		font.setScale(1.8f);
 		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);
 		font.setScale(1);
@@ -126,7 +126,7 @@ public class GameStateLevelCompleted extends GameState {
 	private float findXPositionForValues()
 	{
 		float ret;
-		BitmapFont font = GfxAssets.mFont;
+		BitmapFont font = GfxAssets.mGenericFont;
 
 		String str = Strings.mStrings.get("highscore");
 		ret = START_X + font.getBounds(str).width + INTERVAL_BETWEEN_TEXT_AND_VALUE;

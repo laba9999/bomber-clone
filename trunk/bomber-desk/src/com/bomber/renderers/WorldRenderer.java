@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.Game;
@@ -163,6 +164,7 @@ public class WorldRenderer {
 		for (Player p : mWorld.mPlayers)
 		{
 			Vector2 drawingPoint = p.drawingPoint();
+
 			drawingPoint.x += (Tile.TILE_SIZE - p.mCurrentFrame.getRegionWidth()) / 2;
 
 			// Verifica se é suposto apresentar o piscar da imunidade do spawn
@@ -184,7 +186,11 @@ public class WorldRenderer {
 
 			// Desenha o nome
 			if (Game.mIsPVPGame && p != mWorld.getLocalPlayer() && p.mName != null)
-				GfxAssets.mFont.draw(mBatch, p.mName, drawingPoint.x - 10, drawingPoint.y + 80);
+			{
+				TextBounds tx = GfxAssets.mNamesFont.getBounds(p.mName);
+				mBatch.draw(GfxAssets.Pixmaps.getNamePlate(), (p.mPosition.x - tx.width / 2)-5, drawingPoint.y + 55,tx.width+10, 16);
+				GfxAssets.mNamesFont.draw(mBatch, p.mName, p.mPosition.x - tx.width / 2, drawingPoint.y + 70);
+			}
 
 			// Desenha os efeitos
 			for (PlayerEffect ef : p.mEffects)
@@ -216,7 +222,7 @@ public class WorldRenderer {
 	private void renderOverlayingText()
 	{
 		// TODO: alterar font
-		BitmapFont font = GfxAssets.mFont;
+		BitmapFont font = GfxAssets.mGenericFont;
 
 		for (OverlayingText t : mWorld.mOverlayingPoints)
 		{

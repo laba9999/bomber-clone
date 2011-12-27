@@ -19,7 +19,9 @@ public class Strings {
 		"Starts in ",
 		"starts in ",
 		"TEMPO",
-		"Waiting for clients... "
+		"Waiting for clients...",
+		"YOU WON!!!",
+		"YOU LOST..."
 	};
 
 	
@@ -38,7 +40,9 @@ public class Strings {
 		"starts_in",
 		"starts_in_lowercase",
 		"time",
-		"waiting_clients"
+		"waiting_clients",
+		"won",
+		"lost"
 	};
 	
 	public static final int NUMBER_GAME_STRINGS = 15;
