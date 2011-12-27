@@ -2,7 +2,10 @@ package com.bomber;
 
 import java.util.Random;
 
+import android.util.Log;
+
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
@@ -65,7 +68,7 @@ public class Game implements ApplicationListener {
 	private MessagesHandler mMessagesHandler;
 	public static RemoteConnections mRemoteConnections;
 
-	private static AndroidBridge mMainActivity;
+	private static AndroidBridge mAndroidGameActivity;
 
 	public static String mLevelToLoad;
 
@@ -74,8 +77,17 @@ public class Game implements ApplicationListener {
 	private boolean mSentReadyToServer = false;
 
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
-		setGameType(_gameType);
+		mAndroidGameActivity = _bridge;
 
+		if(DebugSettings.LIMPAR_SARAMPO)
+		{
+			Log.d("LIMPAR SARAMPO", "LIMPAR SARAMPO");
+			_bridge.goBackToWithoutExiting();
+			System.exit(-1);
+		}
+		
+		setGameType(_gameType);
+		
 		Utils.resetUUID();
 
 		GameStateLoadingPVP.mFailedToConnectToServer = false;
@@ -84,7 +96,6 @@ public class Game implements ApplicationListener {
 		mRandomSeed = (int) System.currentTimeMillis();
 		mRandomGenerator = new Random(mRandomSeed);
 
-		mMainActivity = _bridge;
 		mHasStarted = false;
 		mRemoteConnections = null;
 		mLevelToLoad = _levelToLoad;
@@ -158,10 +169,10 @@ public class Game implements ApplicationListener {
 
 	public static void goBackToActivities()
 	{
-		if (mMainActivity != null)
+		if (mAndroidGameActivity != null)
 		{
 			SoundAssets.stop();
-			mMainActivity.goBackToMenu();
+			mAndroidGameActivity.goBackToMenu();
 		} else
 		{
 			System.exit(-1);
@@ -170,9 +181,9 @@ public class Game implements ApplicationListener {
 
 	public static void goToHelpActivity()
 	{
-		if (mMainActivity != null)
+		if (mAndroidGameActivity != null)
 		{
-			mMainActivity.showHelpActivity();
+			mAndroidGameActivity.showHelpActivity();
 		} else
 		{
 			System.exit(-1);

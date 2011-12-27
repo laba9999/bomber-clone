@@ -2,121 +2,156 @@ atlas_hd.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-trophy
-  rotate: false
-  xy: 310, 883
-  size: 54, 52
-  orig: 54, 52
-  offset: 0, 0
-  index: -1
-btn_pause
-  rotate: false
-  xy: 216, 888
-  size: 92, 72
-  orig: 92, 72
-  offset: 0, 0
-  index: -1
-clock_bar
-  rotate: false
-  xy: 554, 2
-  size: 425, 48
-  orig: 425, 48
-  offset: 0, 0
-  index: -1
-d-pad
-  rotate: false
-  xy: 812, 52
-  size: 197, 177
-  orig: 197, 177
-  offset: 0, 0
-  index: -1
-pause_screen
-  rotate: false
-  xy: 2, 374
-  size: 256, 512
-  orig: 256, 512
-  offset: 0, 0
-  index: -1
-waiting_animation_
-  rotate: false
-  xy: 433, 746
-  size: 52, 52
-  orig: 52, 52
-  offset: 0, 0
-  index: 0
 sound_
   rotate: false
-  xy: 109, 888
-  size: 105, 105
-  orig: 105, 105
-  offset: 0, 0
-  index: 0
-waiting_animation_
-  rotate: false
-  xy: 420, 908
-  size: 52, 52
-  orig: 52, 52
-  offset: 0, 0
-  index: 1
-sound_
-  rotate: false
-  xy: 2, 888
+  xy: 1936, 52
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 1
 waiting_animation_
   rotate: false
-  xy: 420, 854
-  size: 52, 52
-  orig: 52, 52
-  offset: 0, 0
-  index: 2
-waiting_animation_
-  rotate: false
-  xy: 379, 800
-  size: 52, 52
-  orig: 52, 52
-  offset: 0, 0
-  index: 3
-waiting_animation_
-  rotate: false
-  xy: 379, 746
+  xy: 1864, 322
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 4
 waiting_animation_
   rotate: false
-  xy: 366, 883
+  xy: 1864, 484
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 0
+btn_pause
+  rotate: false
+  xy: 1918, 403
+  size: 92, 72
+  orig: 92, 72
+  offset: 0, 0
+  index: -1
+background_gradient_red
+  rotate: false
+  xy: 2, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+background_gradient_green
+  rotate: false
+  xy: 2, 484
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+waiting_animation_
+  rotate: false
+  xy: 1864, 268
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 5
+waiting_animation_
+  rotate: false
+  xy: 1918, 477
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 1
+trophy
+  rotate: false
+  xy: 1864, 106
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+clock_bar
+  rotate: false
+  xy: 1606, 2
+  size: 425, 48
+  orig: 425, 48
+  offset: 0, 0
+  index: -1
+d-pad
+  rotate: false
+  xy: 1356, 484
+  size: 197, 177
+  orig: 197, 177
+  offset: 0, 0
+  index: -1
+waiting_animation_
+  rotate: false
+  xy: 1864, 430
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 2
 gameover
   rotate: false
-  xy: 260, 374
+  xy: 1356, 663
   size: 550, 370
   orig: 550, 370
   offset: 0, 0
   index: -1
+waiting_animation_
+  rotate: false
+  xy: 1864, 214
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 6
 btn_bomb
   rotate: false
-  xy: 260, 746
+  xy: 1920, 159
   size: 117, 135
   orig: 117, 135
   offset: 0, 0
   index: -1
 bonus_bar
   rotate: false
-  xy: 216, 962
+  xy: 1606, 52
   size: 328, 52
   orig: 328, 52
   offset: 0, 0
   index: -1
+sound_
+  rotate: false
+  xy: 1918, 296
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 0
+waiting_animation_
+  rotate: false
+  xy: 1864, 376
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 3
+waiting_animation_
+  rotate: false
+  xy: 1864, 160
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 7
+pause_screen
+  rotate: false
+  xy: 1606, 106
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+background_gradient_grey
+  rotate: false
+  xy: 804, 2
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
 level_completed
   rotate: false
-  xy: 2, 2
+  xy: 804, 484
   size: 550, 370
   orig: 550, 370
   offset: 0, 0

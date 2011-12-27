@@ -23,7 +23,10 @@
     <string name="server_options">Opções de Jogo</string>
     <string name="ok">Iniciar</string>
     <string name="cancel">Cancelar</string>
-    <string name="dialog_multiplayer_text">Seleccione o tipo de ligação e papel pretendidos.</string>
+    
+    <string name="dialog_multiplayer_title">Está a correr um hotspot?</string>
+    <string name="dialog_multiplayer_text">Não parece estar ligado a uma rede wifi mas foi possivel detectar o seu IP local. Isto normalmente significa que está a correr um hotspot no seu dispositivo. Caso não esteja, garanta que a sua ligação wifi está funcional antes de continuar! Se quiser usar o hotspot para este jogo, pode continuar normalmente.</string>
+	
     <string name="achievement_text_placeholder">Nome do Achievement</string>
     <string name="achievement_progress_placeholder">1 de 10</string>
     <string name="top_name">Nome</string>
@@ -47,8 +50,24 @@
     <string name="achievement_completed_campaign">Campanha completa</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
-
 	<string name="username">Nome do utilizador:</string>
+	
+	<string name="help_title">Ajuda</string>
+	<string name="help_subtitle_moving">Movimento</string>
+	<string name="help_description_moving">Pode usar os botões direccionais no canto inferior esquerdo do ecrã para mover o seu personagem.</string>
+	<string name="help_subtitle_bombs">Bombas</string>
+	<string name="help_description_bombs">Pode usar o botão circular no canto inferior direito do ecrã para colocar bombas perto do seu personagem.</string>
+	<string name="help_subtitle_bonus">Bonus</string>
+	<string name="help_description_bonus">No fundo do ecrã pode ver o estado geral dos bonus que apanhou. Esses bonus referem-se a: Vidas, Tamanho da explosão, Bombas Simultaneas e Velocidade. No canto superior direito do ecrã serão visiveis ainda os bonus temporários tais como: Escudo, Multiplicador de Pontos ou as Luvas de Empurrar Bombas.</string>
+	<string name="help_subtitle_campaign">Modo Campanha</string>
+	<string name="help_description_campaign">Este é um modo de um só jogador onde tem de procurar o Portal algures sob um objecto destrutível. Assim que matar todos os seus inimgos, o Portal começa a piscar indicando que pode ir até ele e prosseguir para o próximo nível.</string>
+	<string name="help_subtitle_ctf">Modo Catch The Flag</string>
+	<string name="help_description_ctf">Este é um modo multi-jogador onde deve defender a sua bandeira. Ao mesmo tempo, deve ir buscar a bandeira do seu inimigo para a sua base. Pode ainda jogar em equipa contra equipa.</string>
+	<string name="help_subtitle_dm">Modo DeathMatch</string>
+	<string name="help_description_dm">Este é um modo multi-jogador onde simplesmente tem de matar todos os seus oponentes. Pode ainda jogar em equipa contra equipa.</string>
+	<string name="symbol_lesser">&lt;</string>
+	<string name="symbol_greater">&gt;</string>
+	
 	
 	<string name="game_highscore">MELHOR PONTUAÇÃO</string>
 	<string name="game_time">TEMPO</string>

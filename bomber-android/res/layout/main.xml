@@ -5,7 +5,7 @@
     android:layout_height="wrap_content" android:background="@drawable/background_explode">
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonMainHelp"
         android:layout_width="60sp"
         android:layout_height="60sp"
         android:layout_alignParentBottom="true"
@@ -17,7 +17,7 @@
         android:textSize="30sp" />
 
     <Button
-        android:id="@+id/Button04"
+        android:id="@+id/buttonMainAchievements"
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:layout_alignParentBottom="true"
@@ -27,31 +27,31 @@
         android:textSize="24sp" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee" android:layout_margin="5sp"/>
     
     <Button
-        android:id="@+id/Button03"
+        android:id="@+id/buttonMainTop"
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:background="@drawable/menu_button"
         android:onClick="onTopButton"
         android:text="@string/top"
-        android:textSize="24sp" android:layout_above="@id/Button04" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee" android:layout_margin="5sp"/>
+        android:textSize="24sp" android:layout_above="@id/buttonMainAchievements" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee" android:layout_margin="5sp"/>
    
     <Button
-        android:id="@+id/Button02"
+        android:id="@+id/buttonMainMultiplayer"
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:background="@drawable/menu_button"
         android:onClick="onMultiplayerButton"
         android:text="@string/multiplayer"
-        android:textSize="24sp" android:layout_above="@id/Button03" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee" android:layout_margin="5sp"/>
+        android:textSize="24sp" android:layout_above="@id/buttonMainTop" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee" android:layout_margin="5sp"/>
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/buttonMainArcade"
         android:layout_width="300sp"
         android:layout_height="50sp"
         android:background="@drawable/menu_button"
         android:onClick="onArcadeButton"
         android:text="@string/arcade"
-        android:textSize="24sp" android:layout_above="@id/Button02" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee" android:layout_margin="5sp"/>
+        android:textSize="24sp" android:layout_above="@id/buttonMainMultiplayer" android:textStyle="bold" android:layout_centerHorizontal="true" android:textColor="#eeeeee" android:layout_margin="5sp"/>
 
 
 
@@ -65,5 +65,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo_explode" android:layout_marginTop="5sp"/>
+
+    <ImageButton
+        android:id="@+id/imageButtonMainSound"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" android:background="@drawable/menu_button_sound_on" android:onClick="onSoundButton"/>
 
 </RelativeLayout>

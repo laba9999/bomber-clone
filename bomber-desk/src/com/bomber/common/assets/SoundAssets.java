@@ -15,8 +15,8 @@ import com.bomber.DebugSettings;
  * 
  */
 public class SoundAssets {
-	private static HashMap<String, Music> mMusics;
-	private static HashMap<String, Sound> mSounds;
+	public static HashMap<String, Music> mMusics;
+	public static HashMap<String, Sound> mSounds;
 
 	public static boolean mIsSoundActive = false;
 	public static boolean mIsloaded = false;

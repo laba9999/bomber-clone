@@ -6,10 +6,13 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Set;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -315,10 +318,25 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 			String localIp = getLocalIpAddress();
 
-			if (!connected || null == localIp)
+			if (!connected && null == localIp)
 				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
-			else
-			{
+			else if(null != localIp)
+			{				
+				//quando está a correr um hotspot, connected = false mas localIp != nul
+						
+				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+				alertDialog.setTitle(getResources().getString(R.string.dialog_multiplayer_title));
+				alertDialog.setMessage(getResources().getString(R.string.dialog_multiplayer_text));
+				
+				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+				   public void onClick(DialogInterface dialog, int which) {
+					   dialog.dismiss();
+				   }
+				});
+				
+				alertDialog.show();
+				
+				
 				DebugSettings.LOCAL_SERVER_ADDRESS = localIp + ":" + mEditPort.getText().toString();
 				DebugSettings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
 				DebugSettings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
@@ -327,6 +345,8 @@ public class MultiplayerConnectionActivity extends GameActivity
 					DebugSettings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
 				else
 					DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
+			
+				connected = true;
 			}
 		} else
 		{
@@ -396,4 +416,6 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 		return true;
 	}
+	
+	
 }
