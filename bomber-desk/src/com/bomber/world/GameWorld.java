@@ -24,6 +24,7 @@ import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gameobjects.monsters.MonsterInfo;
 import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.remote.RemoteConnections;
 
 public class GameWorld {
 	public ObjectsPool<Monster> mMonsters;
@@ -99,7 +100,7 @@ public class GameWorld {
 				break;
 			}
 
-		if (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections == null || Game.mRemoteConnections.mGameServer.mStartedCountdown)
+		if (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections == null || RemoteConnections.mGameServer.mStartedCountdown)
 			mGame.setGameState(new GameStateServerConnectionError(mGame, Strings.mStrings.get("no_suficient_clients")));
 
 	}

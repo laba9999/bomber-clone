@@ -27,9 +27,9 @@ public class GameStateGameOver extends GameState {
 
 		// Desenha o vidro escuro
 		mBatcher.enableBlending();
-		mBatcher.draw(GfxAssets.DarkGlass.get(), 0, 0);
+		mBatcher.draw(GfxAssets.Pixmaps.getDarkGlass(), 0, 0);
 		
-		BitmapFont font = GfxAssets.mFont;		
+		BitmapFont font = GfxAssets.mGenericFont;		
 		mBatcher.draw(GfxAssets.mScreens.get("gameover") ,125,60);
 		font.setScale(1.8f);
 		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);

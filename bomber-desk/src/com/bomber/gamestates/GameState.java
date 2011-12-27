@@ -78,7 +78,7 @@ public abstract class GameState {
 
 	private final void drawDebugInfo()
 	{
-		BitmapFont font = GfxAssets.mFont;
+		BitmapFont font = GfxAssets.mGenericFont;
 		if (DebugSettings.UI_DRAW_INPUT_ZONES)
 		{
 			Rectangle[] zones = mInput.getZones();
@@ -91,8 +91,11 @@ public abstract class GameState {
 			Integer fps = Gdx.graphics.getFramesPerSecond();
 			font.draw(mBatcher, "F: " + fps.toString(), 100, 470);
 			font.draw(mBatcher, "T: " + Game.mTicksPerSecond.toString(), 165, 470);
-			font.draw(mBatcher, "M: " + MessageContainer.mMessagesPerSecond.toString(), 570, 470);
-			font.draw(mBatcher, "Id: " + RemoteConnections.mLocalID, 645, 470);
+			font.draw(mBatcher, "M: " + MessageContainer.mMessagesPerSecond.toString(), 560, 470);
+			font.draw(mBatcher, "Id: " + RemoteConnections.mLocalID, 610, 470);
+
+			if (Game.mIsPVPGame)
+				font.draw(mBatcher, "RTT: " + RemoteConnections.mGameServer.getRTT(), 660, 470);
 		}
 	}
 

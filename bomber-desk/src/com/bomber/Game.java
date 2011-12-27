@@ -5,7 +5,6 @@ import java.util.Random;
 import android.util.Log;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Logger;
@@ -305,7 +304,7 @@ public class Game implements ApplicationListener {
 			Message msg = mRemoteConnections.mMessageToSend;
 			msg.messageType = MessageType.CONNECTION;
 			msg.eventType = EventType.READY;
-			mRemoteConnections.mGameServer.sendMessage(msg);
+			RemoteConnections.mGameServer.sendMessage(msg);
 
 			mSentReadyToServer = true;
 		}
@@ -329,7 +328,7 @@ public class Game implements ApplicationListener {
 		if (mGameState instanceof GameStatePlaying)
 			setGameState(new GameStatePaused(this));
 
-		GfxAssets.DarkGlass.dispose();
+		GfxAssets.Pixmaps.dispose();
 	}
 
 	@Override

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xml:space="preserve">
 
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomber-android</string>
@@ -23,19 +23,15 @@
     <string name="server_options">Server Options</string>
     <string name="ok">Start</string>
     <string name="cancel">Cancel</string>
-    
     <string name="dialog_multiplayer_title">Running a hotspot?</string>
     <string name="dialog_multiplayer_text">You don\'t seem to be connected to a network but we were able to get your local IP. This usually means you are running a hotspot in your device. If not, make sure your connection is working fine before proceeding! If you want to use the hotspot for this game, it\'s ok to proceed normally.</string>
-
     <string name="achievement_text_placeholder">Achievement name</string>
     <string name="achievement_progress_placeholder">1 out of 10</string>
     <string name="error_serverconnection">Error getting online top</string>
-    
-     <string name="top_country">Country</string>
+    <string name="top_country">Country</string>
     <string name="top_name">Name</string>
     <string name="top_points">Points</string>
     <string name="top_position">Rank</string>
-    
     <string name="ip">Server IP:</string>
     <string name="port">Port:</string>
     <string name="error_wificonnection">Please connect to a network!</string>
@@ -56,7 +52,7 @@
     <string name="no">No</string>
     <string name="username">Username:</string>
     <string name="loading_top">Loading. Please wait...</string>
-     <string name="error_select_different_username">Please select a different username.</string>
+    <string name="error_select_different_username">Please select a different username.</string>
     <string name="help_title">Help</string>
     <string name="help_subtitle_moving">Moving</string>
     <string name="help_description_moving">You can use the directional buttons on the bottom left corner of the screen to move your character.</string>
@@ -72,21 +68,23 @@
     <string name="help_description_dm">This is a multi player mode where you simply have to kill your opponents. You can also play it as team versus team.</string>
     <string name="symbol_lesser">&lt;</string>
     <string name="symbol_greater">></string>
+    
+    <string name="game_won">YOU WON!!!</string>
+    <string name="game_lost">YOU LOST...</string>
     <string name="game_highscore">HIGH SCORE</string>
     <string name="game_time">TIME</string>
     <string name="game_final_score">FINAL SCORE</string>
     <string name="game_loading">Loading..</string>
-    <string name="game_starts_in">Starts in </string>
+    <string name="game_starts_in">Starts in\ </string>
     <string name="game_waiting_clients">Waiting for players.. </string>
-    <string name="game_connect_to">Connect to - </string>
-    <string name="game_connecting">Connecting.. </string>
-    <string name="game_score">SCORE: </string>
-    <string name="game_round">Round </string>
-    <string name="game_starts_in_lowercase">starts in </string>
+    <string name="game_connect_to">Connect to -\ </string>
+    <string name="game_connecting">Connecting..\ </string>
+    <string name="game_score">SCORE:\ </string>
+    <string name="game_round">Round\ </string>
+    <string name="game_starts_in_lowercase">starts in\ </string>
     <string name="game_no_suficient_clients">No sufficient players..</string>
     <string name="game_error_connecting">Error connecting..</string>
     <string name="game_lost_client">Lost player..</string>
     <string name="game_lost_server">Lost server..</string>
-
 
 </resources>

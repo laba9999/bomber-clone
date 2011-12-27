@@ -72,7 +72,7 @@ public class GameStatePaused extends GameState {
 
 		// Desenha o vidro escuro
 		mBatcher.enableBlending();
-		mBatcher.draw(GfxAssets.DarkGlass.get(), 0, 0);
+		mBatcher.draw(GfxAssets.Pixmaps.getDarkGlass(), 0, 0);
 
 		// Desenha o painel de opções
 		mBatcher.draw(mOptionsPanel.mTexture, mOptionsPanel.mPosition.x, mOptionsPanel.mPosition.y);

@@ -55,7 +55,7 @@ public class Level {
 		{
 			Integer id = Integer.valueOf(_levelID.substring(_levelID.length() - 1)) - 1;
 
-			if (id > DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
+			if ( !DebugSettings.STARTED_FROM_DESKTOP && id > DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
 			{
 				SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
 				edit.putInt("campaignLevelCompleted", id);

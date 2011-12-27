@@ -6,11 +6,13 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.Team;
 import com.bomber.common.BlinkObject;
+import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.gameobjects.Player;
 import com.bomber.remote.RemoteConnections;
@@ -31,6 +33,8 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	protected Team mTeam1 = Game.mTeams[0];
 	protected Team mTeam2 = Game.mTeams[1];
 
+	StringBuilder mStringBuilder = new StringBuilder();
+
 	// 0 : Empate
 	// 1 : Equipa 1 ganhou
 	// 2 : Equipa 2 ganhou
@@ -46,10 +50,10 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 				for (short c = 0; c < Game.mNumberPlayers / 2; c++)
 					Game.mTeams[i].mPlayers.get(c).stop();
 		}
-		
+
 		// Adiciona pontos aos pontos totais
-		DebugSettings.addPlayerPoints(mGameWorld.getLocalPlayer().mPoints);	
-		
+		DebugSettings.addPlayerPoints(mGameWorld.getLocalPlayer().mPoints);
+
 		mTeam1 = Game.mTeams[0];
 		mTeam2 = Game.mTeams[1];
 
@@ -62,7 +66,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 		} else if (RemoteConnections.mIsGameServer)
 		{
 			mGame.updateRandomSeed((int) System.currentTimeMillis());
-			Game.mRemoteConnections.mGameServer.resetCountdown((short) 3);
+			RemoteConnections.mGameServer.resetCountdown((short) 3);
 		}
 
 	}
@@ -123,7 +127,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		BitmapFont font = GfxAssets.mFont;
+		BitmapFont font = GfxAssets.mGenericFont;
 
 		if (!Game.mGameIsOver || !mBlinkTrophys.get(0).mExceededDuration)
 			drawRoundResults();
@@ -132,7 +136,17 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 			drawFinalResults();
 
 		if (mCountdownSeconds != -1)
-			font.draw(mBatcher, "Round " + mGame.mRoundsPlayed + " incia em " + mCountdownSeconds.toString(), 275, 20);
+		{
+			mStringBuilder.setLength(0);
+			mStringBuilder.append(Strings.mStrings.get("round"));
+			mStringBuilder.append(mGame.mRoundsPlayed);
+			mStringBuilder.append(Strings.mStrings.get("starts_in_lowercase"));
+			mStringBuilder.append(mCountdownSeconds.toString());
+
+			String finalString = mStringBuilder.toString();
+			TextBounds tx = font.getBounds(finalString);
+			font.draw(mBatcher, finalString, 400 - tx.width / 2, 20);
+		}
 	}
 
 	private void drawRoundResults()
@@ -180,18 +194,25 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 
 	private void drawFinalResults()
 	{
-
+		BitmapFont font = GfxAssets.mGenericFont;
+		String finalString;
+		TextBounds tx;
 		if (mResult == 0 || (mResult == 1 && mTeam1.mPlayers.contains(mGameWorld.getLocalPlayer())) || (mResult == 2 && mTeam2.mPlayers.contains(mGameWorld.getLocalPlayer())))
 		{
 			mBatcher.draw(GfxAssets.mScreens.get("background_gradient_green"), 0, 0);
-			GfxAssets.mFont.draw(mBatcher, "GANHASTE!!", 320, 60);
-		}
-		else
+
+			finalString = Strings.mStrings.get("won");
+			tx = font.getBounds(finalString);
+			font.draw(mBatcher, finalString, 400 - tx.width / 2, 60);
+		} else
 		{
 			mBatcher.draw(GfxAssets.mScreens.get("background_gradient_red"), 0, 0);
-			GfxAssets.mFont.draw(mBatcher, "PERDESTE..", 320, 60);
+
+			finalString = Strings.mStrings.get("lost");
+			tx = font.getBounds(finalString);
+			font.draw(mBatcher, finalString, 400 - tx.width / 2, 60);
 		}
-		
+
 		// Troféu grande centrado no ecrã
 		mBatcher.draw(GfxAssets.mTrophy[1], 363, 160);
 
@@ -214,7 +235,6 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 			mBatcher.draw(texture, startX, startY);
 			startX += 80;
 		}
-
 
 	}
 
