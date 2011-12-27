@@ -91,6 +91,7 @@ public class GfxAssets {
 
 	public static BitmapFont mGenericFont;
 	public static BitmapFont mNamesFont;
+	public static BitmapFont mBigFont;
 
 	public static Animation mWaitingAnimation;
 	
@@ -416,6 +417,7 @@ public class GfxAssets {
 
 		mGenericFont = new BitmapFont(Gdx.files.internal("teste_22.fnt"), false);
 		mNamesFont = new BitmapFont(Gdx.files.internal("name_font.fnt"), false);
+		mBigFont = new BitmapFont(Gdx.files.internal("font_28.fnt"), false);
 
 		
 		mWaitingAnimation = new Animation(WAITING_FRAME_DURATION, atlasHD.findRegions("waiting_animation_"));
