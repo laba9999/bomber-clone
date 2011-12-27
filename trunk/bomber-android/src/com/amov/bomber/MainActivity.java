@@ -1,38 +1,37 @@
 package com.amov.bomber;
 
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
+import android.widget.ImageButton;
 
-import com.bomber.DebugSettings;
 import com.bomber.common.Achievements;
+import com.bomber.common.Settings;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.SoundAssets;
 
 
 public class MainActivity extends GameActivity
 {
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		// Lê os settings
-		DebugSettings.loadPreferences(getSharedPreferences("super_prefs", 0));
-		DebugSettings.PLAYER_NAME = DebugSettings.GAME_PREFS.getString("playerName", null);
-
-		// bota som!
-		SoundAssets.mIsSoundActive = DebugSettings.GAME_PREFS.getBoolean("soundEnabled", true);
-		SoundAssets.playMusic("intro", true, 0.6f);
+		loadSharedPreferences();
+		
+		if(Settings.isSoundOn)
+			SoundAssets.playMusic("intro", true, 0.6f);
 
 		Achievements.loadFile();
 		loadStrings();
+		
+		GameActivity.mDestroyed = false;
+
 	}
 
 	
@@ -93,4 +92,23 @@ public class MainActivity extends GameActivity
 	{
 		launchActivity(HelpActivity.class);
 	}
+	
+	public void onSoundButton(View v)
+	{
+		if(Settings.isSoundOn)
+		{
+			Settings.isSoundOn = false;
+			SoundAssets.pause();
+			ImageButton b = (ImageButton) v;
+			b.setBackgroundResource(R.drawable.menu_button_sound_off);
+		}
+		else
+		{
+			Settings.isSoundOn = true;
+			SoundAssets.resume();
+			ImageButton b = (ImageButton) v;
+			b.setBackgroundResource(R.drawable.menu_button_sound_on);
+		}
+	}
+	
 }
