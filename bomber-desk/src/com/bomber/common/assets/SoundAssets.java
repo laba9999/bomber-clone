@@ -26,6 +26,10 @@ public class SoundAssets {
 	private static String mLastMusicPlaying;
 	private static boolean mMusicLooping;
 	private static float mMusicVolume;
+	
+	private static boolean mStopped = false;
+	private static boolean mPaused = false;
+	
 
 	public static void load()
 	{
@@ -83,6 +87,7 @@ public class SoundAssets {
 		if (mMusicPlaying == null || !mIsSoundActive)
 			return;
 
+		
 		mMusicPlaying.play();
 	}
 
@@ -108,7 +113,7 @@ public class SoundAssets {
 	{
 
 		mIsSoundActive = !mIsSoundActive;
-		
+
 		SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
 		edit.putBoolean("soundEnabled", mIsSoundActive);
 		edit.commit();

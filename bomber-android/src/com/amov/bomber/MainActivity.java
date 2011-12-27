@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.bomber.DebugSettings;
@@ -24,12 +25,14 @@ public class MainActivity extends GameActivity
 
 		loadSharedPreferences();
 
-		if (Settings.isSoundOn)
-			SoundAssets.playMusic("intro", true, 0.6f);
+		SoundAssets.playMusic("intro", true, 0.6f);
+
+		updateSoundButton(findViewById(R.id.imageButtonMainSound));
 
 		DebugSettings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
 		DebugSettings.STARTED_FROM_DESKTOP = false;
 		Achievements.loadFile();
+
 		loadStrings();
 
 		GameActivity.mDestroyed = false;
@@ -82,16 +85,18 @@ public class MainActivity extends GameActivity
 
 	public void onSoundButton(View v)
 	{
-		if (Settings.isSoundOn)
+		SoundAssets.toggle();
+		updateSoundButton(v);
+	}
+
+	private void updateSoundButton(View v)
+	{
+		if (!SoundAssets.mIsSoundActive)
 		{
-			Settings.isSoundOn = false;
-			SoundAssets.pause();
 			ImageButton b = (ImageButton) v;
 			b.setBackgroundResource(R.drawable.menu_button_sound_off);
 		} else
 		{
-			Settings.isSoundOn = true;
-			SoundAssets.resume();
 			ImageButton b = (ImageButton) v;
 			b.setBackgroundResource(R.drawable.menu_button_sound_on);
 		}
