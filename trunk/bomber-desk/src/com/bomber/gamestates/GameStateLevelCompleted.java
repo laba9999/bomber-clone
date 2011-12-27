@@ -20,6 +20,7 @@ public class GameStateLevelCompleted extends GameState {
 
 	private int mPointsBlingCounter = 2;
 
+	private String mCurrenLevel = Level.mInfo.mCurrentLevelName.toUpperCase();
 	public GameStateLevelCompleted(Game _gameScreen) {
 		super(_gameScreen);
 
@@ -100,13 +101,12 @@ public class GameStateLevelCompleted extends GameState {
 
 		mBatcher.draw(GfxAssets.mScreens.get("levelcompleted"), 125, 60);
 
-		BitmapFont font = GfxAssets.mGenericFont;
-		font.setScale(1.8f);
-		font.draw(mBatcher, Level.mInfo.mCurrentLevelName, 320, 405);
-		font.setScale(1);
+		BitmapFont font = GfxAssets.mBigFont;
+		font.draw(mBatcher, mCurrenLevel, 340, 405);
 
 		float valueX = findXPositionForValues();
 
+		font = GfxAssets.mGenericFont;
 		font.draw(mBatcher, Strings.mStrings.get("highscore"), START_X, 330);
 		font.draw(mBatcher, mHighScoreDisplayed.toString(), valueX, 330);
 
