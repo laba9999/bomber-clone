@@ -5,6 +5,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -309,58 +310,66 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 	public void onContinueButton(View v)
 	{
-		boolean connected = false;
+		final AtomicBoolean connected = new AtomicBoolean(false);
 
 		if (mRadioWifi.isChecked())
-		{
-			connected = checkWifiConnection();
+		{//WIFI
+			connected.set(checkWifiConnection());
 
-			String localIp = getLocalIpAddress();
+			final String localIp = getLocalIpAddress();
 
-			if (!connected && null == localIp)
+			if (!connected.get() && null == localIp)
 				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
-			else if(null != localIp)
+			else if(!connected.get() && null != localIp)
 			{				
-				//quando está a correr um hotspot, connected = false mas localIp != nul
-						
-				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+				//quando está a correr um hotspot, connected = false mas localIp != null
+				
+				AlertDialog alertDialog = new AlertDialog.Builder(this).create();				
 				alertDialog.setTitle(getResources().getString(R.string.dialog_multiplayer_title));
 				alertDialog.setMessage(getResources().getString(R.string.dialog_multiplayer_text));
 				
 				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-				   public void onClick(DialogInterface dialog, int which) {
-					   dialog.dismiss();
-				   }
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						setupSettings(localIp);		   
+						launchActivity(mRadioServer.isChecked() ? PVPServerOptionsActivity.class : BuildActivity.class);
+					}
 				});
 				
 				alertDialog.show();
-				
-				
-				DebugSettings.LOCAL_SERVER_ADDRESS = localIp + ":" + mEditPort.getText().toString();
-				DebugSettings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
-				DebugSettings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
-
-				if (mRadioServer.isChecked())
-					DebugSettings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
-				else
-					DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
-			
-				connected = true;
 			}
-		} else
-		{
-			connected = checkBluetoothConnection();
-			if (!connected)
+			else if(connected.get() && null != localIp)		
+			{
+				//está ligado a uma rede
+				setupSettings(localIp);
+			}
+		} 
+		else
+		{//BLUETOOTH
+			connected.set(checkBluetoothConnection());
+			if (!connected.get())
 				Toast.makeText(this, this.getString(R.string.error_bluetoothconnection), Toast.LENGTH_SHORT).show();
 			else
 				startGameAsBluetoothClient();
 		}
 
-		if (connected)
+		if (connected.get())
 			launchActivity(mRadioServer.isChecked() ? PVPServerOptionsActivity.class : BuildActivity.class);
 
 	}
 
+	private void setupSettings(String _localIp){
+		DebugSettings.LOCAL_SERVER_ADDRESS = _localIp + ":" + mEditPort.getText().toString();
+		DebugSettings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
+		DebugSettings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
+
+		if (mRadioServer.isChecked())
+			DebugSettings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
+		else
+			DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();	
+
+	}
+	
 	// http://www.droidnova.com/get-the-ip-address-of-your-device,304.html
 	public String getLocalIpAddress()
 	{
