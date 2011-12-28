@@ -37,7 +37,7 @@ public class GfxAssets {
 	private static final float TILE_EXPLOSION_FRAME_DURATION = 5;
 	private static final short TILE_EXPLOSION_FRAME_COUNT = 7;
 
-	private static final float N_MONSTER_WALK_FRAME_DURATION = 30f;
+	private static final float N_MONSTER_WALK_FRAME_DURATION = 75f;
 	private static final float N_MONSTER_DIE_WALK_FRAME_DURATION = 30f;
 	private static final short N_MONSTER_DIE_FRAME_COUNT = 6;
 	private static final short N_MONSTER_WALK_FRAME_COUNT = 3;

@@ -28,7 +28,7 @@ public class DebugSettings {
 
 	// Game
 	public static boolean STARTED_FROM_DESKTOP = true;
-	public static String LEVEL_TO_LOAD = "level1";
+	public static String LEVEL_TO_LOAD = "level4";
 	public static short GAME_ROUNDS = 1;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
 	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;

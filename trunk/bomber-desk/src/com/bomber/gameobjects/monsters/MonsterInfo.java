@@ -25,8 +25,8 @@ public class MonsterInfo
 		{
 			TYPES = new HashMap<String, MonsterInfo>();
 			
-			// Não matam e não voam
-			MonsterInfo tmpInfo = new MonsterInfo(100, false, false);
+			// Matam mas não voam
+			MonsterInfo tmpInfo = new MonsterInfo(250, false, false);
 			
 			TYPES.put("m_generic1", tmpInfo);
 			TYPES.put("m_generic2", tmpInfo);
@@ -41,7 +41,7 @@ public class MonsterInfo
 			
 			
 			// Matam mas não voam
-			tmpInfo = new MonsterInfo(250, true, false);
+			tmpInfo = new MonsterInfo(500, true, false);
 			
 			TYPES.put("m_2", tmpInfo);
 			TYPES.put("m_3", tmpInfo);

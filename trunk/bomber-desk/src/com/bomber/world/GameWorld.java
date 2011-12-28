@@ -204,6 +204,7 @@ public class GameWorld {
 		tmpMonster.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 
 		tmpMonster.mInfo = MonsterInfo.getInfoFromType(_type);
+		tmpMonster.mIgnoreDestroyables = tmpMonster.mInfo.mAbleToFly;
 	}
 
 	public void spawnPlayer(String _type, short _line, short _col)
