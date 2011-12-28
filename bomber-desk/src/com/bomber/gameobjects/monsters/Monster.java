@@ -33,6 +33,7 @@ public class Monster extends KillableObject {
 		mDirection = Directions.DOWN;
 		mIsMoving = true;
 		mRandomGenerator = Game.mRandomGenerator;
+		mIgnoreDestroyables = false;
 	}
 
 	@Override
@@ -71,7 +72,7 @@ public class Monster extends KillableObject {
 			int x;
 
 			if (mInfo.mAbleToFly)
-				x = mWorld.mMap.getDistanceToNext(1, mPosition, i, Tile.WALKABLE, Tile.DESTROYABLE);
+				x = mWorld.mMap.getDistanceToNext(1, mPosition, i, Tile.DESTROYABLE, Tile.WALKABLE);
 			else
 				x = mWorld.mMap.getDistanceToNext(1, mPosition, i, Tile.WALKABLE);
 

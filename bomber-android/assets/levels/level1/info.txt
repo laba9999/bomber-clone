@@ -1,5 +1,5 @@
 #nome do próximo nivel
-level4
+level2
 
 #minutos
 5
@@ -8,4 +8,4 @@ level4
 13
 
 #nº de bónus
-2
+1
