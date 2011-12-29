@@ -33,6 +33,8 @@
     <string name="top_position">Lugar</string>
     <string name="ip">IP:</string>
     <string name="port">Porto:</string>
+            <string name="warn_bluetooth_title">Aviso!</string>
+         <string name="warn_bluetooth_text">Apenas os dispositivos já emparelhados são apresentados como opção.\nCertifique-se que emparelhou o seu dispositivo com o servidor antes de continuar.</string>
     <string name="error_wificonnection">Deve ligar-se a uma rede primeiro!</string>
     <string name="error_bluetoothconnection">Deve activar o Bluetooth!</string>
     <string name="error_inactive_level">Ainda não ganhou acesso a este nível.</string>
