@@ -57,6 +57,8 @@ public class Player extends KillableObject {
 	public short mMaxSimultaneousBombs = 1;
 	public short mSpeedFactor = 1;
 	public short mColor;
+	
+	public short mPlacedBombsCount = 0;
 
 	public boolean mIsConnected = true;
 	public boolean mIsShieldActive = false;
@@ -96,6 +98,11 @@ public class Player extends KillableObject {
 
 	public void dropBomb()
 	{
+		if(mPlacedBombsCount >=mMaxSimultaneousBombs)
+			return;
+		
+		mPlacedBombsCount++;
+		
 		mWorld.spawnBomb(mColor, mBombExplosionSize, mPosition);
 
 		if (mRemoteConnections == null || !mIsLocalPlayer)
@@ -260,7 +267,7 @@ public class Player extends KillableObject {
 		{
 			if (mSpeedFactor >= MAX_SPEED_FACTOR)
 				return true;
-		}
+		} 
 
 		return false;
 	}
@@ -286,6 +293,11 @@ public class Player extends KillableObject {
 		mLives = 3;
 		mPointsMultiplier = 1;
 
+		mBombExplosionSize = 1;
+		mMaxSimultaneousBombs = 1;
+		mSpeedFactor = 1;
+		mPlacedBombsCount = 0;
+		
 		mTicksSinceSpawn = 0;
 		mIsLocalPlayer = false;
 
