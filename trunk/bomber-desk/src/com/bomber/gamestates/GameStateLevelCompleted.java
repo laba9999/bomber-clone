@@ -1,7 +1,7 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
@@ -33,7 +33,7 @@ public class GameStateLevelCompleted extends GameState {
 		mPointsDisplayed = localPlayer.mPoints - mGameWorld.getLocalPlayer().mStartLevelPoints;
 
 		// Adiciona pontos aos pontos totais
-		DebugSettings.addPlayerPoints(mPointsDisplayed);
+		Settings.addPlayerPoints(mPointsDisplayed);
 
 		// atribui nova pontuação ao jogador pelo extra do tempo restante
 		localPlayer.mPoints += mGameWorld.mClock.getRemainingSeconds() / 100;
@@ -156,7 +156,5 @@ public class GameStateLevelCompleted extends GameState {
 	@Override
 	protected void onUpdateFinishing()
 	{
-		// TODO Auto-generated method stub
-
 	}
 }

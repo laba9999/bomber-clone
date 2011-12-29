@@ -389,10 +389,6 @@ public class GfxAssets {
 
 	private static void loadUI()
 	{
-		// TODO : definir o IDs para estes componentes
-		// mMainScreen = mAtlas.findRegion("TO BE DEFINED");
-		// mSoundButton = loadAnimation("TO BE DEFINED");
-		// mPauseButtons.put("TO BE DEFINED",
 		TextureAtlas atlasHD = new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
 
 		mControlPad = atlasHD.findRegion("d-pad");
@@ -406,10 +402,6 @@ public class GfxAssets {
 		mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
 		mScreens.put("gameover", atlasHD.findRegion("gameover"));
 
-//		mScreens.put("background_gradient_red", atlasHD.findRegion("background_gradient_red"));
-//		mScreens.put("background_gradient_green", atlasHD.findRegion("background_gradient_green"));
-//		mScreens.put("background_gradient_grey", atlasHD.findRegion("background_gradient_grey"));
-//		
 		mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
 
 		mTrophy[0] = atlasHD.findRegion("trophy");
@@ -420,7 +412,6 @@ public class GfxAssets {
 		mNamesFont = new BitmapFont(Gdx.files.internal("name_font.fnt"), false);
 		mBigFont = new BitmapFont(Gdx.files.internal("font_28.fnt"), false);
 
-		
 		mWaitingAnimation = new Animation(WAITING_FRAME_DURATION, atlasHD.findRegions("waiting_animation_"));
 
 	}
@@ -535,10 +526,6 @@ public class GfxAssets {
 		
 		private static void create()
 		{
-
-
-
-			
 			//Cria background verde
 			mPixmapGreen = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
 			mPixmapGreen.setColor(0.14f, 0.45f, 0, 0.8f);

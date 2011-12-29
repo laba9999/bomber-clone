@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.math.Vector2;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.Team;
 import com.bomber.common.BlinkObject;
@@ -52,7 +52,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 		}
 
 		// Adiciona pontos aos pontos totais
-		DebugSettings.addPlayerPoints(mGameWorld.getLocalPlayer().mPoints);
+		Settings.addPlayerPoints(mGameWorld.getLocalPlayer().mPoints);
 
 		mTeam1 = Game.mTeams[0];
 		mTeam2 = Game.mTeams[1];
@@ -241,15 +241,11 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	@Override
 	protected void onFinish()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void onUpdateFinishing()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	protected abstract void onUpdateResults();

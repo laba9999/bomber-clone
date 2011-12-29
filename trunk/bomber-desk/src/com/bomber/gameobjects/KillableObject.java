@@ -28,8 +28,6 @@ public abstract class KillableObject extends WorldMovableObject {
 	@Override
 	protected void onStop()
 	{
-		// TODO Auto-generated method stub
-		
 	}
 	
 	/**

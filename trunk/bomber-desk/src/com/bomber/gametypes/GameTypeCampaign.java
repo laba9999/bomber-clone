@@ -39,8 +39,6 @@ public class GameTypeCampaign extends GameTypeHandler {
 
 			if (portal != null && portal.getBoundingBox().contains(x, y))
 				ret = true;
-				
-			
 		}
 
 		return ret;
@@ -63,8 +61,6 @@ public class GameTypeCampaign extends GameTypeHandler {
 
 	@Override
 	public void onPlayerDisconnect(Player _player)
-	{
-		// TODO Auto-generated method stub
-		
+	{	
 	}
 }

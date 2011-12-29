@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.common.Achievements;
 import com.bomber.common.BonusBuild;
 import com.bomber.gametypes.GameTypeHandler;
@@ -56,18 +56,18 @@ public class BuildActivity extends GameActivity
 		mEditUsername = (EditText) findViewById(R.id.editBuildUsername);
 		InputFilter maxLengthFilter = new InputFilter.LengthFilter(Message.STRING_MAX_SIZE);
 		mEditUsername.setFilters(new InputFilter[] { maxLengthFilter });
-		mEditUsername.setText(DebugSettings.PLAYER_NAME);
+		mEditUsername.setText(Settings.PLAYER_NAME);
 
 		mTextAvailablePoints = (TextView) findViewById(R.id.textBuildAvailablePointsValue);
 
 		// Lê a build das preferências
-		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildExplosionSize", 0); i++)
+		for (int i = 0; i < Settings.GAME_PREFS.getInt("buildExplosionSize", 0); i++)
 			onExplosionPlusButton(null);
 
-		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildBombCount", 0); i++)
+		for (int i = 0; i < Settings.GAME_PREFS.getInt("buildBombCount", 0); i++)
 			onBombsPlusButton(null);
 
-		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildSpeed", 0); i++)
+		for (int i = 0; i < Settings.GAME_PREFS.getInt("buildSpeed", 0); i++)
 			onSpeedPlusButton(null);
 
 		mTextAvailablePoints.setText(mAvailablePoints.toString());
@@ -122,18 +122,18 @@ public class BuildActivity extends GameActivity
 		BonusBuild.mBombCount = mBombsPoints;
 		BonusBuild.mSpeed = mSpeedPoints;
 
-		DebugSettings.PLAYER_NAME = mEditUsername.getText().toString();
+		Settings.PLAYER_NAME = mEditUsername.getText().toString();
 
-		SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
+		SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
 		edit.putInt("buildExplosionSize", mExplosionPoints);
 		edit.putInt("buildBombCount", mBombsPoints);
 		edit.putInt("buildSpeed", mSpeedPoints);
 
-		edit.putString("playerName", DebugSettings.PLAYER_NAME);
+		edit.putString("playerName", Settings.PLAYER_NAME);
 		edit.commit();
 
-		if (DebugSettings.GAME_TYPE == 0)
-			DebugSettings.GAME_TYPE = GameTypeHandler.CTF;
+		if (Settings.GAME_TYPE == 0)
+			Settings.GAME_TYPE = GameTypeHandler.CTF;
 
 		launchActivity(AndroidGame.class);
 	}

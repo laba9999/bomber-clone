@@ -2,7 +2,7 @@ package com.bomber.world;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.OverlayingText;
 import com.bomber.common.BonusBuild;
@@ -83,7 +83,7 @@ public class GameWorld {
 
 		Level.loadLevel(_startLevelName, this, Game.mNumberPlayers);
 
-		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
+		if (Settings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
 			mMap.placePortal();
 
 		mClock.start();
@@ -123,7 +123,7 @@ public class GameWorld {
 				p.mAcceptPlayerInput = true;
 				p.mIsLocalPlayer = true;
 
-				p.mName = DebugSettings.PLAYER_NAME;
+				p.mName = Settings.PLAYER_NAME;
 
 				if (Game.mIsPVPGame)
 				{
@@ -194,7 +194,7 @@ public class GameWorld {
 			Game.mTeams[1].reset(mPlayers);
 		}
 
-		if (DebugSettings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
+		if (Settings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
 			mMap.placePortal();
 
 		mClock.start();
@@ -244,6 +244,9 @@ public class GameWorld {
 		tmpPlayer.mExtraTextures.put("happy", GfxAssets.mPlayersHappy.get(_type));
 
 		tmpPlayer.mColor = Player.getColorFromString(_type);
+		
+		if(Game.mGameType == GameTypeHandler.CAMPAIGN)
+			tmpPlayer.mIsLocalPlayer = true;
 
 		// O jogador branco é sempre o primeiro elemento da equipa 1
 		if (tmpPlayer.mColor == Player.WHITE && Game.mIsPVPGame){
@@ -357,7 +360,7 @@ public class GameWorld {
 			if (b.mContainer.mPositionInArray == _tile.mPositionInArray)
 				b.kill(_bomb.mDropedBy);
 
-		if (!DebugSettings.PLAYER_DIE_WITH_EXPLOSIONS)
+		if (!Settings.PLAYER_DIE_WITH_EXPLOSIONS)
 			return;
 
 		// Verifica os players
@@ -517,7 +520,6 @@ public class GameWorld {
 		updateFlags();
 		updateOverlayingText();
 
-		// TODO: Alterar Textura
 		if (mGameTypeHandler.mNeedsPortal && mGameTypeHandler.isObjectiveAcomplished() && mMap.mPortal != null && !mMap.mPortal.mPlayAnimation)
 		{
 			mMap.mPortal.mPlayAnimation = true;
@@ -579,50 +581,8 @@ public class GameWorld {
 		}
 	}
 
-	/*
-	 * public void spawnBonusRandomly() {
-	 * 
-	 * if (checkReachedMaximumSimultaneousBonus() == true) return;
-	 * 
-	 * // TODO: indicar seed Random randomGenerator = new Random(); int
-	 * spawningProbability = 1; int ticks = 100;
-	 * 
-	 * int rnd = randomGenerator.nextInt(ticks);
-	 * 
-	 * if (rnd <= spawningProbability) {
-	 * 
-	 * short col; short lin; Tile tileAtPosition = null; boolean
-	 * positionIsntAvailable = false;
-	 * 
-	 * do { // gera posição aleatória col = (short)
-	 * randomGenerator.nextInt(mMap.mWidth); lin = (short)
-	 * randomGenerator.nextInt(mMap.mHeight);
-	 * 
-	 * float colInPixels = col * Tile.TILE_SIZE; float linInPixels = lin *
-	 * Tile.TILE_SIZE;
-	 * 
-	 * // verifica se o tile na posição gerada é walkable tileAtPosition =
-	 * mMap.getTile(new Vector2(colInPixels, linInPixels));
-	 * positionIsntAvailable = tileAtPosition.mType != Tile.WALKABLE;
-	 * 
-	 * // verifica se já existe um bonus na posição for (Bonus bonus :
-	 * mSpawnedBonus) { if (bonus.mPosition.x == colInPixels +
-	 * Tile.TILE_SIZE_HALF && bonus.mPosition.y == linInPixels +
-	 * Tile.TILE_SIZE_HALF) positionIsntAvailable = true; }
-	 * 
-	 * } while (positionIsntAvailable);
-	 * 
-	 * spawnBonus(BonusTypes.getRandom(), lin, col); }
-	 * 
-	 * }
-	 */
 	public boolean checkReachedMaximumSimultaneousBonus()
 	{
-		// TODO : ajustar valor
-		// PROBLEMA : Dependendo deste valor, o cilco do método
-		// spawnBonusRandomly pode tornar-se infitito.
-		// Isto acontece quando maxSimultaneousBonus > Número de tiles walkables
-		// do nível intacto.
 		int maxSimultaneousBonus = 10;
 
 		int howManyBonus = mSpawnedBonus.mLenght;

@@ -2,7 +2,7 @@
 level2
 
 #minutos
-5
+3
 
 #segundos
 13

@@ -146,8 +146,5 @@ public class Message extends PoolObject {
 
 	@Override
 	public void reset()
-	{
-		// TODO Auto-generated method stub
-
-	}
+	{}
 }

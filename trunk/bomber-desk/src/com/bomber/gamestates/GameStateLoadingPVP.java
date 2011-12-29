@@ -2,7 +2,7 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
@@ -16,7 +16,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 	public int mAnimationTicks = 0;
 
 	private final String mStringWaitingClients = Strings.mStrings.get("waiting_clients");
-	private final String mStringConnectTo = Strings.mStrings.get("connect_to") + DebugSettings.LOCAL_SERVER_ADDRESS;
+	private final String mStringConnectTo = Strings.mStrings.get("connect_to") + Settings.LOCAL_SERVER_ADDRESS;
 	private final String mStringConnection = Strings.mStrings.get("connecting");
 	private final String mStringStartsIn = Strings.mStrings.get("starts_in");
 

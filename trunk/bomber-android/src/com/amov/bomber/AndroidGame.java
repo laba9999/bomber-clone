@@ -8,7 +8,7 @@ import android.view.WindowManager.LayoutParams;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.bomber.AndroidBridge;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStateLoadingPVP;
@@ -25,7 +25,10 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 			if (!Game.mIsPVPGame)
 				return true;
 			else
+			{
+				SoundAssets.stop();
 				SoundAssets.playMusic("intro", true, 1.0f);
+			}
 		}
 
 		return super.onKeyDown(keyCode, event);
@@ -53,17 +56,17 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);			
 		super.onCreate(savedInstanceState);
 
-		DebugSettings.LIMPAR_SARAMPO = GameActivity.mDestroyed;
+		Settings.LIMPAR_SARAMPO = GameActivity.mDestroyed;
 		
 		
-		RemoteConnections.mIsGameServer = DebugSettings.START_ANDROID_AS_SERVER;
-		Game newGame = new Game(this, DebugSettings.GAME_TYPE, DebugSettings.LEVEL_TO_LOAD);
+		RemoteConnections.mIsGameServer = Settings.START_ANDROID_AS_SERVER;
+		Game newGame = new Game(this, Settings.GAME_TYPE, Settings.LEVEL_TO_LOAD);
 		initialize(newGame, false);
 
 		if (!Game.mIsPVPGame)
 			return;
 
-		RemoteConnections tmpConnections = RemoteConnections.create(DebugSettings.REMOTE_PROTOCOL_IN_USE, DebugSettings.START_ANDROID_AS_SERVER, DebugSettings.REMOTE_SERVER_ADDRESS);
+		RemoteConnections tmpConnections = RemoteConnections.create(Settings.REMOTE_PROTOCOL_IN_USE, Settings.START_ANDROID_AS_SERVER, Settings.REMOTE_SERVER_ADDRESS);
 		if (tmpConnections == null)
 			GameStateLoadingPVP.mFailedToConnectToServer = true;
 		else
@@ -72,6 +75,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 
 	public void goBackToMenu()
 	{
+		SoundAssets.stop();
 		SoundAssets.playMusic("intro", true, 1.0f);
 		finishActivity(0);
 		this.exit();
@@ -81,6 +85,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 	
 	public void goBackToWithoutExiting()
 	{
+		SoundAssets.stop();
 		Intent myIntent = new Intent(this, AssetsLoader.class);		
 
 		// proibe a animação na transição entre activities

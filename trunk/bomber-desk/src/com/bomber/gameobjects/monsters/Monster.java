@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.Achievements;
 import com.bomber.common.Directions;
@@ -54,7 +54,7 @@ public class Monster extends KillableObject {
 			return;
 		}
 
-		if (DebugSettings.MONSTERS_KILL_PLAYERS)
+		if (Settings.MONSTERS_KILL_PLAYERS)
 			checkForPlayerCollision();
 
 		decideToTurn();
@@ -172,14 +172,11 @@ public class Monster extends KillableObject {
 	@Override
 	protected void onChangedDirection()
 	{
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	protected void onStop()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 }

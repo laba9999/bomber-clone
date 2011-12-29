@@ -10,11 +10,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -35,8 +33,8 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.remote.Protocols;
 
 public class MultiplayerConnectionActivity extends GameActivity
@@ -192,8 +190,8 @@ public class MultiplayerConnectionActivity extends GameActivity
 				mButtonStart.setVisibility(Button.VISIBLE);
 
 				String[] device = ((String) mSpinnerBTDevices.getItemAtPosition(position)).split("\n");
-				DebugSettings.REMOTE_SERVER_ADDRESS = device[1];
-				System.out.println("seleccionado bt: " + DebugSettings.REMOTE_SERVER_ADDRESS);
+				Settings.REMOTE_SERVER_ADDRESS = device[1];
+				System.out.println("seleccionado bt: " + Settings.REMOTE_SERVER_ADDRESS);
 			}
 
 			public void onNothingSelected(AdapterView<?> _arg0)
@@ -306,9 +304,9 @@ public class MultiplayerConnectionActivity extends GameActivity
 	private void startGameAsBluetoothServer()
 	{
 		// Prepara as settings para o jogo
-		DebugSettings.BLUETOOTH_ADAPTER = BluetoothAdapter.getDefaultAdapter();
-		DebugSettings.START_ANDROID_AS_SERVER = true;
-		DebugSettings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
+		Settings.BLUETOOTH_ADAPTER = BluetoothAdapter.getDefaultAdapter();
+		Settings.START_ANDROID_AS_SERVER = true;
+		Settings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
 
 		launchActivity(PVPServerOptionsActivity.class);
 	}
@@ -316,9 +314,9 @@ public class MultiplayerConnectionActivity extends GameActivity
 	private void startGameAsBluetoothClient()
 	{
 		// Prepara as settings para o jogo
-		DebugSettings.BLUETOOTH_ADAPTER = BluetoothAdapter.getDefaultAdapter();
-		DebugSettings.START_ANDROID_AS_SERVER = false;
-		DebugSettings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
+		Settings.BLUETOOTH_ADAPTER = BluetoothAdapter.getDefaultAdapter();
+		Settings.START_ANDROID_AS_SERVER = false;
+		Settings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
 
 		launchActivity(BuildActivity.class);
 	}
@@ -376,14 +374,14 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 	private void setupSettings(String _localIp)
 	{
-		DebugSettings.LOCAL_SERVER_ADDRESS = _localIp + ":" + mEditPort.getText().toString();
-		DebugSettings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
-		DebugSettings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
+		Settings.LOCAL_SERVER_ADDRESS = _localIp + ":" + mEditPort.getText().toString();
+		Settings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
+		Settings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
 
 		if (mRadioServer.isChecked())
-			DebugSettings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
+			Settings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
 		else
-			DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
+			Settings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
 
 	}
 

@@ -48,7 +48,6 @@ public class WorldRenderer {
 		// Porque é chamado antes da apresentação da UI
 		mBatch.end();
 
-		// TODO: retirar quando já não for necessário para ver os FPS
 		GLCommon gl = Gdx.gl;
 		gl.glClearColor(0, 0, 0, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -221,7 +220,6 @@ public class WorldRenderer {
 
 	private void renderOverlayingText()
 	{
-		// TODO: alterar font
 		BitmapFont font = GfxAssets.mGenericFont;
 
 		for (OverlayingText t : mWorld.mOverlayingPoints)
