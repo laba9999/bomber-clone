@@ -13,11 +13,11 @@ public class Achievements {
 	public static final String FILE_PATH = "com.amov.bomber";
 	public static final int NUMBER_OF_ACHIEVEMENTS = 6;
 	// Todo : ajustar
-	public static final int MONSTER_KILLS_GOAL = 1;
-	public static final int PLAYER_KILLS_GOAL = 2;
-	public static final int CTF_WINS_GOAL = 3;
-	public static final int DM_WINS_GOAL = 4;
-	public static final long TIME_PLAYED_GOAL = 5;
+	public static final int MONSTER_KILLS_GOAL = 250;
+	public static final int PLAYER_KILLS_GOAL = 50;
+	public static final int CTF_WINS_GOAL = 20;
+	public static final int DM_WINS_GOAL = 20;
+	public static final long TIME_PLAYED_GOAL = 120;
 
 	public static int mNumberMonsterKills;
 	public static int mNumberPlayersKills;
@@ -48,7 +48,7 @@ public class Achievements {
 
 	public static boolean isTimePlayedCompleted()
 	{
-		return mTotalTimePlayed >= TIME_PLAYED_GOAL;
+		return mTotalTimePlayed / 60 / 1000 >= TIME_PLAYED_GOAL;
 	}
 
 	public static boolean isCampaignCompleted()
@@ -68,7 +68,7 @@ public class Achievements {
 
 	public static void saveFile()
 	{
-		String savepath =  FILE_PATH;
+		String savepath = FILE_PATH;
 
 		// Cria a directoria se não existir
 		File levelDirectory = new File(savepath);
@@ -138,7 +138,9 @@ public class Achievements {
 				try
 				{
 					inputStream.close();
-				} catch (IOException e){}
+				} catch (IOException e)
+				{
+				}
 			}
 		}
 	}
