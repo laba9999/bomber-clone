@@ -139,6 +139,8 @@ public class GfxAssets {
 		// Transportáveis
 		mFlags.put("flag_transport_team1", mAtlas.findRegion("flag_transport_team", 1));
 		mFlags.put("flag_transport_team2", mAtlas.findRegion("flag_transport_team", 2));
+		mFlags.put("flag_transport_left_team1", mAtlas.findRegion("flag_transport_left_team", 1));
+		mFlags.put("flag_transport_left_team2", mAtlas.findRegion("flag_transport_left_team", 2));
 
 	}
 
@@ -164,7 +166,6 @@ public class GfxAssets {
 
 	private static void loadPlayerAnimations()
 	{
-
 		MovableObjectAnimation temp = loadPlayerMovableObjectAnimation("b_white");
 		mPlayers.put("b_white", temp);
 

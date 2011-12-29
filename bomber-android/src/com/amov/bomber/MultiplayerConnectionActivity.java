@@ -42,8 +42,8 @@ import com.bomber.remote.Protocols;
 public class MultiplayerConnectionActivity extends GameActivity
 {
 
-	public final int REQUEST_ENABLE_BT = 0;
-	public final int REQUEST_DISCOVERABLE_BT = 1;
+	public final int REQUEST_ENABLE_BT_CLIENT = 0;
+	public final int REQUEST_ENABLE_BT_SERVER = 1;
 
 	public static final int DIALOG_MULTIPLAYER = 0;
 
@@ -69,7 +69,6 @@ public class MultiplayerConnectionActivity extends GameActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.multiplayer_connection);
 
@@ -155,7 +154,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 					if (!checkBluetoothConnection())
 					{
 						Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-						startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+						startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT_CLIENT);
 					} else
 						listAvailableBTDevices();
 				}
@@ -178,9 +177,8 @@ public class MultiplayerConnectionActivity extends GameActivity
 				{
 					if (!checkBluetoothConnection())
 					{
-						Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-						discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 120);
-						startActivityForResult(discoverableIntent, REQUEST_DISCOVERABLE_BT);
+						Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+						startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT_SERVER);
 					} else
 						startGameAsBluetoothServer();
 				}
@@ -205,65 +203,82 @@ public class MultiplayerConnectionActivity extends GameActivity
 		});
 
 		// Regista o BroadcastReceiver para dispositivos encontrados
-		IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-		registerReceiver(mReceiver, filter);
+		// IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+		// registerReceiver(mReceiver, filter);
 	}
 
 	@Override
 	protected void onDestroy()
 	{
-		unregisterReceiver(mReceiver);
+		// unregisterReceiver(mReceiver);
 
 		super.onDestroy();
 	}
 
 	private void listAvailableBTDevices()
 	{
-		mTableRowBluetoothDevices.setVisibility(RadioGroup.VISIBLE);
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(getResources().getString(R.string.warn_bluetooth_title));
+		alertDialog.setMessage(getResources().getString(R.string.warn_bluetooth_text));
 
-		BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener()
+		{
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.dismiss();
 
-		if (!btAdapter.startDiscovery())
-			Game.LOGGER.log("Falhada o inicio de descoberta.");
+				mTableRowBluetoothDevices.setVisibility(RadioGroup.VISIBLE);
 
-		// Apresenta toast a indicar que estamos à procura de devices
-		Toast.makeText(this, this.getString(R.string.searching_bt_devices), Toast.LENGTH_SHORT).show();
+				BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
 
-		mBTArrayAdapter.clear();
-		mBTArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		mSpinnerBTDevices.setAdapter(mBTArrayAdapter);
+				if (!btAdapter.startDiscovery())
+					Game.LOGGER.log("Falhada o inicio de descoberta.");
 
-		Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
+				// Apresenta toast a indicar que estamos à procura de devices
+				// Toast.makeText(this,
+				// this.getString(R.string.searching_bt_devices),
+				// Toast.LENGTH_SHORT).show();
 
-		// Verifica se já existem dispositivos emparelhados
-		if (pairedDevices.size() > 0)
-			for (BluetoothDevice device : pairedDevices)
-				mBTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+				mBTArrayAdapter.clear();
+				mBTArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				mSpinnerBTDevices.setAdapter(mBTArrayAdapter);
 
-		mSpinnerBTDevices.performClick();
-		mSpinnerBTDevices.refreshDrawableState();
+				Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
+
+				// Verifica se já existem dispositivos emparelhados
+				if (pairedDevices.size() > 0)
+					for (BluetoothDevice device : pairedDevices)
+						mBTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+
+				mSpinnerBTDevices.performClick();
+				mSpinnerBTDevices.refreshDrawableState();
+			}
+		});
+
+		alertDialog.show();
 	}
 
-	private final BroadcastReceiver mReceiver = new BroadcastReceiver()
-	{
-		public void onReceive(Context context, Intent intent)
-		{
-			String action = intent.getAction();
-			if (BluetoothDevice.ACTION_FOUND.equals(action))
-			{
-				// Obtém o BluetoothDevice do Intent
-				BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-				mBTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-			}
-		}
-	};
+	// private final BroadcastReceiver mReceiver = new BroadcastReceiver()
+	// {
+	// public void onReceive(Context context, Intent intent)
+	// {
+	// String action = intent.getAction();
+	// if (BluetoothDevice.ACTION_FOUND.equals(action))
+	// {
+	// // Obtém o BluetoothDevice do Intent
+	// BluetoothDevice device =
+	// intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+	// mBTArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+	// }
+	// }
+	// };
 
 	@Override
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
 		switch (_requestCode)
 		{
-		case REQUEST_ENABLE_BT:
+		case REQUEST_ENABLE_BT_CLIENT:
 			if (_resultCode == RESULT_CANCELED)
 			{
 				mRadioBluetooth.setChecked(false);
@@ -274,7 +289,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 			break;
 
-		case REQUEST_DISCOVERABLE_BT:
+		case REQUEST_ENABLE_BT_SERVER:
 			if (_resultCode == RESULT_CANCELED)
 			{
 				mRadioBluetooth.setChecked(false);
@@ -295,7 +310,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 		DebugSettings.START_ANDROID_AS_SERVER = true;
 		DebugSettings.REMOTE_PROTOCOL_IN_USE = Protocols.BLUETOOTH;
 
-		launchActivity(BuildActivity.class);
+		launchActivity(PVPServerOptionsActivity.class);
 	}
 
 	private void startGameAsBluetoothClient()
@@ -313,39 +328,40 @@ public class MultiplayerConnectionActivity extends GameActivity
 		final AtomicBoolean connected = new AtomicBoolean(false);
 
 		if (mRadioWifi.isChecked())
-		{//WIFI
+		{// WIFI
 			connected.set(checkWifiConnection());
 
 			final String localIp = getLocalIpAddress();
 
 			if (!connected.get() && null == localIp)
 				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
-			else if(!connected.get() && null != localIp)
-			{				
-				//quando está a correr um hotspot, connected = false mas localIp != null
-				
-				AlertDialog alertDialog = new AlertDialog.Builder(this).create();				
+			else if (!connected.get() && null != localIp)
+			{
+				// quando está a correr um hotspot, connected = false mas
+				// localIp != null
+
+				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 				alertDialog.setTitle(getResources().getString(R.string.dialog_multiplayer_title));
 				alertDialog.setMessage(getResources().getString(R.string.dialog_multiplayer_text));
-				
-				alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
+
+				alertDialog.setButton("OK", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
 						dialog.dismiss();
-						setupSettings(localIp);		   
+						setupSettings(localIp);
 						launchActivity(mRadioServer.isChecked() ? PVPServerOptionsActivity.class : BuildActivity.class);
 					}
 				});
-				
+
 				alertDialog.show();
-			}
-			else if(connected.get() && null != localIp)		
+			} else if (connected.get() && null != localIp)
 			{
-				//está ligado a uma rede
+				// está ligado a uma rede
 				setupSettings(localIp);
 			}
-		} 
-		else
-		{//BLUETOOTH
+		} else
+		{// BLUETOOTH
 			connected.set(checkBluetoothConnection());
 			if (!connected.get())
 				Toast.makeText(this, this.getString(R.string.error_bluetoothconnection), Toast.LENGTH_SHORT).show();
@@ -358,7 +374,8 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 	}
 
-	private void setupSettings(String _localIp){
+	private void setupSettings(String _localIp)
+	{
 		DebugSettings.LOCAL_SERVER_ADDRESS = _localIp + ":" + mEditPort.getText().toString();
 		DebugSettings.START_ANDROID_AS_SERVER = mRadioServer.isChecked();
 		DebugSettings.REMOTE_PROTOCOL_IN_USE = mRadioTCP.isChecked() ? Protocols.TCP : Protocols.UDP;
@@ -366,10 +383,10 @@ public class MultiplayerConnectionActivity extends GameActivity
 		if (mRadioServer.isChecked())
 			DebugSettings.REMOTE_SERVER_ADDRESS = "localhost:" + mEditPort.getText().toString();
 		else
-			DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();	
+			DebugSettings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
 
 	}
-	
+
 	// http://www.droidnova.com/get-the-ip-address-of-your-device,304.html
 	public String getLocalIpAddress()
 	{
@@ -424,6 +441,5 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 		return true;
 	}
-	
-	
+
 }

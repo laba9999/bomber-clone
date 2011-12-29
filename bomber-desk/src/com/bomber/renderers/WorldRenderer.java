@@ -80,11 +80,11 @@ public class WorldRenderer {
 
 		Flag flag = mWorld.mFlags[0];
 		Vector2 drawingPos = flag.drawingPoint();
-		mBatch.draw(flag.getTexture(), drawingPos.x, drawingPos.y);
+		mBatch.draw(flag.getTexture(), drawingPos.x-28, drawingPos.y);
 
 		flag = mWorld.mFlags[1];
 		drawingPos = flag.drawingPoint();
-		mBatch.draw(flag.getTexture(), drawingPos.x, drawingPos.y);
+		mBatch.draw(flag.getTexture(), drawingPos.x-28, drawingPos.y);
 
 	}
 

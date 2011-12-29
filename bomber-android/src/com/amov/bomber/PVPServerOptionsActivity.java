@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.remote.Protocols;
 
 /*
  * http://www.androidpeople.com/android-gallery-example
@@ -36,7 +37,7 @@ public class PVPServerOptionsActivity extends GameActivity
 	Spinner mSpinnerNumberRounds;
 	Spinner mSpinnerGameType;
 
-	short[] valueGameType = { GameTypeHandler.DEADMATCH, GameTypeHandler.TEAM_DEADMATCH, GameTypeHandler.CTF, GameTypeHandler.TEAM_CTF };
+	short[] valueGameType = { GameTypeHandler.DEADMATCH, GameTypeHandler.CTF, GameTypeHandler.TEAM_DEADMATCH, GameTypeHandler.TEAM_CTF };
 	short[] valueNumberRounds = { 1, 3 };
 	String[] valueLevels = { "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8" };
 
@@ -75,7 +76,12 @@ public class PVPServerOptionsActivity extends GameActivity
 		mSpinnerNumberRounds.setAdapter(adapterNumberRounds);
 
 		mSpinnerGameType = (Spinner) this.findViewById(R.id.spinnerGameType);
-		ArrayAdapter<String> adapterGameType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[] { "DEADMATCH 1vs1", "DEADMATCH 2vs2", "CTF 1vs1", "CTF 2vs2" });
+		ArrayAdapter<String> adapterGameType;
+		if(DebugSettings.REMOTE_PROTOCOL_IN_USE == Protocols.BLUETOOTH)
+			adapterGameType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[] { "DEADMATCH 1vs1", "CTF 1vs1" });
+		else
+			adapterGameType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[] { "DEADMATCH 1vs1", "CTF 1vs1", "DEADMATCH 2vs2", "CTF 2vs2" });
+
 		adapterGameType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mSpinnerGameType.setAdapter(adapterGameType);
 	}

@@ -34,6 +34,8 @@
     <string name="top_position">Rank</string>
     <string name="ip">Server IP:</string>
     <string name="port">Port:</string>
+        <string name="warn_bluetooth_title">Warning!</string>
+         <string name="warn_bluetooth_text">Only the paired devices are shown as option.\nPlease make sure you paired your device with the server before continue.</string>
     <string name="error_wificonnection">Please connect to a network!</string>
     <string name="error_bluetoothconnection">Please turn on Bluetooth!</string>
     <string name="error_inactive_level">You haven\'t unlocked this level yet.</string>
@@ -52,6 +54,7 @@
     <string name="no">No</string>
     <string name="username">Username:</string>
     <string name="loading_top">Loading. Please wait...</string>
+    
     <string name="error_select_different_username">Please select a different username.</string>
     <string name="help_title">Help</string>
     <string name="help_subtitle_moving">Moving</string>
