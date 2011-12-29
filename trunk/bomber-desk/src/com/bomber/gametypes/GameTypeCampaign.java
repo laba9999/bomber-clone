@@ -1,8 +1,6 @@
 package com.bomber.gametypes;
 
-import com.bomber.common.Achievements;
 import com.bomber.common.Directions;
-import com.bomber.common.assets.Level;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.Tile;
 
@@ -40,16 +38,9 @@ public class GameTypeCampaign extends GameTypeHandler {
 			Tile portal = mGameWorld.mMap.mPortal;
 
 			if (portal != null && portal.getBoundingBox().contains(x, y))
-			{
 				ret = true;
 				
-				//TODO:Testar
-				if(Level.mInfo.mNextLevelName.equals("level1"))
-				{
-					Achievements.mHasCompletedCampaign = true;
-					Achievements.saveFile();
-				}
-			}
+			
 		}
 
 		return ret;

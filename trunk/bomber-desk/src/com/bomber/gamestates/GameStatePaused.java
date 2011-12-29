@@ -1,7 +1,9 @@
 package com.bomber.gamestates;
 
+import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.common.assets.GfxAssets;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.UIMovableObject;
 import com.bomber.input.InputPausedState;
 
@@ -26,6 +28,8 @@ public class GameStatePaused extends GameState {
 			mOptionsPanel.addChild(soundButton);
 		}
 
+		if(!DebugSettings.STARTED_FROM_DESKTOP &&SoundAssets.mLastMusicPlaying.equals("timeEnding"))
+			SoundAssets.pause();
 
 		mInput = new InputPausedState(this);
 	}

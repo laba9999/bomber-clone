@@ -15,9 +15,7 @@ import com.bomber.world.Clock;
 
 public class GameStatePlaying extends GameState {
 
-
-
-	private static final int SECONDS_TO_START_BLINK_CLOCK = 15000;
+	private static final int SECONDS_TO_START_BLINK_CLOCK = 12500;
 
 	private short mClockBlinkInterval = 100;
 	private short mTicksSinceLastClockBlink = 100;
@@ -34,9 +32,10 @@ public class GameStatePlaying extends GameState {
 	@Override
 	protected void onReset()
 	{
+
 		SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 	}
-	
+
 	@Override
 	public void onUpdate()
 	{
@@ -161,6 +160,9 @@ public class GameStatePlaying extends GameState {
 		Clock clock = mGameWorld.mClock;
 		if (clock.getRemainingSeconds() < SECONDS_TO_START_BLINK_CLOCK)
 		{
+			if (!SoundAssets.mLastMusicPlaying.equals("timeEnding"))
+				SoundAssets.playMusic("timeEnding", false, 1.0f);
+
 			if (mTicksSinceLastClockBlink > mClockBlinkInterval)
 			{
 				mTicksSinceLastClockBlink = 0;

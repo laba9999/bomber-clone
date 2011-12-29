@@ -102,7 +102,7 @@ public class GameStateLevelCompleted extends GameState {
 		mBatcher.draw(GfxAssets.mScreens.get("levelcompleted"), 125, 60);
 
 		BitmapFont font = GfxAssets.mBigFont;
-		font.draw(mBatcher, mCurrenLevel, 340, 405);
+		font.draw(mBatcher, mCurrenLevel, 350, 405);
 
 		float valueX = findXPositionForValues();
 

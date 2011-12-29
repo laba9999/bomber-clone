@@ -70,6 +70,7 @@
     <string name="symbol_lesser">&lt;</string>
     <string name="symbol_greater">></string>
     
+    <string name="bomber_champ">Parabéns, tu és o BOMBER campeão!!!</string>
         <string name="game_won">GANHASTE!!!</string>
     <string name="game_lost">PERDESTE...</string>
     <string name="game_highscore">MELHOR PONTUAÇÃO</string>
