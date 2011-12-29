@@ -21,7 +21,8 @@ public class Strings {
 		"TEMPO",
 		"Waiting for clients...",
 		"YOU WON!!!",
-		"YOU LOST..."
+		"YOU LOST...",
+		"Congratulations, you are the BOMBER champion!!!"
 	};
 
 	
@@ -42,7 +43,8 @@ public class Strings {
 		"time",
 		"waiting_clients",
 		"won",
-		"lost"
+		"lost",
+		"bomber_champ"
 	};
 	
 	//public static final int NUMBER_GAME_STRINGS = 17;

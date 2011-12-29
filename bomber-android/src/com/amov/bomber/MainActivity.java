@@ -16,7 +16,6 @@ import com.bomber.gametypes.GameTypeHandler;
 
 public class MainActivity extends GameActivity
 {
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -46,7 +45,7 @@ public class MainActivity extends GameActivity
 
 		final int[] GAME_STRINGS_RESOURCES = new int[] { R.string.game_connect_to, R.string.game_connecting, R.string.game_error_connecting, R.string.game_final_score, R.string.game_highscore,
 				R.string.game_loading, R.string.game_lost_client, R.string.game_lost_server, R.string.game_no_suficient_clients, R.string.game_round, R.string.game_score, R.string.game_starts_in,
-				R.string.game_starts_in_lowercase, R.string.game_time, R.string.game_waiting_clients, R.string.game_won, R.string.game_lost };
+				R.string.game_starts_in_lowercase, R.string.game_time, R.string.game_waiting_clients, R.string.game_won, R.string.game_lost, R.string.bomber_champ };
 
 		Strings.mStrings = new HashMap<String, String>(GAME_STRINGS_RESOURCES.length);
 		String str;
@@ -55,7 +54,6 @@ public class MainActivity extends GameActivity
 			str = getResources().getString(GAME_STRINGS_RESOURCES[i]);
 			Strings.mStrings.put(Strings.GAME_STRINGS_KEYS[i], str);
 		}
-
 	}
 
 	public void onArcadeButton(View v)

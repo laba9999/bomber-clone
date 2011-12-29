@@ -1,11 +1,11 @@
 #nome do próximo nivel
-level1
+end
 
 #minutos
-5
+0
 
 #segundos
-0
+18
 
 #nº de bónus
 3

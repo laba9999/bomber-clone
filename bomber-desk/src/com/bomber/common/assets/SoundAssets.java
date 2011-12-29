@@ -23,13 +23,12 @@ public class SoundAssets {
 
 	private static Music mMusicPlaying = null;
 
-	private static String mLastMusicPlaying;
+	public static String mLastMusicPlaying;
 	private static boolean mMusicLooping;
 	private static float mMusicVolume;
-	
+
 	private static boolean mStopped = false;
 	private static boolean mPaused = false;
-	
 
 	public static void load()
 	{
@@ -46,6 +45,7 @@ public class SoundAssets {
 		mMusics.put("level6", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_007.ogg")));
 		mMusics.put("level7", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_008.ogg")));
 		mMusics.put("level8", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_002.ogg")));
+		mMusics.put("timeEnding", Gdx.audio.newMusic(Gdx.files.internal("sfx/time_ending.ogg")));
 
 		mMusics.put("levelISEC", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_010.ogg")));
 
@@ -59,6 +59,13 @@ public class SoundAssets {
 
 	public static void playMusic(String _music, boolean _looping, float _volume)
 	{
+		if (mPaused)
+		{
+			resume();
+			return;
+		}
+
+		mPaused = false;
 		mLastMusicPlaying = _music;
 		mMusicLooping = _looping;
 		mMusicVolume = _volume;
@@ -88,8 +95,8 @@ public class SoundAssets {
 		if (mMusicPlaying == null || !mIsSoundActive)
 			return;
 
-		
 		mMusicPlaying.play();
+		mPaused = false;
 	}
 
 	public static void pause()
@@ -97,11 +104,13 @@ public class SoundAssets {
 		if (mMusicPlaying == null)
 			return;
 
+		mPaused = true;
 		mMusicPlaying.pause();
 	}
 
 	public static void stop()
 	{
+		mPaused = false;
 		mLastMusicPlaying = null;
 		if (mMusicPlaying == null)
 			return;

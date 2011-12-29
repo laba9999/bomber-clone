@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.bomber.Game;
 import com.bomber.common.assets.Level;
 import com.bomber.gamestates.GameState;
+import com.bomber.gamestates.GameStateBomberChamp;
 import com.bomber.world.GameWorld;
 
 public class InputLevelCompletedState extends Input {
@@ -58,11 +59,20 @@ public class InputLevelCompletedState extends Input {
 			int tempScore = world.getLocalPlayer().mPoints;
 
 			Game.mLevelToLoad = Level.mInfo.mNextLevelName;
+
+			// Verifica se é o último nivel
+			if (Game.mLevelToLoad.equals("end"))
+			{
+				mGameState.finish(new GameStateBomberChamp(mGameState.mGame));
+				return;
+			}
+
 			world.getLocalPlayer().mStartLevelPoints = world.getLocalPlayer().mPoints;
 			world.reset(Level.mInfo.mNextLevelName);
 			world.getLocalPlayer().mPoints = tempScore;
 
 			mGameState.finish(mGameState.mPreviousGameState);
+
 			break;
 
 		case INPUT_RELOAD:
