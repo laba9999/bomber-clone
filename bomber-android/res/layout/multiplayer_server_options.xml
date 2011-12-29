@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:fadingEdge="vertical"
                 android:spacing="150sp" />
         </TableRow>
@@ -53,61 +53,69 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="1sp"
             android:layout_weight="0" >
-
+
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
-                android:layout_marginLeft="219dp" >
+                android:layout_weight="1"
+                android:gravity="center" >
 
                 <ImageView
                     android:id="@+id/indicator1"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
 
                 <ImageView
                     android:id="@+id/indicator2"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
 
                 <ImageView
                     android:id="@+id/indicator3"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
 
                 <ImageView
                     android:id="@+id/indicator4"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
 
                 <ImageView
                     android:id="@+id/indicator5"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
 
                 <ImageView
                     android:id="@+id/indicator6"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
 
                 <ImageView
                     android:id="@+id/indicator7"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
 
                 <ImageView
                     android:id="@+id/indicator8"
                     android:layout_width="15sp"
                     android:layout_height="15sp"
-                    android:src="@drawable/indicator_off" />
+                    android:src="@drawable/indicator_off"/>
+
+                <ImageView
+                    android:id="@+id/indicator9"
+                    android:layout_width="15sp"
+                    android:layout_height="15sp"
+                    android:src="@drawable/indicator_off"/>
+
             </LinearLayout>
         </TableRow>
 
