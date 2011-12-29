@@ -62,21 +62,13 @@ public class BuildActivity extends GameActivity
 
 		// Lê a build das preferências
 		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildExplosionSize", 0); i++)
-		{
 			onExplosionPlusButton(null);
-			mAvailablePoints--;
-		}
+
 		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildBombCount", 0); i++)
-		{
 			onBombsPlusButton(null);
-			mAvailablePoints--;
-		}
 
 		for (int i = 0; i < DebugSettings.GAME_PREFS.getInt("buildSpeed", 0); i++)
-		{
 			onSpeedPlusButton(null);
-			mAvailablePoints--;
-		}
 
 		mTextAvailablePoints.setText(mAvailablePoints.toString());
 	}
@@ -142,7 +134,7 @@ public class BuildActivity extends GameActivity
 
 		if (DebugSettings.GAME_TYPE == 0)
 			DebugSettings.GAME_TYPE = GameTypeHandler.CTF;
-		
+
 		launchActivity(AndroidGame.class);
 	}
 

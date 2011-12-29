@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.bomber.DebugSettings;
 import com.bomber.Game;
 import com.bomber.OverlayingText;
+import com.bomber.common.BonusBuild;
 import com.bomber.common.Directions;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.ObjectsPool;
@@ -123,7 +124,14 @@ public class GameWorld {
 				p.mIsLocalPlayer = true;
 
 				p.mName = DebugSettings.PLAYER_NAME;
-				
+
+				if (Game.mIsPVPGame)
+				{
+					p.mMaxSimultaneousBombs += BonusBuild.mBombCount;
+					p.mBombExplosionSize += BonusBuild.mExplosionSize;
+					p.mSpeedFactor += BonusBuild.mSpeed;
+				}
+
 				break;
 			}
 	}
@@ -238,8 +246,16 @@ public class GameWorld {
 		tmpPlayer.mColor = Player.getColorFromString(_type);
 
 		// O jogador branco é sempre o primeiro elemento da equipa 1
-		if (tmpPlayer.mColor == Player.WHITE && Game.mIsPVPGame)
+		if (tmpPlayer.mColor == Player.WHITE && Game.mIsPVPGame){
 			Game.mTeams[0].addElement(tmpPlayer);
+			
+			if( Game.mIsPVPGame)
+			{
+				tmpPlayer.mMaxSimultaneousBombs += BonusBuild.mBombCount;
+				tmpPlayer.mBombExplosionSize += BonusBuild.mExplosionSize;
+				tmpPlayer.mSpeedFactor += BonusBuild.mSpeed;
+			}
+		}
 
 		tmpPlayer.mPosition.x = _col * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
 		tmpPlayer.mPosition.y = _line * Tile.TILE_SIZE + Tile.TILE_SIZE_HALF;
@@ -297,7 +313,7 @@ public class GameWorld {
 	public void spawnExplosion(Bomb _bomb)
 	{
 		SoundAssets.playSound("explosion");
-		
+
 		// Remove a bomba da pool de bombas activas
 		mBombs.releaseObject(_bomb);
 

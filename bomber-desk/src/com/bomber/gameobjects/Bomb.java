@@ -18,7 +18,7 @@ public class Bomb extends KillableObject {
 
 	private int mTicksSinceDrop = 0;
 
-	private static final int mTicksToExplode = 5; // 100/sec = 3secs;
+	private static final int mTicksToExplode = 100; // 100/sec = 3secs;
 
 	public Bomb(GameWorld _world) {
 		mWorld = _world;
@@ -38,6 +38,14 @@ public class Bomb extends KillableObject {
 				mContainer.mContainsBomb = true;
 			}
 
+			for (Player p : mWorld.mPlayers)
+			{
+				if (p.mColor == mDropedBy)
+				{
+					p.mPlacedBombsCount--;
+					break;
+				}
+			}
 			mWorld.spawnExplosion(this);
 		}
 

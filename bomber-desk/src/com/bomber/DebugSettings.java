@@ -15,8 +15,8 @@ public class DebugSettings {
 	
 	public static boolean START_ANDROID_AS_SERVER = false;
 	public static boolean START_DESKTOP_AS_SERVER = false;
-	public static short REMOTE_PROTOCOL_IN_USE = Protocols.UDP;
-	public static String REMOTE_SERVER_ADDRESS = "localhost:50005";
+	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
+	public static String REMOTE_SERVER_ADDRESS = "192.168.140.198:50005";
 
 
 	// Alterar este valor não tem efeito nenhum
@@ -31,7 +31,7 @@ public class DebugSettings {
 	public static String LEVEL_TO_LOAD = "level4";
 	public static short GAME_ROUNDS = 1;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.CTF;
+	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static SharedPreferences GAME_PREFS = null;
 	// Players
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
