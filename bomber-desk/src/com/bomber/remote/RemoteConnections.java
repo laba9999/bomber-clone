@@ -93,15 +93,15 @@ public class RemoteConnections {
 		if (tmpConn == null)
 			return false;
 
-		if (_protocol == Protocols.TCP || _protocol == Protocols.UDP)
-		{
+//		if (_protocol == Protocols.TCP || _protocol == Protocols.UDP)
+//		{
 			// Envia mensagem ao servidor a indicar a porta local onde estamos a
 			// aceitar ligações por parte de outros jogadores
 			mMessageToSend.messageType = MessageType.CONNECTION;
 			mMessageToSend.eventType = EventType.LOCAL_SERVER_PORT;
-			mMessageToSend.valInt = mLocalServer.getLocalPort();
+			mMessageToSend.valInt =1;// mLocalServer.getLocalPort();
 			tmpConn.sendMessage(mMessageToSend);
-		}
+//		}
 
 		tmpConn.setDaemon(true);
 		tmpConn.start();
@@ -292,9 +292,12 @@ public class RemoteConnections {
 			Integer port = r.nextInt(100) + 50006;
 			try
 			{
-				Game.LOGGER.log("A ligar o servidor local no porto: " + port);
-				connections.acceptConnections(_protocol, port.toString(), (short) 3);
-				Game.LOGGER.log("À espera de ligações...");
+				if (_protocol != Protocols.BLUETOOTH)
+				{
+					Game.LOGGER.log("A ligar o servidor local no porto: " + port);
+					connections.acceptConnections(_protocol, port.toString(), (short) 3);
+					Game.LOGGER.log("À espera de ligações...");
+				}
 			} catch (IOException e)
 			{
 				Game.LOGGER.log("Erro ao lançar o servidor local.");

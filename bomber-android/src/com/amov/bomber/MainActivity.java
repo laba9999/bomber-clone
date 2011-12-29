@@ -48,9 +48,9 @@ public class MainActivity extends GameActivity
 				R.string.game_loading, R.string.game_lost_client, R.string.game_lost_server, R.string.game_no_suficient_clients, R.string.game_round, R.string.game_score, R.string.game_starts_in,
 				R.string.game_starts_in_lowercase, R.string.game_time, R.string.game_waiting_clients, R.string.game_won, R.string.game_lost };
 
-		Strings.mStrings = new HashMap<String, String>(Strings.NUMBER_GAME_STRINGS);
+		Strings.mStrings = new HashMap<String, String>(GAME_STRINGS_RESOURCES.length);
 		String str;
-		for (int i = 0; i < Strings.NUMBER_GAME_STRINGS; i++)
+		for (int i = 0; i < GAME_STRINGS_RESOURCES.length; i++)
 		{
 			str = getResources().getString(GAME_STRINGS_RESOURCES[i]);
 			Strings.mStrings.put(Strings.GAME_STRINGS_KEYS[i], str);

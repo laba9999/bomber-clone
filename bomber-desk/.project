@@ -20,11 +20,4 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>edu.umd.cs.findbugs.plugin.eclipse.findbugsNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>assets</name>
-			<type>2</type>
-			<location>D:/ISEC/3º ANO/AM/Project/svn/bomber-android/assets</location>
-		</link>
-	</linkedResources>
 </projectDescription>
