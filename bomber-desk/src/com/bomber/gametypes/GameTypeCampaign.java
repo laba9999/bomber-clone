@@ -44,7 +44,7 @@ public class GameTypeCampaign extends GameTypeHandler {
 				ret = true;
 				
 				//TODO:Testar
-				if(Level.mInfo.mNextLevelName.equals("none"))
+				if(Level.mInfo.mNextLevelName.equals("level1"))
 				{
 					Achievements.mHasCompletedCampaign = true;
 					Achievements.saveFile();

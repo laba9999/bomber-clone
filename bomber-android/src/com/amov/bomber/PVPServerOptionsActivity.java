@@ -141,8 +141,8 @@ public class PVPServerOptionsActivity extends GameActivity
 		private Context mContext;
 
 		// Adding images.
-		private Integer[] Imgid = { R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2, R.drawable.placeholder, R.drawable.placeholder2,
-				R.drawable.placeholder, R.drawable.placeholder2 };
+		private Integer[] Imgid = { R.drawable.tumb_level1, R.drawable.tumb_level2, R.drawable.tumb_level3, R.drawable.tumb_level4, R.drawable.tumb_level5, R.drawable.tumb_level6,
+				R.drawable.tumb_level7, R.drawable.tumb_level8 };
 
 		public ImageAdapter(Context c)
 		{

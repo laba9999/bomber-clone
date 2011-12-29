@@ -406,10 +406,10 @@ public class GfxAssets {
 		mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
 		mScreens.put("gameover", atlasHD.findRegion("gameover"));
 
-		mScreens.put("background_gradient_red", atlasHD.findRegion("background_gradient_red"));
-		mScreens.put("background_gradient_green", atlasHD.findRegion("background_gradient_green"));
-		mScreens.put("background_gradient_grey", atlasHD.findRegion("background_gradient_grey"));
-		
+//		mScreens.put("background_gradient_red", atlasHD.findRegion("background_gradient_red"));
+//		mScreens.put("background_gradient_green", atlasHD.findRegion("background_gradient_green"));
+//		mScreens.put("background_gradient_grey", atlasHD.findRegion("background_gradient_grey"));
+//		
 		mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
 
 		mTrophy[0] = atlasHD.findRegion("trophy");
@@ -444,22 +444,41 @@ public class GfxAssets {
 	public static class Pixmaps {
 		private static Pixmap mPixmapDarkGlass = null;
 		private static Pixmap mPixmapNamePlate = null;
+		private static Pixmap mPixmapGreen = null;
+		private static Pixmap mPixmapRed = null;
+		private static Pixmap mPixmapGrey= null;
+		
 		private static Texture mDarkGlass = null;
-		private static Texture mNamePlate = null;
+		private static Texture mGreen = null;
+		private static Texture mRed = null;
+		private static Texture mGrey = null;
 
+		private static Texture mNamePlate = null;
 		public static void dispose()
 		{
 			if (mPixmapDarkGlass == null)
 				return;
 
 			mPixmapDarkGlass.dispose();
+			mPixmapGreen.dispose();
+			mPixmapRed.dispose();
+			mPixmapGrey.dispose();
 			mPixmapNamePlate.dispose();
 			mDarkGlass.dispose();
+			mGreen.dispose();
+			mRed.dispose();
+			mGrey.dispose();
 			mNamePlate.dispose();
 
 			mPixmapDarkGlass = null;
+			mPixmapGreen = null;
+			mPixmapRed = null;
+			mPixmapGrey = null;
 			mPixmapNamePlate = null;
 			mDarkGlass = null;
+			mGreen = null;
+			mRed = null;
+			mGrey = null;
 			mNamePlate = null;
 		}
 
@@ -472,6 +491,37 @@ public class GfxAssets {
 
 			return mDarkGlass;
 		}
+		
+		public static Texture getGreen()
+		{
+			if (mGreen != null)
+				return mGreen;
+
+			create();
+
+			return mGreen;
+		}
+		
+		public static Texture getRed()
+		{
+			if (mRed != null)
+				return mRed;
+
+			create();
+
+			return mRed;
+		}
+		
+		public static Texture getGrey()
+		{
+			if (mGrey != null)
+				return mGrey;
+
+			create();
+
+			return mGrey;
+		}
+		
 
 		public static Texture getNamePlate()
 		{
@@ -485,9 +535,37 @@ public class GfxAssets {
 		
 		private static void create()
 		{
-			mPixmapDarkGlass = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
 
+
+
+			
+			//Cria background verde
+			mPixmapGreen = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
+			mPixmapGreen.setColor(0.14f, 0.45f, 0, 0.8f);
+			mPixmapGreen.fill();
+			mGreen = new Texture(mPixmapGreen);
+			mGreen.draw(mPixmapGreen, 
+					0, 0);
+			mGreen.bind();
+			
+			//Cria background vermelho
+			mPixmapRed = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
+			mPixmapRed.setColor(0.75f, 0, 0, 0.8f);
+			mPixmapRed.fill();
+			mRed = new Texture(mPixmapRed);
+			mRed.draw(mPixmapRed, 0, 0);
+			mRed.bind();
+			
+			//Cria background cinzento
+			mPixmapGrey = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
+			mPixmapGrey.setColor(0.21f, 0.21f, 0.21f, 0.8f);
+			mPixmapGrey.fill();
+			mGrey = new Texture(mPixmapGrey);
+			mGrey.draw(mPixmapGrey, 0, 0);
+			mGrey.bind();
+			
 			// Cria o vidro escuro
+			mPixmapDarkGlass = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
 			mPixmapDarkGlass.setColor(0, 0, 0, 0.8f);
 			mPixmapDarkGlass.fill();
 

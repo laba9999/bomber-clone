@@ -32,7 +32,7 @@
 	            android:layout_height="30sp"
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1"
-	            android:src="@drawable/placeholder" />
+	            android:src="@drawable/achievements_icon_monsters" />
 
 	        <TextView
 	            android:id="@+id/textAchievementMonsterKills"
@@ -67,7 +67,7 @@
 	            android:layout_height="30sp"
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1"
-	            android:src="@drawable/placeholder2" />
+	            android:src="@drawable/achievements_icon_players" />
 
 	        <TextView
 	            android:id="@+id/textAchievementPlayerKills"
@@ -104,7 +104,7 @@
 	            android:layout_height="30sp"
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1"
-	            android:src="@drawable/placeholder2" />
+	            android:src="@drawable/achievements_icon_dm" />
 
 	        <TextView
 	            android:id="@+id/textAchievementDMWins"
@@ -141,7 +141,7 @@
 	            android:layout_height="30sp"
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1"
-	            android:src="@drawable/placeholder2" />
+	            android:src="@drawable/achievements_icon_ctf" />
 
 	        <TextView
 	            android:id="@+id/textAchievementCTFWins"
@@ -178,7 +178,7 @@
 	            android:layout_height="30sp"
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1"
-	            android:src="@drawable/placeholder2" />
+	            android:src="@drawable/achievements_icon_clock" />
 
 	        <TextView
 	            android:id="@+id/textAchievementTimePlayed"
@@ -215,7 +215,7 @@
 	            android:layout_height="30sp"
 	            android:layout_gravity="center_vertical"
 	            android:layout_weight="1"
-	            android:src="@drawable/placeholder2" />
+	            android:src="@drawable/achievements_icon_completed" />
 
 	        <TextView
 	            android:id="@+id/textAchievementCompletedCampaign"
