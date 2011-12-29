@@ -16,7 +16,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.gametypes.GameTypeHandler;
 
 /*
@@ -52,17 +52,17 @@ public class LevelChooserActivity extends GameActivity
 		{
 			public void onItemClick(AdapterView<?> _parent, View _v, int _position, long _id)
 			{
-				if (_position > DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
+				if (_position > Settings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
 				{
 					Toast.makeText(LevelChooserActivity.this, LevelChooserActivity.this.getString(R.string.error_inactive_level), Toast.LENGTH_SHORT).show();
 					return;
 				}
 
 				// Prepara as settings para o jogo
-				DebugSettings.BLUETOOTH_ADAPTER = null;
-				DebugSettings.START_ANDROID_AS_SERVER = false;
-				DebugSettings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
-				DebugSettings.LEVEL_TO_LOAD = valueLevels[_position];
+				Settings.BLUETOOTH_ADAPTER = null;
+				Settings.START_ANDROID_AS_SERVER = false;
+				Settings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
+				Settings.LEVEL_TO_LOAD = valueLevels[_position];
 
 				launchActivity(AndroidGame.class);
 			}
@@ -143,7 +143,7 @@ public class LevelChooserActivity extends GameActivity
 			{
 				ImageView iv = new ImageView(mContext);
 				iv.setBackgroundResource(mGalleryItemBackground);
-				if (position <= DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
+				if (position <= Settings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
 					iv.setImageResource(mImgIdActive[position]);
 				else
 					iv.setImageResource(mImgIdInactive[position]);

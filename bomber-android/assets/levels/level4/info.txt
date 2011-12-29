@@ -2,7 +2,7 @@
 level5
 
 #minutos
-2
+3
 
 #segundos
 0

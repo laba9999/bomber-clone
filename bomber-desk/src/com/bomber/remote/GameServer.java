@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import com.bomber.DebugSettings;
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.common.Strings;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
@@ -27,7 +27,7 @@ public class GameServer {
 
 	public short mPlayersConfirmedCount = 0;
 
-	private short mCountdownSeconds = DebugSettings.GAME_COUNTDOWN_SECONDS;
+	private short mCountdownSeconds = Settings.GAME_COUNTDOWN_SECONDS;
 	private short mTicksSinceLastCountdownMessage = 0;
 	private Message tmpMessage = new Message();
 
@@ -183,9 +183,9 @@ public class GameServer {
 			tmpMessage.messageType = MessageType.GAME;
 			tmpMessage.eventType = EventType.INFO;
 
-			tmpMessage.valShort = DebugSettings.GAME_TYPE;
-			tmpMessage.valInt = DebugSettings.GAME_ROUNDS;
-			tmpMessage.setStringValue(DebugSettings.LEVEL_TO_LOAD);
+			tmpMessage.valShort = Settings.GAME_TYPE;
+			tmpMessage.valInt = Settings.GAME_ROUNDS;
+			tmpMessage.setStringValue(Settings.LEVEL_TO_LOAD);
 
 			mPlayers.get(_starIdx).sendMessage(tmpMessage);
 
@@ -213,7 +213,7 @@ public class GameServer {
 			// Envia o nome do jogador que está a fazer de server
 			tmpMessage.messageType = MessageType.PLAYER;
 			tmpMessage.eventType = EventType.NAME;
-			tmpMessage.setStringValue(DebugSettings.PLAYER_NAME);
+			tmpMessage.setStringValue(Settings.PLAYER_NAME);
 			tmpMessage.valShort = 0;
 			mPlayers.get(i).sendMessage(tmpMessage);
 		}

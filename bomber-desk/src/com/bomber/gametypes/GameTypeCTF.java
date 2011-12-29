@@ -48,14 +48,12 @@ public class GameTypeCTF extends GameTypeHandler {
 		if (mGameWorld.mClock.mReachedZero || Game.mTeams[0].mCapturedEnemyFlag || Game.mTeams[1].mCapturedEnemyFlag)
 			return true;
 		
-
 		return false;
 	}
 
 	@Override
 	public boolean isLost()
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 

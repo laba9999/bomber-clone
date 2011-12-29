@@ -16,7 +16,7 @@ import org.xml.sax.XMLReader;
 import android.content.SharedPreferences;
 
 import com.badlogic.gdx.Gdx;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.gameobjects.Tile;
 import com.bomber.world.GameWorld;
@@ -55,9 +55,9 @@ public class Level {
 		{
 			Integer id = Integer.valueOf(_levelID.substring(_levelID.length() - 1)) - 1;
 
-			if ( !DebugSettings.STARTED_FROM_DESKTOP && id > DebugSettings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
+			if ( !Settings.STARTED_FROM_DESKTOP && id > Settings.GAME_PREFS.getInt("campaignLevelCompleted", 0))
 			{
-				SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
+				SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
 				edit.putInt("campaignLevelCompleted", id);
 				edit.commit();
 			}
@@ -109,7 +109,6 @@ public class Level {
 			mIsLoaded = true;
 		} catch (Exception e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

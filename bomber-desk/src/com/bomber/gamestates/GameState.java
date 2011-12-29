@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.input.Input;
@@ -79,14 +79,14 @@ public abstract class GameState {
 	private final void drawDebugInfo()
 	{
 		BitmapFont font = GfxAssets.mGenericFont;
-		if (DebugSettings.UI_DRAW_INPUT_ZONES)
+		if (Settings.UI_DRAW_INPUT_ZONES)
 		{
 			Rectangle[] zones = mInput.getZones();
 			for (int i = 0; i < zones.length; i++)
 				mBatcher.draw(GfxAssets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
 		}
 
-		if (DebugSettings.UI_DRAW_FPS)
+		if (Settings.UI_DRAW_FPS)
 		{
 			Integer fps = Gdx.graphics.getFramesPerSecond();
 			font.draw(mBatcher, "F: " + fps.toString(), 100, 470);

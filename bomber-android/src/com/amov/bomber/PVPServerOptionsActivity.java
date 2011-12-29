@@ -19,7 +19,7 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
@@ -77,7 +77,7 @@ public class PVPServerOptionsActivity extends GameActivity
 
 		mSpinnerGameType = (Spinner) this.findViewById(R.id.spinnerGameType);
 		ArrayAdapter<String> adapterGameType;
-		if(DebugSettings.REMOTE_PROTOCOL_IN_USE == Protocols.BLUETOOTH)
+		if(Settings.REMOTE_PROTOCOL_IN_USE == Protocols.BLUETOOTH)
 			adapterGameType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[] { "DEADMATCH 1vs1", "CTF 1vs1" });
 		else
 			adapterGameType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[] { "DEADMATCH 1vs1", "CTF 1vs1", "DEADMATCH 2vs2", "CTF 2vs2" });
@@ -88,10 +88,10 @@ public class PVPServerOptionsActivity extends GameActivity
 
 	public void onContinueButton(View v)
 	{
-		DebugSettings.LEVEL_TO_LOAD = valueLevels[gallery.getSelectedItemPosition()];
-		DebugSettings.GAME_ROUNDS = valueNumberRounds[mSpinnerNumberRounds.getSelectedItemPosition()];
-		DebugSettings.GAME_TYPE = valueGameType[mSpinnerGameType.getSelectedItemPosition()];
-		Game.LOGGER.log("Starting game as: " + DebugSettings.GAME_TYPE);
+		Settings.LEVEL_TO_LOAD = valueLevels[gallery.getSelectedItemPosition()];
+		Settings.GAME_ROUNDS = valueNumberRounds[mSpinnerNumberRounds.getSelectedItemPosition()];
+		Settings.GAME_TYPE = valueGameType[mSpinnerGameType.getSelectedItemPosition()];
+		Game.LOGGER.log("Starting game as: " + Settings.GAME_TYPE);
 
 		Intent myIntent = new Intent(this, BuildActivity.class);
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

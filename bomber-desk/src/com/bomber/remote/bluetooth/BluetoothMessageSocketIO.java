@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.remote.MessageSocketIO;
 
 public class BluetoothMessageSocketIO extends MessageSocketIO {
@@ -24,8 +24,8 @@ public class BluetoothMessageSocketIO extends MessageSocketIO {
 	}
 
 	public BluetoothMessageSocketIO(String _macAddress) throws IOException {
-		BluetoothDevice btDevice = DebugSettings.BLUETOOTH_ADAPTER.getRemoteDevice(_macAddress);
-		mSocket = btDevice.createRfcommSocketToServiceRecord(DebugSettings.APP_UUID);
+		BluetoothDevice btDevice = Settings.BLUETOOTH_ADAPTER.getRemoteDevice(_macAddress);
+		mSocket = btDevice.createRfcommSocketToServiceRecord(Settings.APP_UUID);
 		mSocket.connect();
 		mInStream = mSocket.getInputStream();
 		mOutStream = mSocket.getOutputStream();

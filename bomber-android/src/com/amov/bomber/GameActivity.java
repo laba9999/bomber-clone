@@ -5,8 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-import com.bomber.DebugSettings;
-import com.bomber.common.Settings;
+import com.bomber.Settings;
 import com.bomber.common.assets.SoundAssets;
 
 public abstract class GameActivity extends Activity
@@ -39,18 +38,18 @@ public abstract class GameActivity extends Activity
 		}
 
 		startedActivity = false;
-		if (Settings.isSoundOn)
-			SoundAssets.resume();
+
+		SoundAssets.resume();
 		super.onResume();
 	}
 
 	protected void loadSharedPreferences()
 	{
-		if (DebugSettings.GAME_PREFS == null)
+		if (Settings.GAME_PREFS == null)
 		{
-			DebugSettings.loadPreferences(getSharedPreferences("super_prefs", 0));
-			DebugSettings.PLAYER_NAME = DebugSettings.GAME_PREFS.getString("playerName", null);
-			SoundAssets.mIsSoundActive = DebugSettings.GAME_PREFS.getBoolean("soundEnabled", true);
+			Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
+			Settings.PLAYER_NAME = Settings.GAME_PREFS.getString("playerName", null);
+			SoundAssets.mIsSoundActive = Settings.GAME_PREFS.getBoolean("soundEnabled", true);
 		}
 	}
 

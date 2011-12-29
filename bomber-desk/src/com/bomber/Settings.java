@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
 
-public class DebugSettings {
+public class Settings {
 
 	public static boolean LIMPAR_SARAMPO = false;
 	// Remote
@@ -34,11 +34,11 @@ public class DebugSettings {
 	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static SharedPreferences GAME_PREFS = null;
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
 	public static String PLAYER_NAME = "zezao1";
 
 	// Monstros
-	public static final boolean MONSTERS_KILL_PLAYERS = false;
+	public static final boolean MONSTERS_KILL_PLAYERS = true;
 
 	// Mapa
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;

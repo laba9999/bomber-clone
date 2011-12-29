@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.bomber.Game;
+import com.bomber.common.Achievements;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
 
@@ -11,7 +12,9 @@ public class GameStateBomberChamp extends GameState {
 
 	public GameStateBomberChamp(Game _game) {
 		super(_game);
-		// TODO Auto-generated constructor stub
+		
+		Achievements.mHasCompletedCampaign = true;
+		Achievements.saveFile();
 	}
 
 	@Override
@@ -47,15 +50,11 @@ public class GameStateBomberChamp extends GameState {
 	@Override
 	protected void onUpdateFinishing()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void onFinish()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 }

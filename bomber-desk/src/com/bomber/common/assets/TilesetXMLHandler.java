@@ -46,7 +46,6 @@ public class TilesetXMLHandler extends DefaultHandler
 	@Override
 	public void endDocument() throws SAXException
 	{
-		// TODO Auto-generated method stub
 		super.endDocument();
 	}
 

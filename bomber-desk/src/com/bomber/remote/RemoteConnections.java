@@ -5,7 +5,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.Strings;
@@ -93,15 +93,16 @@ public class RemoteConnections {
 		if (tmpConn == null)
 			return false;
 
-//		if (_protocol == Protocols.TCP || _protocol == Protocols.UDP)
-//		{
-			// Envia mensagem ao servidor a indicar a porta local onde estamos a
-			// aceitar ligações por parte de outros jogadores
-			mMessageToSend.messageType = MessageType.CONNECTION;
-			mMessageToSend.eventType = EventType.LOCAL_SERVER_PORT;
-			mMessageToSend.valInt =1;// mLocalServer.getLocalPort();
-			tmpConn.sendMessage(mMessageToSend);
-//		}
+		// Envia mensagem ao servidor a indicar a porta local onde estamos a
+		// aceitar ligações por parte de outros jogadores
+		mMessageToSend.messageType = MessageType.CONNECTION;
+		mMessageToSend.eventType = EventType.LOCAL_SERVER_PORT;
+		if (_protocol != Protocols.BLUETOOTH)
+			mMessageToSend.valInt = mLocalServer.getLocalPort();
+		else
+			mMessageToSend.valInt = 1;
+		tmpConn.sendMessage(mMessageToSend);
+
 
 		tmpConn.setDaemon(true);
 		tmpConn.start();
@@ -151,7 +152,7 @@ public class RemoteConnections {
 			mMessageToSend.messageType = MessageType.PLAYER;
 			mMessageToSend.eventType = EventType.NAME;
 			mMessageToSend.valShort = RemoteConnections.mLocalID;
-			mMessageToSend.setStringValue(DebugSettings.PLAYER_NAME);
+			mMessageToSend.setStringValue(Settings.PLAYER_NAME);
 			Game.mRemoteConnections.broadcast(mMessageToSend);
 		}
 	}

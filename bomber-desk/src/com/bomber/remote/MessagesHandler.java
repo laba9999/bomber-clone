@@ -26,7 +26,6 @@ public class MessagesHandler {
 		if (!mMessageContainer.hasNext())
 			return;
 
-		// TODO : Adicionar os restantes tipos
 		Message tmpMessage = mMessageContainer.getNext();
 
 		switch (tmpMessage.messageType)

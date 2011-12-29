@@ -4,12 +4,10 @@ import java.util.HashMap;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.common.Achievements;
-import com.bomber.common.Settings;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gametypes.GameTypeHandler;
@@ -28,8 +26,8 @@ public class MainActivity extends GameActivity
 
 		updateSoundButton(findViewById(R.id.imageButtonMainSound));
 
-		DebugSettings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
-		DebugSettings.STARTED_FROM_DESKTOP = false;
+		Settings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
+		Settings.STARTED_FROM_DESKTOP = false;
 		Achievements.loadFile();
 
 		loadStrings();

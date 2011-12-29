@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
@@ -71,7 +71,7 @@ public class GameMap {
 	 */
 	public void addDestroyableTile(short _line, short _col, Animation _anim)
 	{
-		if (!DebugSettings.MAP_LOAD_DESTROYABLE_TILES)
+		if (!Settings.MAP_LOAD_DESTROYABLE_TILES)
 			return;
 
 		Tile tmpTile = mDestroyableTiles.getFreeObject();

@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 
 /**
  * 
@@ -27,7 +27,6 @@ public class SoundAssets {
 	private static boolean mMusicLooping;
 	private static float mMusicVolume;
 
-	private static boolean mStopped = false;
 	private static boolean mPaused = false;
 
 	public static void load()
@@ -124,7 +123,7 @@ public class SoundAssets {
 
 		mIsSoundActive = !mIsSoundActive;
 
-		SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
+		SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
 		edit.putBoolean("soundEnabled", mIsSoundActive);
 		edit.commit();
 

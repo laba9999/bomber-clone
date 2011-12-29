@@ -31,14 +31,10 @@ public class GameStateLoading extends GameState {
 	@Override
 	protected void onFinish()
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void onUpdateFinishing()
 	{
-		// TODO Auto-generated method stub
-
 	}
 }

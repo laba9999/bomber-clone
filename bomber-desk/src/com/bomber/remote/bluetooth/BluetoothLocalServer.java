@@ -6,7 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.remote.LocalServer;
 import com.bomber.remote.MessageContainer;
@@ -18,8 +18,8 @@ public class BluetoothLocalServer extends LocalServer {
 	public BluetoothLocalServer(MessageContainer _msgContainer) throws IOException {
 		super(_msgContainer, (short) 1);
 
-		BluetoothAdapter mBluetoothAdapter = DebugSettings.BLUETOOTH_ADAPTER;
-		mServerSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("BOMBER", DebugSettings.APP_UUID);
+		BluetoothAdapter mBluetoothAdapter = Settings.BLUETOOTH_ADAPTER;
+		mServerSocket = mBluetoothAdapter.listenUsingRfcommWithServiceRecord("BOMBER", Settings.APP_UUID);
 	}
 
 	@Override
@@ -63,7 +63,6 @@ public class BluetoothLocalServer extends LocalServer {
 	@Override
 	public int getLocalPort()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

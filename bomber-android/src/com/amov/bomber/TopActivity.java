@@ -29,7 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bomber.DebugSettings;
+import com.bomber.Settings;
 import com.bomber.Game;
 
 public class TopActivity extends GameActivity
@@ -64,7 +64,7 @@ public class TopActivity extends GameActivity
 		setContentView(R.layout.top);
 
 		mEditUsername = new EditText(this);
-		mEditUsername.setText(DebugSettings.PLAYER_NAME);
+		mEditUsername.setText(Settings.PLAYER_NAME);
 
 		mLayout = (LinearLayout) findViewById(R.id.topItemsLayout);
 		mInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -127,9 +127,9 @@ public class TopActivity extends GameActivity
 				public void onClick(DialogInterface dialog, int whichButton)
 				{
 					String value = mEditUsername.getText().toString().replace(" ", "");
-					DebugSettings.PLAYER_NAME = value;
+					Settings.PLAYER_NAME = value;
 
-					if (DebugSettings.PLAYER_NAME.equals("Bomber"))
+					if (Settings.PLAYER_NAME.equals("Bomber"))
 					{
 						Toast.makeText(TopActivity.this, TopActivity.this.getString(R.string.error_select_different_username), Toast.LENGTH_SHORT).show();
 						TopActivity.this.finish();
@@ -137,8 +137,8 @@ public class TopActivity extends GameActivity
 					}
 
 					// Guarda o nome
-					SharedPreferences.Editor edit = DebugSettings.GAME_PREFS.edit();
-					edit.putString("playerName", DebugSettings.PLAYER_NAME);
+					SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
+					edit.putString("playerName", Settings.PLAYER_NAME);
 					edit.commit();
 				}
 			}).show();
@@ -160,7 +160,7 @@ public class TopActivity extends GameActivity
 	{
 		mListingTop = true;
 
-		if (DebugSettings.PLAYER_NAME.equals("Bomber"))
+		if (Settings.PLAYER_NAME.equals("Bomber"))
 		{
 			showDialog(DIALOG_NAME);
 			return;
@@ -191,9 +191,9 @@ public class TopActivity extends GameActivity
 		{
 			try
 			{
-				getDBResult("insert.php?name=" + DebugSettings.PLAYER_NAME + "&highscore=" + DebugSettings.GAME_PREFS.getLong("totalPoints", 0));
+				getDBResult("insert.php?name=" + Settings.PLAYER_NAME + "&highscore=" + Settings.GAME_PREFS.getLong("totalPoints", 0));
 
-				mAnswerString = getDBResult("query.php?name=" + DebugSettings.PLAYER_NAME);
+				mAnswerString = getDBResult("query.php?name=" + Settings.PLAYER_NAME);
 
 				if (mAnswerString == null)
 				{
@@ -244,7 +244,7 @@ public class TopActivity extends GameActivity
 				Game.LOGGER.log(s);
 
 				View vi = mInflater.inflate(R.layout.top_item, null);
-				if (DebugSettings.PLAYER_NAME.equals(entry[2]))
+				if (Settings.PLAYER_NAME.equals(entry[2]))
 					isLocalPlayer = true;
 
 				TextView text = (TextView) vi.findViewById(R.id.tvTopCountry);

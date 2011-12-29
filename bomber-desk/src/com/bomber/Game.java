@@ -78,7 +78,7 @@ public class Game implements ApplicationListener {
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		mAndroidGameActivity = _bridge;
 
-		if(DebugSettings.LIMPAR_SARAMPO)
+		if(Settings.LIMPAR_SARAMPO)
 		{
 			Log.d("LIMPAR SARAMPO", "LIMPAR SARAMPO");
 			_bridge.goBackToWithoutExiting();
@@ -101,7 +101,7 @@ public class Game implements ApplicationListener {
 		mGameIsOver = false;
 
 		mRoundsPlayed = 1;
-		mRoundsToPlay = DebugSettings.GAME_ROUNDS;
+		mRoundsToPlay = Settings.GAME_ROUNDS;
 
 		if (mIsPVPGame)
 		{
@@ -248,7 +248,7 @@ public class Game implements ApplicationListener {
 			mGameState = new GameStateLoadingPVP(this);
 
 		if (Game.mIsPVPGame && RemoteConnections.mIsGameServer)
-			changeInfo(DebugSettings.GAME_TYPE, DebugSettings.GAME_ROUNDS, DebugSettings.LEVEL_TO_LOAD);
+			changeInfo(Settings.GAME_TYPE, Settings.GAME_ROUNDS, Settings.LEVEL_TO_LOAD);
 		else if (mGameType == GameTypeHandler.CAMPAIGN)
 		{
 			mWorld = new GameWorld(this, ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
@@ -264,10 +264,7 @@ public class Game implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height)
-	{
-		// TODO Auto-generated method stub
-
-	}
+	{}
 
 	@Override
 	public void render()
