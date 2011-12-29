@@ -46,7 +46,8 @@ public class SoundAssets {
 		mMusics.put("level6", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_007.ogg")));
 		mMusics.put("level7", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_008.ogg")));
 		mMusics.put("level8", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_002.ogg")));
-		mMusics.put("pvp", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_010.ogg")));
+
+		mMusics.put("levelISEC", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_010.ogg")));
 
 		mSounds = new HashMap<String, Sound>();
 		mSounds.put("explosion", Gdx.audio.newSound(Gdx.files.internal("sfx/s_5.ogg")));

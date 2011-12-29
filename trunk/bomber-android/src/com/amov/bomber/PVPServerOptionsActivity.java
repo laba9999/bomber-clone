@@ -31,7 +31,7 @@ import com.bomber.remote.Protocols;
 
 public class PVPServerOptionsActivity extends GameActivity
 {
-	private static int[] LEVEL_INDICATOR_RESOURCES = { R.id.indicator1, R.id.indicator2, R.id.indicator3, R.id.indicator4, R.id.indicator5, R.id.indicator6, R.id.indicator7, R.id.indicator8 };
+	private static int[] LEVEL_INDICATOR_RESOURCES = { R.id.indicator1, R.id.indicator2, R.id.indicator3, R.id.indicator4, R.id.indicator5, R.id.indicator6, R.id.indicator7, R.id.indicator8, R.id.indicator9 };
 
 	Gallery gallery;
 	Spinner mSpinnerNumberRounds;
@@ -39,7 +39,7 @@ public class PVPServerOptionsActivity extends GameActivity
 
 	short[] valueGameType = { GameTypeHandler.DEADMATCH, GameTypeHandler.CTF, GameTypeHandler.TEAM_DEADMATCH, GameTypeHandler.TEAM_CTF };
 	short[] valueNumberRounds = { 1, 3 };
-	String[] valueLevels = { "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8" };
+	String[] valueLevels = { "levelISEC", "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -104,7 +104,7 @@ public class PVPServerOptionsActivity extends GameActivity
 		Bitmap on = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_on);
 		Bitmap off = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_off);
 
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < valueLevels.length; i++)
 		{
 			if (i != _position)
 			{
@@ -141,7 +141,7 @@ public class PVPServerOptionsActivity extends GameActivity
 		private Context mContext;
 
 		// Adding images.
-		private Integer[] Imgid = { R.drawable.tumb_level1, R.drawable.tumb_level2, R.drawable.tumb_level3, R.drawable.tumb_level4, R.drawable.tumb_level5, R.drawable.tumb_level6,
+		private Integer[] Imgid = { R.drawable.tumb_levelisec, R.drawable.tumb_level1, R.drawable.tumb_level2, R.drawable.tumb_level3, R.drawable.tumb_level4, R.drawable.tumb_level5, R.drawable.tumb_level6,
 				R.drawable.tumb_level7, R.drawable.tumb_level8 };
 
 		public ImageAdapter(Context c)
@@ -174,7 +174,7 @@ public class PVPServerOptionsActivity extends GameActivity
 			{
 				ImageView iv = new ImageView(mContext);
 				// iv.setLayoutParams(new Gallery.LayoutParams(350, 350));
-				// iv.setScaleType(ImageView.ScaleType.FIT_XY);
+				 iv.setScaleType(ImageView.ScaleType.FIT_XY);
 
 				iv.setBackgroundResource(mGalleryItemBackground);
 				iv.setImageResource(Imgid[position]);
