@@ -199,14 +199,14 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 		TextBounds tx;
 		if (mResult == 0 || (mResult == 1 && mTeam1.mPlayers.contains(mGameWorld.getLocalPlayer())) || (mResult == 2 && mTeam2.mPlayers.contains(mGameWorld.getLocalPlayer())))
 		{
-			mBatcher.draw(GfxAssets.mScreens.get("background_gradient_green"), 0, 0);
+			mBatcher.draw(GfxAssets.Pixmaps.getGreen(), 0, 0);
 
 			finalString = Strings.mStrings.get("won");
 			tx = font.getBounds(finalString);
 			font.draw(mBatcher, finalString, 400 - tx.width / 2, 60);
 		} else
 		{
-			mBatcher.draw(GfxAssets.mScreens.get("background_gradient_red"), 0, 0);
+			mBatcher.draw(GfxAssets.Pixmaps.getRed(), 0, 0);
 
 			finalString = Strings.mStrings.get("lost");
 			tx = font.getBounds(finalString);

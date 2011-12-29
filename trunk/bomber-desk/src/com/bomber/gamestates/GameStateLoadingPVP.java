@@ -44,7 +44,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 	public void onPresent(float _interpolation)
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		mBatcher.draw(GfxAssets.mScreens.get("background_gradient_grey"), 0, 0);
+		mBatcher.draw(GfxAssets.Pixmaps.getGrey(), 0, 0);
 		BitmapFont font = GfxAssets.mGenericFont;
 
 		TextBounds tx;

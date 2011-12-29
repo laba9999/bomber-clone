@@ -11,21 +11,21 @@ sound_
   index: 1
 waiting_animation_
   rotate: false
-  xy: 1864, 322
+  xy: 1858, 322
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 4
 waiting_animation_
   rotate: false
-  xy: 1864, 484
+  xy: 1858, 484
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 0
 btn_pause
   rotate: false
-  xy: 1918, 403
+  xy: 1912, 403
   size: 92, 72
   orig: 92, 72
   offset: 0, 0
@@ -46,21 +46,21 @@ background_gradient_green
   index: -1
 waiting_animation_
   rotate: false
-  xy: 1864, 268
+  xy: 1858, 268
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 5
 waiting_animation_
   rotate: false
-  xy: 1918, 477
+  xy: 1912, 477
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 1
 trophy
   rotate: false
-  xy: 1864, 106
+  xy: 1858, 106
   size: 54, 52
   orig: 54, 52
   offset: 0, 0
@@ -81,7 +81,7 @@ d-pad
   index: -1
 waiting_animation_
   rotate: false
-  xy: 1864, 430
+  xy: 1858, 430
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
@@ -95,14 +95,14 @@ gameover
   index: -1
 waiting_animation_
   rotate: false
-  xy: 1864, 214
+  xy: 1858, 214
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 6
 btn_bomb
   rotate: false
-  xy: 1920, 159
+  xy: 1914, 159
   size: 117, 135
   orig: 117, 135
   offset: 0, 0
@@ -116,21 +116,21 @@ bonus_bar
   index: -1
 sound_
   rotate: false
-  xy: 1918, 296
+  xy: 1912, 296
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 0
 waiting_animation_
   rotate: false
-  xy: 1864, 376
+  xy: 1858, 376
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 3
 waiting_animation_
   rotate: false
-  xy: 1864, 160
+  xy: 1858, 160
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
@@ -138,8 +138,8 @@ waiting_animation_
 pause_screen
   rotate: false
   xy: 1606, 106
-  size: 256, 512
-  orig: 256, 512
+  size: 250, 480
+  orig: 250, 480
   offset: 0, 0
   index: -1
 background_gradient_grey
