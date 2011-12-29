@@ -26,7 +26,7 @@ public class BluetoothMessageSocketIO extends MessageSocketIO {
 	public BluetoothMessageSocketIO(String _macAddress) throws IOException {
 		BluetoothDevice btDevice = DebugSettings.BLUETOOTH_ADAPTER.getRemoteDevice(_macAddress);
 		mSocket = btDevice.createRfcommSocketToServiceRecord(DebugSettings.APP_UUID);
-
+		mSocket.connect();
 		mInStream = mSocket.getInputStream();
 		mOutStream = mSocket.getOutputStream();
 	}

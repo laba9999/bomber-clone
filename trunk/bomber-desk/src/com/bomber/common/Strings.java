@@ -45,7 +45,7 @@ public class Strings {
 		"lost"
 	};
 	
-	public static final int NUMBER_GAME_STRINGS = 15;
+	//public static final int NUMBER_GAME_STRINGS = 17;
 
 	
 	public static HashMap<String, String> mStrings;
@@ -55,10 +55,10 @@ public class Strings {
 		
 		if(Strings.mStrings != null)
 			return;			
-		mStrings = new HashMap<String, String>(NUMBER_GAME_STRINGS);
+		mStrings = new HashMap<String, String>(GAME_STRINGS_KEYS.length);
 		String str;
 		
-		for(int i = 0; i < NUMBER_GAME_STRINGS; i++)
+		for(int i = 0; i < GAME_STRINGS_KEYS.length; i++)
 		{
 			str = DEFAULT_STRINGS[i];
 			Strings.mStrings.put(Strings.GAME_STRINGS_KEYS[i],str);
