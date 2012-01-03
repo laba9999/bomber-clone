@@ -5,7 +5,7 @@ level5
 3
 
 #segundos
-0
+50
 
 #nº de bónus
 3
