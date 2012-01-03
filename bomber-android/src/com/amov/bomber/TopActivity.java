@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -29,8 +30,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bomber.Settings;
 import com.bomber.Game;
+import com.bomber.Settings;
 
 public class TopActivity extends GameActivity
 {
@@ -76,9 +77,12 @@ public class TopActivity extends GameActivity
 
 		if (!checkWifiConnection())
 		{
+			showDialog(DIALOG_PROGRESS);
 			if (!((WifiManager) getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true))
 			{
 				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
+				
+				removeDialog(DIALOG_PROGRESS);
 				finish();
 			}
 
@@ -93,24 +97,26 @@ public class TopActivity extends GameActivity
 		if (myWifiReceiver != null)
 			unregisterReceiver(myWifiReceiver);
 
+		removeDialog(DIALOG_PROGRESS);
+		
 		super.onDestroy();
 	}
 
 	private BroadcastReceiver myWifiReceiver = new BroadcastReceiver()
 	{
 		@Override
-		public void onReceive(Context arg0, Intent arg1)
-		{
-			NetworkInfo networkInfo = (NetworkInfo) arg1.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+		public void onReceive(Context arg0, Intent intent)
+		{		
+			Game.LOGGER.log("broadcast1");
+			NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
 			if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
 			{
+				Game.LOGGER.log("broadcast2");
 				if (networkInfo.isConnected())
 				{
-					TopActivity.this.unregisterReceiver(this);
+					Game.LOGGER.log("broadcast3");
 					if (!mListingTop)
 						listTop();
-
-					myWifiReceiver = null;
 				}
 			}
 		}
@@ -147,7 +153,16 @@ public class TopActivity extends GameActivity
 			break;
 
 		case DIALOG_PROGRESS:
-			dialog = ProgressDialog.show(TopActivity.this, "", this.getString(R.string.loading_top), true, false);
+			dialog = ProgressDialog.show(TopActivity.this, "", this.getString(R.string.loading_top), true,true);
+			
+			dialog.setOnCancelListener(new OnCancelListener()
+			{
+				public void onCancel(DialogInterface _dialog)
+				{
+					finish();
+				}
+			});
+			
 			break;
 		default:
 			dialog = null;
@@ -219,17 +234,31 @@ public class TopActivity extends GameActivity
 
 			} catch (Throwable e)
 			{
-				Toast.makeText(TopActivity.this, TopActivity.this.getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
+				//Toast.makeText(TopActivity.this, TopActivity.this.getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
-				finish();
+				cancel(true);
 			}
 
 			return null;
+		}
+
+		@Override
+		protected void onCancelled()
+		{
+			removeDialog(DIALOG_PROGRESS);
+			super.onCancelled();
 		}
 	}
 
 	private class PresentPage extends AsyncTask<Integer, Void, Integer>
 	{
+		@Override
+		protected void onCancelled()
+		{
+			removeDialog(DIALOG_PROGRESS);
+			super.onCancelled();
+		}
+
 		@Override
 		protected void onPostExecute(Integer _pageNumber)
 		{
@@ -320,9 +349,9 @@ public class TopActivity extends GameActivity
 				mSplitedData = mAnswerString.split(">");
 			} catch (IOException e)
 			{
-				Toast.makeText(TopActivity.this, TopActivity.this.getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
+				//Toast.makeText(null, TopActivity.this.getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
-				finish();
+				cancel(true);
 			}
 
 			return _params[0];

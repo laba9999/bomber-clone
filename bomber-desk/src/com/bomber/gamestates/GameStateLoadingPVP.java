@@ -6,6 +6,8 @@ import com.bomber.Settings;
 import com.bomber.Game;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
+import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.remote.Protocols;
 import com.bomber.remote.RemoteConnections;
 
 public class GameStateLoadingPVP extends GameStateLoading {
@@ -54,7 +56,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 			tx = font.getBounds(mStringStartsIn);
 			mAnimationTicks++;
 
-			mBatcher.draw(GfxAssets.mWaitingAnimation.getKeyFrame(mAnimationTicks, true),  (400 - tx.width / 2) - 60 , 225);
+			mBatcher.draw(GfxAssets.mWaitingAnimation.getKeyFrame(mAnimationTicks, true), (400 - tx.width / 2) - 60, 225);
 			font.draw(mBatcher, mStringStartsIn + mCountdownSeconds.toString(), 400 - tx.width / 2, 260);
 
 		} else
@@ -65,9 +67,12 @@ public class GameStateLoadingPVP extends GameStateLoading {
 				mBatcher.draw(GfxAssets.mWaitingAnimation.getKeyFrame(mAnimationTicks, true), 380, 150);
 				mAnimationTicks++;
 				font.draw(mBatcher, mStringWaitingClients, 400 - tx.width / 2, 280);
-
-				tx = font.getBounds(mStringConnectTo);
-				font.draw(mBatcher, mStringConnectTo, 400 - tx.width / 2, 250);
+				
+				if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH)
+				{
+					tx = font.getBounds(mStringConnectTo);
+					font.draw(mBatcher, mStringConnectTo, 400 - tx.width / 2, 250);
+				}
 			} else
 			{
 				mAnimationTicks++;
