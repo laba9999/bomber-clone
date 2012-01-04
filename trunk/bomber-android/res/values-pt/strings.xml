@@ -88,5 +88,11 @@
     <string name="game_error_connecting">Erro ao ligar..</string>
     <string name="game_lost_client">Jogador perdido..</string>
     <string name="game_lost_server">Servidor perdido..</string>
-
+    
+    <string name="about">Sobre</string>
+    <string name="about_developed_by">Desenvolvido por:</string>
+    <string name="about_avelino">Avelino Martins</string>
+    <string name="about_filipe">Filipe Brandão</string>
+    <string name="about_credits">Creditos para a Hudson Soft, autores dos gráficos originais, e para a Yellow Icon Design, autores do ícone do launcher.</string>
+    
 </resources>
