@@ -71,7 +71,7 @@ public abstract class GameState {
 		onPresent(_interpolation);
 
 		// Informação de debug
-		drawDebugInfo();
+		//drawDebugInfo();
 
 		mBatcher.end();
 	}
@@ -94,7 +94,7 @@ public abstract class GameState {
 			font.draw(mBatcher, "M: " + MessageContainer.mMessagesPerSecond.toString(), 560, 470);
 			font.draw(mBatcher, "Id: " + RemoteConnections.mLocalID, 610, 470);
 
-			if (Game.mIsPVPGame)
+			if (Game.mIsPVPGame && RemoteConnections.mGameServer != null)
 				font.draw(mBatcher, "RTT: " + RemoteConnections.mGameServer.getRTT(), 660, 470);
 		}
 	}

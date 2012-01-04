@@ -107,14 +107,14 @@ public class TopActivity extends GameActivity
 		@Override
 		public void onReceive(Context arg0, Intent intent)
 		{		
-			Game.LOGGER.log("broadcast1");
+			//Game.LOGGER.log("broadcast1");
 			NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
 			if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
 			{
-				Game.LOGGER.log("broadcast2");
+				//Game.LOGGER.log("broadcast2");
 				if (networkInfo.isConnected())
 				{
-					Game.LOGGER.log("broadcast3");
+					//Game.LOGGER.log("broadcast3");
 					if (!mListingTop)
 						listTop();
 				}
@@ -270,7 +270,7 @@ public class TopActivity extends GameActivity
 				isLocalPlayer = false;
 				String[] entry = s.split(";");
 
-				Game.LOGGER.log(s);
+				//Game.LOGGER.log(s);
 
 				View vi = mInflater.inflate(R.layout.top_item, null);
 				if (Settings.PLAYER_NAME.equals(entry[2]))
@@ -344,8 +344,8 @@ public class TopActivity extends GameActivity
 			try
 			{
 				mAnswerString = getDBResult(query);
-				Game.LOGGER.log("Query:" + query);
-				Game.LOGGER.log("Answer:" + mAnswerString);
+				//Game.LOGGER.log("Query:" + query);
+				//Game.LOGGER.log("Answer:" + mAnswerString);
 				mSplitedData = mAnswerString.split(">");
 			} catch (IOException e)
 			{

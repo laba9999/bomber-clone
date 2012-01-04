@@ -230,7 +230,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 				BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
 
 				if (!btAdapter.startDiscovery())
-					Game.LOGGER.log("Falhada o inicio de descoberta.");
+					//Game.LOGGER.log("Falhada o inicio de descoberta.");
 
 				// Apresenta toast a indicar que estamos à procura de devices
 				// Toast.makeText(this,

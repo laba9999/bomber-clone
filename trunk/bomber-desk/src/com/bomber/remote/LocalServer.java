@@ -52,7 +52,7 @@ public abstract class LocalServer extends Thread {
 		mAllConnected = true;
 		mKeepReceiving = false;
 		
-		Game.LOGGER.log("Server desligado...");
+		//Game.LOGGER.log("Server desligado...");
 	}
 
 	/**
@@ -87,7 +87,7 @@ public abstract class LocalServer extends Thread {
 		tmpConn.start();
 		mConnectionsCache.add(tmpConn);
 		
-		Game.LOGGER.log("Recebida nova ligação: " + tmpConn.getSocketAddressString());
+		//Game.LOGGER.log("Recebida nova ligação: " + tmpConn.getSocketAddressString());
 	}
 
 	/**

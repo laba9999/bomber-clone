@@ -79,7 +79,7 @@ public class MessagesHandler {
 			break;
 
 		case EventType.DISCONNECTED:
-			Game.LOGGER.log(_msg.getStringValue());
+			//Game.LOGGER.log(_msg.getStringValue());
 
 			if (Game.mHasStarted && !Game.mGameIsOver)
 				mWorld.onPlayerDisconnect(_msg.valShort);
@@ -126,13 +126,13 @@ public class MessagesHandler {
 			break;
 
 		case EventType.NAME:
-			Game.LOGGER.log("Recebido nome!");
+			//Game.LOGGER.log("Recebido nome!");
 			for (Player player : mWorld.mPlayers)
 			{
 				if (player.mColor == _msg.valShort)
 				{
 					player.mName = _msg.getStringValue();
-					Game.LOGGER.log("Atribuido nome!");
+					//Game.LOGGER.log("Atribuido nome!");
 					break;
 				}
 			}
@@ -216,7 +216,7 @@ public class MessagesHandler {
 
 		case EventType.RANDOM_SEED:
 			mGame.updateRandomSeed(_msg.valInt);
-			Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID);
+			//Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID);
 			break;
 
 		case EventType.JOINED_TEAM:

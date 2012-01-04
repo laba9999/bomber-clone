@@ -91,7 +91,7 @@ public class PVPServerOptionsActivity extends GameActivity
 		Settings.LEVEL_TO_LOAD = valueLevels[gallery.getSelectedItemPosition()];
 		Settings.GAME_ROUNDS = valueNumberRounds[mSpinnerNumberRounds.getSelectedItemPosition()];
 		Settings.GAME_TYPE = valueGameType[mSpinnerGameType.getSelectedItemPosition()];
-		Game.LOGGER.log("Starting game as: " + Settings.GAME_TYPE);
+		//Game.LOGGER.log("Starting game as: " + Settings.GAME_TYPE);
 
 		Intent myIntent = new Intent(this, BuildActivity.class);
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
