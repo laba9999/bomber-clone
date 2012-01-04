@@ -3,6 +3,7 @@ package com.amov.bomber;
 import java.util.HashMap;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -77,6 +78,11 @@ public class MainActivity extends GameActivity
 	public void onHelpButton(View v)
 	{
 		launchActivity(HelpActivity.class);
+	}
+
+	public void onInfoButton(View v)
+	{
+		launchActivity(AboutActivity.class);
 	}
 
 	public void onSoundButton(View v)
