@@ -90,5 +90,11 @@
     <string name="game_error_connecting">Error connecting..</string>
     <string name="game_lost_client">Lost player..</string>
     <string name="game_lost_server">Lost server..</string>
+    
+    <string name="about">About</string>
+    <string name="about_developed_by">Developed by:</string>
+    <string name="about_avelino">Avelino Martins</string>
+    <string name="about_filipe">Filipe Brandão</string>
+    <string name="about_credits">Credits to HudsonSoft, authors of the original game art, and Yellow Icon Design, authors of the launcher icon.</string>
 
 </resources>
