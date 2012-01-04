@@ -3,18 +3,6 @@
     android:id="@+id/relativeLayout1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" android:background="@drawable/background_explode">
-
-    <Button
-        android:id="@+id/buttonMainHelp"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/menu_button_round"
-        android:onClick="onHelpButton"
-        android:text="@string/help"
-        android:textColor="#eeeeee"
-        android:textSize="30sp" />
 
     <Button
         android:id="@+id/buttonMainAchievements"
@@ -72,5 +60,29 @@
         android:layout_height="60sp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true" android:background="@drawable/menu_button_sound_on" android:onClick="onSoundButton"/>
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonMainTop"
+        android:background="@drawable/menu_button_round"
+        android:onClick="onHelpButton"
+        android:text="@string/help"
+        android:textColor="#eeeeee"
+        android:textSize="40sp" android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/buttonMainInfo"
+        android:layout_width="60sp"
+        android:layout_height="60sp"
+        android:layout_alignBottom="@+id/buttonMainTop"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/menu_button_round"
+        android:onClick="onInfoButton"
+        android:text="i"
+        android:textColor="#eeeeee"
+        android:textSize="40sp" android:textStyle="bold" android:typeface="serif"/>
 
 </RelativeLayout>
