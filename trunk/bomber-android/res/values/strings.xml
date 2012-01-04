@@ -95,6 +95,6 @@
     <string name="about_developed_by">Developed by:</string>
     <string name="about_avelino">Avelino Martins</string>
     <string name="about_filipe">Filipe Brandão</string>
-    <string name="about_credits">Credits to HudsonSoft, authors of the original game art, and Yellow Icon Design, authors of the launcher icon.</string>
+    <string name="about_credits">Developed using libGDX library.\n\nCredits to HudsonSoft, authors of the original game art, and Yellow Icon Design, authors of the launcher icon.\n\nDEIS-ISEC</string>
 
 </resources>
