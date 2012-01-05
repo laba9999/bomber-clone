@@ -50,16 +50,24 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#000000" />
 
-    <TextView
-        android:id="@+id/textHelpDescription"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/help_description_moving"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#000000" />
+        android:orientation="vertical" android:background="#aa000000">
+
+        <TextView
+            android:id="@+id/textHelpDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/help_description_moving"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageHelp"
