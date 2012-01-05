@@ -68,7 +68,12 @@
     <string name="help_subtitle_ctf">Catch The Flag Mode</string>
     <string name="help_description_ctf">This is a multi player mode where you have to defend your flag. At the same time you have to go catch the enemy\'s flag and bring it back to your base. You can also play it as team versus team.</string>
     <string name="help_subtitle_dm">DeathMatch Mode</string>
-    <string name="help_description_dm">This is a multi player mode where you simply have to kill your opponents. You can also play it as team versus team.</string>
+    <string name="help_description_dm">This is a multi player mode where you simply have to kill your opponents. You can also play it as team versus team.</string>      
+    <string name="help_subtitle_bonus_actions">Bonus Actions</string>
+    <string name="help_description_bonus_actions">1 - Let\'s you place more bombs simulatenously;\n2 - Gives you a temporary ability to push bombs;\n3 - Increases your lives;\n4 - Temporary shield;\n5 - Increases your speed;\n6 - Doubles the points you receive temporarily;\n7 - Increases the explosion size of your bombs.</string>   
+    <string name="help_subtitle_build">Build</string>
+    <string name="help_description_build">In the build screen you can set your username which will be shown along with your score in the worldwide Top. You can also configure the "build" that will use in the multiplayer match. You do this by distributing the available points by the three abilities below. If you have no available points, you need to complete achievements (use the Achievements button in the main screen to check their status).</string>
+    
     <string name="symbol_lesser">&lt;</string>
     <string name="symbol_greater">></string>
     
@@ -95,6 +100,7 @@
     <string name="about_developed_by">Developed by:</string>
     <string name="about_avelino">Avelino Martins</string>
     <string name="about_filipe">Filipe Brandão</string>
-    <string name="about_credits">Developed using libGDX library.\n\nCredits to HudsonSoft, authors of the original game art, and Yellow Icon Design, authors of the launcher icon.\n\nDEIS-ISEC</string>
+    <string name="about_credits">Developed using libGDX library.\n\nCredits to HudsonSoft, authors of the original game art, and Yellow Icon Design, authors of the launcher icon.</string>
+    <string name="deis_isec">DEIS-ISEC</string>
 
 </resources>
