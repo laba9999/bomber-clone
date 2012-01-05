@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xml:space="preserve">
     <string name="hello">Hello World, AndroidGame!</string>
-    <string name="app_name">Bomber-android</string>
+    <string name="app_name">Bomberman</string>
     <string name="arcade">Arcade</string>
     <string name="number_rounds">Rondas:</string>
     <string name="multiplayer">Multiplayer</string>
@@ -16,7 +16,7 @@
     <string name="connection">Ligação:</string>
     <string name="protocol">Protocolo:</string>
     <string name="role">Papel:</string>
-    <string name="server">Servidor:</string>
+    <string name="server">Servidor</string>
     <string name="client">Cliente</string>
     <string name="searching_bt_devices">À procura de dispositivos bluetooth..</string>
     <string name="server_options">Opções de Jogo</string>

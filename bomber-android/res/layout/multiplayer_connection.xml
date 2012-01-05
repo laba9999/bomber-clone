@@ -58,7 +58,7 @@
                     android:background="@drawable/toggle_button"
                     android:text="ToggleButton"
                     android:textOff="Wifi"
-                    android:textOn="Wifi" android:checked="true" android:textColor="#ffffff"/>
+                    android:textOn="Wifi" android:checked="false" android:textColor="#ffffff"/>
 
                 <ToggleButton
                     android:id="@+id/radioBluetooth"
