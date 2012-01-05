@@ -32,8 +32,8 @@ import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
-import com.bomber.Game;
 import com.bomber.Settings;
 import com.bomber.remote.Protocols;
 
@@ -45,12 +45,12 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 	public static final int DIALOG_MULTIPLAYER = 0;
 
-	RadioButton mRadioWifi;
-	RadioButton mRadioBluetooth;
-	RadioButton mRadioClient;
-	RadioButton mRadioServer;
-	RadioButton mRadioTCP;
-	RadioButton mRadioUDP;
+	ToggleButton mRadioWifi;
+	ToggleButton mRadioBluetooth;
+	ToggleButton mRadioClient;
+	ToggleButton mRadioServer;
+	ToggleButton mRadioTCP;
+	ToggleButton mRadioUDP;
 
 	Button mButtonStart;
 
@@ -85,12 +85,12 @@ public class MultiplayerConnectionActivity extends GameActivity
 		mTextIp = (TextView) findViewById(R.id.textIp);
 		mEditPort = (EditText) findViewById(R.id.editPort);
 
-		mRadioWifi = (RadioButton) findViewById(R.id.radioWifi);
-		mRadioBluetooth = (RadioButton) findViewById(R.id.radioBluetooth);
-		mRadioClient = (RadioButton) findViewById(R.id.radioClient);
-		mRadioServer = (RadioButton) findViewById(R.id.radioServer);
-		mRadioTCP = (RadioButton) findViewById(R.id.radioTCP);
-		mRadioUDP = (RadioButton) findViewById(R.id.radioUDP);
+		mRadioWifi = (ToggleButton) findViewById(R.id.radioWifi);
+		mRadioBluetooth = (ToggleButton) findViewById(R.id.radioBluetooth);
+		mRadioClient = (ToggleButton) findViewById(R.id.radioClient);
+		mRadioServer = (ToggleButton) findViewById(R.id.radioServer);
+		mRadioTCP = (ToggleButton) findViewById(R.id.radioTCP);
+		mRadioUDP = (ToggleButton) findViewById(R.id.radioUDP);
 
 		mButtonStart = (Button) findViewById(R.id.buttonOkDialogMultiplayer);
 		mButtonStart.setVisibility(Button.INVISIBLE);
