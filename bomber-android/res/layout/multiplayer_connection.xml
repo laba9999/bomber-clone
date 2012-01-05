@@ -21,10 +21,10 @@
     <TableLayout
         android:id="@+id/tableLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_below="@id/textMultiplayerTitle"
-        android:background="#aa333333" >
-
+        android:layout_marginTop="20sp" >
+
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
@@ -33,39 +33,40 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:text="@string/connection"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000"
+                android:visibility="visible" android:layout_weight="1"/>
+
             <RadioGroup
                 android:id="@+id/radioGroupConnection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10sp"
-                android:layout_weight="2"
-                android:orientation="horizontal" >
+                android:orientation="horizontal" android:layout_weight="2">
 
-                <RadioButton
+                <ToggleButton
                     android:id="@+id/radioWifi"
-                    android:layout_width="50sp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="false"
-                    android:text="@string/wifi" />
+                    android:text="ToggleButton"
+                    android:textOff="Wifi"
+                    android:textOn="Wifi" android:layout_weight="1"/>
 
-                <RadioButton
+                <ToggleButton
                     android:id="@+id/radioBluetooth"
-                    android:layout_width="50sp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/bluetooth" />
+                    android:text="ToggleButton"
+                    android:textOff="Bluetooth"
+                    android:textOn="Bluetooth" android:layout_weight="1"/>
             </RadioGroup>
-        </TableRow>
 
+        </TableRow>
+
         <TableRow
             android:id="@+id/tableRowProtocols"
             android:layout_width="wrap_content"
@@ -74,79 +75,82 @@
 
             <TextView
                 android:id="@+id/textViewProtocol"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:text="@string/protocol"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:visibility="visible" />
+                android:textColor="#000000"
+                android:visibility="visible" android:layout_weight="1"/>
 
             <RadioGroup
                 android:id="@+id/radioGroupProtocol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10sp"
-                android:layout_weight="2"
-                android:orientation="horizontal" >
+                android:orientation="horizontal" android:layout_weight="2">
 
-                <RadioButton
+                <ToggleButton
                     android:id="@+id/radioTCP"
-                    android:layout_width="50sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
-                    android:text="TCP" />
+                    android:text="TCP"
+                    android:textOff="TCP"
+                    android:textOn="TCP" />
 
-                <RadioButton
+                <ToggleButton
                     android:id="@+id/radioUDP"
-                    android:layout_width="50sp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="false"
-                    android:text="UDP" />
+                    android:text="ToggleButton"
+                    android:textOff="UDP"
+                    android:textOn="UDP" />
             </RadioGroup>
         </TableRow>
 
         <TableRow
-            android:id="@+id/tableRow3"
+            android:id="@+id/tableRowRoles"
             android:layout_width="wrap_content"
             android:layout_margin="1sp"
             android:weightSum="3" >
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="@string/role"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
 
             <RadioGroup
                 android:id="@+id/radioGroupRole"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="10sp"
                 android:layout_weight="2"
                 android:orientation="horizontal" >
 
-                <RadioButton
+                <ToggleButton
                     android:id="@+id/radioClient"
-                    android:layout_width="50sp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="false"
-                    android:text="@string/client" />
+                    android:text="ToggleButton"
+                    android:textOff="@string/client"
+                    android:textOn="@string/client" />
 
-                <RadioButton
+                <ToggleButton
                     android:id="@+id/radioServer"
-                    android:layout_width="50sp"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/server" />
+                    android:text="ToggleButton"
+                    android:textOff="@string/server"
+                    android:textOn="@string/server" />
             </RadioGroup>
         </TableRow>
 
@@ -160,46 +164,49 @@
 
             <TextView
                 android:id="@+id/textIp"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1.3"
+                android:layout_weight="1"
                 android:text="@string/ip"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
 
-            <EditText
-                android:id="@+id/editIP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.6"
-                android:maxLength="15"
-                android:text="192.168.1.110" android:inputType="text">
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" android:layout_weight="2">
 
-                <requestFocus />
-            </EditText>
+                <EditText
+                    android:id="@+id/editIP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:inputType="text"
+                    android:maxLength="15"
+                    android:text="192.168.1.110" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginLeft="10sp"
-                android:layout_weight="0.1"
-                android:text="@string/port"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:text="@string/port"
+                    android:textAppearance="?android:attr/textAppearanceMedium" android:textColor="#000000"/>
 
-            <EditText
-                android:id="@+id/editPort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_weight="0.8"
-                android:inputType="number"
-                android:maxLength="5"
-                android:maxWidth="35sp"
-                android:numeric="signed"
-                android:text="50005" />
+                <EditText
+                    android:id="@+id/editPort"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:inputType="number"
+                    android:maxLength="5"
+                    android:maxWidth="35sp"
+                    android:numeric="signed"
+                    android:text="50005" />
+
+            </LinearLayout>
+
         </TableRow>
 
         <TableRow
@@ -212,12 +219,13 @@
 
             <TextView
                 android:id="@+id/textDevices"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="@string/server"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#000000" />
 
             <Spinner
                 android:id="@+id/spinnerBluetoothDevices"
