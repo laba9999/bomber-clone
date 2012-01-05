@@ -30,7 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bomber.Game;
+import com.badlogic.gdx.utils.Base64Coder;
 import com.bomber.Settings;
 
 public class TopActivity extends GameActivity
@@ -73,6 +73,12 @@ public class TopActivity extends GameActivity
 		mLeftButton = (Button) findViewById(R.id.buttonTopLeft);
 		mRightButton = (Button) findViewById(R.id.ButtonTopRight);
 
+		mLeftButton.setEnabled(false);
+		mLeftButton.setVisibility(Button.INVISIBLE);
+
+		mRightButton.setEnabled(false);
+		mRightButton.setVisibility(Button.INVISIBLE);
+
 		registerReceiver(this.myWifiReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
 		if (!checkWifiConnection())
@@ -81,7 +87,7 @@ public class TopActivity extends GameActivity
 			if (!((WifiManager) getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true))
 			{
 				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
-				
+
 				removeDialog(DIALOG_PROGRESS);
 				finish();
 			}
@@ -98,7 +104,7 @@ public class TopActivity extends GameActivity
 			unregisterReceiver(myWifiReceiver);
 
 		removeDialog(DIALOG_PROGRESS);
-		
+
 		super.onDestroy();
 	}
 
@@ -106,15 +112,15 @@ public class TopActivity extends GameActivity
 	{
 		@Override
 		public void onReceive(Context arg0, Intent intent)
-		{		
-			//Game.LOGGER.log("broadcast1");
+		{
+			// Game.LOGGER.log("broadcast1");
 			NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
 			if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
 			{
-				//Game.LOGGER.log("broadcast2");
+				// Game.LOGGER.log("broadcast2");
 				if (networkInfo.isConnected())
 				{
-					//Game.LOGGER.log("broadcast3");
+					// Game.LOGGER.log("broadcast3");
 					if (!mListingTop)
 						listTop();
 				}
@@ -146,6 +152,8 @@ public class TopActivity extends GameActivity
 					SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
 					edit.putString("playerName", Settings.PLAYER_NAME);
 					edit.commit();
+
+					listTop();
 				}
 			}).show();
 
@@ -153,8 +161,8 @@ public class TopActivity extends GameActivity
 			break;
 
 		case DIALOG_PROGRESS:
-			dialog = ProgressDialog.show(TopActivity.this, "", this.getString(R.string.loading_top), true,true);
-			
+			dialog = ProgressDialog.show(TopActivity.this, "", this.getString(R.string.loading_top), true, true);
+
 			dialog.setOnCancelListener(new OnCancelListener()
 			{
 				public void onCancel(DialogInterface _dialog)
@@ -162,7 +170,7 @@ public class TopActivity extends GameActivity
 					finish();
 				}
 			});
-			
+
 			break;
 		default:
 			dialog = null;
@@ -201,12 +209,37 @@ public class TopActivity extends GameActivity
 			super.onPostExecute(_result);
 		}
 
+		private String encryptData(String _name, long _points)
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.append(_name.replace(";", ""));
+			sb.append(";");
+			sb.append(_points);
+
+			String encoded = Base64Coder.encodeString(sb.toString());
+
+			char char1 = encoded.charAt(0);
+			char char2 = encoded.charAt(1);
+
+			sb.setLength(0);
+			sb.append(char2);
+			sb.append(char1);
+			sb.append(encoded.substring(2));
+			sb.append('£');
+			sb.append(_name.charAt(0));
+
+			encoded = Base64Coder.encodeString(sb.toString());
+			encoded = encoded.replace('=', '$');
+			//System.out.println(encoded);
+			return encoded;
+		}
+
 		@Override
 		protected Void doInBackground(Void... _params)
 		{
 			try
 			{
-				getDBResult("insert.php?name=" + Settings.PLAYER_NAME + "&highscore=" + Settings.GAME_PREFS.getLong("totalPoints", 0));
+				getDBResult("insert.php?data=" + encryptData(Settings.PLAYER_NAME, Settings.GAME_PREFS.getLong("totalPoints", 0)));
 
 				mAnswerString = getDBResult("query.php?name=" + Settings.PLAYER_NAME);
 
@@ -234,7 +267,9 @@ public class TopActivity extends GameActivity
 
 			} catch (Throwable e)
 			{
-				//Toast.makeText(TopActivity.this, TopActivity.this.getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(TopActivity.this,
+				// TopActivity.this.getString(R.string.error_serverconnection),
+				// Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 				cancel(true);
 			}
@@ -270,7 +305,7 @@ public class TopActivity extends GameActivity
 				isLocalPlayer = false;
 				String[] entry = s.split(";");
 
-				//Game.LOGGER.log(s);
+				// Game.LOGGER.log(s);
 
 				View vi = mInflater.inflate(R.layout.top_item, null);
 				if (Settings.PLAYER_NAME.equals(entry[2]))
@@ -344,12 +379,14 @@ public class TopActivity extends GameActivity
 			try
 			{
 				mAnswerString = getDBResult(query);
-				//Game.LOGGER.log("Query:" + query);
-				//Game.LOGGER.log("Answer:" + mAnswerString);
+				// Game.LOGGER.log("Query:" + query);
+				// Game.LOGGER.log("Answer:" + mAnswerString);
 				mSplitedData = mAnswerString.split(">");
 			} catch (IOException e)
 			{
-				//Toast.makeText(null, TopActivity.this.getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
+				// Toast.makeText(null,
+				// TopActivity.this.getString(R.string.error_serverconnection),
+				// Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 				cancel(true);
 			}
