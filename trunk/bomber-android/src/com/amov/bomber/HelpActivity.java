@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 public class HelpActivity extends GameActivity
 {
-	private static final int[] IMAGES_RESOURCES = new int[] { R.drawable.help_move, R.drawable.help_bomb, R.drawable.help_bonus, R.drawable.help_campaign, R.drawable.help_ctf, R.drawable.help_dm };
+	private static final int[] IMAGES_RESOURCES = new int[] { R.drawable.help_move, R.drawable.help_bomb, R.drawable.help_bonus,R.drawable.help_bonus_actions, R.drawable.help_campaign, R.drawable.help_ctf, R.drawable.help_dm, R.drawable.help_build };
 
-	private static final int[] SUBTITLES_RESOURCES = new int[] { R.string.help_subtitle_moving, R.string.help_subtitle_bombs, R.string.help_subtitle_bonus, R.string.help_subtitle_campaign,
-			R.string.help_subtitle_ctf, R.string.help_subtitle_dm };
+	private static final int[] SUBTITLES_RESOURCES = new int[] { R.string.help_subtitle_moving, R.string.help_subtitle_bombs, R.string.help_subtitle_bonus, R.string.help_subtitle_bonus_actions, R.string.help_subtitle_campaign,
+			R.string.help_subtitle_ctf, R.string.help_subtitle_dm, R.string.help_subtitle_build };
 
 	private static final int[] DESCRIPTIONS_RESOURCES = new int[] { R.string.help_description_moving, R.string.help_description_bombs, R.string.help_description_bonus,
-			R.string.help_description_campaign, R.string.help_description_ctf, R.string.help_description_dm };
-	private static final int MAX_POSITION = 5;
+			R.string.help_description_bonus_actions, R.string.help_description_campaign, R.string.help_description_ctf, R.string.help_description_dm, R.string.help_description_build };
+	private static final int MAX_POSITION = 7;
 
 	private int mPosition = 0;
 

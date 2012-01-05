@@ -67,6 +67,12 @@
     <string name="help_description_ctf">Este é um modo multi-jogador onde deve defender a sua bandeira. Ao mesmo tempo, deve ir buscar a bandeira do seu inimigo para a sua base. Pode ainda jogar em equipa contra equipa.</string>
     <string name="help_subtitle_dm">Modo DeathMatch</string>
     <string name="help_description_dm">Este é um modo multi-jogador onde simplesmente tem de matar todos os seus oponentes. Pode ainda jogar em equipa contra equipa.</string>
+    <string name="help_subtitle_bonus_actions">Acções dos Bonus</string>
+    <string name="help_description_bonus_actions">1 - Permite-lhe colocar mais bombas simultaneamente;\n2 - Oferece-lhe uma habilidade temporária para empurrar bombas;\n3 - Aumenta as suas vidas;\n4 - Escudo temporário;\n5 - Aumenta a sua velocidade;\n6 - Duplica temporáriamente os pontos que recebe;\n7 - Aumenta o tamanho da explosão das suas bombas.</string>   
+    <string name="help_subtitle_build">Build</string>
+    <string name="help_description_build">No ecrã Build pode indicar o seu username que irá aparecer ao lado da sua pontuação no Top mundial. Pode ainda configurar a sua "build" que irá ser usada na partida multi-jogador. Pode fazê-lo distribuindo os pontos disponíveis pelos três atributos apresentados abaixo. Se não tiver pontos disponíveis, necessita de completar algumas Conquistas (use o botão de Conquistas no ecrã inicial para verifica o estado das mesmas).</string>
+    
+    
     <string name="symbol_lesser">&lt;</string>
     <string name="symbol_greater">></string>
     
@@ -93,6 +99,6 @@
     <string name="about_developed_by">Desenvolvido por:</string>
     <string name="about_avelino">Avelino Martins</string>
     <string name="about_filipe">Filipe Brandão</string>
-    <string name="about_credits">Desenvolvido com recurso à biblioteca libGDX.\n\nCreditos para a Hudson Soft, autores dos gráficos originais, e para a Yellow Icon Design, autores do ícone do launcher.\n\n DEIS-ISEC</string>
-    
+    <string name="about_credits">Desenvolvido com recurso à biblioteca libGDX.\n\nCreditos para a Hudson Soft, autores dos gráficos originais, e para a Yellow Icon Design, autores do ícone do launcher.</string>
+    <string name="deis_isec">DEIS-ISEC</string>
 </resources>
