@@ -2,7 +2,7 @@
 <resources xml:space="preserve">
 
     <string name="hello">Hello World, AndroidGame!</string>
-    <string name="app_name">Bomber-android</string>
+    <string name="app_name">Bomberman</string>
     <string name="arcade">Arcade</string>
     <string name="number_rounds">Rounds:</string>
     <string name="game_type">Type:</string>
@@ -17,7 +17,7 @@
     <string name="connection">Connection:</string>
     <string name="protocol">Protocol:</string>
     <string name="role">Role:</string>
-    <string name="server">Server:</string>
+    <string name="server">Server</string>
     <string name="client">Client</string>
     <string name="searching_bt_devices">Searching bluetooth devices..</string>
     <string name="server_options">Server Options</string>

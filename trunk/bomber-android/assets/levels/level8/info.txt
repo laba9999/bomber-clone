@@ -5,7 +5,7 @@ end
 3
 
 #segundos
-18
+50
 
 #nº de bónus
 3
