@@ -27,8 +27,6 @@
     <string name="dialog_multiplayer_text">You don\'t seem to be connected to a network but we were able to get your local IP. This usually means you are running a hotspot in your device. If not, make sure your connection is working fine before proceeding! If you want to use the hotspot for this game, it\'s ok to proceed normally.</string>
     <string name="achievement_text_placeholder">Achievement name</string>
     <string name="achievement_progress_placeholder">1 out of 10</string>
-    
-    
     <string name="error_serverconnection">Error getting online top! Please check your internet connection,</string>
     <string name="top_country">Country</string>
     <string name="top_name">Name</string>
@@ -36,8 +34,10 @@
     <string name="top_position">Rank</string>
     <string name="ip">Server IP:</string>
     <string name="port">Port:</string>
-        <string name="warn_bluetooth_title">Warning!</string>
-         <string name="warn_bluetooth_text">Only the paired devices are shown as option.\nPlease make sure you paired your device with the server before continue.</string>
+    <string name="warn_failed_load_sounds_title">Warning :( !</string>
+    <string name="warn_failed_load_sounds_text">The sounds failed to load for some reason!\nYou will still be able to play but without sound.</string>
+    <string name="warn_bluetooth_title">Warning!</string>
+    <string name="warn_bluetooth_text">Only the paired devices are shown as option.\nPlease make sure you paired your device with the server before continue.</string>
     <string name="error_wificonnection">Please connect to a network!</string>
     <string name="error_bluetoothconnection">Please turn on Bluetooth!</string>
     <string name="error_inactive_level">You haven\'t unlocked this level yet.</string>
@@ -56,10 +56,8 @@
     <string name="no">No</string>
     <string name="username">Username:</string>
     <string name="loading_top">Loading. Please wait...</string>
-    
     <string name="error_select_different_username">Username not available.Please select a different one.</string>
     <string name="error_connecting_to_top_server">Connection to server failed. Please try again later.</string>
-    
     <string name="help_title">Help</string>
     <string name="help_subtitle_moving">Moving</string>
     <string name="help_description_moving">You can use the directional buttons on the bottom left corner of the screen to move your character.</string>
@@ -72,16 +70,14 @@
     <string name="help_subtitle_ctf">Catch The Flag Mode</string>
     <string name="help_description_ctf">This is a multi player mode where you have to defend your flag. At the same time you have to go catch the enemy\'s flag and bring it back to your base. You can also play it as team versus team.</string>
     <string name="help_subtitle_dm">DeathMatch Mode</string>
-    <string name="help_description_dm">This is a multi player mode where you simply have to kill your opponents. You can also play it as team versus team.</string>      
+    <string name="help_description_dm">This is a multi player mode where you simply have to kill your opponents. You can also play it as team versus team.</string>
     <string name="help_subtitle_bonus_actions">Bonus Actions</string>
-    <string name="help_description_bonus_actions">1 - Let\'s you place more bombs simulatenously;\n2 - Gives you a temporary ability to push bombs;\n3 - Increases your lives;\n4 - Temporary shield;\n5 - Increases your speed;\n6 - Doubles the points you receive temporarily;\n7 - Increases the explosion size of your bombs.</string>   
+    <string name="help_description_bonus_actions">1 - Let\'s you place more bombs simulatenously;\n2 - Gives you a temporary ability to push bombs;\n3 - Increases your lives;\n4 - Temporary shield;\n5 - Increases your speed;\n6 - Doubles the points you receive temporarily;\n7 - Increases the explosion size of your bombs.</string>
     <string name="help_subtitle_build">Build</string>
     <string name="help_description_build">In the build screen you can set your username which will be shown along with your score in the worldwide Top. You can also configure the "build" that will use in the multiplayer match. You do this by distributing the available points by the three abilities below. If you have no available points, you need to complete achievements (use the Achievements button in the main screen to check their status).</string>
-    
     <string name="symbol_lesser">&lt;</string>
     <string name="symbol_greater">></string>
-    
-     <string name="bomber_champ">Congratulations, you are the BOMBER champion!!!</string>
+    <string name="bomber_champ">Congratulations, you are the BOMBER champion!!!</string>
     <string name="game_won">YOU WON!!!</string>
     <string name="game_lost">YOU LOST...</string>
     <string name="game_highscore">HIGH SCORE</string>
@@ -99,7 +95,6 @@
     <string name="game_error_connecting">Error connecting..</string>
     <string name="game_lost_client">Lost player..</string>
     <string name="game_lost_server">Lost server..</string>
-    
     <string name="about">About</string>
     <string name="about_developed_by">Developed by:</string>
     <string name="about_avelino">Avelino Martins</string>

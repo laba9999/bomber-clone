@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xml:space="preserve">
+
     <string name="hello">Hello World, AndroidGame!</string>
     <string name="app_name">Bomberman</string>
     <string name="arcade">Arcade</string>
@@ -33,8 +34,11 @@
     <string name="top_position">Lugar</string>
     <string name="ip">IP:</string>
     <string name="port">Porto:</string>
-            <string name="warn_bluetooth_title">Aviso!</string>
-         <string name="warn_bluetooth_text">Apenas os dispositivos já emparelhados são apresentados como opção.\nCertifique-se que emparelhou o seu dispositivo com o servidor antes de continuar.</string>
+    
+    <string name="warn_failed_load_sounds_title">Aviso :( !</string>
+    <string name="warn_failed_load_sounds_text">Por alguma razão não foi possivel ler os sons!\nPoderá jogar mas sem a opção de som.</string>
+    <string name="warn_bluetooth_title">Aviso!</string>
+    <string name="warn_bluetooth_text">Apenas os dispositivos já emparelhados são apresentados como opção.\nCertifique-se que emparelhou o seu dispositivo com o servidor antes de continuar.</string>
     <string name="error_wificonnection">Deve ligar-se a uma rede primeiro!</string>
     <string name="error_bluetoothconnection">Deve activar o Bluetooth!</string>
     <string name="error_inactive_level">Ainda não ganhou acesso a este nível.</string>
@@ -53,7 +57,6 @@
     <string name="no">Não</string>
     <string name="username">Nome de utilizador:</string>
     <string name="loading_top">A carregar. Por favor aguarde...</string>
-    
     <string name="error_connecting_to_top_server">Conexão ao servidor falhou. Por favor tente novamente mais tarde.</string>
     <string name="error_select_different_username">Nome não disponivel.Por favor introduza um diferente.</string>
     <string name="help_title">Ajuda</string>
@@ -70,16 +73,13 @@
     <string name="help_subtitle_dm">Modo DeathMatch</string>
     <string name="help_description_dm">Este é um modo multi-jogador onde simplesmente tem de matar todos os seus oponentes. Pode ainda jogar em equipa contra equipa.</string>
     <string name="help_subtitle_bonus_actions">Acções dos Bonus</string>
-    <string name="help_description_bonus_actions">1 - Permite-lhe colocar mais bombas simultaneamente;\n2 - Oferece-lhe uma habilidade temporária para empurrar bombas;\n3 - Aumenta as suas vidas;\n4 - Escudo temporário;\n5 - Aumenta a sua velocidade;\n6 - Duplica temporáriamente os pontos que recebe;\n7 - Aumenta o tamanho da explosão das suas bombas.</string>   
+    <string name="help_description_bonus_actions">1 - Permite-lhe colocar mais bombas simultaneamente;\n2 - Oferece-lhe uma habilidade temporária para empurrar bombas;\n3 - Aumenta as suas vidas;\n4 - Escudo temporário;\n5 - Aumenta a sua velocidade;\n6 - Duplica temporáriamente os pontos que recebe;\n7 - Aumenta o tamanho da explosão das suas bombas.</string>
     <string name="help_subtitle_build">Build</string>
     <string name="help_description_build">No ecrã Build pode indicar o seu username que irá aparecer ao lado da sua pontuação no Top mundial. Pode ainda configurar a sua "build" que irá ser usada na partida multi-jogador. Pode fazê-lo distribuindo os pontos disponíveis pelos três atributos apresentados abaixo. Se não tiver pontos disponíveis, necessita de completar algumas Conquistas (use o botão de Conquistas no ecrã inicial para verifica o estado das mesmas).</string>
-    
-    
     <string name="symbol_lesser">&lt;</string>
     <string name="symbol_greater">></string>
-    
     <string name="bomber_champ">Parabéns, tu és o BOMBER campeão!!!</string>
-        <string name="game_won">GANHASTE!!!</string>
+    <string name="game_won">GANHASTE!!!</string>
     <string name="game_lost">PERDESTE...</string>
     <string name="game_highscore">MELHOR PONTUAÇÃO</string>
     <string name="game_time">TEMPO</string>
@@ -96,11 +96,11 @@
     <string name="game_error_connecting">Erro ao ligar..</string>
     <string name="game_lost_client">Jogador perdido..</string>
     <string name="game_lost_server">Servidor perdido..</string>
-    
     <string name="about">Sobre</string>
     <string name="about_developed_by">Desenvolvido por:</string>
     <string name="about_avelino">Avelino Martins</string>
     <string name="about_filipe">Filipe Brandão</string>
     <string name="about_credits">Desenvolvido com recurso à biblioteca libGDX.\n\nCreditos para a Hudson Soft, autores dos gráficos originais, e para a Yellow Icon Design, autores do ícone do launcher.</string>
     <string name="deis_isec">DEIS-ISEC</string>
+
 </resources>
