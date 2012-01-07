@@ -105,20 +105,28 @@ public class SoundAssets {
 
 		if (mMusics == null)
 		{
+			mIsloaded = false;
 			return true;
+
 		} else if (mMusics.get("intro") == null || mMusics.get("level1") == null || mMusics.get("level2") == null || mMusics.get("level3") == null || mMusics.get("level4") == null
 				|| mMusics.get("level5") == null || mMusics.get("level6") == null || mMusics.get("level7") == null || mMusics.get("level8") == null || mMusics.get("timeEnding") == null
 				|| mMusics.get("levelISEC") == null)
 		{
+
+			mIsloaded = false;
 			return true;
 		}
 
 		if (mSounds == null)
 		{
+			mIsloaded = false;
 			return true;
 		} else if (mSounds.get("explosion") == null || mSounds.get("bling") == null || mSounds.get("die") == null)
 		{
+
+			mIsloaded = false;
 			return true;
+
 		}
 
 		return false;
