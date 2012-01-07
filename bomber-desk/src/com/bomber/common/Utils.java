@@ -31,6 +31,11 @@ public class Utils {
 	
 	public static String filterName(String _name)
 	{
-		return _name.replace("\n", "").replace(";", "").replace(">", "").replace(" ", "").substring(0,15);
+		String result =  _name.replace("\n", "").replace(";", "").replace(">", "").replace(" ", "");
+		
+		if( result.length()> 15)
+			return result.substring(0,15);
+		else
+			return result;
 	}
 }

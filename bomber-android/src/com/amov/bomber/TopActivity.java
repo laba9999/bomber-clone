@@ -147,9 +147,9 @@ public class TopActivity extends GameActivity
 		switch (id)
 		{
 		case DIALOG_NAME:
-			
+
 			removeDialog(DIALOG_NAME);
-			
+
 			dialog = new AlertDialog.Builder(TopActivity.this).setMessage(R.string.username).setView(mEditUsername).setPositiveButton("Ok", new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int whichButton)
@@ -219,7 +219,7 @@ public class TopActivity extends GameActivity
 
 		new CheckUsername().execute();
 	}
-	
+
 	private class CheckUsername extends AsyncTask<Void, Void, Boolean>
 	{
 		@Override
@@ -249,7 +249,7 @@ public class TopActivity extends GameActivity
 			new ListTop().execute();
 			super.onPostExecute(_result);
 		}
-		
+
 		@Override
 		protected Boolean doInBackground(Void... _params)
 		{
@@ -260,21 +260,20 @@ public class TopActivity extends GameActivity
 				Game.LOGGER.log("Name allowed: " + mAnswerString);
 				boolean allowed = Boolean.parseBoolean(mAnswerString);
 				return allowed;
-				
+
 			} catch (IOException e)
 			{
 				e.printStackTrace();
-				//Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_LONG).show();
+				// Toast.makeText(getApplication(),
+				// getApplication().getString(R.string.error_serverconnection),
+				// Toast.LENGTH_LONG).show();
 				cancel(true);
 			}
 
 			return false;
 		}
 
-	
-		
 	}
-	
 
 	private class ListTop extends AsyncTask<Void, Void, Void>
 	{
@@ -522,7 +521,10 @@ public class TopActivity extends GameActivity
 		String res = sb.toString().replace("\n", "");
 
 		// remove comentários do webhosting
-		return res.substring(0, res.indexOf("<!--"));
+		if (res.indexOf("<!--") != -1)
+			return res.substring(0, res.indexOf("<!--"));
+		else
+			return res;
 	}
 
 	public void onLeftButton(View v)
