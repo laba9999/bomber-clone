@@ -68,6 +68,35 @@ public class SoundAssets {
 		mIsloaded = true;
 	}
 
+	public static boolean checkNullSounds()
+	{
+		
+		if( mMusics == null) 
+		{
+			return true;
+		}
+		else if (mMusics.get("intro") == null ||	mMusics.get("level1") == null ||
+				mMusics.get("level2") == null || mMusics.get("level3") == null ||
+				mMusics.get("level4") == null || mMusics.get("level5") == null ||
+				mMusics.get("level6") == null || mMusics.get("level7") == null ||
+				mMusics.get("level8") == null || mMusics.get("timeEnding") == null  ||
+				mMusics.get("levelISEC") == null)
+		{			
+			return true;
+		}
+		
+		if( mSounds == null) 
+		{
+			return true;
+		}
+		else if(mSounds.get("explosion") == null || mSounds.get("bling") == null || mSounds.get("die") == null)
+		{
+			return true;		
+		}
+
+		return false;
+	}
+	
 	public static void playMusic(String _music, boolean _looping, float _volume)
 	{
 		if (mFailedLoading)

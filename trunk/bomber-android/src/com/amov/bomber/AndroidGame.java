@@ -56,7 +56,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);			
 		super.onCreate(savedInstanceState);
 
-		Settings.LIMPAR_SARAMPO = GameActivity.mDestroyed;
+		Settings.LIMPAR_SARAMPO = GameActivity.mDestroyed || SoundAssets.checkNullSounds();
 		
 		
 		RemoteConnections.mIsGameServer = Settings.START_ANDROID_AS_SERVER;
