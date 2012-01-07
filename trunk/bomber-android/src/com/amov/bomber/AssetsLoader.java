@@ -28,7 +28,7 @@ public class AssetsLoader extends AndroidApplication
 		initialize(new ApplicationListener()
 		{
 			boolean startedMainActivity = false;
-
+			
 			public void create()
 			{
 				loadStrings();
