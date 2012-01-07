@@ -262,7 +262,7 @@ public class TopActivity extends GameActivity
 			{
 				mAnswerString = getDBResult("check.php?name=" + Settings.PLAYER_NAME + "&mac=" + mMacAddress);
 
-				Game.LOGGER.log("Name allowed: " + mAnswerString);
+				//Game.LOGGER.log("Name allowed: " + mAnswerString);
 				boolean allowed = Boolean.parseBoolean(mAnswerString);
 				return allowed;
 
@@ -414,7 +414,7 @@ public class TopActivity extends GameActivity
 					s.replace("\n", "");
 					String[] entry = s.split(";");
 
-					Game.LOGGER.log(s);
+					//Game.LOGGER.log(s);
 
 					View vi = mInflater.inflate(R.layout.top_item, null);
 					if (Settings.PLAYER_NAME.equals(entry[2]))
