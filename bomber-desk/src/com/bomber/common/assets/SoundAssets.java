@@ -35,7 +35,7 @@ public class SoundAssets {
 	public static void load()
 	{
 		short retries = 0;
-
+		boolean clean = false;
 		do
 		{
 			mFailedLoading = false;
@@ -45,23 +45,28 @@ public class SoundAssets {
 			{
 				mMusics.clear();
 				mMusics = null;
+				clean = true;
 			}
 
 			if (mMusics != null)
 			{
 				mSounds.clear();
 				mSounds = null;
+				clean = true;
 			}
 
-			System.gc();
-			try
+			if (clean)
 			{
-				Thread.sleep(1000);
-			} catch (InterruptedException ie)
-			{
-				ie.printStackTrace();
+				System.gc();
+				try
+				{
+					Thread.sleep(1000);
+				} catch (InterruptedException ie)
+				{
+					ie.printStackTrace();
+				}
 			}
-
+			
 			mMusics = new HashMap<String, Music>(10);
 			try
 			{
@@ -89,6 +94,15 @@ public class SoundAssets {
 
 				if (++retries == MAX_LOAD_RETRIES)
 				{
+					System.gc();
+					try
+					{
+						Thread.sleep(1000);
+					} catch (InterruptedException ie)
+					{
+						ie.printStackTrace();
+					}
+
 					SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
 					edit.putBoolean("soundEnabled", false);
 					edit.commit();

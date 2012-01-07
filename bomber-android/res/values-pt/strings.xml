@@ -35,6 +35,7 @@
     <string name="ip">IP:</string>
     <string name="port">Porto:</string>
     
+    <string name="top_hosted">Top alojado por www.000webhost.com/</string>
     <string name="warn_failed_load_sounds_title">Aviso :( !</string>
     <string name="warn_failed_load_sounds_text">Por alguma razão não foi possivel ler os sons!\nPoderá jogar mas sem a opção de som.</string>
     <string name="warn_bluetooth_title">Aviso!</string>
