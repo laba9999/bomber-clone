@@ -28,4 +28,9 @@ public class Utils {
 
 		return true;
 	}
+	
+	public static String filterName(String _name)
+	{
+		return _name.replace("\n", "").replace(";", "").replace(">", "").replace(" ", "").substring(0,15);
+	}
 }

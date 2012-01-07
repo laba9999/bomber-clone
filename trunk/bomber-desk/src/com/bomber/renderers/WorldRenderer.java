@@ -93,12 +93,12 @@ public class WorldRenderer {
 		Vector2 localPlayerPos = mWorld.getLocalPlayer().mPosition;
 
 		mCamera.position.y = (int) localPlayerPos.y - 10;
-		mCamera.position.y = java.lang.Math.min(mCamera.position.y, map.mHeightPixels - Tile.TILE_SIZE * 4);
-		mCamera.position.y = java.lang.Math.max(mCamera.position.y, Tile.TILE_SIZE * 4);
+		mCamera.position.y = java.lang.Math.min(mCamera.position.y, map.mHeightPixels - Tile.TILE_SIZE * 5);
+		mCamera.position.y = java.lang.Math.max(mCamera.position.y, Tile.TILE_SIZE * 2);
 
 		mCamera.position.x = (int) localPlayerPos.x - 10;
-		mCamera.position.x = java.lang.Math.min(mCamera.position.x, map.mWidthPixels - Tile.TILE_SIZE * 8);
-		mCamera.position.x = java.lang.Math.max(mCamera.position.x, Tile.TILE_SIZE * 8);
+		mCamera.position.x = java.lang.Math.min(mCamera.position.x, map.mWidthPixels - Tile.TILE_SIZE * 9);
+		mCamera.position.x = java.lang.Math.max(mCamera.position.x, Tile.TILE_SIZE * 9);
 
 		mCamera.update();
 

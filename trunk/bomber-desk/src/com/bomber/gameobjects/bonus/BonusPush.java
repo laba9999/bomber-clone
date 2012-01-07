@@ -7,7 +7,7 @@ public class BonusPush extends TemporaryBonus {
 
 	public BonusPush()
 	{
-		super(Bonus.PUSH, 600);
+		super(Bonus.PUSH, 1000);
 		
 		Animation anim = GfxAssets.mBonusAnimations.get("bonus_hand");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true, true);

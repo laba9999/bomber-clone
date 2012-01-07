@@ -26,7 +26,7 @@
     <string name="dialog_multiplayer_text">Não parece estar ligado a uma rede wifi mas foi possivel detectar o seu IP local. Isto normalmente significa que está a correr um hotspot no seu dispositivo. Caso não esteja, garanta que a sua ligação wifi está funcional antes de continuar! Se quiser usar o hotspot para este jogo, pode continuar normalmente.</string>
     <string name="achievement_text_placeholder">Nome do Achievement</string>
     <string name="achievement_progress_placeholder">1 de 10</string>
-    <string name="error_serverconnection">Erro ao obter o top online</string>
+    <string name="error_serverconnection">Erro ao obter o top online! Por favor verifique a sua ligação à internet.</string>
     <string name="top_country">País</string>
     <string name="top_name">Nome</string>
     <string name="top_points">Pontuação</string>
@@ -53,7 +53,9 @@
     <string name="no">Não</string>
     <string name="username">Nome de utilizador:</string>
     <string name="loading_top">A carregar. Por favor aguarde...</string>
-    <string name="error_select_different_username">Por favor seleccione um nome de utilizador diferente.</string>
+    
+    <string name="error_connecting_to_top_server">Conexão ao servidor falhou. Por favor tente novamente mais tarde.</string>
+    <string name="error_select_different_username">Nome não disponivel.Por favor introduza um diferente.</string>
     <string name="help_title">Ajuda</string>
     <string name="help_subtitle_moving">Movimento</string>
     <string name="help_description_moving">Pode usar os botões direccionais no canto inferior esquerdo do ecrã para mover o seu personagem.</string>
