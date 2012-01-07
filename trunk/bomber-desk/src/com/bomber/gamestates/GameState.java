@@ -3,16 +3,10 @@ package com.bomber.gamestates;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.bomber.Settings;
 import com.bomber.Game;
-import com.bomber.common.assets.GfxAssets;
 import com.bomber.input.Input;
-import com.bomber.remote.MessageContainer;
-import com.bomber.remote.RemoteConnections;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 
@@ -75,7 +69,7 @@ public abstract class GameState {
 
 		mBatcher.end();
 	}
-
+/*
 	private final void drawDebugInfo()
 	{
 		BitmapFont font = GfxAssets.mGenericFont;
@@ -98,7 +92,7 @@ public abstract class GameState {
 				font.draw(mBatcher, "RTT: " + RemoteConnections.mGameServer.getRTT(), 660, 470);
 		}
 	}
-
+*/
 	public abstract void onPresent(float _interpolation);
 
 	protected abstract void onUpdate();

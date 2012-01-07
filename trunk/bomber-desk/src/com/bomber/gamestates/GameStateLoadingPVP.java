@@ -2,11 +2,10 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
-import com.bomber.Settings;
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
-import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
 import com.bomber.remote.RemoteConnections;
 
