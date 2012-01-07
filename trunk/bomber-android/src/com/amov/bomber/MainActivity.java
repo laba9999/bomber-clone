@@ -23,8 +23,6 @@ public class MainActivity extends GameActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		loadSharedPreferences();
-
 		SoundAssets.playMusic("intro", true, 1.0f);
 
 		updateSoundButton(findViewById(R.id.imageButtonMainSound));
@@ -32,8 +30,6 @@ public class MainActivity extends GameActivity
 		Settings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
 		Settings.STARTED_FROM_DESKTOP = false;
 		Achievements.loadFile();
-
-		loadStrings();
 
 		GameActivity.mDestroyed = false;
 
@@ -62,23 +58,6 @@ public class MainActivity extends GameActivity
 
 	}
 
-	private void loadStrings()
-	{
-		if (Strings.mStrings != null) // já foram carregadas?
-			return;
-
-		final int[] GAME_STRINGS_RESOURCES = new int[] { R.string.game_connect_to, R.string.game_connecting, R.string.game_error_connecting, R.string.game_final_score, R.string.game_highscore,
-				R.string.game_loading, R.string.game_lost_client, R.string.game_lost_server, R.string.game_no_suficient_clients, R.string.game_round, R.string.game_score, R.string.game_starts_in,
-				R.string.game_starts_in_lowercase, R.string.game_time, R.string.game_waiting_clients, R.string.game_won, R.string.game_lost, R.string.bomber_champ };
-
-		Strings.mStrings = new HashMap<String, String>(GAME_STRINGS_RESOURCES.length);
-		String str;
-		for (int i = 0; i < GAME_STRINGS_RESOURCES.length; i++)
-		{
-			str = getResources().getString(GAME_STRINGS_RESOURCES[i]);
-			Strings.mStrings.put(Strings.GAME_STRINGS_KEYS[i], str);
-		}
-	}
 
 	public void onArcadeButton(View v)
 	{
