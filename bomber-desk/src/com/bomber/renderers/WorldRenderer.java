@@ -49,7 +49,7 @@ public class WorldRenderer {
 		mBatch.end();
 
 		GLCommon gl = Gdx.gl;
-		gl.glClearColor(0, 0, 0, 1);
+		gl.glClearColor(0.15f, 0.15f, 0.15f, 1);
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		// Actualiza a posição da camera para seguir o local player

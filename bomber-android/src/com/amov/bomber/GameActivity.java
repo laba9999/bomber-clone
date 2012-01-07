@@ -27,7 +27,7 @@ public abstract class GameActivity extends Activity
 	{
 		loadSharedPreferences();
 
-		if (mDestroyed)
+		if (mDestroyed  || SoundAssets.checkNullSounds())
 		{
 			Intent myIntent = new Intent(this, AssetsLoader.class);
 			// proibe a animação na transição entre activities
