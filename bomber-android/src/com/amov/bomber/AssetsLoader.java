@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.bomber.Settings;
 import com.bomber.common.assets.SoundAssets;
 
 public class AssetsLoader extends AndroidApplication
@@ -21,7 +22,9 @@ public class AssetsLoader extends AndroidApplication
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
-
+		
+		Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
+		
 		initialize(new ApplicationListener()
 		{
 			private boolean startedMainActivity = false;
@@ -40,12 +43,12 @@ public class AssetsLoader extends AndroidApplication
 			{
 				if (SoundAssets.mIsloaded && !startedMainActivity)
 				{
+					
 					startedMainActivity = true;
 
 					Intent myIntent = new Intent(AssetsLoader.this, MainActivity.class);
 					startActivityForResult(myIntent, 0);
 				}
-
 			}
 
 		}, false);
