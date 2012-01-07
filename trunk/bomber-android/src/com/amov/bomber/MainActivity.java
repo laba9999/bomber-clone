@@ -1,17 +1,13 @@
 package com.amov.bomber;
 
-import java.util.HashMap;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.bomber.Settings;
 import com.bomber.common.Achievements;
-import com.bomber.common.Strings;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gametypes.GameTypeHandler;
 

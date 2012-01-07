@@ -60,6 +60,7 @@ public class TopActivity extends GameActivity
 
 	Button mLeftButton;
 	Button mRightButton;
+	Button mFirstPageButton;
 
 	String mMacAddress;
 
@@ -77,6 +78,7 @@ public class TopActivity extends GameActivity
 
 		mLeftButton = (Button) findViewById(R.id.buttonTopLeft);
 		mRightButton = (Button) findViewById(R.id.ButtonTopRight);
+		mFirstPageButton = (Button) findViewById(R.id.buttonFirstPage);
 
 		mLeftButton.setEnabled(false);
 		mLeftButton.setVisibility(Button.INVISIBLE);
@@ -84,6 +86,9 @@ public class TopActivity extends GameActivity
 		mRightButton.setEnabled(false);
 		mRightButton.setVisibility(Button.INVISIBLE);
 
+		mFirstPageButton.setEnabled(false);
+		mFirstPageButton.setVisibility(Button.INVISIBLE);
+		
 		registerReceiver(this.myWifiReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
 		if (!checkWifiConnection())
@@ -471,6 +476,9 @@ public class TopActivity extends GameActivity
 			mRightButton.setEnabled(_pageNumber < mMaxPage);
 			mRightButton.setVisibility(_pageNumber == mMaxPage ? Button.INVISIBLE : Button.VISIBLE);
 
+			mFirstPageButton.setEnabled(_pageNumber != 0);
+			mFirstPageButton.setVisibility(_pageNumber != 0 ? Button.VISIBLE : Button.INVISIBLE);
+			
 			removeDialog(DIALOG_PROGRESS);
 
 			super.onPostExecute(_pageNumber);
@@ -532,6 +540,10 @@ public class TopActivity extends GameActivity
 		new PresentPage().execute(mCurrentPage - 1);
 	}
 
+	public void onFirstPage(View v)
+	{
+		new PresentPage().execute(0);
+	}
 	public void onRightButton(View v)
 	{
 		new PresentPage().execute(mCurrentPage + 1);

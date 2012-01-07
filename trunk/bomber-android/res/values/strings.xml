@@ -34,6 +34,8 @@
     <string name="top_position">Rank</string>
     <string name="ip">Server IP:</string>
     <string name="port">Port:</string>
+     <string name="top_hosted">Top hosted by www.000webhost.com/</string>
+     
     <string name="warn_failed_load_sounds_title">Warning :( !</string>
     <string name="warn_failed_load_sounds_text">The sounds failed to load for some reason!\nYou will still be able to play but without sound.</string>
     <string name="warn_bluetooth_title">Warning!</string>
@@ -76,6 +78,7 @@
     <string name="help_subtitle_build">Build</string>
     <string name="help_description_build">In the build screen you can set your username which will be shown along with your score in the worldwide Top. You can also configure the "build" that will use in the multiplayer match. You do this by distributing the available points by the three abilities below. If you have no available points, you need to complete achievements (use the Achievements button in the main screen to check their status).</string>
     <string name="symbol_lesser">&lt;</string>
+    <string name="symbol_first_page">&lt;|</string>
     <string name="symbol_greater">></string>
     <string name="bomber_champ">Congratulations, you are the BOMBER champion!!!</string>
     <string name="game_won">YOU WON!!!</string>
