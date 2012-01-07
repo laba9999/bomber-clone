@@ -7,7 +7,6 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 
 import com.bomber.Settings;
-import com.bomber.Game;
 import com.bomber.remote.LocalServer;
 import com.bomber.remote.MessageContainer;
 

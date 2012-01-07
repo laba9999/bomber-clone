@@ -3,8 +3,6 @@ package com.bomber.remote;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.bomber.Game;
-
 public abstract class LocalServer extends Thread {
 
 	// Onde as novas conexões vão ser guardadas até a thread principal as vir
