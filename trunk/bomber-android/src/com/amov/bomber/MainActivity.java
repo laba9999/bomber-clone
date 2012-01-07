@@ -2,8 +2,10 @@ package com.amov.bomber;
 
 import java.util.HashMap;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -23,7 +25,7 @@ public class MainActivity extends GameActivity
 
 		loadSharedPreferences();
 
-		SoundAssets.playMusic("intro", true, 0.6f);
+		SoundAssets.playMusic("intro", true, 1.0f);
 
 		updateSoundButton(findViewById(R.id.imageButtonMainSound));
 
@@ -34,6 +36,29 @@ public class MainActivity extends GameActivity
 		loadStrings();
 
 		GameActivity.mDestroyed = false;
+
+		if (SoundAssets.mFailedLoading)
+		{
+			try
+			{
+				AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+				alertDialog.setTitle(getResources().getString(R.string.warn_failed_load_sounds_title));
+				alertDialog.setMessage(getResources().getString(R.string.warn_failed_load_sounds_text));
+
+				alertDialog.setButton("OK", new DialogInterface.OnClickListener()
+				{
+					public void onClick(DialogInterface dialog, int which)
+					{
+						dialog.dismiss();
+
+					}
+				});
+
+				alertDialog.show();
+			} catch (Exception e)
+			{
+			}
+		}
 
 	}
 

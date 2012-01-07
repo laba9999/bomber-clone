@@ -30,73 +30,100 @@ public class SoundAssets {
 
 	private static boolean mPaused = false;
 
+	private static short MAX_LOAD_RETRIES = 3;
+
 	public static void load()
 	{
-		mFailedLoading = false;
-		mMusicPlaying = null;
+		short retries = 0;
 
-		mMusics = new HashMap<String, Music>(10);
-		try
+		do
 		{
-			mMusics.put("intro", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_011.ogg")));
-			mMusics.put("level1", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_009.ogg")));
-			mMusics.put("level2", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_003.ogg")));
-			mMusics.put("level3", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_004.ogg")));
-			mMusics.put("level4", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_005.ogg")));
-			mMusics.put("level5", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_006.ogg")));
-			mMusics.put("level6", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_007.ogg")));
-			mMusics.put("level7", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_008.ogg")));
-			mMusics.put("level8", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_002.ogg")));
-			mMusics.put("timeEnding", Gdx.audio.newMusic(Gdx.files.internal("sfx/time_ending.ogg")));
-
-			mMusics.put("levelISEC", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_010.ogg")));
-
-			mSounds = new HashMap<String, Sound>();
-			mSounds.put("explosion", Gdx.audio.newSound(Gdx.files.internal("sfx/s_5.ogg")));
-			mSounds.put("bling", Gdx.audio.newSound(Gdx.files.internal("sfx/ring.ogg")));
-			mSounds.put("die", Gdx.audio.newSound(Gdx.files.internal("sfx/s_1.ogg")));
-		} catch (Exception e)
-		{
+			mFailedLoading = false;
 			mMusicPlaying = null;
-			mFailedLoading = true;
 
-			SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
-			edit.putBoolean("soundEnabled", mIsSoundActive);
-			edit.commit();
-		}
+			if (mMusics != null)
+			{
+				mMusics.clear();
+				mMusics = null;
+			}
+
+			if (mMusics != null)
+			{
+				mSounds.clear();
+				mSounds = null;
+			}
+
+			System.gc();
+			try
+			{
+				Thread.sleep(1000);
+			} catch (InterruptedException ie)
+			{
+				ie.printStackTrace();
+			}
+
+			mMusics = new HashMap<String, Music>(10);
+			try
+			{
+				mMusics.put("intro", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_011.ogg")));
+				mMusics.put("level1", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_009.ogg")));
+				mMusics.put("level2", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_003.ogg")));
+				mMusics.put("level3", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_004.ogg")));
+				mMusics.put("level4", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_005.ogg")));
+				mMusics.put("level5", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_006.ogg")));
+				mMusics.put("level6", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_007.ogg")));
+				mMusics.put("level7", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_008.ogg")));
+				mMusics.put("level8", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_002.ogg")));
+				mMusics.put("timeEnding", Gdx.audio.newMusic(Gdx.files.internal("sfx/time_ending.ogg")));
+
+				mMusics.put("levelISEC", Gdx.audio.newMusic(Gdx.files.internal("sfx/m_010.ogg")));
+
+				mSounds = new HashMap<String, Sound>();
+				mSounds.put("explosion", Gdx.audio.newSound(Gdx.files.internal("sfx/s_5.ogg")));
+				mSounds.put("bling", Gdx.audio.newSound(Gdx.files.internal("sfx/ring.ogg")));
+				mSounds.put("die", Gdx.audio.newSound(Gdx.files.internal("sfx/s_1.ogg")));
+			} catch (Exception e)
+			{
+				mMusicPlaying = null;
+				mFailedLoading = true;
+
+				if (++retries == MAX_LOAD_RETRIES)
+				{
+					SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
+					edit.putBoolean("soundEnabled", false);
+					edit.commit();
+					mIsSoundActive = false;
+				}
+			}
+		} while (mFailedLoading && retries < MAX_LOAD_RETRIES);
 
 		mIsloaded = true;
 	}
 
 	public static boolean checkNullSounds()
 	{
-		
-		if( mMusics == null) 
+
+		if (mMusics == null)
+		{
+			return true;
+		} else if (mMusics.get("intro") == null || mMusics.get("level1") == null || mMusics.get("level2") == null || mMusics.get("level3") == null || mMusics.get("level4") == null
+				|| mMusics.get("level5") == null || mMusics.get("level6") == null || mMusics.get("level7") == null || mMusics.get("level8") == null || mMusics.get("timeEnding") == null
+				|| mMusics.get("levelISEC") == null)
 		{
 			return true;
 		}
-		else if (mMusics.get("intro") == null ||	mMusics.get("level1") == null ||
-				mMusics.get("level2") == null || mMusics.get("level3") == null ||
-				mMusics.get("level4") == null || mMusics.get("level5") == null ||
-				mMusics.get("level6") == null || mMusics.get("level7") == null ||
-				mMusics.get("level8") == null || mMusics.get("timeEnding") == null  ||
-				mMusics.get("levelISEC") == null)
-		{			
-			return true;
-		}
-		
-		if( mSounds == null) 
+
+		if (mSounds == null)
 		{
 			return true;
-		}
-		else if(mSounds.get("explosion") == null || mSounds.get("bling") == null || mSounds.get("die") == null)
+		} else if (mSounds.get("explosion") == null || mSounds.get("bling") == null || mSounds.get("die") == null)
 		{
-			return true;		
+			return true;
 		}
 
 		return false;
 	}
-	
+
 	public static void playMusic(String _music, boolean _looping, float _volume)
 	{
 		if (mFailedLoading)
@@ -130,8 +157,10 @@ public class SoundAssets {
 			mMusicPlaying = null;
 
 			SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
-			edit.putBoolean("soundEnabled", mIsSoundActive);
+			edit.putBoolean("soundEnabled", false);
 			edit.commit();
+
+			mIsSoundActive = false;
 		}
 	}
 
@@ -176,7 +205,7 @@ public class SoundAssets {
 	{
 		if (mFailedLoading)
 			return;
-		
+
 		mIsSoundActive = !mIsSoundActive;
 
 		SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();

@@ -20,7 +20,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.bomber.Settings;
-import com.bomber.Game;
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
 
