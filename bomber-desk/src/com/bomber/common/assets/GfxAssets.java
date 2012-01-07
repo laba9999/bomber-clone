@@ -50,7 +50,7 @@ public class GfxAssets {
 	private static final float WAITING_FRAME_DURATION = 8f;
 	
 	private static final String ATLAS_FILE = "atlas.txt";
-	private static final String ATLAS_HD_FILE = "atlas_hd.txt";
+	public static final String ATLAS_HD_FILE = "atlas_hd.txt";
 
 	public static TextureAtlas mAtlas;
 	public static HashMap<String, MovableObjectAnimation> mMonsters;
@@ -397,7 +397,6 @@ public class GfxAssets {
 		mClockBar = atlasHD.findRegion("clock_bar");
 		mBonusBar = atlasHD.findRegion("bonus_bar");
 		
-
 		mScreens.put("pause", atlasHD.findRegion("pause_screen"));
 		mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
 		mScreens.put("gameover", atlasHD.findRegion("gameover"));
