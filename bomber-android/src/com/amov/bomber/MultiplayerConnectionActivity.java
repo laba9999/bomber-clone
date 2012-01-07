@@ -109,36 +109,36 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 		mRadioTCP.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
-			
+
 			public void onCheckedChanged(CompoundButton _buttonView, boolean _isChecked)
 			{
-				if(!mRadioTCP.isClickable())
+				if (!mRadioTCP.isClickable())
 					return;
-				
+
 				mRadioTCP.setClickable(false);
 				mRadioUDP.setChecked(false);
 				mRadioUDP.setClickable(true);
-				
+
 				mTableRowRoles.setVisibility(RadioButton.VISIBLE);
 			}
 		});
-		
+
 		mRadioUDP.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
-			
+
 			public void onCheckedChanged(CompoundButton _buttonView, boolean _isChecked)
 			{
-				if(!mRadioUDP.isClickable())
+				if (!mRadioUDP.isClickable())
 					return;
-				
+
 				mRadioUDP.setClickable(false);
 				mRadioTCP.setChecked(false);
 				mRadioTCP.setClickable(true);
-				
+
 				mTableRowRoles.setVisibility(RadioButton.VISIBLE);
 			}
 		});
-		
+
 		mRadioBluetooth.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 
@@ -150,12 +150,6 @@ public class MultiplayerConnectionActivity extends GameActivity
 					mRadioWifi.setChecked(false);
 					mRadioBluetooth.setChecked(true);
 
-					if (!checkBluetoothConnection())
-					{
-						Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-						startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT_CLIENT);
-					}
-					
 					mTableRowRoles.setVisibility(RadioButton.VISIBLE);
 				}
 			}
@@ -175,12 +169,11 @@ public class MultiplayerConnectionActivity extends GameActivity
 					mRadioBluetooth.setChecked(false);
 				}
 
-
 				if (_isChecked && !checkWifiConnection())
 				{
 					((WifiManager) getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
 				}
-				
+
 				mTableRowProtocols.setVisibility(_isChecked ? RadioGroup.VISIBLE : RadioGroup.GONE);
 				mTableRowIpPort.setVisibility(_isChecked && (mRadioClient.isChecked() || mRadioServer.isChecked()) ? RadioGroup.VISIBLE : RadioGroup.GONE);
 
@@ -202,13 +195,13 @@ public class MultiplayerConnectionActivity extends GameActivity
 		{
 			public void onCheckedChanged(CompoundButton _buttonView, boolean _isChecked)
 			{
-				if(!mRadioClient.isClickable())
+				if (!mRadioClient.isClickable())
 					return;
-				
+
 				mRadioClient.setClickable(false);
 				mRadioServer.setChecked(false);
 				mRadioServer.setClickable(true);
-				
+
 				mButtonStart.setVisibility(mRadioServer.isChecked() && mRadioWifi.isChecked() || _isChecked && mRadioWifi.isChecked() ? RadioGroup.VISIBLE : RadioGroup.INVISIBLE);
 
 				if (_isChecked && mRadioWifi.isChecked())
@@ -232,13 +225,13 @@ public class MultiplayerConnectionActivity extends GameActivity
 		{
 			public void onCheckedChanged(CompoundButton _buttonView, boolean _isChecked)
 			{
-				if(!mRadioServer.isClickable())
+				if (!mRadioServer.isClickable())
 					return;
-				
+
 				mRadioServer.setClickable(false);
 				mRadioClient.setChecked(false);
 				mRadioClient.setClickable(true);
-				
+
 				mButtonStart.setVisibility(_isChecked && mRadioWifi.isChecked() || mRadioClient.isChecked() && mRadioWifi.isChecked() ? RadioGroup.VISIBLE : RadioGroup.INVISIBLE);
 				mTableRowBluetoothDevices.setVisibility(RadioGroup.INVISIBLE);
 
@@ -324,16 +317,18 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 				BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
 
-				if (!btAdapter.startDiscovery())
+				//if (!btAdapter.startDiscovery())
 					// Game.LOGGER.log("Falhada o inicio de descoberta.");
 
 					// Apresenta toast a indicar que estamos à procura de
 					// devices
 					// Toast.makeText(this,
 					// this.getString(R.string.searching_bt_devices),
-					// Toast.LENGTH_SHORT).show();
+				// Toast.LENGTH_SHORT).show();
 
 					mBTArrayAdapter.clear();
+
+
 				mBTArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				mSpinnerBTDevices.setAdapter(mBTArrayAdapter);
 

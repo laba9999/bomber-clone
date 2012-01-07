@@ -7,7 +7,7 @@ public class BonusDoublePoints extends TemporaryBonus {
 
 	public BonusDoublePoints()
 	{
-		super(Bonus.DOUBLE_POINTS, 600);
+		super(Bonus.DOUBLE_POINTS, 10000);
 		
 		Animation anim = GfxAssets.mBonusAnimations.get("bonus_star");
 		setCurrentAnimation(anim,(short) NUMBER_OF_ANIMATION_FRAMES, true,true);

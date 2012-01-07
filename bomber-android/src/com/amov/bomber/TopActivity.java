@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,7 +32,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.badlogic.gdx.utils.Base64Coder;
+import com.bomber.Game;
 import com.bomber.Settings;
+import com.bomber.common.Utils;
 
 public class TopActivity extends GameActivity
 {
@@ -57,6 +60,8 @@ public class TopActivity extends GameActivity
 
 	Button mLeftButton;
 	Button mRightButton;
+
+	String mMacAddress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -97,6 +102,13 @@ public class TopActivity extends GameActivity
 
 	}
 
+	private void getMacAddress()
+	{
+		WifiManager wifiMan = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+		WifiInfo wifiInf = wifiMan.getConnectionInfo();
+		mMacAddress = wifiInf.getMacAddress();
+	}
+
 	@Override
 	protected void onDestroy()
 	{
@@ -123,6 +135,7 @@ public class TopActivity extends GameActivity
 					// Game.LOGGER.log("broadcast3");
 					if (!mListingTop)
 						listTop();
+
 				}
 			}
 		}
@@ -134,11 +147,14 @@ public class TopActivity extends GameActivity
 		switch (id)
 		{
 		case DIALOG_NAME:
+			
+			removeDialog(DIALOG_NAME);
+			
 			dialog = new AlertDialog.Builder(TopActivity.this).setMessage(R.string.username).setView(mEditUsername).setPositiveButton("Ok", new DialogInterface.OnClickListener()
 			{
 				public void onClick(DialogInterface dialog, int whichButton)
 				{
-					String value = mEditUsername.getText().toString().replace(" ", "");
+					String value = Utils.filterName(mEditUsername.getText().toString());
 					Settings.PLAYER_NAME = value;
 
 					if (Settings.PLAYER_NAME.equals("Bomber"))
@@ -161,16 +177,25 @@ public class TopActivity extends GameActivity
 			break;
 
 		case DIALOG_PROGRESS:
-			dialog = ProgressDialog.show(TopActivity.this, "", this.getString(R.string.loading_top), true, true);
-
-			dialog.setOnCancelListener(new OnCancelListener()
+			try
 			{
-				public void onCancel(DialogInterface _dialog)
-				{
-					finish();
-				}
-			});
+				removeDialog(DIALOG_PROGRESS);
+				dialog = ProgressDialog.show(TopActivity.this, "", getApplication().getString(R.string.loading_top), true, true);
 
+				dialog.setOnCancelListener(new OnCancelListener()
+				{
+					public void onCancel(DialogInterface _dialog)
+					{
+						finish();
+					}
+				});
+
+			} catch (Exception e)
+			{
+				Toast.makeText(getApplication(), getApplication().getString(R.string.error_connecting_to_top_server), Toast.LENGTH_SHORT).show();
+				finish();
+				dialog = null;
+			}
 			break;
 		default:
 			dialog = null;
@@ -189,8 +214,67 @@ public class TopActivity extends GameActivity
 			return;
 		}
 
-		new ListTop().execute();
+		// Verifica o username / mac
+		getMacAddress();
+
+		new CheckUsername().execute();
 	}
+	
+	private class CheckUsername extends AsyncTask<Void, Void, Boolean>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			showDialog(DIALOG_PROGRESS);
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onPostExecute(Boolean _result)
+		{
+			if (isCancelled())
+			{
+				Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
+				finish();
+				return;
+			}
+
+			if (!_result)
+			{
+				Toast.makeText(getApplication(), getApplication().getString(R.string.error_select_different_username), Toast.LENGTH_SHORT).show();
+				showDialog(DIALOG_NAME);
+				return;
+			}
+
+			new ListTop().execute();
+			super.onPostExecute(_result);
+		}
+		
+		@Override
+		protected Boolean doInBackground(Void... _params)
+		{
+			try
+			{
+				mAnswerString = getDBResult("check.php?name=" + Settings.PLAYER_NAME + "&mac=" + mMacAddress);
+
+				Game.LOGGER.log("Name allowed: " + mAnswerString);
+				boolean allowed = Boolean.parseBoolean(mAnswerString);
+				return allowed;
+				
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+				//Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_LONG).show();
+				cancel(true);
+			}
+
+			return false;
+		}
+
+	
+		
+	}
+	
 
 	private class ListTop extends AsyncTask<Void, Void, Void>
 	{
@@ -204,17 +288,25 @@ public class TopActivity extends GameActivity
 		@Override
 		protected void onPostExecute(Void _result)
 		{
+			if (isCancelled())
+			{
+				finish();
+				return;
+			}
+
 			new PresentPage().execute(mPlayerRank / mScoresPerPage);
 			removeDialog(DIALOG_PROGRESS);
 			super.onPostExecute(_result);
 		}
 
-		private String encryptData(String _name, long _points)
+		private String encryptData(String _name, String _mac, long _points)
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.append(_name.replace(";", ""));
 			sb.append(";");
 			sb.append(_points);
+			sb.append(";");
+			sb.append(_mac);
 
 			String encoded = Base64Coder.encodeString(sb.toString());
 
@@ -230,7 +322,8 @@ public class TopActivity extends GameActivity
 
 			encoded = Base64Coder.encodeString(sb.toString());
 			encoded = encoded.replace('=', '$');
-			//System.out.println(encoded);
+
+			// System.out.println(encoded);
 			return encoded;
 		}
 
@@ -239,14 +332,13 @@ public class TopActivity extends GameActivity
 		{
 			try
 			{
-				getDBResult("insert.php?data=" + encryptData(Settings.PLAYER_NAME, Settings.GAME_PREFS.getLong("totalPoints", 0)));
+				getDBResult("insert.php?data=" + encryptData(Settings.PLAYER_NAME, mMacAddress, Settings.GAME_PREFS.getLong("totalPoints", 0)));
 
 				mAnswerString = getDBResult("query.php?name=" + Settings.PLAYER_NAME);
 
 				if (mAnswerString == null)
 				{
-					Toast.makeText(TopActivity.this, TopActivity.this.getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
-					finish();
+					cancel(true);
 					return null;
 				} else
 				{
@@ -267,9 +359,6 @@ public class TopActivity extends GameActivity
 
 			} catch (Throwable e)
 			{
-				// Toast.makeText(TopActivity.this,
-				// TopActivity.this.getString(R.string.error_serverconnection),
-				// Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 				cancel(true);
 			}
@@ -281,7 +370,11 @@ public class TopActivity extends GameActivity
 		protected void onCancelled()
 		{
 			removeDialog(DIALOG_PROGRESS);
+			Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_LONG).show();
+
 			super.onCancelled();
+
+			finish();
 		}
 	}
 
@@ -291,64 +384,84 @@ public class TopActivity extends GameActivity
 		protected void onCancelled()
 		{
 			removeDialog(DIALOG_PROGRESS);
+			Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_LONG).show();
 			super.onCancelled();
+
+			finish();
 		}
 
 		@Override
 		protected void onPostExecute(Integer _pageNumber)
 		{
+			if (isCancelled())
+			{
+				finish();
+				return;
+			}
+
 			mLayout.removeAllViews();
 
 			boolean isLocalPlayer = false;
 			for (String s : mSplitedData)
 			{
-				isLocalPlayer = false;
-				String[] entry = s.split(";");
-
-				// Game.LOGGER.log(s);
-
-				View vi = mInflater.inflate(R.layout.top_item, null);
-				if (Settings.PLAYER_NAME.equals(entry[2]))
-					isLocalPlayer = true;
-
-				TextView text = (TextView) vi.findViewById(R.id.tvTopCountry);
-				text.setText(entry[1]);
-
-				if (isLocalPlayer)
+				try
 				{
-					vi.setBackgroundColor(Color.GREEN);
-					text.setTextColor(Color.BLACK);
-					text.setTypeface(null, Typeface.BOLD);
-				}
+					isLocalPlayer = false;
+					s.replace("\n", "");
+					String[] entry = s.split(";");
 
-				text = (TextView) vi.findViewById(R.id.tvTopRank);
-				text.setText(entry[0] + "º");
-				if (isLocalPlayer)
+					Game.LOGGER.log(s);
+
+					View vi = mInflater.inflate(R.layout.top_item, null);
+					if (Settings.PLAYER_NAME.equals(entry[2]))
+						isLocalPlayer = true;
+
+					TextView text = (TextView) vi.findViewById(R.id.tvTopCountry);
+					text.setText(entry[1]);
+
+					if (isLocalPlayer)
+					{
+						vi.setBackgroundColor(Color.GREEN);
+						text.setTextColor(Color.BLACK);
+						text.setTypeface(null, Typeface.BOLD);
+					}
+
+					text = (TextView) vi.findViewById(R.id.tvTopRank);
+					text.setText(entry[0] + "º");
+					if (isLocalPlayer)
+					{
+						text.setBackgroundColor(Color.GREEN);
+						text.setTextColor(Color.BLACK);
+						text.setTypeface(null, Typeface.BOLD);
+					}
+
+					text = (TextView) vi.findViewById(R.id.tvTopName);
+					text.setText(entry[2]);
+					if (isLocalPlayer)
+					{
+						text.setBackgroundColor(Color.GREEN);
+						text.setTextColor(Color.BLACK);
+						text.setTypeface(null, Typeface.BOLD);
+					}
+
+					text = (TextView) vi.findViewById(R.id.tvTopScore);
+					text.setText(entry[3]);
+					if (isLocalPlayer)
+					{
+						text.setBackgroundColor(Color.GREEN);
+						text.setTextColor(Color.BLACK);
+						text.setTypeface(null, Typeface.BOLD);
+					}
+
+					mLayout.addView(vi);
+				} catch (Exception e)
 				{
-					text.setBackgroundColor(Color.GREEN);
-					text.setTextColor(Color.BLACK);
-					text.setTypeface(null, Typeface.BOLD);
+					e.printStackTrace();
+					// Toast.makeText(getApplicationContext(),
+					// getApplication().getString(R.string.error_connecting_to_top_server),
+					// Toast.LENGTH_LONG).show();
+					continue;
 				}
-
-				text = (TextView) vi.findViewById(R.id.tvTopName);
-				text.setText(entry[2]);
-				if (isLocalPlayer)
-				{
-					text.setBackgroundColor(Color.GREEN);
-					text.setTextColor(Color.BLACK);
-					text.setTypeface(null, Typeface.BOLD);
-				}
-
-				text = (TextView) vi.findViewById(R.id.tvTopScore);
-				text.setText(entry[3]);
-				if (isLocalPlayer)
-				{
-					text.setBackgroundColor(Color.GREEN);
-					text.setTextColor(Color.BLACK);
-					text.setTypeface(null, Typeface.BOLD);
-				}
-
-				mLayout.addView(vi);
 			}
 
 			mCurrentPage = _pageNumber;
@@ -384,9 +497,9 @@ public class TopActivity extends GameActivity
 				mSplitedData = mAnswerString.split(">");
 			} catch (IOException e)
 			{
-				// Toast.makeText(null,
-				// TopActivity.this.getString(R.string.error_serverconnection),
-				// Toast.LENGTH_SHORT).show();
+				// Toast.makeText(getApplicationContext(),
+				// getApplication().getString(R.string.error_serverconnection),
+				// Toast.LENGTH_LONG).show();
 				e.printStackTrace();
 				cancel(true);
 			}
@@ -397,11 +510,19 @@ public class TopActivity extends GameActivity
 
 	private static String getDBResult(String _url) throws IOException
 	{
-		// "http://bbm.host22.com/query_page.php?startRank=1&endRank=10"
 		URL myURL = new URL(mWebhost + _url);
+		Game.LOGGER.log(mWebhost + _url);
 		Scanner scanner = new Scanner(new BufferedInputStream(myURL.openStream()));
 
-		return scanner.nextLine();
+		StringBuilder sb = new StringBuilder();
+
+		while (scanner.hasNextLine())
+			sb.append(scanner.nextLine());
+
+		String res = sb.toString().replace("\n", "");
+
+		// remove comentários do webhosting
+		return res.substring(0, res.indexOf("<!--"));
 	}
 
 	public void onLeftButton(View v)

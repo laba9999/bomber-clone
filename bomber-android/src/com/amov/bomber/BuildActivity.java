@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bomber.Settings;
 import com.bomber.common.Achievements;
 import com.bomber.common.BonusBuild;
+import com.bomber.common.Utils;
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Message;
 
@@ -122,7 +123,7 @@ public class BuildActivity extends GameActivity
 		BonusBuild.mBombCount = mBombsPoints;
 		BonusBuild.mSpeed = mSpeedPoints;
 
-		Settings.PLAYER_NAME = mEditUsername.getText().toString();
+		Settings.PLAYER_NAME = Utils.filterName(mEditUsername.getText().toString());
 
 		SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
 		edit.putInt("buildExplosionSize", mExplosionPoints);

@@ -82,6 +82,7 @@ public class InputLevelCompletedState extends Input {
 			break;
 
 		case INPUT_MENU:
+			Game.goBackToActivities();
 			break;
 		}
 	}
