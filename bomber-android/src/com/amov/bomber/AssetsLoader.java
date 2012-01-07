@@ -13,7 +13,6 @@ import com.bomber.common.assets.SoundAssets;
 
 public class AssetsLoader extends AndroidApplication
 {
-
 	@Override
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
@@ -25,35 +24,22 @@ public class AssetsLoader extends AndroidApplication
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
-		setContentView(R.layout.loading);
-		
-		Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
 
-		
 		initialize(new ApplicationListener()
 		{
-			private boolean startedMainActivity = false;
+			boolean startedMainActivity = false;
 
-			public void resume(){}
-			public void resize(int _width, int _height){}
-			public void pause(){}
-			public void dispose(){}
-			
 			public void create()
 			{
-				
-
-				SoundAssets.load();
-				loadSharedPreferences();
 				loadStrings();
+				loadSharedPreferences();
+				SoundAssets.load();
 			}
-			
+
 			public void render()
 			{
-
 				if (SoundAssets.mIsloaded && !startedMainActivity)
 				{
-					
 					startedMainActivity = true;
 
 					Intent myIntent = new Intent(AssetsLoader.this, MainActivity.class);
@@ -61,13 +47,14 @@ public class AssetsLoader extends AndroidApplication
 				}
 			}
 
+			public void resize(int _width, int _height){}
+			public void pause(){}
+			public void resume(){}
+			public void dispose(){}
+			
 		}, false);
-		
-
-
 	}
-	
-	
+
 	private void loadStrings()
 	{
 		if (Strings.mStrings != null) // já foram carregadas?
@@ -86,7 +73,6 @@ public class AssetsLoader extends AndroidApplication
 		}
 	}
 
-	
 	protected void loadSharedPreferences()
 	{
 		if (Settings.GAME_PREFS == null)
@@ -96,7 +82,5 @@ public class AssetsLoader extends AndroidApplication
 			SoundAssets.mIsSoundActive = Settings.GAME_PREFS.getBoolean("soundEnabled", true);
 		}
 	}
-
-	
 
 }
