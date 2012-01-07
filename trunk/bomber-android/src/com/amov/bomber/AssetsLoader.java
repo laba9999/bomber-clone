@@ -47,9 +47,7 @@ public class AssetsLoader extends AndroidApplication
 			
 			public void create()
 			{
-				SoundAssets.load();
-				loadSharedPreferences();
-				loadStrings();
+				
 				GfxAssets.loadAssets();
 				
 				mUICamera = new OrthographicCamera(800, 480);
@@ -58,6 +56,9 @@ public class AssetsLoader extends AndroidApplication
 
 				mBatcher = new SpriteBatch();
 				
+				SoundAssets.load();
+				loadSharedPreferences();
+				loadStrings();
 			}
 			
 			public void render()
