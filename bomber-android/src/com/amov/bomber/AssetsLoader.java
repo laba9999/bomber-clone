@@ -7,14 +7,9 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bomber.Settings;
 import com.bomber.common.Strings;
-import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.SoundAssets;
-import com.bomber.renderers.WorldRenderer;
 
 public class AssetsLoader extends AndroidApplication
 {
@@ -30,6 +25,8 @@ public class AssetsLoader extends AndroidApplication
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
+		setContentView(R.layout.loading);
+		
 		Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
 
 		
@@ -37,9 +34,6 @@ public class AssetsLoader extends AndroidApplication
 		{
 			private boolean startedMainActivity = false;
 
-			private SpriteBatch mBatcher;
-			private OrthographicCamera mUICamera;
-			
 			public void resume(){}
 			public void resize(int _width, int _height){}
 			public void pause(){}
@@ -48,14 +42,7 @@ public class AssetsLoader extends AndroidApplication
 			public void create()
 			{
 				
-				GfxAssets.loadAssets();
-				
-				mUICamera = new OrthographicCamera(800, 480);
-				mUICamera.position.set(800 / 2, 480 / 2, 0);
-				mUICamera.update();
 
-				mBatcher = new SpriteBatch();
-				
 				SoundAssets.load();
 				loadSharedPreferences();
 				loadStrings();
@@ -63,13 +50,7 @@ public class AssetsLoader extends AndroidApplication
 			
 			public void render()
 			{
-				mBatcher.begin();
-				mBatcher.setProjectionMatrix(mUICamera.combined);
-				BitmapFont font = GfxAssets.mBigFont;
-				mBatcher.draw(GfxAssets.Pixmaps.getGrey(), 0, 0);
-				font.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
-				mBatcher.end();
-				
+
 				if (SoundAssets.mIsloaded && !startedMainActivity)
 				{
 					
@@ -81,6 +62,8 @@ public class AssetsLoader extends AndroidApplication
 			}
 
 		}, false);
+		
+
 
 	}
 	

@@ -38,8 +38,8 @@ public class MainActivity extends GameActivity
 			try
 			{
 				AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-				alertDialog.setTitle(getResources().getString(R.string.warn_failed_load_sounds_title));
-				alertDialog.setMessage(getResources().getString(R.string.warn_failed_load_sounds_text));
+//				alertDialog.setTitle(getResources().getString(R.string.warn_failed_load_sounds_title));
+//				alertDialog.setMessage(getResources().getString(R.string.warn_failed_load_sounds_text));
 
 				alertDialog.setButton("OK", new DialogInterface.OnClickListener()
 				{
