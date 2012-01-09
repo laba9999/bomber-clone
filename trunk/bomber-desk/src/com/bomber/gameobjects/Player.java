@@ -95,7 +95,7 @@ public class Player extends KillableObject {
 		mActiveBonus = new ObjectsPool<TemporaryBonus>((short) 0, null);
 		mExtraTextures = new HashMap<String, TextureRegion>(3);
 		
-		mSpeed = 1.5f;
+		mSpeed = 1.7f;
 	}
 
 	public void dropBomb()
@@ -310,7 +310,7 @@ public class Player extends KillableObject {
 		mEnemyFlag = null;
 		mTeam = null;
 		
-		mSpeed = 2.0f;
+		mSpeed = 1.7f;
 	}
 
 	public String getPoints()

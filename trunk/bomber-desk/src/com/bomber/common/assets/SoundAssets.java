@@ -97,7 +97,7 @@ public class SoundAssets {
 					System.gc();
 					try
 					{
-						Thread.sleep(1000);
+						Thread.sleep(100);
 					} catch (InterruptedException ie)
 					{
 						ie.printStackTrace();
@@ -106,6 +106,7 @@ public class SoundAssets {
 					SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
 					edit.putBoolean("soundEnabled", false);
 					edit.commit();
+					
 					mIsSoundActive = false;
 				}
 			}

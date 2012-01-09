@@ -90,7 +90,7 @@ public class GameStateLevelCompleted extends GameState {
 
 	}
 
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		mWorldRenderer.render();
 		mBatcher.setProjectionMatrix(mUICamera.combined);

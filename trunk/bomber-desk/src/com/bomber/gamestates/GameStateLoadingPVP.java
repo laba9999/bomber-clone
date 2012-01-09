@@ -25,7 +25,6 @@ public class GameStateLoadingPVP extends GameStateLoading {
 		super(_gameScreen);
 
 		mServerAuthorizedStart = false;
-		// mFailedToConnectToServer = false;
 		mCountdownSeconds = -1;
 	}
 
@@ -42,10 +41,10 @@ public class GameStateLoadingPVP extends GameStateLoading {
 	}
 
 	@Override
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		mBatcher.draw(GfxAssets.Pixmaps.getGrey(), 0, 0);
+		
 		BitmapFont font = GfxAssets.mGenericFont;
 
 		TextBounds tx;

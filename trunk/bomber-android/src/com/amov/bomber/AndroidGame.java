@@ -8,10 +8,9 @@ import android.view.WindowManager.LayoutParams;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.bomber.AndroidBridge;
-import com.bomber.Settings;
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.common.assets.SoundAssets;
-import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStatePaused;
 import com.bomber.remote.CreateConnections;
 import com.bomber.remote.RemoteConnections;
@@ -58,7 +57,6 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		super.onCreate(savedInstanceState);
 
 		Settings.LIMPAR_SARAMPO = GameActivity.mDestroyed || SoundAssets.checkNullSounds();
-		
 		
 		RemoteConnections.mIsGameServer = Settings.START_ANDROID_AS_SERVER;
 		Game newGame = new Game(this, Settings.GAME_TYPE, Settings.LEVEL_TO_LOAD);

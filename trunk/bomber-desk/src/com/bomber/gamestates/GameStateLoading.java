@@ -1,13 +1,13 @@
 package com.bomber.gamestates;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
-import com.bomber.common.Strings;
+import com.bomber.common.ObjectFactory;
 import com.bomber.common.assets.GfxAssets;
-import com.bomber.common.assets.Level;
+import com.bomber.renderers.WorldRenderer;
+import com.bomber.world.GameWorld;
 
 public class GameStateLoading extends GameState {
-	
+
 	public GameStateLoading(Game _gameScreen) {
 		super(_gameScreen);
 
@@ -16,17 +16,20 @@ public class GameStateLoading extends GameState {
 	@Override
 	public void onUpdate()
 	{
-		if (Level.mIsLoaded)
+		if (GfxAssets.mFinishedLoading)
+		{
+			mGame.mWorld = new GameWorld(mGame, ObjectFactory.CreateGameTypeHandler.Create(Game.mGameType), Game.mLevelToLoad);
+			mGame.mWorldRenderer = new WorldRenderer(mBatcher, mGame.mWorld);
+
+			mGame.mMessagesHandler.mWorld = mGame.mWorld;
+			
 			mGame.setGameState(new GameStatePlaying(mGame));
+			Game.mNextGameTick = System.nanoTime();;
+		}
 	}
 
-	public void onPresent(float _interpolation)
-	{
-		mBatcher.setProjectionMatrix(mUICamera.combined);
-		BitmapFont font = GfxAssets.mGenericFont;
-		mBatcher.draw(GfxAssets.Pixmaps.getGrey(), 0, 0);
-		font.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
-	}
+	public void onPresent()
+	{}
 
 	@Override
 	protected void onFinish()

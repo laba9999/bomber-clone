@@ -20,7 +20,7 @@ public class GameStateGameOver extends GameState {
 		mInput.update();
 	}
 
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		mWorldRenderer.render();
 		mBatcher.setProjectionMatrix(mUICamera.combined);

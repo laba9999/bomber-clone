@@ -124,7 +124,7 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 			mResult = 3;
 	}
 
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 		BitmapFont font = GfxAssets.mGenericFont;

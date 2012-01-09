@@ -95,9 +95,12 @@ public class GfxAssets {
 
 	public static Animation mWaitingAnimation;
 	
+	public static boolean mFinishedLoading = false;
 
 	public static void loadAssets()
 	{
+		mFinishedLoading = false;
+		
 		mPlayers = new HashMap<String, MovableObjectAnimation>();
 		mPlayerEffects = new HashMap<String, Animation>();
 		mPlayersHeads = new HashMap<String, TextureRegion>();
@@ -123,6 +126,8 @@ public class GfxAssets {
 		loadBomb();
 		loadFlags();
 		loadUI();
+		
+		mFinishedLoading = true;
 	}
 
 	private static void loadAtlas()
@@ -387,7 +392,13 @@ public class GfxAssets {
 		mBomb = movableAnimation;
 	}
 
-	private static void loadUI()
+	public static void loadGenericFont()
+	{
+		mFinishedLoading = false;
+		mGenericFont = new BitmapFont(Gdx.files.internal("teste_22.fnt"), false);
+	}
+	
+	public static void loadUI()
 	{
 		TextureAtlas atlasHD = new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
 
@@ -404,10 +415,9 @@ public class GfxAssets {
 		mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
 
 		mTrophy[0] = atlasHD.findRegion("trophy");
-		mTrophy[1] = mAtlas.findRegion("trophyBig");
-		mTrophy[2] = mAtlas.findRegion("trophySmall");
+		mTrophy[1] = atlasHD.findRegion("trophyBig");
+		mTrophy[2] = atlasHD.findRegion("trophySmall");
 
-		mGenericFont = new BitmapFont(Gdx.files.internal("teste_22.fnt"), false);
 		mNamesFont = new BitmapFont(Gdx.files.internal("name_font.fnt"), false);
 		mBigFont = new BitmapFont(Gdx.files.internal("font_28.fnt"), false);
 
@@ -436,12 +446,10 @@ public class GfxAssets {
 		private static Pixmap mPixmapNamePlate = null;
 		private static Pixmap mPixmapGreen = null;
 		private static Pixmap mPixmapRed = null;
-		private static Pixmap mPixmapGrey= null;
 		
 		private static Texture mDarkGlass = null;
 		private static Texture mGreen = null;
 		private static Texture mRed = null;
-		private static Texture mGrey = null;
 
 		private static Texture mNamePlate = null;
 		public static void dispose()
@@ -452,23 +460,21 @@ public class GfxAssets {
 			mPixmapDarkGlass.dispose();
 			mPixmapGreen.dispose();
 			mPixmapRed.dispose();
-			mPixmapGrey.dispose();
 			mPixmapNamePlate.dispose();
 			mDarkGlass.dispose();
 			mGreen.dispose();
 			mRed.dispose();
-			mGrey.dispose();
+
 			mNamePlate.dispose();
 
 			mPixmapDarkGlass = null;
 			mPixmapGreen = null;
 			mPixmapRed = null;
-			mPixmapGrey = null;
 			mPixmapNamePlate = null;
 			mDarkGlass = null;
 			mGreen = null;
 			mRed = null;
-			mGrey = null;
+
 			mNamePlate = null;
 		}
 
@@ -502,16 +508,6 @@ public class GfxAssets {
 			return mRed;
 		}
 		
-		public static Texture getGrey()
-		{
-			if (mGrey != null)
-				return mGrey;
-
-			create();
-
-			return mGrey;
-		}
-		
 
 		public static Texture getNamePlate()
 		{
@@ -541,15 +537,7 @@ public class GfxAssets {
 			mRed = new Texture(mPixmapRed);
 			mRed.draw(mPixmapRed, 0, 0);
 			mRed.bind();
-			
-			//Cria background cinzento
-			mPixmapGrey = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
-			mPixmapGrey.setColor(0.21f, 0.21f, 0.21f, 0.8f);
-			mPixmapGrey.fill();
-			mGrey = new Texture(mPixmapGrey);
-			mGrey.draw(mPixmapGrey, 0, 0);
-			mGrey.bind();
-			
+
 			// Cria o vidro escuro
 			mPixmapDarkGlass = new Pixmap(1024, 512, Pixmap.Format.RGBA4444);
 			mPixmapDarkGlass.setColor(0, 0, 0, 0.8f);
@@ -558,7 +546,6 @@ public class GfxAssets {
 			mDarkGlass = new Texture(mPixmapDarkGlass);
 			mDarkGlass.draw(mPixmapDarkGlass, 0, 0);
 			mDarkGlass.bind();
-			
 			
 			// Cria os nameplates
 			mPixmapNamePlate= new Pixmap(256, 16, Pixmap.Format.RGBA4444);
