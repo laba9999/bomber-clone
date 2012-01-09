@@ -13,6 +13,7 @@ import com.bomber.Game;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStatePaused;
+import com.bomber.remote.CreateConnections;
 import com.bomber.remote.RemoteConnections;
 
 public class AndroidGame extends AndroidApplication implements AndroidBridge
@@ -65,12 +66,8 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 
 		if (!Game.mIsPVPGame)
 			return;
-
-		RemoteConnections tmpConnections = RemoteConnections.create(Settings.REMOTE_PROTOCOL_IN_USE, Settings.START_ANDROID_AS_SERVER, Settings.REMOTE_SERVER_ADDRESS);
-		if (tmpConnections == null)
-			GameStateLoadingPVP.mFailedToConnectToServer = true;
-		else
-			newGame.setConnections(tmpConnections);
+		
+		new CreateConnections(newGame).start();
 	}
 
 	public void goBackToMenu()

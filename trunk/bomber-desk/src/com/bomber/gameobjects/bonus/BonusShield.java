@@ -7,7 +7,7 @@ import com.bomber.common.assets.GfxAssets;
 public class BonusShield extends TemporaryBonus {
 
 	public BonusShield() {
-		super(Bonus.SHIELD, 10000); // 10secs
+		super(Bonus.SHIELD, 1000); // 10secs
 
 		Animation anim = GfxAssets.mBonusAnimations.get("bonus_shield");
 		setCurrentAnimation(anim, (short) NUMBER_OF_ANIMATION_FRAMES, true, true);
