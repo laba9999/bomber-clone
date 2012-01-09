@@ -518,7 +518,7 @@ public class TopActivity extends GameActivity
 	private static String getDBResult(String _url) throws IOException
 	{
 		URL myURL = new URL(mWebhost + _url);
-		Game.LOGGER.log(mWebhost + _url);
+		//Game.LOGGER.log(mWebhost + _url);
 		Scanner scanner = new Scanner(new BufferedInputStream(myURL.openStream()));
 
 		StringBuilder sb = new StringBuilder();
