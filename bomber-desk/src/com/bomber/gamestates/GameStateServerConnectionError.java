@@ -30,7 +30,7 @@ public class GameStateServerConnectionError extends GameState {
 		throw new UnsupportedOperationException();
 	}
 
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
 

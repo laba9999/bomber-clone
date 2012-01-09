@@ -65,7 +65,7 @@ public class GameStatePlaying extends GameState {
 		}
 	}
 
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		// Renderiza o mundo
 		mWorldRenderer.render();

@@ -18,7 +18,7 @@ public class GameStateBomberChamp extends GameState {
 	}
 
 	@Override
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		BitmapFont font = GfxAssets.mGenericFont;
 		String finalString;

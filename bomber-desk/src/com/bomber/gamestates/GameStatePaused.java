@@ -69,7 +69,7 @@ public class GameStatePaused extends GameState {
 		mOptionsPanel.update();
 	}
 	
-	public void onPresent(float _interpolation)
+	public void onPresent()
 	{
 		mWorldRenderer.render();
 		mBatcher.setProjectionMatrix(mUICamera.combined);

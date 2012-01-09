@@ -38,9 +38,9 @@ public class Game implements ApplicationListener {
 
 	public static Logger LOGGER = new Logger("GAM");
 	private int mLoops;
-	private long startTime;
-	private float mInterpolation;
-	private int ticksPerSecondCounter;
+	//private long startTime;
+	//private float mInterpolation;
+	//private int ticksPerSecondCounter;
 
 	public static short mGameType = -1;
 	public static boolean mIsPVPGame = false;
@@ -64,7 +64,7 @@ public class Game implements ApplicationListener {
 	public static int mRandomSeed;
 	public static Random mRandomGenerator;
 
-	private MessagesHandler mMessagesHandler;
+	public MessagesHandler mMessagesHandler;
 	public static RemoteConnections mRemoteConnections;
 
 	private static AndroidBridge mAndroidGameActivity;
@@ -74,7 +74,7 @@ public class Game implements ApplicationListener {
 	public static Team[] mTeams;
 
 	private boolean mSentReadyToServer = false;
-
+	
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		mAndroidGameActivity = _bridge;
 
@@ -238,24 +238,18 @@ public class Game implements ApplicationListener {
 		if (!SoundAssets.mIsloaded)
 			SoundAssets.load();
 
-		GfxAssets.loadAssets();
+		GfxAssets.loadGenericFont();
+		
+
 
 		if (!mIsPVPGame)
 		{
 			mGameState = new GameStateLoading(this);
-			// SoundAssets.playMusic(Game.mLevelToLoad, true, 1.0f);
 		} else
 			mGameState = new GameStateLoadingPVP(this);
 
 		if (Game.mIsPVPGame && RemoteConnections.mIsGameServer)
 			changeInfo(Settings.GAME_TYPE, Settings.GAME_ROUNDS, Settings.LEVEL_TO_LOAD);
-		else if (mGameType == GameTypeHandler.CAMPAIGN)
-		{
-			mWorld = new GameWorld(this, ObjectFactory.CreateGameTypeHandler.Create(mGameType), mLevelToLoad);
-			mWorldRenderer = new WorldRenderer(mBatcher, mWorld);
-
-			mMessagesHandler.mWorld = mWorld;
-		}
 
 		mMessagesHandler.mGame = this;
 
@@ -269,16 +263,20 @@ public class Game implements ApplicationListener {
 	@Override
 	public void render()
 	{
+		// Lê os gráficos depois de apresentar o ecrã de loading
+		if(!GfxAssets.mFinishedLoading && mCurrentTick > 0)
+			GfxAssets.loadAssets();
+		
 		mLoops = 0;
 		while (System.nanoTime() > mNextGameTick && mLoops < MAX_FRAMESKIP)
 		{
-			ticksPerSecondCounter++;
-			if ((System.nanoTime() - startTime) > 1000000000)
-			{
-				mTicksPerSecond = ticksPerSecondCounter;
-				ticksPerSecondCounter = 0;
-				startTime = System.nanoTime();
-			}
+//			ticksPerSecondCounter++;
+//			if ((System.nanoTime() - startTime) > 1000000000)
+//			{
+//				mTicksPerSecond = ticksPerSecondCounter;
+//				ticksPerSecondCounter = 0;
+//				startTime = System.nanoTime();
+//			}
 
 			mGameState.update();
 
@@ -289,14 +287,14 @@ public class Game implements ApplicationListener {
 				for (short i = 0; i < MAX_PARSED_MESSAGES_PER_TICK; i++)
 					mMessagesHandler.parseNextMessage();
 			}
-
+			
 			mNextGameTick += SKIP_TICKS;
 			mLoops++;
 
 			mCurrentTick++;
 		}
 
-		if (!mSentReadyToServer && mIsPVPGame && !RemoteConnections.mIsGameServer && mRemoteConnections != null && mRemoteConnections.connectedToServer())
+		if (!mSentReadyToServer && mIsPVPGame && GfxAssets.mFinishedLoading && !RemoteConnections.mIsGameServer && mRemoteConnections != null && mRemoteConnections.connectedToServer())
 		{
 			Message msg = mRemoteConnections.mMessageToSend;
 			msg.messageType = MessageType.CONNECTION;
@@ -307,8 +305,7 @@ public class Game implements ApplicationListener {
 		}
 
 		
-		mInterpolation = (System.nanoTime() + SKIP_TICKS - mNextGameTick) / SKIP_TICKS;
-		mGameState.present(mInterpolation);
+		mGameState.present();
 
 	}
 
