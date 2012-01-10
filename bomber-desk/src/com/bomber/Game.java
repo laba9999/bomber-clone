@@ -38,9 +38,9 @@ public class Game implements ApplicationListener {
 
 	public static Logger LOGGER = new Logger("GAM");
 	private int mLoops;
-	//private long startTime;
-	//private float mInterpolation;
-	//private int ticksPerSecondCounter;
+	// private long startTime;
+	// private float mInterpolation;
+	// private int ticksPerSecondCounter;
 
 	public static short mGameType = -1;
 	public static boolean mIsPVPGame = false;
@@ -74,19 +74,19 @@ public class Game implements ApplicationListener {
 	public static Team[] mTeams;
 
 	private boolean mSentReadyToServer = false;
-	
+
 	public Game(AndroidBridge _bridge, short _gameType, String _levelToLoad) {
 		mAndroidGameActivity = _bridge;
 
-		if(Settings.LIMPAR_SARAMPO)
+		if (Settings.LIMPAR_SARAMPO)
 		{
 			Log.d("LIMPAR SARAMPO", "LIMPAR SARAMPO");
 			_bridge.goBackToWithoutExiting();
 			System.exit(-1);
 		}
-		
+
 		setGameType(_gameType);
-		
+
 		Utils.resetUUID();
 
 		GameStateLoadingPVP.mFailedToConnectToServer = false;
@@ -125,7 +125,7 @@ public class Game implements ApplicationListener {
 		Game.setGameType(_type);
 		mRoundsToPlay = _nRounds;
 		mLevelToLoad = _levelToLoad;
-		// //Game.LOGGER.log("Received game info - Type: " + _type +
+		// Game.LOGGER.log("Received game info - Type: " + _type +
 		// " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
 
 		mTeams[0].clear();
@@ -238,9 +238,7 @@ public class Game implements ApplicationListener {
 		if (!SoundAssets.mIsloaded)
 			SoundAssets.load();
 
-		GfxAssets.loadGenericFont();
-		
-
+		GfxAssets.loadBigFont();
 
 		if (!mIsPVPGame)
 		{
@@ -258,40 +256,48 @@ public class Game implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height)
-	{}
+	{
+	}
 
 	@Override
 	public void render()
 	{
 		// Lê os gráficos depois de apresentar o ecrã de loading
-		if(!GfxAssets.mFinishedLoading && mCurrentTick > 0)
-			GfxAssets.loadAssets();
-		
-		mLoops = 0;
-		while (System.nanoTime() > mNextGameTick && mLoops < MAX_FRAMESKIP)
+		if (!GfxAssets.mFinishedLoading && mCurrentTick > 0)
 		{
-//			ticksPerSecondCounter++;
-//			if ((System.nanoTime() - startTime) > 1000000000)
-//			{
-//				mTicksPerSecond = ticksPerSecondCounter;
-//				ticksPerSecondCounter = 0;
-//				startTime = System.nanoTime();
-//			}
-
-			mGameState.update();
-
-			if (mIsPVPGame && mRemoteConnections != null && !mGameIsOver)
+			GfxAssets.loadAssets();
+			mNextGameTick = System.nanoTime();
+		} else
+		{
+			mLoops = 0;
+			while (System.nanoTime() > mNextGameTick && mLoops < MAX_FRAMESKIP)
 			{
-				mRemoteConnections.update();
+				// ticksPerSecondCounter++;
+				// if ((System.nanoTime() - startTime) > 1000000000)
+				// {
+				// mTicksPerSecond = ticksPerSecondCounter;
+				// ticksPerSecondCounter = 0;
+				// startTime = System.nanoTime();
+				// }
 
-				for (short i = 0; i < MAX_PARSED_MESSAGES_PER_TICK; i++)
-					mMessagesHandler.parseNextMessage();
+				mGameState.update();
+
+				if (mIsPVPGame && mRemoteConnections != null && !mGameIsOver)
+				{
+					mRemoteConnections.update();
+
+					for (short i = 0; i < MAX_PARSED_MESSAGES_PER_TICK; i++)
+						mMessagesHandler.parseNextMessage();
+				}
+
+				mNextGameTick += SKIP_TICKS;
+				mLoops++;
+
+				mCurrentTick++;
+
+				if (!GfxAssets.mFinishedLoading)
+					break;
 			}
-			
-			mNextGameTick += SKIP_TICKS;
-			mLoops++;
-
-			mCurrentTick++;
 		}
 
 		if (!mSentReadyToServer && mIsPVPGame && GfxAssets.mFinishedLoading && !RemoteConnections.mIsGameServer && mRemoteConnections != null && mRemoteConnections.connectedToServer())
@@ -304,9 +310,7 @@ public class Game implements ApplicationListener {
 			mSentReadyToServer = true;
 		}
 
-		
 		mGameState.present();
-
 	}
 
 	@Override

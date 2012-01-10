@@ -27,13 +27,24 @@
     <string name="dialog_multiplayer_text">You don\'t seem to be connected to a network but we were able to get your local IP. This usually means you are running a hotspot in your device. If not, make sure your connection is working fine before proceeding! If you want to use the hotspot for this game, it\'s ok to proceed normally.</string>
     <string name="achievement_text_placeholder">Achievement name</string>
     <string name="achievement_progress_placeholder">1 out of 10</string>
-    <string name="error_serverconnection">Error getting online top! Please check your internet connection,</string>
+    
+    <string name="error_registration_ban">You have been temporarily banned from playing public games.Try again later</string>
+      <string name="error_server_registration">Public registration server is down, please try again later.</string>
+    <string name="error_serverconnection">Error connecting to master server! Please check your internet connection.</string>
+     <string name="warning_router_tilte">Continue?</string>
+        <string name="warning_router">It seems you\'re acessing internet from behind a router or proxy.\nRemember to configure it properly to forward request to the port you selected, or other players won\'t be able to connect..</string>
     <string name="top_country">Country</string>
     <string name="top_name">Name</string>
     <string name="top_points">Points</string>
     <string name="top_position">Rank</string>
     <string name="ip">Server IP:</string>
     <string name="port">Port:</string>
+    
+    <string name="public_text">Public</string>
+    <string name="private_text">Private</string>
+    <string name="dialog_ask_client_public_text">Do you want to connect to a public or a private server?</string>
+    <string name="dialog_ask_server_public_text">Do you want to create a public or private server?\nIf you choose Public a random player will be able to connect.</string>
+    
      <string name="top_hosted">Top hosted by www.000webhost.com/</string>
      
     <string name="warn_failed_load_sounds_title">Warning :( !</string>
@@ -57,7 +68,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="username">Username:</string>
-    <string name="loading_top">Loading. Please wait...</string>
+    <string name="loading_progress">Loading. Please wait..</string>
     <string name="error_select_different_username">Username not available.Please select a different one.</string>
     <string name="error_connecting_to_top_server">Connection to server failed. Please try again later.</string>
     <string name="help_title">Help</string>

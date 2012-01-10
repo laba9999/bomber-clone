@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 
+import com.bomber.Game;
 import com.bomber.Settings;
 import com.bomber.remote.LocalServer;
 import com.bomber.remote.MessageContainer;
@@ -26,10 +27,10 @@ public class BluetoothLocalServer extends LocalServer {
 	{
 		try
 		{
-			//Game.LOGGER.log("À espera de um cliente bluetooth...");
+			Game.LOGGER.log("À espera de um cliente bluetooth...");
 			BluetoothSocket socket = mServerSocket.accept();
 			cacheConnection(new BluetoothMessageSocketIO(socket));
-			//Game.LOGGER.log("Cliente bluetooth ligado...");
+			Game.LOGGER.log("Cliente bluetooth ligado...");
 		} catch (IOException e)
 		{
 

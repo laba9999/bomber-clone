@@ -12,7 +12,7 @@ public class Settings {
 
 	public static boolean LIMPAR_SARAMPO = false;
 	// Remote
-	
+	public static String WEBHOST_ADDRESS = "http://bbm.host22.com/";
 	public static boolean START_ANDROID_AS_SERVER = false;
 	public static boolean START_DESKTOP_AS_SERVER = false;
 	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
@@ -33,6 +33,8 @@ public class Settings {
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
 	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static SharedPreferences GAME_PREFS = null;
+	public static boolean PLAYING_ONLINE = false;
+	
 	// Players
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
 	public static String PLAYER_NAME = "zezao1";
