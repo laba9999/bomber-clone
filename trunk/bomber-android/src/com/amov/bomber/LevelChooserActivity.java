@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bomber.Settings;
+import com.bomber.common.assets.GfxAssets;
 import com.bomber.gametypes.GameTypeHandler;
 
 /*
@@ -26,6 +27,8 @@ import com.bomber.gametypes.GameTypeHandler;
 
 public class LevelChooserActivity extends GameActivity
 {
+
+	
 	@Override
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
@@ -38,12 +41,14 @@ public class LevelChooserActivity extends GameActivity
 	Gallery gallery;
 	String[] valueLevels = { "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8" };
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.levels2);
-
+		
+		
 		gallery = (Gallery) findViewById(R.id.levelgallery);
 
 		gallery.setAdapter(new ImageAdapter(this));
@@ -82,6 +87,7 @@ public class LevelChooserActivity extends GameActivity
 		});
 
 	}
+	
 
 	private void setIndicatorOn(int _position)
 	{

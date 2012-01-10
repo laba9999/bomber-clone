@@ -1,9 +1,12 @@
 package com.bomber;
 
+import java.io.File;
 import java.util.UUID;
 
 import android.bluetooth.BluetoothAdapter;
 import android.content.SharedPreferences;
+import android.os.Environment;
+import android.util.Log;
 
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
@@ -54,10 +57,11 @@ public class Settings {
 	public static void loadPreferences(SharedPreferences _prefs)
 	{
 		GAME_PREFS = _prefs;
-
+				
 		if (GAME_PREFS == null)
-			throw new NullPointerException();
-
+			throw new NullPointerException();		
+		
+		
 		if (!GAME_PREFS.contains("soundEnabled"))
 		{
 			// Valores por defeito
@@ -65,6 +69,7 @@ public class Settings {
 
 			editor.putBoolean("soundEnabled", true);
 			editor.putString("playerName", "Bomber");
+
 			editor.putInt("campaignLevelCompleted", 0);
 
 			editor.putLong("totalPoints", 0);
@@ -74,7 +79,48 @@ public class Settings {
 			editor.putInt("buildSpeed", 0);
 			editor.commit();
 		}
+		
+		int levelFoldersExisting = getNumberOfLevelsFolderExisting();
+		
+		if(GAME_PREFS.getInt("campaignLevelCompleted", 0) < levelFoldersExisting)
+		{
+			SharedPreferences.Editor editor = GAME_PREFS.edit();
+			editor.putInt("campaignLevelCompleted", levelFoldersExisting);
+			editor.commit();
+			
+		}
+	
 	}
+	
+	
+	private static int getNumberOfLevelsFolderExisting()
+	{
+		//caso as shares prefs se tenham perdido
+		//uma forma de recuperar os niveis é verificar as pastas que estão criadas
+
+		int ret = 0;
+		
+		final String[] valueLevels = { "level1", "level2", "level3", "level4", "level5", "level6", "level7", "level8" };
+		
+		File externalStorage = Environment.getExternalStorageDirectory();		
+		
+		for(int i = 0;i < valueLevels.length; i++)
+		{
+			File f = new File(externalStorage + "/com.amov.bomber/levels/" + valueLevels[i]);
+			
+			if(f.exists() && f.isDirectory())
+			{
+				ret++;
+			}
+			else
+			{
+				break;
+			}
+		}
+		
+		return ret;
+	}
+	
 	
 	public static void addPlayerPoints(int _points)
 	{

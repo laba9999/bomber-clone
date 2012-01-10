@@ -67,9 +67,10 @@ public abstract class GameState {
 
 		if (!GfxAssets.mFinishedLoading)
 		{
+
 			mBatcher.setProjectionMatrix(mUICamera.combined);
-			
 			BitmapFont font = GfxAssets.mBigFont;
+
 			font.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
 			
 			mBatcher.end();
