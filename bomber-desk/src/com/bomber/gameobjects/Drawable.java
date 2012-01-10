@@ -25,7 +25,6 @@ public class Drawable extends GameObject {
 		mCurrentAnimation = _anim;
 		mCurrentFrame = _anim.getKeyFrame(0, false);
 		mPlayAnimation = _play;
-		mAnimationTicks = 0;
 		mLooped = false;
 		mAutoRepeat = _autoRepeat;
 	}
@@ -51,7 +50,7 @@ public class Drawable extends GameObject {
 		if (!mLooped && (mAnimationTicks >= mCurrentAnimation.frameDuration * mNumberOfAnimationFrames))
 		{
 			mLooped = true;
-			//mCurrentFrame = mCurrentAnimation.getKeyFrame(mCurrentAnimation.frameDuration * mNumberOfAnimationFrames-1, true);
+
 			if(!mAutoRepeat)
 				return;
 		}
