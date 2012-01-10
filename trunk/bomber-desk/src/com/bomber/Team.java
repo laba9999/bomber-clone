@@ -31,17 +31,17 @@ public class Team {
 	{
 		if (mPlayers.contains(_player))
 		{
-			//Game.LOGGER.log("Este jogador já pertence a esta equipa! (" + mId + ")");
+			Game.LOGGER.log("Este jogador já pertence a esta equipa! (" + mId + ")");
 			return;
 		}
 
 		if (mPlayers.size() >= mNumberPlayers)
 		{
-			//Game.LOGGER.log("A equipa já está cheia!");
+			Game.LOGGER.log("A equipa já está cheia!");
 			return;
 		}
 
-		//Game.LOGGER.log("O jogador " + _player.mColor + " foi adicionado à equipa " + mId);
+		Game.LOGGER.log("O jogador " + _player.mColor + " foi adicionado à equipa " + mId);
 
 		mPlayerIds.add(_player.mColor);
 		mPlayers.add(_player);
@@ -53,7 +53,7 @@ public class Team {
 		if (!mPlayers.contains(_player))
 			throw new InvalidParameterException("Este jogador não pertence a esta equipa!");
 
-		//Game.LOGGER.log("O jogador " + _player.mColor + " foi removido da equipa " + mId);
+		Game.LOGGER.log("O jogador " + _player.mColor + " foi removido da equipa " + mId);
 
 		mPlayerIds.remove((Object) _player.mColor);
 		mPlayers.remove(_player);

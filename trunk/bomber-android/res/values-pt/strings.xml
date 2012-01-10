@@ -27,7 +27,7 @@
     <string name="dialog_multiplayer_text">Não parece estar ligado a uma rede wifi mas foi possivel detectar o seu IP local. Isto normalmente significa que está a correr um hotspot no seu dispositivo. Caso não esteja, garanta que a sua ligação wifi está funcional antes de continuar! Se quiser usar o hotspot para este jogo, pode continuar normalmente.</string>
     <string name="achievement_text_placeholder">Nome do Achievement</string>
     <string name="achievement_progress_placeholder">1 de 10</string>
-    <string name="error_serverconnection">Erro ao obter o top online! Por favor verifique a sua ligação à internet.</string>
+    <string name="error_serverconnection">Erro ao ligar ao servidor online! Por favor verifique a sua ligação à internet.</string>
     <string name="top_country">País</string>
     <string name="top_name">Nome</string>
     <string name="top_points">Pontuação</string>
@@ -35,6 +35,15 @@
     <string name="ip">IP:</string>
     <string name="port">Porto:</string>
     
+        <string name="public_text">Publico</string>
+    <string name="private_text">Privado</string>
+    
+    <string name="error_registration_ban">Foi banido temporáriamente de jogar jogos públicos. Tente mais tarde</string>
+     <string name="error_server_registration">O servidor para registo publico está em baixo, por favor tente mais tarde.</string>
+    <string name="dialog_ask_client_public_text">Deseja ligar-se a um servidor público ou privado?</string>
+    <string name="dialog_ask_server_public_text">Deseja criar um servidor privado ou público?\nSe escolher público um jogador aleatório de qualquer parte do mundo poderá ligar-se.</string>
+    <string name="warning_router_tilte">Continuar?</string>
+    <string name="warning_router">Parece estar a aceder à internet através de um router ou proxy.\nNão se esqueça de o configurar para reencaminhar os pedidos TCP para a porta que indicou, ou os outros jogadores não serão capazes de se ligar.. </string>
     <string name="top_hosted">Top alojado por www.000webhost.com/</string>
     <string name="warn_failed_load_sounds_title">Aviso :( !</string>
     <string name="warn_failed_load_sounds_text">Por alguma razão não foi possivel ler os sons!\nPoderá jogar mas sem a opção de som.</string>
@@ -57,7 +66,7 @@
     <string name="yes">Sim</string>
     <string name="no">Não</string>
     <string name="username">Nome de utilizador:</string>
-    <string name="loading_top">A carregar. Por favor aguarde...</string>
+    <string name="loading_progress">A carregar. Por favor aguarde..</string>
     <string name="error_connecting_to_top_server">Conexão ao servidor falhou. Por favor tente novamente mais tarde.</string>
     <string name="error_select_different_username">Nome não disponivel.Por favor introduza um diferente.</string>
     <string name="help_title">Ajuda</string>

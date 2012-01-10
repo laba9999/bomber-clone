@@ -392,10 +392,10 @@ public class GfxAssets {
 		mBomb = movableAnimation;
 	}
 
-	public static void loadGenericFont()
+	public static void loadBigFont()
 	{
 		mFinishedLoading = false;
-		mGenericFont = new BitmapFont(Gdx.files.internal("teste_22.fnt"), false);
+		mBigFont = new BitmapFont(Gdx.files.internal("font_28.fnt"), false);
 	}
 	
 	public static void loadUI()
@@ -419,7 +419,7 @@ public class GfxAssets {
 		mTrophy[2] = atlasHD.findRegion("trophySmall");
 
 		mNamesFont = new BitmapFont(Gdx.files.internal("name_font.fnt"), false);
-		mBigFont = new BitmapFont(Gdx.files.internal("font_28.fnt"), false);
+		mGenericFont = new BitmapFont(Gdx.files.internal("teste_22.fnt"), false);
 
 		mWaitingAnimation = new Animation(WAITING_FRAME_DURATION, atlasHD.findRegions("waiting_animation_"));
 

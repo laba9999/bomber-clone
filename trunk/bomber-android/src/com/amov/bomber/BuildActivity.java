@@ -1,14 +1,23 @@
 package com.amov.bomber;
 
+import java.io.IOException;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.DialogInterface.OnCancelListener;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bomber.Settings;
 import com.bomber.common.Achievements;
@@ -16,6 +25,7 @@ import com.bomber.common.BonusBuild;
 import com.bomber.common.Utils;
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Message;
+import com.bomber.remote.Protocols;
 
 public class BuildActivity extends GameActivity
 {
@@ -24,6 +34,8 @@ public class BuildActivity extends GameActivity
 	private static final int[] BOMBS_INDICATORS_RESOURCES = { R.id.imageBuildBombs1, R.id.imageBuildBombs2, R.id.imageBuildBombs3 };
 
 	private static final int[] SPEED_INDICATORS_RESOURCES = { R.id.imageBuildSpeed1, R.id.imageBuildSpeed2, R.id.imageBuildSpeed3 };
+
+	static final int DIALOG_PROGRESS = 0;
 
 	Integer mAvailablePoints = 0;
 	int mExplosionPoints = 0;
@@ -136,6 +148,9 @@ public class BuildActivity extends GameActivity
 		if (Settings.GAME_TYPE == 0)
 			Settings.GAME_TYPE = GameTypeHandler.CTF;
 
+		if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH && Settings.PLAYING_ONLINE && Settings.START_ANDROID_AS_SERVER)
+			new RegisterOnlineServer().execute();
+		else
 		launchActivity(AndroidGame.class);
 	}
 
@@ -181,4 +196,148 @@ public class BuildActivity extends GameActivity
 			mTextAvailablePoints.setText(mAvailablePoints.toString());
 		}
 	}
+
+	protected Dialog onCreateDialog(int id)
+	{
+		Dialog dialog;
+		switch (id)
+		{
+		case DIALOG_PROGRESS:
+			try
+			{
+				removeDialog(DIALOG_PROGRESS);
+				dialog = ProgressDialog.show(BuildActivity.this, "", getApplication().getString(R.string.loading_progress), true, true);
+
+				dialog.setOnCancelListener(new OnCancelListener()
+				{
+					public void onCancel(DialogInterface _dialog)
+					{
+						finish();
+					}
+				});
+
+			} catch (Exception e)
+			{
+				dialog = null;
+			}
+			break;
+		default:
+			dialog = null;
+		}
+
+		return dialog;
+	}
+
+	private class FetchOnlineServer extends AsyncTask<Void, Void, String>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			showDialog(DIALOG_PROGRESS);
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onPostExecute(String _result)
+		{
+
+			removeDialog(DIALOG_PROGRESS);
+
+			if (isCancelled())
+			{
+				Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			if (!_result.equals("OK"))
+			{
+				if (_result.equals("BAN"))
+				{
+					Toast.makeText(getApplication(), getApplication().getString(R.string.error_registration_ban), Toast.LENGTH_SHORT).show();
+					return;
+				} else
+					Toast.makeText(getApplication(), getApplication().getString(R.string.error_server_registration), Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			
+			launchActivity(AndroidGame.class);
+
+			super.onPostExecute(_result);
+		}
+
+		@Override
+		protected String doInBackground(Void... _params)
+		{
+			try
+			{
+				return NetUtils.getDBResult("fetch_server.php");
+
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+				cancel(true);
+			}
+
+			return null;
+		}
+
+	}
+
+	private class RegisterOnlineServer extends AsyncTask<Void, Void, String>
+	{
+		@Override
+		protected void onPreExecute()
+		{
+			showDialog(DIALOG_PROGRESS);
+			super.onPreExecute();
+		}
+
+		@Override
+		protected void onPostExecute(String _result)
+		{
+
+			removeDialog(DIALOG_PROGRESS);
+
+			if (isCancelled())
+			{
+				Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			if (!_result.equals("OK"))
+			{
+				if (_result.equals("BAN"))
+				{
+					Toast.makeText(getApplication(), getApplication().getString(R.string.error_registration_ban), Toast.LENGTH_SHORT).show();
+					return;
+				} else
+					Toast.makeText(getApplication(), getApplication().getString(R.string.error_server_registration), Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			launchActivity(AndroidGame.class);
+
+			super.onPostExecute(_result);
+		}
+
+		@Override
+		protected String doInBackground(Void... _params)
+		{
+			try
+			{
+				String[] addressComponents = Settings.LOCAL_SERVER_ADDRESS.split(":");
+				return NetUtils.getDBResult("register_server.php?port=" + addressComponents[1] + "&mac=" + NetUtils.getIMEI(BuildActivity.this));
+
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+				cancel(true);
+			}
+
+			return null;
+		}
+
+	}
+
 }

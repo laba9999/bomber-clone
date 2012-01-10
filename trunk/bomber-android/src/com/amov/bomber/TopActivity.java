@@ -1,9 +1,6 @@
 package com.amov.bomber;
 
-import java.io.BufferedInputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Scanner;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,7 +16,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -42,7 +38,7 @@ public class TopActivity extends GameActivity
 	static final int DIALOG_PROGRESS = 1;
 
 	private boolean mListingTop = false;
-	private final static String mWebhost = "http://bbm.host22.com/";
+	
 
 	private int mNumberScoresInServer = 0;
 	private int mPlayerRank = 0;
@@ -62,7 +58,6 @@ public class TopActivity extends GameActivity
 	Button mRightButton;
 	Button mFirstPageButton;
 
-	String mMacAddress;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -91,7 +86,7 @@ public class TopActivity extends GameActivity
 		
 		registerReceiver(this.myWifiReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 
-		if (!checkWifiConnection())
+		if (NetUtils.getLocalIpAddress() == null)
 		{
 			showDialog(DIALOG_PROGRESS);
 			if (!((WifiManager) getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true))
@@ -107,12 +102,7 @@ public class TopActivity extends GameActivity
 
 	}
 
-	private void getMacAddress()
-	{
-		WifiManager wifiMan = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
-		WifiInfo wifiInf = wifiMan.getConnectionInfo();
-		mMacAddress = wifiInf.getMacAddress();
-	}
+
 
 	@Override
 	protected void onDestroy()
@@ -185,7 +175,7 @@ public class TopActivity extends GameActivity
 			try
 			{
 				removeDialog(DIALOG_PROGRESS);
-				dialog = ProgressDialog.show(TopActivity.this, "", getApplication().getString(R.string.loading_top), true, true);
+				dialog = ProgressDialog.show(TopActivity.this, "", getApplication().getString(R.string.loading_progress), true, true);
 
 				dialog.setOnCancelListener(new OnCancelListener()
 				{
@@ -220,7 +210,7 @@ public class TopActivity extends GameActivity
 		}
 
 		// Verifica o username / mac
-		getMacAddress();
+		NetUtils.getIMEI(this);
 
 		new CheckUsername().execute();
 	}
@@ -260,9 +250,9 @@ public class TopActivity extends GameActivity
 		{
 			try
 			{
-				mAnswerString = getDBResult("check.php?name=" + Settings.PLAYER_NAME + "&mac=" + mMacAddress);
+				mAnswerString = NetUtils.getDBResult("check.php?name=" + Settings.PLAYER_NAME + "&mac=" + NetUtils.getIMEI(TopActivity.this));
 
-				//Game.LOGGER.log("Name allowed: " + mAnswerString);
+				Game.LOGGER.log("Name allowed: " + mAnswerString);
 				boolean allowed = Boolean.parseBoolean(mAnswerString);
 				return allowed;
 
@@ -336,9 +326,9 @@ public class TopActivity extends GameActivity
 		{
 			try
 			{
-				getDBResult("insert.php?data=" + encryptData(Settings.PLAYER_NAME, mMacAddress, Settings.GAME_PREFS.getLong("totalPoints", 0)));
+				NetUtils.getDBResult("insert.php?data=" + encryptData(Settings.PLAYER_NAME, NetUtils.getIMEI(TopActivity.this), Settings.GAME_PREFS.getLong("totalPoints", 0)));
 
-				mAnswerString = getDBResult("query.php?name=" + Settings.PLAYER_NAME);
+				mAnswerString = NetUtils.getDBResult("query.php?name=" + Settings.PLAYER_NAME);
 
 				if (mAnswerString == null)
 				{
@@ -414,7 +404,7 @@ public class TopActivity extends GameActivity
 					s.replace("\n", "");
 					String[] entry = s.split(";");
 
-					//Game.LOGGER.log(s);
+					Game.LOGGER.log(s);
 
 					View vi = mInflater.inflate(R.layout.top_item, null);
 					if (Settings.PLAYER_NAME.equals(entry[2]))
@@ -498,7 +488,7 @@ public class TopActivity extends GameActivity
 			String query = "query_page.php?startRank=" + startRank + "&endRank=" + mScoresPerPage;
 			try
 			{
-				mAnswerString = getDBResult(query);
+				mAnswerString = NetUtils.getDBResult(query);
 				// Game.LOGGER.log("Query:" + query);
 				// Game.LOGGER.log("Answer:" + mAnswerString);
 				mSplitedData = mAnswerString.split(">");
@@ -515,25 +505,6 @@ public class TopActivity extends GameActivity
 		}
 	}
 
-	private static String getDBResult(String _url) throws IOException
-	{
-		URL myURL = new URL(mWebhost + _url);
-		//Game.LOGGER.log(mWebhost + _url);
-		Scanner scanner = new Scanner(new BufferedInputStream(myURL.openStream()));
-
-		StringBuilder sb = new StringBuilder();
-
-		while (scanner.hasNextLine())
-			sb.append(scanner.nextLine());
-
-		String res = sb.toString().replace("\n", "");
-
-		// remove comentários do webhosting
-		if (res.indexOf("<!--") != -1)
-			return res.substring(0, res.indexOf("<!--"));
-		else
-			return res;
-	}
 
 	public void onLeftButton(View v)
 	{
@@ -548,7 +519,7 @@ public class TopActivity extends GameActivity
 	{
 		new PresentPage().execute(mCurrentPage + 1);
 	}
-
+/*
 	private boolean checkWifiConnection()
 	{
 		// http://stackoverflow.com/questions/1811852/android-if-wifi-is-enabled-and-active-launch-an-intent
@@ -560,5 +531,7 @@ public class TopActivity extends GameActivity
 			networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		}
 		return networkInfo == null ? false : networkInfo.isConnected();
-	}
+	}*/
+	
+	
 }
