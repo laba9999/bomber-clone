@@ -4,49 +4,56 @@ filter: Linear,Linear
 repeat: none
 sound_
   rotate: false
-  xy: 806, 368
+  xy: 883, 189
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 1
 waiting_animation_
   rotate: false
-  xy: 954, 529
+  xy: 110, 965
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 4
 waiting_animation_
   rotate: false
-  xy: 968, 583
+  xy: 954, 403
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 0
 btn_pause
   rotate: false
-  xy: 806, 475
+  xy: 860, 403
   size: 92, 72
   orig: 92, 72
   offset: 0, 0
   index: -1
+trophyBig
+  rotate: false
+  xy: 806, 106
+  size: 75, 213
+  orig: 75, 213
+  offset: 0, 0
+  index: -1
 waiting_animation_
   rotate: false
-  xy: 900, 529
+  xy: 56, 965
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 5
 waiting_animation_
   rotate: false
-  xy: 914, 583
+  xy: 806, 429
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 1
 trophy
   rotate: false
-  xy: 806, 106
+  xy: 806, 321
   size: 54, 52
   orig: 54, 52
   offset: 0, 0
@@ -60,14 +67,14 @@ clock_bar
   index: -1
 d-pad
   rotate: false
-  xy: 806, 189
-  size: 197, 177
-  orig: 197, 177
+  xy: 2, 746
+  size: 232, 217
+  orig: 232, 217
   offset: 0, 0
   index: -1
 waiting_animation_
   rotate: false
-  xy: 860, 583
+  xy: 218, 965
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
@@ -81,7 +88,7 @@ gameover
   index: -1
 waiting_animation_
   rotate: false
-  xy: 954, 475
+  xy: 2, 965
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
@@ -102,21 +109,21 @@ bonus_bar
   index: -1
 sound_
   rotate: false
-  xy: 913, 368
+  xy: 883, 296
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 0
 waiting_animation_
   rotate: false
-  xy: 806, 549
+  xy: 164, 965
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: 3
 waiting_animation_
   rotate: false
-  xy: 900, 475
+  xy: 806, 375
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
@@ -126,6 +133,13 @@ pause_screen
   xy: 554, 106
   size: 250, 480
   orig: 250, 480
+  offset: 0, 0
+  index: -1
+trophySmall
+  rotate: false
+  xy: 860, 477
+  size: 90, 129
+  orig: 90, 129
   offset: 0, 0
   index: -1
 level_completed
