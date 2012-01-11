@@ -66,7 +66,7 @@ public class SoundAssets {
 					ie.printStackTrace();
 				}
 			}
-			
+
 			mMusics = new HashMap<String, Music>(10);
 			try
 			{
@@ -103,10 +103,12 @@ public class SoundAssets {
 						ie.printStackTrace();
 					}
 
-					SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
-					edit.putBoolean("soundEnabled", false);
-					edit.commit();
-					
+					if (!Settings.STARTED_FROM_DESKTOP)
+					{
+						SharedPreferences.Editor edit = Settings.GAME_PREFS.edit();
+						edit.putBoolean("soundEnabled", false);
+						edit.commit();
+					}
 					mIsSoundActive = false;
 				}
 			}

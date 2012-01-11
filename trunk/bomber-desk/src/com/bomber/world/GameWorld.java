@@ -115,7 +115,9 @@ public class GameWorld {
 
 	public void setLocalPlayer(short _color)
 	{
-		for (Player p : mPlayers)
+		boolean failed = true;
+		Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID);
+		for (Player p : mPlayers){
 			if (p.mColor == _color)
 			{
 				p.mIsLocalPlayer = true;
@@ -132,8 +134,13 @@ public class GameWorld {
 					p.mSpeedFactor += BonusBuild.mSpeed;
 				}
 
+				failed = false;
 				break;
 			}
+		}
+		
+		if(failed)
+			Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID + ", falhou!");
 	}
 
 	public Player getLocalPlayer()

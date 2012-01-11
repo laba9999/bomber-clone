@@ -216,7 +216,6 @@ public class MessagesHandler {
 
 		case EventType.RANDOM_SEED:
 			mGame.updateRandomSeed(_msg.valInt);
-			Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID);
 			break;
 
 		case EventType.JOINED_TEAM:

@@ -4,12 +4,19 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.bomber.Game;
 import com.bomber.Settings;
+import com.bomber.common.ObjectFactory;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
+import com.bomber.gametypes.GameTypeHandler;
+import com.bomber.remote.CreateConnections;
 import com.bomber.remote.Protocols;
 import com.bomber.remote.RemoteConnections;
+import com.bomber.renderers.WorldRenderer;
+import com.bomber.world.GameWorld;
 
 public class GameStateLoadingPVP extends GameStateLoading {
+
+	public static boolean mChangedInfo = false;
 
 	public static boolean mServerAuthorizedStart = false;
 	public static boolean mFailedToConnectToServer = false;
@@ -26,11 +33,27 @@ public class GameStateLoadingPVP extends GameStateLoading {
 
 		mServerAuthorizedStart = false;
 		mCountdownSeconds = -1;
+		mChangedInfo = false;
 	}
 
 	@Override
 	public void onUpdate()
 	{
+
+		if (!mChangedInfo && GfxAssets.mFinishedLoading)
+		{
+			mChangedInfo = true;
+
+			if (RemoteConnections.mIsGameServer)
+			{
+				mGame.changeInfo(Settings.GAME_TYPE, Settings.GAME_ROUNDS, Settings.LEVEL_TO_LOAD);
+				mGame.mMessagesHandler.mWorld = mGame.mWorld;
+			}
+
+			
+			new CreateConnections(mGame).start();
+		}
+
 		if (mFailedToConnectToServer)
 			mGame.setGameState(new GameStateServerConnectionError(mGame, Strings.mStrings.get("error_connecting")));
 
@@ -44,7 +67,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 	public void onPresent()
 	{
 		mBatcher.setProjectionMatrix(mUICamera.combined);
-		
+
 		BitmapFont font = GfxAssets.mGenericFont;
 
 		TextBounds tx;
@@ -65,7 +88,7 @@ public class GameStateLoadingPVP extends GameStateLoading {
 				mBatcher.draw(GfxAssets.mWaitingAnimation.getKeyFrame(mAnimationTicks, true), 380, 150);
 				mAnimationTicks++;
 				font.draw(mBatcher, mStringWaitingClients, 400 - tx.width / 2, 280);
-				
+
 				if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH)
 				{
 					tx = font.getBounds(mStringConnectTo);

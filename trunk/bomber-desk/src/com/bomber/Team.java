@@ -29,6 +29,7 @@ public class Team {
 	
 	public void addElement(Player _player)
 	{
+		Game.LOGGER.log("A adicionar o jogador " + _player.mColor + " à equipa " + mId);
 		if (mPlayers.contains(_player))
 		{
 			Game.LOGGER.log("Este jogador já pertence a esta equipa! (" + mId + ")");

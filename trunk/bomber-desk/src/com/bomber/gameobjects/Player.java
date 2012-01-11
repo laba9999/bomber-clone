@@ -86,7 +86,7 @@ public class Player extends KillableObject {
 	 */
 	public ObjectsPool<PlayerEffect> mEffects;
 
-	private RemoteConnections mRemoteConnections = Game.mRemoteConnections;
+	//private RemoteConnections mRemoteConnections = Game.mRemoteConnections;
 
 	public Player(GameWorld _world) {
 		mWorld = _world;
@@ -107,17 +107,17 @@ public class Player extends KillableObject {
 		
 		mWorld.spawnBomb(mColor, mBombExplosionSize, mPosition);
 
-		if (mRemoteConnections == null || !mIsLocalPlayer)
+		if (Game.mRemoteConnections == null || !mIsLocalPlayer)
 			return;
 
-		Message tmpMessage = mRemoteConnections.mMessageToSend;
+		Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.BOMB;
 		tmpMessage.eventType = EventType.CREATE;
 		tmpMessage.valVector2_0.set(mPosition);
 		tmpMessage.valShort = mColor;
 		tmpMessage.valShort = mBombExplosionSize;
 
-		mRemoteConnections.broadcast(tmpMessage);
+		Game.mRemoteConnections.broadcast(tmpMessage);
 	}
 
 	public boolean isImmune()
@@ -359,18 +359,18 @@ public class Player extends KillableObject {
 
 		mMovedSinceLastStop = true;
 
-		if (mRemoteConnections == null || !mIsLocalPlayer || mDirection == mLastDirectionSent)
+		if (Game.mRemoteConnections == null || !mIsLocalPlayer || mDirection == mLastDirectionSent)
 			return;
 		mLastDirectionSent = mDirection;
 
-		Message tmpMessage = mRemoteConnections.mMessageToSend;
+		Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.PLAYER;
 		tmpMessage.eventType = EventType.MOVE;
 		tmpMessage.valVector2_0.set(mPosition);
 		tmpMessage.valShort = mDirection;
 		tmpMessage.UUID = mUUID;
 
-		mRemoteConnections.broadcast(tmpMessage);
+		Game.mRemoteConnections.broadcast(tmpMessage);
 	}
 
 	@Override
@@ -379,20 +379,20 @@ public class Player extends KillableObject {
 		if (!mIsDead)
 			stopCurrentAnimation();
 
-		if (mRemoteConnections == null || !mIsLocalPlayer || !mMovedSinceLastStop)
+		if (Game.mRemoteConnections == null || !mIsLocalPlayer || !mMovedSinceLastStop)
 			return;
 
 		mMovedSinceLastStop = false;
 		mLastDirectionSent = -1;
 
-		Message tmpMessage = mRemoteConnections.mMessageToSend;
+		Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
 		tmpMessage.messageType = MessageType.PLAYER;
 		tmpMessage.eventType = EventType.STOP;
 		tmpMessage.valVector2_0.set(mPosition);
 		tmpMessage.valShort = mDirection;
 		tmpMessage.UUID = mUUID;
 
-		mRemoteConnections.broadcast(tmpMessage);
+		Game.mRemoteConnections.broadcast(tmpMessage);
 	}
 
 	@Override
