@@ -33,10 +33,13 @@ public class InputLevelCompletedState extends Input {
 	}
 
 	@Override
-	protected void parseTouchInput()
-	{
+	protected boolean parseTouchInput()
+	{	
+		boolean hasTouched = false;
+
 		if (Gdx.input.justTouched())
 		{
+			hasTouched = true;
 			mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 			for (short i = INPUT_RELOAD; i <= INPUT_CONTINUE; i++)
 			{
@@ -47,11 +50,14 @@ public class InputLevelCompletedState extends Input {
 				}
 			}
 		}
+		
+		return hasTouched;
 	}
 
 	@Override
 	protected void parseInputZone(short _zone)
 	{
+		
 		GameWorld world = mGameState.mGame.mWorld;
 		switch (_zone)
 		{

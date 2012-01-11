@@ -17,15 +17,10 @@ public class InputPlayingState extends Input {
 	private static final short INPUT_RIGHT = 1;
 	private static final short INPUT_UP = 2;
 	private static final short INPUT_DOWN = 3;
-	private static final short INPUT_LEFT_DOWN = 4;
-	private static final short INPUT_RIGHT_DOWN = 5;
-	private static final short INPUT_RIGHT_UP = 6;
-	private static final short INPUT_LEFT_UP = 7;
+
 	private static final short INPUT_BOMB = 8;
 	private static final short INPUT_PAUSE = 9;
 
-	private short mOriginX = 0;
-	private short mOriginY = 0;
 	final short directionsXWidth = 65;
 	final short directionsXHeight = 60;
 	final short directionsYWidth = 60;
@@ -43,6 +38,7 @@ public class InputPlayingState extends Input {
 	private static final Vector2 mCenter = new Vector2(115, 100);
 	private Vector2 mTouchingPointXY;
 	private float mTouchingAngle;
+	
 	private GameWorld mGameWorld;
 	private Player mLocalPlayer;
 
@@ -61,11 +57,16 @@ public class InputPlayingState extends Input {
 	}
 
 	@Override
-	protected void parseTouchInput()
+	protected boolean parseTouchInput()
 	{
+		boolean hasTouched = false;
+		
 		short p = 0;
 		while (Gdx.input.isTouched(p++))
 		{
+			mIsUsingKeyboard = false;
+			hasTouched = true;
+			
 			mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(p - 1), Gdx.input.getY(p - 1), 0));
 
 			if (!Game.mIsPVPGame)
@@ -73,7 +74,7 @@ public class InputPlayingState extends Input {
 				if (mInputZones[INPUT_PAUSE].contains(mTouchPoint.x, mTouchPoint.y))
 				{
 					mGameState.mGame.setGameState(new GameStatePaused(mGameState.mGame));
-					return;
+					return hasTouched;
 				}
 			}
 
@@ -82,7 +83,7 @@ public class InputPlayingState extends Input {
 				mDirectionsPointerIdx = -1;
 				mJustPlacedBomb = false;
 				mBombPointerIdx = -1;
-				return;
+				return hasTouched;
 			}
 			
 			if(mTouchPoint.x <= 400 && mTouchPoint.y <= 300)
@@ -133,6 +134,8 @@ public class InputPlayingState extends Input {
 			mBombPointerIdx = -1;
 		}
 		
+		return hasTouched;
+		
 	}
 
 	@Override
@@ -176,25 +179,46 @@ public class InputPlayingState extends Input {
 			return;
 
 		if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A) )
+		{
 			mLocalPlayer.changeDirection(Directions.LEFT);
+			mIsUsingKeyboard = true;
+		}
 		else if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
+		{
 			mLocalPlayer.changeDirection(Directions.RIGHT);
+			mIsUsingKeyboard = true;
+		}
 		else if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S))
+		{
 			mLocalPlayer.changeDirection(Directions.DOWN);
-		else if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W))
-			mLocalPlayer.changeDirection(Directions.UP);
-		else
-			mLocalPlayer.stop();
+			mIsUsingKeyboard = true;
 
+		}
+		else if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W))
+		{
+			mLocalPlayer.changeDirection(Directions.UP);
+			mIsUsingKeyboard = true;
+
+		}
+		else
+		{
+			mLocalPlayer.stop();
+		}
 		if (Gdx.input.isKeyPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.BUTTON_X) || Gdx.input.isKeyPressed(Keys.BUTTON_CIRCLE)  )
 		{
+
 			if (!mJustPlacedBomb)
 			{
 				mLocalPlayer.dropBomb();
 				mJustPlacedBomb = true;
 			}
+			
+			mIsUsingKeyboard = true;
+
 		} else
+		{
 			mJustPlacedBomb = false;
+		}
 	}
 
 }

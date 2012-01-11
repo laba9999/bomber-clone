@@ -10,6 +10,7 @@ import com.bomber.gameobjects.Player;
 import com.bomber.gametypes.GameTypeCTF;
 import com.bomber.gametypes.GameTypeCampaign;
 import com.bomber.gametypes.GameTypeDeathmatch;
+import com.bomber.input.Input;
 import com.bomber.input.InputPlayingState;
 import com.bomber.world.Clock;
 
@@ -76,7 +77,7 @@ public class GameStatePlaying extends GameState {
 		BitmapFont font = GfxAssets.mGenericFont;
 		Player player = mGameWorld.getLocalPlayer();
 
-		if (mGameWorld.getLocalPlayer().mAcceptPlayerInput)
+		if (mGameWorld.getLocalPlayer().mAcceptPlayerInput && !Input.mIsUsingKeyboard)
 		{
 			// desenha imagem do d-pad
 			mBatcher.draw(GfxAssets.mControlPad, 0, 0);
@@ -103,8 +104,6 @@ public class GameStatePlaying extends GameState {
 		// Bónus activos
 		drawActiveBonus(player);
 		
-		
-		mBatcher.draw(GfxAssets.mTrophy[0], 115, 100,20,20);
 	}
 
 	private void drawAcummulatedBonus(BitmapFont _font, Player _player)

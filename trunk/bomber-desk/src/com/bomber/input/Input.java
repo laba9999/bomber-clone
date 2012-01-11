@@ -1,7 +1,6 @@
 package com.bomber.input;
 
 import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -13,6 +12,9 @@ public abstract class Input {
 	protected OrthographicCamera mUICamera;
 	protected Rectangle[] mInputZones;
 	protected GameState mGameState;
+	public static boolean mIsUsingKeyboard = false;
+
+	
 	Input(GameState _gameState)
 	{
 		mUICamera = _gameState.mGame.mUICamera;
@@ -22,12 +24,10 @@ public abstract class Input {
 	
 	public final void update()
 	{
-			parseTouchInput();
-			
-			//parseKeyboardInput();
 
-	}
-	
+			if(!parseTouchInput())
+				parseKeyboardInput();
+	}	
 	
 	public final Rectangle[] getZones()
 	{
@@ -35,7 +35,7 @@ public abstract class Input {
 	}
 	
 	protected abstract void parseKeyboardInput();
-	protected abstract void parseTouchInput();
+	protected abstract boolean parseTouchInput();
 	protected abstract void parseInputZone(short _zone);
 
 }
