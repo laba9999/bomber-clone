@@ -59,7 +59,8 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 
 		updateResults();
 
-		if (mGame.mRoundsPlayed++ == mGame.mRoundsToPlay)
+		short garantedRoundsToWin = (short) Math.ceil(mGame.mRoundsToPlay / 2.0f);
+		if (mGame.mRoundsPlayed++ == mGame.mRoundsToPlay || (mTeam1.mRoundsWon >= garantedRoundsToWin || mTeam2.mRoundsWon >= garantedRoundsToWin))
 		{
 			Game.mGameIsOver = true;
 			onAllRoundsPlayed();
