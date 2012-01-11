@@ -538,11 +538,11 @@ public class GfxAssets {
 		if(null == mTrophy[0])
 			mTrophy[0] = atlasHD.findRegion("trophy");
 		
-//		if(null == mTrophy[1])
-//			mTrophy[1] = mAtlas.findRegion("trophyBig");
-//		
-//		if(null == mTrophy[2])
-//			mTrophy[2] = mAtlas.findRegion("trophySmall");
+		if(null == mTrophy[1])
+			mTrophy[1] = atlasHD.findRegion("trophyBig");
+		
+		if(null == mTrophy[2])
+			mTrophy[2] = atlasHD.findRegion("trophySmall");
 
 		
 //		if(null == mGenericFont)

@@ -2,6 +2,7 @@ package com.bomber.gameobjects;
 
 import com.bomber.common.Collision;
 import com.bomber.common.Directions;
+import com.bomber.gameobjects.bonus.TemporaryBonus;
 import com.bomber.world.GameWorld;
 
 public abstract class WorldMovableObject extends Drawable {
@@ -68,6 +69,7 @@ public abstract class WorldMovableObject extends Drawable {
 			return;
 
 		mCollision.removeOverlap(mPosition);
+			
 		onMapCollision(mCollision.mType);
 	}
 

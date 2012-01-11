@@ -22,7 +22,6 @@ public abstract class KillableObject extends WorldMovableObject {
 		
 		if (mMovableAnimations != null)
 			setCurrentAnimation(mMovableAnimations.die, mMovableAnimations.numberOfFramesDying, true, false);
-		
 	}
 
 	@Override

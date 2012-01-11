@@ -170,12 +170,12 @@ public class GameMap {
 
 		for (Tile tl : mDestroyableTiles)
 			mTilesMap.set(tl.mPositionInArray, tl);
-		
+
 		if (Game.mGameType != GameTypeHandler.CTF && Game.mGameType != GameTypeHandler.TEAM_CTF)
 			return;
 		// Coloca as bases das flags
-		getTile(mWorld.mFlags[0].mPosition).setCurrentAnimation(GfxAssets.mPortal, (short)2, false, false);
-		getTile(mWorld.mFlags[1].mPosition).setCurrentAnimation(GfxAssets.mPortal, (short)2, false, false);
+		getTile(mWorld.mFlags[0].mPosition).setCurrentAnimation(GfxAssets.mPortal, (short) 2, false, false);
+		getTile(mWorld.mFlags[1].mPosition).setCurrentAnimation(GfxAssets.mPortal, (short) 2, false, false);
 
 	}
 
@@ -252,6 +252,12 @@ public class GameMap {
 		int startIdx = calcTileIndex(_obj.mPosition);
 
 		Rectangle bbObj = _obj.getBoundingBox();
+
+		// if( _obj instanceof Player)
+		// {
+		// bbObj.y -= Tile.TILE_SIZE_HALF;
+		// }
+
 		switch (_obj.mDirection)
 		{
 		case Directions.UP:
@@ -291,7 +297,11 @@ public class GameMap {
 			testCollision(startIdx, testIdx, _results, bbObj, Directions.DOWN, _ignoreDestroyables);
 
 			if (_results.mType != Collision.NONE)
+			{
+				// checkAllowedOverlapY(_results, bbObj, testIdx,
+				// Directions.DOWN);
 				break;
+			}
 
 			// Abaixo esquerda
 			testIdx = calcTileIndex(testIdx, Directions.LEFT, (short) 1);
@@ -390,7 +400,8 @@ public class GameMap {
 		else
 			valueOverlaped = tmpTile.mPosition.x - (_objBB.x + Tile.TILE_SIZE);
 
-		if (valueOverlaped < Collision.ALLOWED_OVERLAP)
+		Game.LOGGER.log("Value overlapped X: " + valueOverlaped);
+		if (Math.abs(valueOverlaped) < Collision.ALLOWED_OVERLAP)
 			_result.mAmounts.x = valueOverlaped;
 	}
 
@@ -408,7 +419,8 @@ public class GameMap {
 		else
 			valueOverlaped = (tmpTile.mPosition.y + Tile.TILE_SIZE) - _objBB.y;
 
-		if (valueOverlaped < Collision.ALLOWED_OVERLAP)
+		Game.LOGGER.log("Value overlapped Y: " + valueOverlaped);
+		if (Math.abs(valueOverlaped) < Collision.ALLOWED_OVERLAP)
 			_result.mAmounts.y = valueOverlaped;
 	}
 
