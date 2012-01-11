@@ -40,8 +40,8 @@ public class InputPlayingState extends Input {
 	private static short mLastDirectionalInput = -1;
 
 	
-	private static final Vector2 mCenter = new Vector2(100, 85);
-	private Vector2 mTouchingPoint;
+	private static final Vector2 mCenter = new Vector2(115, 100);
+	private Vector2 mTouchingPointXY;
 	private float mTouchingAngle;
 	private GameWorld mGameWorld;
 	private Player mLocalPlayer;
@@ -57,7 +57,7 @@ public class InputPlayingState extends Input {
 
 		mGameWorld = _gameState.mGame.mWorld;
 		
-		mTouchingPoint = new Vector2();
+		mTouchingPointXY = new Vector2();
 	}
 
 	@Override
@@ -84,33 +84,33 @@ public class InputPlayingState extends Input {
 				mBombPointerIdx = -1;
 				return;
 			}
-
-
-
-
-			mTouchingPoint.set(mTouchPoint.x,mTouchPoint.y);
-			mTouchingPoint.sub(mCenter);			
-			float mTouchingAngle = mTouchingPoint.angle();
 			
-			if(mTouchingAngle>=0 && mTouchingAngle < 45  || mTouchingAngle<=360 && mTouchingAngle> 315)
-			{//RIGHT
-                mDirectionsPointerIdx = p - 1;
-				parseInputZone(INPUT_RIGHT);
-			}else if(mTouchingAngle>=45 && mTouchingAngle < 135)
-			{//UP
-                mDirectionsPointerIdx = p - 1;
-				parseInputZone(INPUT_UP);
-			}else if(mTouchingAngle >= 135 && mTouchingAngle < 225)
-			{//LEFT
-                mDirectionsPointerIdx = p - 1;
-				parseInputZone(INPUT_LEFT);
-			}else if(mTouchingAngle >= 225 && mTouchingAngle < 315)
-			{//DOWN
-                mDirectionsPointerIdx = p - 1;
-				parseInputZone(INPUT_DOWN);
+			if(mTouchPoint.x <= 400 && mTouchPoint.y <= 300)
+			{ //limita a zona de movimento direccional
+				
+				mTouchingPointXY.set(mTouchPoint.x,mTouchPoint.y);
+				mTouchingPointXY.sub(mCenter);			
+				mTouchingAngle = mTouchingPointXY.angle();
+				
+				if(mTouchingAngle>=0 && mTouchingAngle < 45  || mTouchingAngle<=360 && mTouchingAngle> 315)
+				{//RIGHT
+	                mDirectionsPointerIdx = p - 1;
+					parseInputZone(INPUT_RIGHT);
+				}else if(mTouchingAngle>=45 && mTouchingAngle < 135)
+				{//UP
+	                mDirectionsPointerIdx = p - 1;
+					parseInputZone(INPUT_UP);
+				}else if(mTouchingAngle >= 135 && mTouchingAngle < 225)
+				{//LEFT
+	                mDirectionsPointerIdx = p - 1;
+					parseInputZone(INPUT_LEFT);
+				}else if(mTouchingAngle >= 225 && mTouchingAngle < 315)
+				{//DOWN
+	                mDirectionsPointerIdx = p - 1;
+					parseInputZone(INPUT_DOWN);
+				}
+			
 			}
-			
-			
 			
 			if (!mJustPlacedBomb && mInputZones[INPUT_BOMB].contains(mTouchPoint.x, mTouchPoint.y))
 			{
@@ -132,6 +132,7 @@ public class InputPlayingState extends Input {
 			mJustPlacedBomb = false;
 			mBombPointerIdx = -1;
 		}
+		
 	}
 
 	@Override
@@ -174,18 +175,18 @@ public class InputPlayingState extends Input {
 		if (!mLocalPlayer.mAcceptPlayerInput)
 			return;
 
-		if (Gdx.input.isKeyPressed(Keys.LEFT))
+		if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A) )
 			mLocalPlayer.changeDirection(Directions.LEFT);
-		else if (Gdx.input.isKeyPressed(Keys.RIGHT))
+		else if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D))
 			mLocalPlayer.changeDirection(Directions.RIGHT);
-		else if (Gdx.input.isKeyPressed(Keys.DOWN))
+		else if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S))
 			mLocalPlayer.changeDirection(Directions.DOWN);
-		else if (Gdx.input.isKeyPressed(Keys.UP))
+		else if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W))
 			mLocalPlayer.changeDirection(Directions.UP);
 		else
 			mLocalPlayer.stop();
 
-		if (Gdx.input.isKeyPressed(Keys.SPACE))
+		if (Gdx.input.isKeyPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.BUTTON_X) || Gdx.input.isKeyPressed(Keys.BUTTON_CIRCLE)  )
 		{
 			if (!mJustPlacedBomb)
 			{

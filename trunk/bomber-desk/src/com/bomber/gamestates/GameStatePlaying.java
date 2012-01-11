@@ -104,7 +104,7 @@ public class GameStatePlaying extends GameState {
 		drawActiveBonus(player);
 		
 		
-		mBatcher.draw(GfxAssets.mTrophy[0], 100, 85,20,20);
+		mBatcher.draw(GfxAssets.mTrophy[0], 115, 100,20,20);
 	}
 
 	private void drawAcummulatedBonus(BitmapFont _font, Player _player)

@@ -22,10 +22,10 @@ public abstract class Input {
 	
 	public final void update()
 	{
-		if (Gdx.app.getType() != Application.ApplicationType.Android)
-			parseKeyboardInput();
-		else
 			parseTouchInput();
+			
+			//parseKeyboardInput();
+
 	}
 	
 	
