@@ -6,7 +6,6 @@ import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.content.SharedPreferences;
 import android.os.Environment;
-import android.util.Log;
 
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
@@ -14,13 +13,13 @@ import com.bomber.remote.Protocols;
 public class Settings {
 
 	public static boolean LIMPAR_SARAMPO = false;
+	
 	// Remote
 	public static String WEBHOST_ADDRESS = "http://bbm.host22.com/";
 	public static boolean START_ANDROID_AS_SERVER = false;
-	public static boolean START_DESKTOP_AS_SERVER = true;
+	public static boolean START_DESKTOP_AS_SERVER = false;
 	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
 	public static String REMOTE_SERVER_ADDRESS = "192.168.142.141:50005";
-
 
 	// Alterar este valor não tem efeito nenhum
 	public static String LOCAL_SERVER_ADDRESS = "192.168.1.110:50005";
@@ -32,9 +31,9 @@ public class Settings {
 	// Game
 	public static boolean STARTED_FROM_DESKTOP = true;
 	public static String LEVEL_TO_LOAD = "level8";
-	public static short GAME_ROUNDS = 1;
+	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.DEADMATCH;
+	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static SharedPreferences GAME_PREFS = null;
 	public static boolean PLAYING_ONLINE = false;
 	

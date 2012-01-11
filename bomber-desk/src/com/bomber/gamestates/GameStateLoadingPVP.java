@@ -44,14 +44,16 @@ public class GameStateLoadingPVP extends GameStateLoading {
 		{
 			mChangedInfo = true;
 
-			if (RemoteConnections.mIsGameServer)
+			if (RemoteConnections.mIsGameServer && !Game.mHasStarted)
 			{
 				mGame.changeInfo(Settings.GAME_TYPE, Settings.GAME_ROUNDS, Settings.LEVEL_TO_LOAD);
 				mGame.mMessagesHandler.mWorld = mGame.mWorld;
 			}
+			if (!Game.mHasStarted)
+			{
+				new CreateConnections(mGame).start();
+			}
 
-			
-			new CreateConnections(mGame).start();
 		}
 
 		if (mFailedToConnectToServer)

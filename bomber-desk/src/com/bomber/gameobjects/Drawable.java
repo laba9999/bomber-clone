@@ -27,6 +27,7 @@ public class Drawable extends GameObject {
 		mPlayAnimation = _play;
 		mLooped = false;
 		mAutoRepeat = _autoRepeat;
+		mAnimationTicks = 0;
 	}
 
 	public void stopCurrentAnimation()

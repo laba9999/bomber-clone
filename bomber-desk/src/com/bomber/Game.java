@@ -87,7 +87,7 @@ public class Game implements ApplicationListener {
 
 		setGameType(_gameType);
 
-		Utils.resetUUID();
+//		Utils.resetUUID();
 
 		GameStateLoadingPVP.mFailedToConnectToServer = false;
 		mCurrentTick = 0;
@@ -122,6 +122,8 @@ public class Game implements ApplicationListener {
 
 	public void changeInfo(short _type, short _nRounds, String _levelToLoad)
 	{
+		
+		Utils.resetUUID();
 		
 		Game.setGameType(_type);
 		mRoundsToPlay = _nRounds;
