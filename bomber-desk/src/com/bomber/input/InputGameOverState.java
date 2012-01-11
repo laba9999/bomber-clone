@@ -28,10 +28,13 @@ public class InputGameOverState extends Input {
 	}
 
 	@Override
-	protected void parseTouchInput()
+	protected boolean parseTouchInput()
 	{
+		boolean hasTouched = false;
+		
 		if (Gdx.input.justTouched())
 		{
+			hasTouched = true;
 			mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 			for (short i = INPUT_RELOAD; i <= INPUT_MENU; i++)
 			{
@@ -42,6 +45,8 @@ public class InputGameOverState extends Input {
 				}
 			}
 		}
+		
+		return hasTouched;
 	}
 
 	@Override

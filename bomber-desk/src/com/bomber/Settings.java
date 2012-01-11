@@ -17,7 +17,7 @@ public class Settings {
 	// Remote
 	public static String WEBHOST_ADDRESS = "http://bbm.host22.com/";
 	public static boolean START_ANDROID_AS_SERVER = false;
-	public static boolean START_DESKTOP_AS_SERVER = false;
+	public static boolean START_DESKTOP_AS_SERVER = true;
 	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
 	public static String REMOTE_SERVER_ADDRESS = "192.168.142.141:50005";
 
@@ -40,7 +40,7 @@ public class Settings {
 	
 	// Players
 	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
-	public static String PLAYER_NAME = "zezao1";
+	public static String PLAYER_NAME = "zezao2";
 
 	// Monstros
 	public static final boolean MONSTERS_KILL_PLAYERS = true;

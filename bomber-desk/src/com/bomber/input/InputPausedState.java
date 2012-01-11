@@ -44,10 +44,13 @@ public class InputPausedState extends Input {
 	}
 
 	@Override
-	protected void parseTouchInput()
+	protected boolean parseTouchInput()
 	{
+		boolean hasTouched = false;
+
 		if (Gdx.input.justTouched())
 		{
+			hasTouched = true;
 			mUICamera.unproject(mTouchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 			for (short i = INPUT_CONTINUE; i <= INPUT_BACK; i++)
 			{
@@ -58,6 +61,8 @@ public class InputPausedState extends Input {
 				}
 			}
 		}
+		
+		return hasTouched;
 	}
 
 	@Override
