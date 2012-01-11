@@ -122,11 +122,11 @@ public class Game implements ApplicationListener {
 
 	public void changeInfo(short _type, short _nRounds, String _levelToLoad)
 	{
+		
 		Game.setGameType(_type);
 		mRoundsToPlay = _nRounds;
 		mLevelToLoad = _levelToLoad;
-		// Game.LOGGER.log("Received game info - Type: " + _type +
-		// " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
+		Game.LOGGER.log("Received game info - Type: " + _type + " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
 
 		mTeams[0].clear();
 		mTeams[1].clear();
@@ -246,8 +246,6 @@ public class Game implements ApplicationListener {
 		} else
 			mGameState = new GameStateLoadingPVP(this);
 
-		if (Game.mIsPVPGame && RemoteConnections.mIsGameServer)
-			changeInfo(Settings.GAME_TYPE, Settings.GAME_ROUNDS, Settings.LEVEL_TO_LOAD);
 
 		mMessagesHandler.mGame = this;
 

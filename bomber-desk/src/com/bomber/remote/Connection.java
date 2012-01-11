@@ -113,7 +113,7 @@ public class Connection extends Thread {
 				mSentPing = true;
 				sendMessage(mMessageForInternalUse);
 				
-				Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - PING enviado!");
+				//Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - PING enviado!");
 			}
 		}
 	}
@@ -152,7 +152,7 @@ public class Connection extends Thread {
 			// Actualiza o RTT e não adiciona a mensagem ao contentor
 			mSentPing = false;
 			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
-			Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + RemoteConnections.mLocalID + "<->" + mRemoteID + "): " + mRTT);
+			//Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + RemoteConnections.mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			break;
 
 		case EventType.LOCAL_SERVER_PORT:
