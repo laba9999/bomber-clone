@@ -21,6 +21,7 @@ public class GameStateLoading extends GameState {
 	{
 		if (GfxAssets.mFinishedLoading)
 		{
+
 			if (Settings.GAME_TYPE == GameTypeHandler.CAMPAIGN)
 			{
 				mGame.mWorld = new GameWorld(mGame, ObjectFactory.CreateGameTypeHandler.Create(Game.mGameType), Game.mLevelToLoad);
