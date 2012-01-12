@@ -91,10 +91,17 @@ public class GameStateLoadingPVP extends GameStateLoading {
 				mAnimationTicks++;
 				font.draw(mBatcher, mStringWaitingClients, 400 - tx.width / 2, 280);
 
-				if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH)
+				if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH && !Settings.PLAYING_ONLINE)
 				{
 					tx = font.getBounds(mStringConnectTo);
 					font.draw(mBatcher, mStringConnectTo, 400 - tx.width / 2, 250);
+				}
+				
+				if(Settings.PLAYING_ONLINE)
+				{
+					tx = font.getBounds(Settings.AVERAGE_WAITING_TIME_ONLINE);
+					font.draw(mBatcher, Settings.AVERAGE_WAITING_TIME_ONLINE, 400 - tx.width / 2, 250);
+		
 				}
 			} else
 			{

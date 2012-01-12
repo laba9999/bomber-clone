@@ -17,9 +17,10 @@ public class Settings {
 	// Remote
 	public static String WEBHOST_ADDRESS = "http://bbm.host22.com/";
 	public static boolean START_ANDROID_AS_SERVER = false;
-	public static boolean START_DESKTOP_AS_SERVER = false;
+	public static boolean START_DESKTOP_AS_SERVER = true;
 	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
 	public static String REMOTE_SERVER_ADDRESS = "192.168.142.141:50005";
+	public static String AVERAGE_WAITING_TIME_ONLINE;
 
 	// Alterar este valor não tem efeito nenhum
 	public static String LOCAL_SERVER_ADDRESS = "192.168.1.110:50005";

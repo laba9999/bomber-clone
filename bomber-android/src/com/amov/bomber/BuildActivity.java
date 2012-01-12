@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bomber.Game;
 import com.bomber.Settings;
 import com.bomber.common.Achievements;
 import com.bomber.common.BonusBuild;
@@ -150,8 +151,10 @@ public class BuildActivity extends GameActivity
 
 		if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH && Settings.PLAYING_ONLINE && Settings.START_ANDROID_AS_SERVER)
 			new RegisterOnlineServer().execute();
+		else if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH && Settings.PLAYING_ONLINE && !Settings.START_ANDROID_AS_SERVER)
+			new FetchOnlineServer().execute();
 		else
-		launchActivity(AndroidGame.class);
+			launchActivity(AndroidGame.class);
 	}
 
 	public void onBombsMinusButton(View v)
@@ -248,10 +251,15 @@ public class BuildActivity extends GameActivity
 				Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
 				return;
 			}
-
-			if (!_result.equals("OK"))
+			
+			Game.LOGGER.log("Fetch server res: "+ _result);
+			String[] results = _result.split(";");
+			if (results[0].equals("N/A2"))
 			{
-				if (_result.equals("BAN"))
+				Toast.makeText(getApplication(), getApplication().getString(R.string.error_no_online_servers), Toast.LENGTH_LONG).show();					
+			}else if (!results[0].equals("OK"))
+			{
+				if (results[0].equals("BAN"))
 				{
 					Toast.makeText(getApplication(), getApplication().getString(R.string.error_registration_ban), Toast.LENGTH_SHORT).show();
 					return;
@@ -260,7 +268,8 @@ public class BuildActivity extends GameActivity
 				return;
 			}
 
-			
+			Settings.REMOTE_SERVER_ADDRESS = results[1];
+			Game.LOGGER.log("Fetched remote addr: " + results[1]);
 			launchActivity(AndroidGame.class);
 
 			super.onPostExecute(_result);
@@ -305,9 +314,10 @@ public class BuildActivity extends GameActivity
 				return;
 			}
 
-			if (!_result.equals("OK"))
+			String[] results = _result.split(";");
+			if (!results[0].equals("OK"))
 			{
-				if (_result.equals("BAN"))
+				if (results[0].equals("BAN"))
 				{
 					Toast.makeText(getApplication(), getApplication().getString(R.string.error_registration_ban), Toast.LENGTH_SHORT).show();
 					return;
@@ -315,6 +325,8 @@ public class BuildActivity extends GameActivity
 					Toast.makeText(getApplication(), getApplication().getString(R.string.error_server_registration), Toast.LENGTH_SHORT).show();
 				return;
 			}
+
+			Settings.AVERAGE_WAITING_TIME_ONLINE = getApplication().getString(R.string.average_waiting_time) + results[1];
 
 			launchActivity(AndroidGame.class);
 

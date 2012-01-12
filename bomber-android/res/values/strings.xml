@@ -27,7 +27,9 @@
     <string name="dialog_multiplayer_text">You don\'t seem to be connected to a network but we were able to get your local IP. This usually means you are running a hotspot in your device. If not, make sure your connection is working fine before proceeding! If you want to use the hotspot for this game, it\'s ok to proceed normally.</string>
     <string name="achievement_text_placeholder">Achievement name</string>
     <string name="achievement_progress_placeholder">1 out of 10</string>
+        <string name="error_no_online_servers">There are no available public servers at the moment. Please try again later or start a new server yourself.</string>
     
+    <string name="average_waiting_time">Average waiting time:</string>
     <string name="error_registration_ban">You have been temporarily banned from playing public games.Try again later</string>
       <string name="error_server_registration">Public registration server is down, please try again later.</string>
     <string name="error_serverconnection">Error connecting to master server! Please check your internet connection.</string>
