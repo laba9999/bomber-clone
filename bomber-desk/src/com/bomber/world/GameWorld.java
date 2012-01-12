@@ -101,7 +101,7 @@ public class GameWorld {
 				break;
 			}
 
-		if (!Game.mGameIsOver && (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections == null || RemoteConnections.mGameServer.mStartedCountdown))
+		if (Game.mTeams[0].areAllDead() || Game.mTeams[1].areAllDead() || Game.mRemoteConnections == null || RemoteConnections.mGameServer.mStartedCountdown)
 			mGame.setGameState(new GameStateServerConnectionError(mGame, Strings.mStrings.get("no_suficient_clients")));
 
 	}

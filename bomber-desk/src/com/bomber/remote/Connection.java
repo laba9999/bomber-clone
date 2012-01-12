@@ -55,6 +55,8 @@ public class Connection extends Thread {
 		if (!mIsConnected)
 			return;
 
+		_msg.senderID = RemoteConnections.mLocalID;
+		
 		// Se a mensagem for enviada com sucesso sai
 		if (mSocket.sendMessage(_msg))
 			return;

@@ -19,7 +19,10 @@ public class Settings {
 	public static boolean START_ANDROID_AS_SERVER = false;
 	public static boolean START_DESKTOP_AS_SERVER = true;
 	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
-	public static String REMOTE_SERVER_ADDRESS = "192.168.142.141:50005";
+	
+	public static short PROTOCOL_TO_USE_ONLINE = Protocols.TCP;
+	
+	public static String REMOTE_SERVER_ADDRESS = "localhost:50005";
 	public static String AVERAGE_WAITING_TIME_ONLINE;
 
 	// Alterar este valor não tem efeito nenhum
@@ -34,7 +37,7 @@ public class Settings {
 	public static String LEVEL_TO_LOAD = "level8";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.DEADMATCH;
+	public static short GAME_TYPE = GameTypeHandler.TEAM_CTF;
 	public static SharedPreferences GAME_PREFS = null;
 	public static boolean PLAYING_ONLINE = false;
 	
@@ -43,7 +46,7 @@ public class Settings {
 	public static String PLAYER_NAME = "zezao2";
 
 	// Monstros
-	public static final boolean MONSTERS_KILL_PLAYERS = true;
+	public static final boolean MONSTERS_KILL_PLAYERS = false;
 
 	// Mapa
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;
