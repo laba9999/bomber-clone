@@ -38,10 +38,10 @@ public class BuildActivity extends GameActivity
 
 	static final int DIALOG_PROGRESS = 0;
 
-	Integer mAvailablePoints = 0;
-	int mExplosionPoints = 0;
-	int mBombsPoints = 0;
-	int mSpeedPoints = 0;
+	int mAvailablePoints;
+	int mExplosionPoints;
+	int mBombsPoints;
+	int mSpeedPoints;
 
 	TextView mTextAvailablePoints;
 	EditText mEditUsername;
@@ -52,7 +52,13 @@ public class BuildActivity extends GameActivity
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.build);
-
+		
+		mAvailablePoints = 0;
+		mExplosionPoints = 0;
+		mBombsPoints = 0;
+		mSpeedPoints = 0;
+		
+		
 		if (Achievements.isMonsterKillsCompleted())
 			mAvailablePoints++;
 		if (Achievements.isPlayerKillsCompleted())
@@ -84,7 +90,7 @@ public class BuildActivity extends GameActivity
 		for (int i = 0; i < Settings.GAME_PREFS.getInt("buildSpeed", 0); i++)
 			onSpeedPlusButton(null);
 
-		mTextAvailablePoints.setText(mAvailablePoints.toString());
+		mTextAvailablePoints.setText(new Integer(mAvailablePoints).toString());
 	}
 
 	public void onExplosionPlusButton(View v)
@@ -97,7 +103,7 @@ public class BuildActivity extends GameActivity
 			Bitmap on = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_on);
 			indicator.setImageBitmap(on);
 			mAvailablePoints--;
-			mTextAvailablePoints.setText(mAvailablePoints.toString());
+			mTextAvailablePoints.setText(new Integer(mAvailablePoints).toString());
 		}
 	}
 
@@ -111,7 +117,7 @@ public class BuildActivity extends GameActivity
 			Bitmap off = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_off);
 			indicator.setImageBitmap(off);
 			mAvailablePoints++;
-			mTextAvailablePoints.setText(mAvailablePoints.toString());
+			mTextAvailablePoints.setText(new Integer(mAvailablePoints).toString());
 
 		}
 	}
@@ -126,7 +132,7 @@ public class BuildActivity extends GameActivity
 			Bitmap on = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_on);
 			indicator.setImageBitmap(on);
 			mAvailablePoints--;
-			mTextAvailablePoints.setText(mAvailablePoints.toString());
+			mTextAvailablePoints.setText(new Integer(mAvailablePoints).toString());
 		}
 	}
 
@@ -170,7 +176,7 @@ public class BuildActivity extends GameActivity
 			Bitmap off = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_off);
 			indicator.setImageBitmap(off);
 			mAvailablePoints++;
-			mTextAvailablePoints.setText(mAvailablePoints.toString());
+			mTextAvailablePoints.setText(new Integer(mAvailablePoints).toString());
 
 		}
 	}
@@ -185,7 +191,7 @@ public class BuildActivity extends GameActivity
 			Bitmap on = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_on);
 			indicator.setImageBitmap(on);
 			mAvailablePoints--;
-			mTextAvailablePoints.setText(mAvailablePoints.toString());
+			mTextAvailablePoints.setText(new Integer(mAvailablePoints).toString());
 		}
 	}
 
@@ -199,7 +205,7 @@ public class BuildActivity extends GameActivity
 			Bitmap off = BitmapFactory.decodeResource(getResources(), R.drawable.indicator_off);
 			indicator.setImageBitmap(off);
 			mAvailablePoints++;
-			mTextAvailablePoints.setText(mAvailablePoints.toString());
+			mTextAvailablePoints.setText(new Integer(mAvailablePoints).toString());
 		}
 	}
 
@@ -352,6 +358,7 @@ public class BuildActivity extends GameActivity
 
 			return null;
 		}
+
 
 	}
 
