@@ -359,8 +359,9 @@ public class Player extends KillableObject {
 
 		mMovedSinceLastStop = true;
 
-		if (Game.mRemoteConnections == null || !mIsLocalPlayer || mDirection == mLastDirectionSent)
+		if (Game.mRemoteConnections == null || !mIsLocalPlayer || mDirection == mLastDirectionSent  || !mAcceptPlayerInput)
 			return;
+		
 		mLastDirectionSent = mDirection;
 
 		Message tmpMessage = Game.mRemoteConnections.mMessageToSend;
@@ -379,7 +380,7 @@ public class Player extends KillableObject {
 		if (!mIsDead)
 			stopCurrentAnimation();
 
-		if (Game.mRemoteConnections == null || !mIsLocalPlayer || !mMovedSinceLastStop)
+		if (Game.mRemoteConnections == null || !mIsLocalPlayer || !mMovedSinceLastStop || !mAcceptPlayerInput)
 			return;
 
 		mMovedSinceLastStop = false;

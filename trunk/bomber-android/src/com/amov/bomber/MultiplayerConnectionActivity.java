@@ -228,7 +228,6 @@ public class MultiplayerConnectionActivity extends GameActivity
 							
 							setupSettings(NetUtils.getLocalIpAddress());
 							Settings.PLAYING_ONLINE = true;
-							Settings.REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
 							
 							launchActivity(BuildActivity.class);
 						}
@@ -619,7 +618,6 @@ public class MultiplayerConnectionActivity extends GameActivity
 						dialog.dismiss();
 						
 						setupSettings(NetUtils.getLocalIpAddress());
-						Settings.REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
 						Settings.PLAYING_ONLINE = true;
 						launchActivity(PVPServerOptionsActivity.class);
 					}

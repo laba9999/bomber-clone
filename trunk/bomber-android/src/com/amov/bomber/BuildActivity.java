@@ -149,11 +149,14 @@ public class BuildActivity extends GameActivity
 		if (Settings.GAME_TYPE == 0)
 			Settings.GAME_TYPE = GameTypeHandler.CTF;
 
-		if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH && Settings.PLAYING_ONLINE && Settings.START_ANDROID_AS_SERVER)
-			new RegisterOnlineServer().execute();
-		else if (Settings.REMOTE_PROTOCOL_IN_USE != Protocols.BLUETOOTH && Settings.PLAYING_ONLINE && !Settings.START_ANDROID_AS_SERVER)
-			new FetchOnlineServer().execute();
-		else
+		if (Settings.PLAYING_ONLINE)
+		{
+			Settings.REMOTE_PROTOCOL_IN_USE = Settings.PROTOCOL_TO_USE_ONLINE;
+			if (Settings.START_ANDROID_AS_SERVER)
+				new RegisterOnlineServer().execute();
+			else if (!Settings.START_ANDROID_AS_SERVER)
+				new FetchOnlineServer().execute();
+		} else
 			launchActivity(AndroidGame.class);
 	}
 
@@ -251,13 +254,13 @@ public class BuildActivity extends GameActivity
 				Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
 				return;
 			}
-			
-			Game.LOGGER.log("Fetch server res: "+ _result);
+
+			Game.LOGGER.log("Fetch server res: " + _result);
 			String[] results = _result.split(";");
 			if (results[0].equals("N/A2"))
 			{
-				Toast.makeText(getApplication(), getApplication().getString(R.string.error_no_online_servers), Toast.LENGTH_LONG).show();					
-			}else if (!results[0].equals("OK"))
+				Toast.makeText(getApplication(), getApplication().getString(R.string.error_no_online_servers), Toast.LENGTH_LONG).show();
+			} else if (!results[0].equals("OK"))
 			{
 				if (results[0].equals("BAN"))
 				{
@@ -280,7 +283,7 @@ public class BuildActivity extends GameActivity
 		{
 			try
 			{
-				return NetUtils.getDBResult("fetch_server.php");
+				return NetUtils.getDBResult("fetch_server.php?mac=" + NetUtils.getIMEI(BuildActivity.this));
 
 			} catch (IOException e)
 			{
