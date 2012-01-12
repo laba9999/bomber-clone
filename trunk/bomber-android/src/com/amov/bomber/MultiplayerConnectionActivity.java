@@ -175,7 +175,13 @@ public class MultiplayerConnectionActivity extends GameActivity
 					((WifiManager) getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
 				}
 
+				
 				mTableRowProtocols.setVisibility(_isChecked ? RadioGroup.VISIBLE : RadioGroup.GONE);
+				if(_isChecked)
+				{
+					mRadioTCP.setChecked(true);
+				}
+				
 				mTableRowIpPort.setVisibility(_isChecked && (mRadioClient.isChecked() || mRadioServer.isChecked()) ? RadioGroup.VISIBLE : RadioGroup.GONE);
 
 				if (_isChecked && mRadioClient.isChecked())
@@ -470,6 +476,8 @@ public class MultiplayerConnectionActivity extends GameActivity
 //				});
 //
 //				alertDialog.show();
+				
+				
 				
 				if (mRadioServer.isChecked()){
 					askPublicOrPrivateServer();

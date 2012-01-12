@@ -11,6 +11,7 @@ public class CreateConnections extends Thread {
 	@Override
 	public void run()
 	{
+
 		RemoteConnections tmpConnections;
 		if (!Settings.STARTED_FROM_DESKTOP){
 			tmpConnections = RemoteConnections.create(Settings.REMOTE_PROTOCOL_IN_USE, Settings.START_ANDROID_AS_SERVER, Settings.REMOTE_SERVER_ADDRESS);
@@ -26,6 +27,8 @@ public class CreateConnections extends Thread {
 	}
 
 	public CreateConnections(Game _newGame) {
+		setDaemon(true);
+		
 		mNewGame = _newGame;
 	}
 

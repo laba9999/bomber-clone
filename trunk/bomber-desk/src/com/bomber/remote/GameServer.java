@@ -281,6 +281,12 @@ public class GameServer {
 
 	public void startGame()
 	{
+		if (mPlayers.size() < Game.mNumberPlayers)
+		{
+			RemoteConnections.mGame.setGameState(new GameStateServerConnectionError(RemoteConnections.mGame, Strings.mStrings.get("no_suficient_clients")));
+			return;
+		}
+
 		// Inicia o jogo
 		tmpMessage.messageType = MessageType.GAME;
 		tmpMessage.eventType = EventType.START;

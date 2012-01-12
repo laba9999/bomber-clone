@@ -65,7 +65,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 		if (!Game.mIsPVPGame)
 			return;
 		
-		new CreateConnections(newGame).start();
+		//new CreateConnections(newGame).start();
 	}
 
 	public void goBackToMenu()
