@@ -4,15 +4,20 @@ import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.graphics.GL10;
 import com.bomber.Settings;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.SoundAssets;
 
 public class AssetsLoader extends AndroidApplication
 {
+
+
 	@Override
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
@@ -25,15 +30,23 @@ public class AssetsLoader extends AndroidApplication
 	{
 		super.onCreate(_savedInstanceState);
 
+
+				
 		initialize(new ApplicationListener()
 		{
 			boolean startedMainActivity = false;
-			
+
 			public void create()
 			{
+				
+				int[] maxTextureSize = new int[1];
+				Gdx.gl10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxTextureSize, 0);
+				Log.i("glinfo", "Max texture size = " + maxTextureSize[0]);
+				
+				SoundAssets.mIsloaded = false;
 				loadStrings();
 				loadSharedPreferences();
-				SoundAssets.load();
+				postRunnable(new AssetsLoaderThread());
 			}
 
 			public void render()
@@ -47,11 +60,22 @@ public class AssetsLoader extends AndroidApplication
 				}
 			}
 
-			public void resize(int _width, int _height){}
-			public void pause(){}
-			public void resume(){}
-			public void dispose(){}
-			
+			public void resize(int _width, int _height)
+			{
+			}
+
+			public void pause()
+			{
+			}
+
+			public void resume()
+			{
+			}
+
+			public void dispose()
+			{
+			}
+
 		}, false);
 	}
 
@@ -75,12 +99,9 @@ public class AssetsLoader extends AndroidApplication
 
 	protected void loadSharedPreferences()
 	{
-		if (Settings.GAME_PREFS == null)
-		{
 			Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
 			Settings.PLAYER_NAME = Settings.GAME_PREFS.getString("playerName", null);
 			SoundAssets.mIsSoundActive = Settings.GAME_PREFS.getBoolean("soundEnabled", true);
-		}
 	}
 
 }

@@ -5,7 +5,6 @@ import com.bomber.Settings;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.gametypes.GameTypeHandler;
-import com.bomber.remote.RemoteConnections;
 import com.bomber.renderers.WorldRenderer;
 import com.bomber.world.GameWorld;
 

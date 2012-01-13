@@ -27,7 +27,7 @@ public abstract class GameActivity extends Activity
 	{
 		loadSharedPreferences();
 
-		if (mDestroyed  || SoundAssets.checkNullSounds())
+		if (mDestroyed || SoundAssets.checkNullSounds())
 		{
 			Intent myIntent = new Intent(this, AssetsLoader.class);
 			// proibe a animação na transição entre activities
@@ -45,12 +45,9 @@ public abstract class GameActivity extends Activity
 
 	protected void loadSharedPreferences()
 	{
-		if (Settings.GAME_PREFS == null)
-		{
-			Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
-			Settings.PLAYER_NAME = Settings.GAME_PREFS.getString("playerName", null);
-			SoundAssets.mIsSoundActive = Settings.GAME_PREFS.getBoolean("soundEnabled", true);
-		}
+		Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
+		Settings.PLAYER_NAME = Settings.GAME_PREFS.getString("playerName", null);
+		SoundAssets.mIsSoundActive = Settings.GAME_PREFS.getBoolean("soundEnabled", true);
 	}
 
 	protected void loadSoundAssets()

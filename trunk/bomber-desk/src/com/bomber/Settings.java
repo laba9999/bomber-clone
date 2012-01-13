@@ -17,12 +17,12 @@ public class Settings {
 	// Remote
 	public static String WEBHOST_ADDRESS = "http://bbm.host22.com/";
 	public static boolean START_ANDROID_AS_SERVER = false;
-	public static boolean START_DESKTOP_AS_SERVER = true;
+	public static boolean START_DESKTOP_AS_SERVER = false;
 	public static short REMOTE_PROTOCOL_IN_USE = Protocols.TCP;
 	
 	public static short PROTOCOL_TO_USE_ONLINE = Protocols.TCP;
 	
-	public static String REMOTE_SERVER_ADDRESS = "localhost:50005";
+	public static String REMOTE_SERVER_ADDRESS = "192.168.1.112:50005";
 	public static String AVERAGE_WAITING_TIME_ONLINE;
 
 	// Alterar este valor não tem efeito nenhum
@@ -37,7 +37,7 @@ public class Settings {
 	public static String LEVEL_TO_LOAD = "level8";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.TEAM_CTF;
+	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static SharedPreferences GAME_PREFS = null;
 	public static boolean PLAYING_ONLINE = false;
 	

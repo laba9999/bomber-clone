@@ -12,11 +12,25 @@ import com.bomber.Game;
 import com.bomber.Settings;
 import com.bomber.common.assets.SoundAssets;
 import com.bomber.gamestates.GameStatePaused;
-import com.bomber.remote.CreateConnections;
 import com.bomber.remote.RemoteConnections;
 
 public class AndroidGame extends AndroidApplication implements AndroidBridge
 {
+
+	@Override
+	protected void onPause()
+	{
+		// TODO Auto-generated method stub
+		super.onPause();
+	
+	}
+
+	@Override
+	protected void onResume()
+	{
+		// TODO Auto-generated method stub
+		super.onResume();
+	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{

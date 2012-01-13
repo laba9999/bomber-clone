@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bomber.Settings;
-import com.bomber.common.assets.GfxAssets;
 import com.bomber.gametypes.GameTypeHandler;
 
 /*
