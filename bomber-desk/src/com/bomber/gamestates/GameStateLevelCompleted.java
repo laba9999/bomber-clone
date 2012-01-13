@@ -18,7 +18,6 @@ public class GameStateLevelCompleted extends GameState {
 	private boolean mEndScoreAnimation;
 	private short mTrophiesEarned;
 
-	private int mPointsBlingCounter = 2;
 
 	private String mCurrenLevel = Level.mInfo.mCurrentLevelName.toUpperCase();
 	public GameStateLevelCompleted(Game _gameScreen) {
@@ -78,11 +77,7 @@ public class GameStateLevelCompleted extends GameState {
 				mEndScoreAnimation = true;
 			}
 
-			if (mPointsBlingCounter++ > 1)
-			{
-				SoundAssets.playSound("bling");
-				mPointsBlingCounter = 0;
-			}
+			SoundAssets.playSound("bling");
 
 			if (mPointsDisplayed > mHighScoreDisplayed)
 				mHighScoreDisplayed = mPointsDisplayed;

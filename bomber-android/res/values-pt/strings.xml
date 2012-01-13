@@ -113,7 +113,7 @@
     <string name="about_developed_by">Desenvolvido por:</string>
     <string name="about_avelino">Avelino Martins</string>
     <string name="about_filipe">Filipe Brandão</string>
-    <string name="about_credits">Desenvolvido com recurso à biblioteca libGDX.\n\nCreditos para a Hudson Soft, autores dos gráficos originais, e para a Yellow Icon Design, autores do ícone do launcher.</string>
+    <string name="about_credits">Desenvolvido com recurso à biblioteca libGDX.\n\nCreditos para a Hudson Soft, autores dos gráficos e sons originais, e para a Yellow Icon Design, autores do ícone do launcher.</string>
     <string name="deis_isec">DEIS-ISEC</string>
     <string name="tcp_recommended">TCP Recomendado</string>
     

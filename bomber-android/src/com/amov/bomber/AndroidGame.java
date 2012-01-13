@@ -30,6 +30,7 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 	{
 		// TODO Auto-generated method stub
 		super.onResume();
+
 	}
 
 	public boolean onKeyDown(int keyCode, KeyEvent event)
@@ -86,13 +87,16 @@ public class AndroidGame extends AndroidApplication implements AndroidBridge
 	{
 		SoundAssets.stop();
 		SoundAssets.playMusic("intro", true, 1.0f);
-		finishActivity(0);
-		this.exit();
 		
-		goBackToWithoutExiting();
+		//finishActivity(0);
+		//this.exit();
+		
+		goBackWithoutExiting();
+
+
 	}
 	
-	public void goBackToWithoutExiting()
+	public void goBackWithoutExiting()
 	{
 		SoundAssets.stop();
 		Intent myIntent = new Intent(this, AssetsLoader.class);		
