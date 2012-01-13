@@ -38,9 +38,9 @@ public class Game implements ApplicationListener {
 
 	public static Logger LOGGER = new Logger("GAM");
 	private int mLoops;
-	// private long startTime;
-	// private float mInterpolation;
-	// private int ticksPerSecondCounter;
+	 private long startTime;
+//	 private float mInterpolation;
+	 private int ticksPerSecondCounter;
 
 	public static short mGameType = -1;
 	public static boolean mIsPVPGame = false;
@@ -81,7 +81,7 @@ public class Game implements ApplicationListener {
 		if (Settings.LIMPAR_SARAMPO)
 		{
 			Log.d("LIMPAR SARAMPO", "LIMPAR SARAMPO");
-			_bridge.goBackToWithoutExiting();
+			_bridge.goBackWithoutExiting();
 			System.exit(-1);
 		}
 
@@ -172,7 +172,7 @@ public class Game implements ApplicationListener {
 	{
 		if (mAndroidGameActivity != null)
 		{
-			SoundAssets.stop();
+			SoundAssets.stop();		
 			mAndroidGameActivity.goBackToMenu();
 		} else
 		{
@@ -272,13 +272,13 @@ public class Game implements ApplicationListener {
 			mLoops = 0;
 			while (System.nanoTime() > mNextGameTick && mLoops < MAX_FRAMESKIP)
 			{
-				// ticksPerSecondCounter++;
-				// if ((System.nanoTime() - startTime) > 1000000000)
-				// {
-				// mTicksPerSecond = ticksPerSecondCounter;
-				// ticksPerSecondCounter = 0;
-				// startTime = System.nanoTime();
-				// }
+				 ticksPerSecondCounter++;
+				 if ((System.nanoTime() - startTime) > 1000000000)
+				 {
+				 mTicksPerSecond = ticksPerSecondCounter;
+				 ticksPerSecondCounter = 0;
+				 startTime = System.nanoTime();
+				 }
 
 				mGameState.update();
 
@@ -321,7 +321,7 @@ public class Game implements ApplicationListener {
 		SoundAssets.pause();
 
 		if (mIsPVPGame)
-			goBackToActivities();
+			mRemoteConnections.closeAll("Paused");
 
 		if (mGameState instanceof GameStatePlaying)
 			setGameState(new GameStatePaused(this));
@@ -332,7 +332,9 @@ public class Game implements ApplicationListener {
 	@Override
 	public void resume()
 	{
-		mNextGameTick = System.nanoTime();
+		//if (mIsPVPGame)
+			goBackToActivities();
+		
 		SoundAssets.resume();
 	}
 

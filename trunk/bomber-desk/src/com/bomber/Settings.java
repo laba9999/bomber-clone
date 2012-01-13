@@ -26,7 +26,7 @@ public class Settings {
 	public static String AVERAGE_WAITING_TIME_ONLINE;
 
 	// Alterar este valor não tem efeito nenhum
-	public static String LOCAL_SERVER_ADDRESS = "192.168.1.110:50005";
+	public static String LOCAL_SERVER_ADDRESS = "192.168.1.102:50005";
 
 	// Bluetooth
 	public static BluetoothAdapter BLUETOOTH_ADAPTER;
@@ -42,7 +42,7 @@ public class Settings {
 	public static boolean PLAYING_ONLINE = false;
 	
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
 	public static String PLAYER_NAME = "zezao2";
 
 	// Monstros
