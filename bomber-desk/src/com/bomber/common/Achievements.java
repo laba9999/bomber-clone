@@ -68,7 +68,7 @@ public class Achievements {
 
 	public static void saveFile()
 	{
-		String savepath = FILE_PATH;
+		String savepath =  Gdx.files.getExternalStoragePath() + FILE_PATH;
 
 		// Cria a directoria se não existir
 		File levelDirectory = new File(savepath);
@@ -78,7 +78,7 @@ public class Achievements {
 		PrintStream out = null;
 		try
 		{
-			out = new PrintStream(Gdx.files.external(savepath).write(false));
+			out = new PrintStream(Gdx.files.absolute(savepath).write(false));
 			out.println("#monster kills");
 			out.println(mNumberMonsterKills);
 			out.println("#players kills");

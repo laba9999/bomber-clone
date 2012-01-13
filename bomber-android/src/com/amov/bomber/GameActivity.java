@@ -39,7 +39,8 @@ public abstract class GameActivity extends Activity
 	@Override
 	protected void onResume()
 	{
-		
+		super.onResume();
+	
 		if (mDestroyed || SoundAssets.checkNullSounds())
 		{
 			Intent myIntent = new Intent(this, AssetsLoader.class);
@@ -48,12 +49,12 @@ public abstract class GameActivity extends Activity
 			myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(myIntent);
 			mDestroyed = false;
+			return;
 		}
 		
 		startedActivity = false;
 		SoundAssets.resume();
 		
-		super.onResume();
 	}
 
 	protected void loadSharedPreferences()
