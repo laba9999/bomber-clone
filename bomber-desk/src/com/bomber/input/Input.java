@@ -1,6 +1,5 @@
 package com.bomber.input;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;

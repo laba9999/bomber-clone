@@ -38,6 +38,10 @@ public final class ObjectFactory {
 		public static Connection Create(short _protocol, String _connectionString, MessageContainer _msgContainer) throws NumberFormatException, IOException
 		{
 			String[] data = _connectionString.split(":");
+			
+			if(data.length < 2)
+				throw new IOException("Formato incorrecto: " + _connectionString);
+			
 			switch (_protocol)
 			{
 			case Protocols.TCP:

@@ -2,8 +2,6 @@ package com.bomber;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.bomber.common.Strings;
-import com.bomber.gamestates.GameStateLoadingPVP;
-import com.bomber.remote.CreateConnections;
 import com.bomber.remote.RemoteConnections;
 
 public class BomberDesktop {

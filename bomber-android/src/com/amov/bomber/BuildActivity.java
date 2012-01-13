@@ -2,12 +2,11 @@ package com.amov.bomber;
 
 import java.io.IOException;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -26,7 +25,6 @@ import com.bomber.common.BonusBuild;
 import com.bomber.common.Utils;
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Message;
-import com.bomber.remote.Protocols;
 
 public class BuildActivity extends GameActivity
 {
