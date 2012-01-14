@@ -356,25 +356,25 @@ public class GfxAssets {
 		
 		if(null == mPlayersHeads.get("b_white"))
 		{
-			r = mAtlas.findRegion("face_white");
+			r = mAtlasHD.findRegion("face_white");
 			mPlayersHeads.put("b_white", r);
 		}
 		
 		if(null == mPlayersHeads.get("b_green"))
 		{
-			r = mAtlas.findRegion("face_green");
+			r = mAtlasHD.findRegion("face_green");
 			mPlayersHeads.put("b_green", r);
 		}
 
 		if(null == mPlayersHeads.get("b_red"))
 		{
-			r = mAtlas.findRegion("face_red");
+			r = mAtlasHD.findRegion("face_red");
 			mPlayersHeads.put("b_red", r);
 		}
 
 		if(null == mPlayersHeads.get("b_blue"))
 		{
-			r = mAtlas.findRegion("face_blue");
+			r = mAtlasHD.findRegion("face_blue");
 			mPlayersHeads.put("b_blue", r);
 		}
 	}

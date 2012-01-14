@@ -10,6 +10,8 @@ import com.bomber.common.assets.GfxAssets;
 
 public class GameStateBomberChamp extends GameState {
 
+	private int mTicksSinceStarted = 0;
+	
 	public GameStateBomberChamp(Game _game) {
 		super(_game);
 		
@@ -42,7 +44,7 @@ public class GameStateBomberChamp extends GameState {
 	@Override
 	protected void onUpdate()
 	{
-		if (Gdx.input.justTouched())
+		if (Gdx.input.justTouched() && mTicksSinceStarted++ > Game.TICKS_PER_SECOND)
 			Game.goBackToActivities();
 
 	}
