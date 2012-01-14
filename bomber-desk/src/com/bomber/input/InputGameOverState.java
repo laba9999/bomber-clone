@@ -55,6 +55,7 @@ public class InputGameOverState extends Input {
 		switch(_zone)
 		{
 		case INPUT_RELOAD:
+			Game.mIsLevelReload = true;
 			mGameState.mGame.mWorld.reset(Level.mInfo.mCurrentLevelName);
 			mGameState.finish(mGameState.mPreviousGameState);
 			break;

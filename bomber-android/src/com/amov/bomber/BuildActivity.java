@@ -287,7 +287,10 @@ public class BuildActivity extends GameActivity
 		{
 			try
 			{
-				return NetUtils.getDBResult("fetch_server.php?mac=" + NetUtils.getIMEI(BuildActivity.this));
+				String mac = NetUtils.getIMEI(BuildActivity.this);
+				reportAbandonedGame(mac);
+				
+				return NetUtils.getDBResult("fetch_server.php?mac=" + mac);
 
 			} catch (IOException e)
 			{
@@ -297,7 +300,6 @@ public class BuildActivity extends GameActivity
 
 			return null;
 		}
-
 	}
 
 	private class RegisterOnlineServer extends AsyncTask<Void, Void, String>
@@ -312,7 +314,6 @@ public class BuildActivity extends GameActivity
 		@Override
 		protected void onPostExecute(String _result)
 		{
-
 			removeDialog(DIALOG_PROGRESS);
 
 			if (isCancelled())
@@ -345,8 +346,11 @@ public class BuildActivity extends GameActivity
 		{
 			try
 			{
+				String mac = NetUtils.getIMEI(BuildActivity.this);
+				reportAbandonedGame(mac);
+				
 				String[] addressComponents = Settings.LOCAL_SERVER_ADDRESS.split(":");
-				return NetUtils.getDBResult("register_server.php?port=" + addressComponents[1] + "&mac=" + NetUtils.getIMEI(BuildActivity.this));
+				return NetUtils.getDBResult("register_server.php?port=" + addressComponents[1] + "&mac=" + mac);
 
 			} catch (IOException e)
 			{
@@ -356,8 +360,17 @@ public class BuildActivity extends GameActivity
 
 			return null;
 		}
-
-
 	}
-
+	
+	private void reportAbandonedGame(String mac) throws IOException
+	{
+		if( Settings.GAME_PREFS.getBoolean("abandonedGame", false))
+		{
+			NetUtils.getDBResult("add_leave.php?mac=" + mac);
+			
+			SharedPreferences.Editor editor = Settings.GAME_PREFS.edit();
+			editor.putBoolean("abandonedGame", false);
+			editor.commit();
+		}
+	}
 }

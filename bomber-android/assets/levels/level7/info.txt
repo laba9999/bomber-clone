@@ -5,7 +5,7 @@ level8
 4
 
 #segundos
-0
+10
 
 #nº de bónus
-3
+4

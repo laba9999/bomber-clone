@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Rectangle;
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
 import com.bomber.common.assets.SoundAssets;
@@ -81,6 +82,10 @@ public class InputPausedState extends Input {
 			break;
 
 		case INPUT_RELOAD:
+			if(!Settings.STARTED_FROM_DESKTOP)
+				SoundAssets.stop();
+			
+			Game.mIsLevelReload = true;
 			world.reset(Level.mInfo.mCurrentLevelName);
 			world.getLocalPlayer().mPoints = world.getLocalPlayer().mStartLevelPoints;
 

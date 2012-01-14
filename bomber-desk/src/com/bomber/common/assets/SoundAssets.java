@@ -3,7 +3,6 @@ package com.bomber.common.assets;
 import java.util.HashMap;
 
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -35,7 +34,7 @@ public class SoundAssets {
 
 	public static void load()
 	{
-		Log.d("GAM"," SoundAssets load()");
+		//Log.d("GAM"," SoundAssets load()");
 		short retries = 0;
 		boolean clean = false;
 		do
@@ -62,14 +61,14 @@ public class SoundAssets {
 				System.gc();
 				try
 				{
-					Log.d("GAM"," SoundAssets cleaning()");
+					//Log.d("GAM"," SoundAssets cleaning()");
 					Thread.sleep(250);
 				} catch (InterruptedException ie)
 				{
 					ie.printStackTrace();
 				}
 			}
-			Log.d("GAM"," SoundAssets load after clean()");
+			//Log.d("GAM"," SoundAssets load after clean()");
 
 			mMusics = new HashMap<String, Music>(10);
 			try
@@ -118,7 +117,7 @@ public class SoundAssets {
 			}
 		} while (mFailedLoading && retries < MAX_LOAD_RETRIES);
 
-		Log.d("GAM"," SoundAssets load end ()");
+		//Log.d("GAM"," SoundAssets load end ()");
 
 		mIsloaded = true;
 		

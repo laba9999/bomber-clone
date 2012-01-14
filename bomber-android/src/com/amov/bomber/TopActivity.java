@@ -326,7 +326,7 @@ public class TopActivity extends GameActivity
 		{
 			try
 			{
-				NetUtils.getDBResult("insert.php?data=" + encryptData(Settings.PLAYER_NAME, NetUtils.getIMEI(TopActivity.this), Settings.GAME_PREFS.getLong("totalPoints", 0)));
+				NetUtils.getDBResult("insert15.php?data=" + encryptData(Settings.PLAYER_NAME, NetUtils.getIMEI(TopActivity.this), Settings.GAME_PREFS.getLong("totalPoints", 0)));
 
 				mAnswerString = NetUtils.getDBResult("query.php?name=" + Settings.PLAYER_NAME);
 

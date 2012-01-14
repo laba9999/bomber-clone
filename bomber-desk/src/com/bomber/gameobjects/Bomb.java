@@ -127,6 +127,7 @@ public class Bomb extends KillableObject {
 	@Override
 	protected boolean onKill(short _killerId)
 	{
+		
 		return false;
 	}
 

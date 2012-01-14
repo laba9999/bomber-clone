@@ -2,6 +2,7 @@ package com.bomber;
 
 import java.util.Random;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -44,6 +45,7 @@ public class Game implements ApplicationListener {
 
 	public static short mGameType = -1;
 	public static boolean mIsPVPGame = false;
+	public static boolean mIsLevelReload = false;
 	public static short mNumberPlayers = 0;
 	public static long mNextGameTick;
 
@@ -320,9 +322,17 @@ public class Game implements ApplicationListener {
 
 		SoundAssets.pause();
 
-		if (mIsPVPGame)
+		if (mIsPVPGame){
 			mRemoteConnections.closeAll("Paused");
-
+			
+			if( Settings.PLAYING_ONLINE && !Game.mGameIsOver)
+			{
+				SharedPreferences.Editor editor = Settings.GAME_PREFS.edit();
+				editor.putBoolean("abandonedGame", true);
+				editor.commit();
+			}
+		}
+			
 		if (mGameState instanceof GameStatePlaying)
 			setGameState(new GameStatePaused(this));
 
@@ -332,7 +342,7 @@ public class Game implements ApplicationListener {
 	@Override
 	public void resume()
 	{
-		//if (mIsPVPGame)
+		if (mIsPVPGame)
 			goBackToActivities();
 		
 		SoundAssets.resume();

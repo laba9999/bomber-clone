@@ -48,8 +48,8 @@ public class InputPlayingState extends Input {
 		// Inicializa as zonas de input para o android
 		mInputZones = new Rectangle[10];
 
-		mInputZones[INPUT_BOMB] = new Rectangle(640, 5, 150, 150);
-		mInputZones[INPUT_PAUSE] = new Rectangle(10, 400, 80, 80);
+		mInputZones[INPUT_BOMB] = new Rectangle(600, 0, 200, 250);
+		mInputZones[INPUT_PAUSE] = new Rectangle(0, 380, 100, 80);
 
 		mGameWorld = _gameState.mGame.mWorld;
 		
@@ -188,7 +188,7 @@ public class InputPlayingState extends Input {
 			mLocalPlayer.changeDirection(Directions.RIGHT);
 			mIsUsingKeyboard = true;
 		}
-		else if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S))
+		else if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)|| Gdx.input.isKeyPressed(Keys.Z))
 		{
 			mLocalPlayer.changeDirection(Directions.DOWN);
 			mIsUsingKeyboard = true;
@@ -204,7 +204,7 @@ public class InputPlayingState extends Input {
 		{
 			mLocalPlayer.stop();
 		}
-		if (Gdx.input.isKeyPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.BUTTON_X) || Gdx.input.isKeyPressed(Keys.BUTTON_CIRCLE)  )
+		if (Gdx.input.isKeyPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.L) || Gdx.input.isKeyPressed(Keys.BUTTON_X) || Gdx.input.isKeyPressed(Keys.BUTTON_CIRCLE)  )
 		{
 
 			if (!mJustPlacedBomb)
