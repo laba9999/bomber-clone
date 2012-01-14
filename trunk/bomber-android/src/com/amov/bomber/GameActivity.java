@@ -11,10 +11,9 @@ import com.bomber.common.assets.SoundAssets;
 
 public abstract class GameActivity extends Activity
 {
-	public static int NEXT_ACTIVITY = -1;
-	public static boolean mDestroyed = false;
-
 	private boolean startedActivity = false;
+	
+	public static boolean mDestroyed = false;
 	public static boolean mGoneBackToAssetsLoader = false;
 	
 	@Override
@@ -22,8 +21,6 @@ public abstract class GameActivity extends Activity
 	{
 		super.onCreate(_savedInstanceState);
 		Log.d("GAM", "GameACtivity onCreate()");
-
-		loadSharedPreferences();
 
 		if(mDestroyed || SoundAssets.checkNullSounds())
 		{
@@ -35,7 +32,11 @@ public abstract class GameActivity extends Activity
 			myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(myIntent);
 			mDestroyed = false;
+			
+			return;
 		}
+		
+		loadSharedPreferences();
 	}
 	
 

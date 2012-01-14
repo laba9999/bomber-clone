@@ -2,6 +2,7 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.common.Achievements;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
@@ -103,7 +104,7 @@ public class GameStatePlaying extends GameState {
 
 		// Bónus activos
 		drawActiveBonus(player);
-		
+
 	}
 
 	private void drawAcummulatedBonus(BitmapFont _font, Player _player)
@@ -162,7 +163,7 @@ public class GameStatePlaying extends GameState {
 		Clock clock = mGameWorld.mClock;
 		if (clock.getRemainingSeconds() < SECONDS_TO_START_BLINK_CLOCK)
 		{
-			if (!SoundAssets.mLastMusicPlaying.equals("timeEnding"))
+			if (!Settings.STARTED_FROM_DESKTOP && !SoundAssets.mLastMusicPlaying.equals("timeEnding"))
 				SoundAssets.playMusic("timeEnding", false, 1.0f);
 
 			if (mTicksSinceLastClockBlink > mClockBlinkInterval)

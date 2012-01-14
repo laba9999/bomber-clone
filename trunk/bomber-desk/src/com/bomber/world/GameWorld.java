@@ -117,7 +117,8 @@ public class GameWorld {
 	{
 		boolean failed = true;
 		Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID);
-		for (Player p : mPlayers){
+		for (Player p : mPlayers)
+		{
 			if (p.mColor == _color)
 			{
 				p.mIsLocalPlayer = true;
@@ -138,8 +139,8 @@ public class GameWorld {
 				break;
 			}
 		}
-		
-		if(failed)
+
+		if (failed)
 			Game.LOGGER.log("Setting local player to: " + RemoteConnections.mLocalID + ", falhou!");
 	}
 
@@ -186,7 +187,10 @@ public class GameWorld {
 	public void reset(String _levelToload)
 	{
 		mMonsters.clear();
-		mPlayers.clear();
+
+		if (Game.mGameType != GameTypeHandler.CAMPAIGN || Game.mGameIsOver || Game.mIsLevelReload)
+			mPlayers.clear();
+
 		mSpawnedBonus.clear();
 		mBombs.clear();
 		mExplosions.clear();
@@ -204,6 +208,9 @@ public class GameWorld {
 		if (Settings.MAP_LOAD_DESTROYABLE_TILES && !Game.mIsPVPGame)
 			mMap.placePortal();
 
+		Game.mGameIsOver = false;
+		Game.mIsLevelReload = false;
+		
 		mClock.start();
 	}
 
@@ -242,7 +249,12 @@ public class GameWorld {
 		// }
 		// }
 
-		Player tmpPlayer = mPlayers.getFreeObject();
+		Player tmpPlayer = null;
+		if (Game.mGameType == GameTypeHandler.CAMPAIGN && mPlayers.mLenght > 0){
+			tmpPlayer = getLocalPlayer();
+			tmpPlayer.resetForLevel();
+		}else{
+			tmpPlayer = mPlayers.getFreeObject();}
 
 		tmpPlayer.setMovableAnimations(GfxAssets.mPlayers.get(_type));
 
@@ -251,15 +263,16 @@ public class GameWorld {
 		tmpPlayer.mExtraTextures.put("happy", GfxAssets.mPlayersHappy.get(_type));
 
 		tmpPlayer.mColor = Player.getColorFromString(_type);
-		
-		if(Game.mGameType == GameTypeHandler.CAMPAIGN)
+
+		if (Game.mGameType == GameTypeHandler.CAMPAIGN)
 			tmpPlayer.mIsLocalPlayer = true;
 
 		// O jogador branco é sempre o primeiro elemento da equipa 1
-		if (tmpPlayer.mColor == Player.WHITE && Game.mIsPVPGame){
+		if (tmpPlayer.mColor == Player.WHITE && Game.mIsPVPGame)
+		{
 			Game.mTeams[0].addElement(tmpPlayer);
-			
-			if( Game.mIsPVPGame)
+
+			if (Game.mIsPVPGame)
 			{
 				tmpPlayer.mMaxSimultaneousBombs += BonusBuild.mBombCount;
 				tmpPlayer.mBombExplosionSize += BonusBuild.mExplosionSize;

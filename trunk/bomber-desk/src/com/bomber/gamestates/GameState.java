@@ -93,7 +93,7 @@ public abstract class GameState {
 		{
 			Rectangle[] zones = mInput.getZones();
 			for (int i = 0; i < zones.length; i++)
-				mBatcher.draw(GfxAssets.mAtlas.findRegion("tiles_", 123), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
+				mBatcher.draw(GfxAssets.mAtlas.findRegion("tiles_", 1), zones[i].x, zones[i].y, zones[i].width, zones[i].height);
 		}
 
 		if (Settings.UI_DRAW_FPS)

@@ -56,7 +56,7 @@ public class Player extends KillableObject {
 	public short mMaxSimultaneousBombs = 1;
 	public short mSpeedFactor = 1;
 	public short mColor;
-	
+
 	public short mPlacedBombsCount = 0;
 
 	public boolean mIsConnected = true;
@@ -85,7 +85,7 @@ public class Player extends KillableObject {
 	 */
 	public ObjectsPool<PlayerEffect> mEffects;
 
-	//private RemoteConnections mRemoteConnections = Game.mRemoteConnections;
+	// private RemoteConnections mRemoteConnections = Game.mRemoteConnections;
 
 	public Player(GameWorld _world) {
 		mWorld = _world;
@@ -93,19 +93,18 @@ public class Player extends KillableObject {
 		mEffects = new ObjectsPool<PlayerEffect>((short) 0, null);
 		mActiveBonus = new ObjectsPool<TemporaryBonus>((short) 0, null);
 		mExtraTextures = new HashMap<String, TextureRegion>(3);
-		
-		mSpeed = 1.7f;
+
+		mSpeed = 1.3f;
 	}
 
 	public void dropBomb()
 	{
-		if(mPlacedBombsCount >=mMaxSimultaneousBombs)
+		if (mPlacedBombsCount >= mMaxSimultaneousBombs)
 			return;
-		
-		mPlacedBombsCount++;
-		
-		mWorld.spawnBomb(mColor, mBombExplosionSize, mPosition);
 
+		if (mWorld.spawnBomb(mColor, mBombExplosionSize, mPosition))
+			mPlacedBombsCount++;
+		
 		if (Game.mRemoteConnections == null || !mIsLocalPlayer)
 			return;
 
@@ -268,9 +267,29 @@ public class Player extends KillableObject {
 		{
 			if (mSpeedFactor >= MAX_SPEED_FACTOR)
 				return true;
-		} 
+		}
 
 		return false;
+	}
+
+	public void resetForLevel()
+	{
+		mPoints = 0;
+		mEffects.clear();
+		mActiveBonus.clear();
+
+		mIsShieldActive = false;
+		mIsAbleToPushBombs = false;
+
+		mPointsMultiplier = 1;
+
+		mPlacedBombsCount = 0;
+		mTicksSinceSpawn = 0;
+
+		mIsConnected = true;
+		mExtraTextures.clear();
+
+		mAcceptPlayerInput = true;
 	}
 
 	/**
@@ -297,8 +316,9 @@ public class Player extends KillableObject {
 		mBombExplosionSize = 1;
 		mMaxSimultaneousBombs = 1;
 		mSpeedFactor = 1;
+
 		mPlacedBombsCount = 0;
-		
+
 		mTicksSinceSpawn = 0;
 		mIsLocalPlayer = false;
 
@@ -308,8 +328,8 @@ public class Player extends KillableObject {
 		mAcceptPlayerInput = true;
 		mEnemyFlag = null;
 		mTeam = null;
-		
-		mSpeed = 1.7f;
+
+		mSpeed = 1.3f;
 	}
 
 	public String getPoints()
@@ -342,7 +362,6 @@ public class Player extends KillableObject {
 			Achievements.mNumberPlayersKills++;
 		}
 
-		
 		if (mIsLocalPlayer)
 			SoundAssets.playSound("die");
 
@@ -358,9 +377,9 @@ public class Player extends KillableObject {
 
 		mMovedSinceLastStop = true;
 
-		if (Game.mRemoteConnections == null || !mIsLocalPlayer || mDirection == mLastDirectionSent  || !mAcceptPlayerInput)
+		if (Game.mRemoteConnections == null || !mIsLocalPlayer || mDirection == mLastDirectionSent || !mAcceptPlayerInput)
 			return;
-		
+
 		mLastDirectionSent = mDirection;
 
 		Message tmpMessage = Game.mRemoteConnections.mMessageToSend;

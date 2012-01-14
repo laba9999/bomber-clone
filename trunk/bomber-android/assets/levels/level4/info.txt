@@ -2,10 +2,10 @@
 level5
 
 #minutos
-3
+4
 
 #segundos
-50
+20
 
 #nº de bónus
 3

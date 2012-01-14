@@ -14,6 +14,7 @@ import com.bomber.Team;
 import com.bomber.common.BlinkObject;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.gameobjects.Player;
 import com.bomber.remote.RemoteConnections;
 
@@ -43,6 +44,9 @@ public abstract class GameStateRoundEnd extends GameStateLoadingPVP {
 	public GameStateRoundEnd(Game _game) {
 		super(_game);
 
+		if(!Settings.STARTED_FROM_DESKTOP)
+			SoundAssets.stop();
+		
 		if (RemoteConnections.mIsGameServer)
 		{
 			// faz broadcas das posições de todos os players

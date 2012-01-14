@@ -35,14 +35,14 @@
     <string name="ip">IP:</string>
     <string name="port">Porto:</string>
     
-        <string name="public_text">Publico</string>
+    <string name="public_text">Público</string>
     <string name="private_text">Privado</string>
     
-            <string name="error_no_online_servers">Não existem servidores públicos disponíveis. Por favor tente mais tarde ou tente criar um novo server.</string>
+    <string name="error_no_online_servers">Não existem servidores públicos disponíveis. Por favor tente mais tarde ou tente criar um novo server.</string>
     
-     <string name="average_waiting_time">Tempo médio de espera:</string>
+    <string name="average_waiting_time">Tempo médio de espera:</string>
     <string name="error_registration_ban">Foi banido temporáriamente de jogar jogos públicos. Tente mais tarde</string>
-     <string name="error_server_registration">O servidor para registo publico está em baixo, por favor tente mais tarde.</string>
+    <string name="error_server_registration">O servidor para registo publico está em baixo, por favor tente mais tarde.</string>
     <string name="dialog_ask_client_public_text">Deseja ligar-se a um servidor público ou privado?</string>
     <string name="dialog_ask_server_public_text">Deseja criar um servidor privado ou público?\nSe escolher público um jogador aleatório de qualquer parte do mundo poderá ligar-se.</string>
     <string name="warning_router_tilte">Continuar?</string>

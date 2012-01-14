@@ -2,8 +2,10 @@ package com.bomber.gamestates;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.common.assets.GfxAssets;
 import com.bomber.common.assets.Level;
+import com.bomber.common.assets.SoundAssets;
 import com.bomber.input.InputGameOverState;
 
 public class GameStateGameOver extends GameState {
@@ -11,6 +13,11 @@ public class GameStateGameOver extends GameState {
 	public GameStateGameOver(Game _gameScreen) {
 		super(_gameScreen);
 
+		Game.mGameIsOver = true;
+		
+		if(!Settings.STARTED_FROM_DESKTOP)
+			SoundAssets.stop();
+		
 		mInput = new InputGameOverState(this);
 	}
 

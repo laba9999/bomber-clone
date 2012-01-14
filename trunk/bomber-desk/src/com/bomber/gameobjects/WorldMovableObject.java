@@ -6,7 +6,7 @@ import com.bomber.world.GameWorld;
 
 public abstract class WorldMovableObject extends Drawable {
 
-	public float mSpeed = 1.0f;//1.5f;
+	public float mSpeed = 0.8f;//1.5f;
 	public short mDirection;
 	public GameWorld mWorld;
 	public boolean mIgnoreDestroyables;
