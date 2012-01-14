@@ -21,6 +21,8 @@ public class AssetsLoader extends AndroidApplication
 	@Override
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
+		Log.d("GAM", "AssetsLoader onActivityResult()");
+
 		SoundAssets.mIsloaded = false;
 		System.exit(0);
 	}
@@ -29,28 +31,37 @@ public class AssetsLoader extends AndroidApplication
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
+		Log.d("GAM", "AssetsLoader onCreate()");
 
-
-				
 		initialize(new ApplicationListener()
 		{
 			boolean startedMainActivity = false;
 
 			public void create()
 			{
-				
+				Log.d("GAM", "AssetsLoader initialize - create()");
+
 				int[] maxTextureSize = new int[1];
 				Gdx.gl10.glGetIntegerv(GL10.GL_MAX_TEXTURE_SIZE, maxTextureSize, 0);
 				Log.i("glinfo", "Max texture size = " + maxTextureSize[0]);
-				
-				SoundAssets.mIsloaded = false;
+
+				Log.d("GAM", "AssetsLoader initialize - create() LOADS START");
 				loadStrings();
 				loadSharedPreferences();
+				Log.d("GAM", "AssetsLoader initialize - create() LOADS END");
+				
+				Log.d("GAM", "AssetsLoader initialize - antes postrunnable()");
 				postRunnable(new AssetsLoaderThread());
+				Log.d("GAM", "AssetsLoader initialize - depois postrunnable()");
+				SoundAssets.mIsloaded = false;
+
 			}
 
 			public void render()
 			{
+				Log.d("GAM", "AssetsLoader initialize - render()");
+
+				
 				if (SoundAssets.mIsloaded && !startedMainActivity)
 				{
 					startedMainActivity = true;
@@ -66,10 +77,13 @@ public class AssetsLoader extends AndroidApplication
 
 			public void pause()
 			{
+				
 			}
 
 			public void resume()
-			{
+			{				
+
+
 			}
 
 			public void dispose()
