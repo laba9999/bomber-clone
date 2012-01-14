@@ -30,7 +30,6 @@ public class MainActivity extends GameActivity
 		Settings.STARTED_FROM_DESKTOP = false;
 		Achievements.loadFile();
 
-		GameActivity.mDestroyed = false;
 
 		if (SoundAssets.mFailedLoading)
 		{
