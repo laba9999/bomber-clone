@@ -77,7 +77,7 @@ public class PVPServerOptionsActivity extends GameActivity
 
 		mSpinnerGameType = (Spinner) this.findViewById(R.id.spinnerGameType);
 		ArrayAdapter<String> adapterGameType;
-		if(Settings.REMOTE_PROTOCOL_IN_USE == Protocols.BLUETOOTH)
+		if(Settings.REMOTE_PROTOCOL_IN_USE == Protocols.BLUETOOTH || Settings.PLAYING_ONLINE)
 			adapterGameType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[] { "DEADMATCH 1vs1", "CTF 1vs1" });
 		else
 			adapterGameType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, new String[] { "DEADMATCH 1vs1", "CTF 1vs1", "DEADMATCH 2vs2", "CTF 2vs2" });
