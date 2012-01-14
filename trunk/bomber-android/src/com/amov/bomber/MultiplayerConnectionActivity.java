@@ -665,6 +665,11 @@ public class MultiplayerConnectionActivity extends GameActivity
 				});
 
 				alertDialog.show();
+			}else
+			{
+				setupSettings(NetUtils.getLocalIpAddress());
+				Settings.PLAYING_ONLINE = true;
+				launchActivity(PVPServerOptionsActivity.class);
 			}
 
 			super.onPostExecute(_result);
