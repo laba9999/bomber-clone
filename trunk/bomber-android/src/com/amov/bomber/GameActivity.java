@@ -3,8 +3,10 @@ package com.amov.bomber;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 
+import com.badlogic.gdx.Gdx;
 import com.bomber.Settings;
 import com.bomber.common.assets.SoundAssets;
 
@@ -19,11 +21,13 @@ public abstract class GameActivity extends Activity
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
-		
+		Log.d("GAM", "GameACtivity onCreate()");
+
 		loadSharedPreferences();
 
 		if (mDestroyed || SoundAssets.checkNullSounds())
 		{
+
 			Intent myIntent = new Intent(this, AssetsLoader.class);
 			// proibe a animação na transição entre activities
 			myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -40,7 +44,7 @@ public abstract class GameActivity extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-	
+		Log.d("GAM", "GameACtivity onResume()");
 		if (mDestroyed || SoundAssets.checkNullSounds())
 		{
 			Intent myIntent = new Intent(this, AssetsLoader.class);

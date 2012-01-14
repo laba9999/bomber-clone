@@ -3,6 +3,7 @@ package com.amov.bomber;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -17,8 +18,10 @@ public class MainActivity extends GameActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		Log.d("GAM", "MainActivity onCreate()");
 
+		
+		setContentView(R.layout.main);
 		SoundAssets.playMusic("intro", true, 1.0f);
 
 		updateSoundButton(findViewById(R.id.imageButtonMainSound));
@@ -34,8 +37,8 @@ public class MainActivity extends GameActivity
 			try
 			{
 				AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-//				alertDialog.setTitle(getResources().getString(R.string.warn_failed_load_sounds_title));
-//				alertDialog.setMessage(getResources().getString(R.string.warn_failed_load_sounds_text));
+				alertDialog.setTitle(getResources().getString(R.string.warn_failed_load_sounds_title));
+				alertDialog.setMessage(getResources().getString(R.string.warn_failed_load_sounds_text));
 
 				alertDialog.setButton("OK", new DialogInterface.OnClickListener()
 				{
