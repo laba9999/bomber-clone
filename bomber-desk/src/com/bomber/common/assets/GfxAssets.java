@@ -403,13 +403,13 @@ public class GfxAssets {
 			mBonusAnimations.put("bonus_star", loadBackloopingAnimation(mAtlasHD,"bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 
 		if(null == mBonusIcons.get("shield"))
-			mBonusIcons.put("shield", mAtlas.findRegion("bonus_shield"));
+			mBonusIcons.put("shield", mAtlasHD.findRegion("bonus_shield"));
 		
 		if(null == mBonusIcons.get("hand"))
-			mBonusIcons.put("hand", mAtlas.findRegion("bonus_throw"));
+			mBonusIcons.put("hand", mAtlasHD.findRegion("bonus_throw"));
 		
 		if(null == mBonusIcons.get("star"))
-			mBonusIcons.put("star", mAtlas.findRegion("bonus_invencibility"));
+			mBonusIcons.put("star", mAtlasHD.findRegion("bonus_invencibility"));
 
 	}
 
