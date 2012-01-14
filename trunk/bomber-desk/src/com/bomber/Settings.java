@@ -42,11 +42,11 @@ public class Settings {
 	public static boolean PLAYING_ONLINE = false;
 	
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
 	public static String PLAYER_NAME = "zezao2";
 
 	// Monstros
-	public static final boolean MONSTERS_KILL_PLAYERS = true;
+	public static final boolean MONSTERS_KILL_PLAYERS = false;
 
 	// Mapa
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;

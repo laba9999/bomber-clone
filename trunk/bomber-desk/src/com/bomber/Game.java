@@ -322,7 +322,7 @@ public class Game implements ApplicationListener {
 
 		SoundAssets.pause();
 
-		if (mIsPVPGame){
+		if (mIsPVPGame && mRemoteConnections != null){
 			mRemoteConnections.closeAll("Paused");
 			
 			if( Settings.PLAYING_ONLINE && !Game.mGameIsOver)
