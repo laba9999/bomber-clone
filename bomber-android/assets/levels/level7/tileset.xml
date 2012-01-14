@@ -125,7 +125,7 @@
 			<code first="none" second="none"/>
 		</imageTile>
 		<imageTile id="18" width="40" height="40">
-			<image file="m_4_die_0_scaled.png"/>
+			<image file="m_5_die_0_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>

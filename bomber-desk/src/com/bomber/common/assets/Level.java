@@ -241,7 +241,6 @@ public class Level {
 			}
 
 			_world.spawnMonster(monsterID, _positionY, _positionX);
-
 		}
 	}
 

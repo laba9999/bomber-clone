@@ -53,6 +53,7 @@ public class GfxAssets {
 	public static final String ATLAS_HD_FILE = "atlas_hd.txt";
 
 	public static TextureAtlas mAtlas;
+	public static TextureAtlas mAtlasHD;
 	public static HashMap<String, MovableObjectAnimation> mMonsters;
 	public static HashMap<String, MovableObjectAnimation> mPlayers;
 	public static HashMap<String, TextureRegion> mPlayersHeads;
@@ -139,8 +140,9 @@ public class GfxAssets {
 		if(null == mFlags)
 			mFlags = new HashMap<String, TextureRegion>();
 
-		loadUI();
 		loadAtlas();
+		loadUI();
+
 		loadPortal();
 		loadPlayerAnimations();
 		loadPlayersHeads();
@@ -160,6 +162,7 @@ public class GfxAssets {
 	{
 //		if(null == mAtlas)
 			mAtlas = new TextureAtlas(Gdx.files.internal(ATLAS_FILE));
+			mAtlasHD = new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
 			
 	}
 
@@ -167,30 +170,30 @@ public class GfxAssets {
 	{
 		// Com o varão
 		if(null == mFlags.get("flag_pole_team1"))
-			mFlags.put("flag_pole_team1", mAtlas.findRegion("flag_pole_team", 1));
+			mFlags.put("flag_pole_team1", mAtlasHD.findRegion("flag_pole_team", 1));
 		
 		if(null == mFlags.get("flag_pole_team2"))
-			mFlags.put("flag_pole_team2", mAtlas.findRegion("flag_pole_team", 2));
+			mFlags.put("flag_pole_team2", mAtlasHD.findRegion("flag_pole_team", 2));
 
 		// Transportáveis
 		if(null == mFlags.get("flag_transport_team1"))
-			mFlags.put("flag_transport_team1", mAtlas.findRegion("flag_transport_team", 1));
+			mFlags.put("flag_transport_team1", mAtlasHD.findRegion("flag_transport_team", 1));
 		
 		if(null == mFlags.get("flag_transport_team2"))
-			mFlags.put("flag_transport_team2", mAtlas.findRegion("flag_transport_team", 2));
+			mFlags.put("flag_transport_team2", mAtlasHD.findRegion("flag_transport_team", 2));
 		
 		if(null == mFlags.get("flag_transport_left_team1"))
-			mFlags.put("flag_transport_left_team1", mAtlas.findRegion("flag_transport_left_team", 1));
+			mFlags.put("flag_transport_left_team1", mAtlasHD.findRegion("flag_transport_left_team", 1));
 		
 		if(null == mFlags.get("flag_transport_left_team2"))
-			mFlags.put("flag_transport_left_team2", mAtlas.findRegion("flag_transport_left_team", 2));
+			mFlags.put("flag_transport_left_team2", mAtlasHD.findRegion("flag_transport_left_team", 2));
 
 	}
 
 	private static void loadPortal()
 	{
 		if(null == mPortal)
-			mPortal = loadAnimation("portal_", PORTAL_FRAME_DURATION);
+			mPortal = loadAnimation(mAtlas,"portal_", PORTAL_FRAME_DURATION);
 	}
 
 	private static void loadPlayersFaceExpressions()
@@ -198,12 +201,12 @@ public class GfxAssets {
 		String[] players = { "b_white", "b_blue", "b_green", "b_red" };
 
 		// Tristes
-		List<AtlasRegion> regions = mAtlas.findRegions("b_sad_");
+		List<AtlasRegion> regions = mAtlasHD.findRegions("b_sad_");
 		for (int i = 0; i < regions.size(); i++)
 			mPlayersSad.put(players[i], regions.get(i));
 
 		// Contentes
-		regions = mAtlas.findRegions("b_happy_");
+		regions = mAtlasHD.findRegions("b_happy_");
 		for (int i = 0; i < regions.size(); i++)
 			mPlayersHappy.put(players[i], regions.get(i));
 	}
@@ -241,7 +244,7 @@ public class GfxAssets {
 	{
 		if(null == mPlayerEffects.get("shield"))
 		{
-			Animation shield = loadAnimation("shield_", PLAYER_SHIELD_FRAME_DURATION);
+			Animation shield = loadAnimation(mAtlas, "shield_", PLAYER_SHIELD_FRAME_DURATION);
 			mPlayerEffects.put("shield", shield);
 		}
 		// TODO : ler water splash
@@ -256,19 +259,19 @@ public class GfxAssets {
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation
-		movableAnimation.die = loadAnimation(_id + "_die_", PLAYER_DIE_FRAME_DURATION);
+		movableAnimation.die = loadAnimation(mAtlas, _id + "_die_", PLAYER_DIE_FRAME_DURATION);
 
 		// load walkup animation
-		movableAnimation.walk[Directions.UP] = loadAnimation(_id + "_walk_up_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.UP] = loadAnimation(mAtlas,_id + "_walk_up_", PLAYER_WALK_FRAME_DURATION);
 
 		// load walkdown animation
-		movableAnimation.walk[Directions.DOWN] = loadAnimation(_id + "_walk_down_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.DOWN] = loadAnimation(mAtlas,_id + "_walk_down_", PLAYER_WALK_FRAME_DURATION);
 
 		// load walkleft animation
-		movableAnimation.walk[Directions.LEFT] = loadAnimation(_id + "_walk_left_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.LEFT] = loadAnimation(mAtlas,_id + "_walk_left_", PLAYER_WALK_FRAME_DURATION);
 
 		// load walkright animation
-		movableAnimation.walk[Directions.RIGHT] = loadAnimation(_id + "_walk_right_", PLAYER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.RIGHT] = loadAnimation(mAtlas, _id + "_walk_right_", PLAYER_WALK_FRAME_DURATION);
 
 		movableAnimation.numberOfFramesDying = PLAYER_DIE_FRAMES_COUNT;
 		movableAnimation.numberOfFramesPerWalk = PLAYER_WALK_FRAMES_COUNT;
@@ -279,9 +282,9 @@ public class GfxAssets {
 	/**
 	 * Carrega animação identificada por _id Ex : loadAnimation("b_white_die_");
 	 */
-	private static Animation loadAnimation(String _id, float _frameDuration)
+	private static Animation loadAnimation(TextureAtlas _atlas, String _id, float _frameDuration)
 	{
-		List<AtlasRegion> regions = mAtlas.findRegions(_id);
+		List<AtlasRegion> regions = _atlas.findRegions(_id);
 
 		return new Animation(_frameDuration, regions);
 
@@ -301,19 +304,19 @@ public class GfxAssets {
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 
 		// load die animation
-		movableAnimation.die = loadAnimation(_id + "_die_", N_MONSTER_DIE_WALK_FRAME_DURATION);
+		movableAnimation.die = loadAnimation(mAtlas, _id + "_die_", N_MONSTER_DIE_WALK_FRAME_DURATION);
 
 		// load walkup animation
-		movableAnimation.walk[Directions.UP] = loadBackloopingAnimation(_id + "_walk_up_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.UP] = loadBackloopingAnimation(mAtlas,_id + "_walk_up_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
 
 		// load walkdown animation
-		movableAnimation.walk[Directions.DOWN] = loadBackloopingAnimation(_id + "_walk_down_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.DOWN] = loadBackloopingAnimation(mAtlas,_id + "_walk_down_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
 
 		// load walkleft animation
-		movableAnimation.walk[Directions.LEFT] = loadBackloopingAnimation(_id + "_walk_left_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.LEFT] = loadBackloopingAnimation(mAtlas,_id + "_walk_left_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
 
 		// load walkright animation
-		movableAnimation.walk[Directions.RIGHT] = loadBackloopingAnimation(_id + "_walk_right_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.walk[Directions.RIGHT] = loadBackloopingAnimation(mAtlas,_id + "_walk_right_", N_MONSTER_WALK_FRAME_COUNT, N_MONSTER_WALK_FRAME_DURATION);
 
 		movableAnimation.numberOfFramesDying = N_MONSTER_DIE_FRAME_COUNT;
 		movableAnimation.numberOfFramesPerWalk = N_MONSTER_WALK_FRAME_COUNT;
@@ -335,8 +338,8 @@ public class GfxAssets {
 	{
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
-		movableAnimation.die = loadAnimation(_id + "_die_", G_MONSTER_DIE_FRAME_DURATION);
-		movableAnimation.walk[Directions.UP] = loadBackloopingAnimation(_id + "_walk_", G_MONSTER_WALK_FRAME_COUNT, G_MONSTER_WALK_FRAME_DURATION);
+		movableAnimation.die = loadAnimation(mAtlas, _id + "_die_", G_MONSTER_DIE_FRAME_DURATION);
+		movableAnimation.walk[Directions.UP] = loadBackloopingAnimation(mAtlas, _id + "_walk_", G_MONSTER_WALK_FRAME_COUNT, G_MONSTER_WALK_FRAME_DURATION);
 		movableAnimation.walk[Directions.DOWN] = movableAnimation.walk[Directions.UP];
 		movableAnimation.walk[Directions.LEFT] = movableAnimation.walk[Directions.UP];
 		movableAnimation.walk[Directions.RIGHT] = movableAnimation.walk[Directions.UP];
@@ -379,25 +382,25 @@ public class GfxAssets {
 	private static void loadBonus()
 	{
 		if(null == mBonusAnimations.get("bonus_bomb"))
-				mBonusAnimations.put("bonus_bomb", loadBackloopingAnimation("bonus_bomb_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+				mBonusAnimations.put("bonus_bomb", loadBackloopingAnimation(mAtlasHD, "bonus_bomb_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 		
 		if(null == mBonusAnimations.get("bonus_hand"))
-			mBonusAnimations.put("bonus_hand", loadBackloopingAnimation("bonus_hand_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+			mBonusAnimations.put("bonus_hand", loadBackloopingAnimation(mAtlasHD,"bonus_hand_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 		
 		if(null == mBonusAnimations.get("bonus_life"))
-			mBonusAnimations.put("bonus_life", loadBackloopingAnimation("bonus_life_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+			mBonusAnimations.put("bonus_life", loadBackloopingAnimation(mAtlasHD,"bonus_life_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 		
 		if(null == mBonusAnimations.get("bonus_potion"))
-			mBonusAnimations.put("bonus_potion", loadBackloopingAnimation("bonus_potion_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+			mBonusAnimations.put("bonus_potion", loadBackloopingAnimation(mAtlasHD,"bonus_potion_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 
 		if(null == mBonusAnimations.get("bonus_shield"))
-			mBonusAnimations.put("bonus_shield", loadBackloopingAnimation("bonus_shield_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+			mBonusAnimations.put("bonus_shield", loadBackloopingAnimation(mAtlasHD,"bonus_shield_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 			
 		if(null == mBonusAnimations.get("bonus_speed"))
-			mBonusAnimations.put("bonus_speed", loadBackloopingAnimation("bonus_speed_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+			mBonusAnimations.put("bonus_speed", loadBackloopingAnimation(mAtlasHD,"bonus_speed_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 		
 		if(null == mBonusAnimations.get("bonus_star"))
-			mBonusAnimations.put("bonus_star", loadBackloopingAnimation("bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
+			mBonusAnimations.put("bonus_star", loadBackloopingAnimation(mAtlasHD,"bonus_star_", Bonus.NUMBER_OF_ANIMATION_FRAMES, BONUS_FRAME_DURATION));
 
 		if(null == mBonusIcons.get("shield"))
 			mBonusIcons.put("shield", mAtlas.findRegion("bonus_shield"));
@@ -410,15 +413,15 @@ public class GfxAssets {
 
 	}
 
-	private static Animation loadBackloopingAnimation(String _id, short _howManyFrames, float _frameDuration)
+	private static Animation loadBackloopingAnimation(TextureAtlas _atlas,String _id, short _howManyFrames, float _frameDuration)
 	{
 		ArrayList<TextureRegion> regions = new ArrayList<TextureRegion>();
 
 		for (int i = 0; i < _howManyFrames; i++)
-			regions.add(mAtlas.findRegion(_id, i));
+			regions.add(_atlas.findRegion(_id, i));
 
 		for (int i = _howManyFrames - 2; i > 0; i--)
-			regions.add(mAtlas.findRegion(_id, i));
+			regions.add(_atlas.findRegion(_id, i));
 
 		return new Animation(_frameDuration, regions);
 	}
@@ -462,25 +465,25 @@ public class GfxAssets {
 	private static void loadExplosions()
 	{
 		if(null == mExplosions.get("xplode_center"))
-			mExplosions.put("xplode_center", loadAnimation("xplode_center_", BOMB_EXPLOSIONS_FRAME_DURATION));
+			mExplosions.put("xplode_center", loadAnimation(mAtlas, "xplode_center_", BOMB_EXPLOSIONS_FRAME_DURATION));
 	
 		if(null == mExplosions.get("xplode_mid_hor"))
-			mExplosions.put("xplode_mid_hor", loadAnimation("xplode_hor_", BOMB_EXPLOSIONS_FRAME_DURATION));
+			mExplosions.put("xplode_mid_hor", loadAnimation(mAtlas, "xplode_hor_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		
 		if(null == mExplosions.get("xplode_mid_ver"))
-			mExplosions.put("xplode_mid_ver", loadAnimation("xplode_vert_", BOMB_EXPLOSIONS_FRAME_DURATION));
+			mExplosions.put("xplode_mid_ver", loadAnimation(mAtlas,"xplode_vert_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		
 		if(null == mExplosions.get("xplode_tip_down"))
-			mExplosions.put("xplode_tip_down", loadAnimation("xplode_tip_down_", BOMB_EXPLOSIONS_FRAME_DURATION));
+			mExplosions.put("xplode_tip_down", loadAnimation(mAtlas,"xplode_tip_down_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		
 		if(null == mExplosions.get("xplode_tip_left"))
-			mExplosions.put("xplode_tip_left", loadAnimation("xplode_tip_left_", BOMB_EXPLOSIONS_FRAME_DURATION));
+			mExplosions.put("xplode_tip_left", loadAnimation(mAtlas,"xplode_tip_left_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		
 		if(null == mExplosions.get("xplode_tip_right"))
-			mExplosions.put("xplode_tip_right", loadAnimation("xplode_tip_right_", BOMB_EXPLOSIONS_FRAME_DURATION));
+			mExplosions.put("xplode_tip_right", loadAnimation(mAtlas,"xplode_tip_right_", BOMB_EXPLOSIONS_FRAME_DURATION));
 		
 		if(null == mExplosions.get("xplode_tip_up"))
-			mExplosions.put("xplode_tip_up", loadAnimation("xplode_tip_up_", BOMB_EXPLOSIONS_FRAME_DURATION));
+			mExplosions.put("xplode_tip_up", loadAnimation(mAtlas, "xplode_tip_up_", BOMB_EXPLOSIONS_FRAME_DURATION));
 	}
 	
 
@@ -489,11 +492,11 @@ public class GfxAssets {
 
 		MovableObjectAnimation movableAnimation = new MovableObjectAnimation();
 		// a animação die é mesmo necessária porque bombas matam bombas
-		movableAnimation.die = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walk[Directions.UP] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walk[Directions.DOWN] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walk[Directions.LEFT] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
-		movableAnimation.walk[Directions.RIGHT] = loadAnimation("bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.die = loadAnimation(mAtlas, "bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.UP] = loadAnimation(mAtlas, "bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.DOWN] = loadAnimation(mAtlas, "bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.LEFT] = loadAnimation(mAtlas, "bomb_orig_", BOMB_FRAME_DURATION);
+		movableAnimation.walk[Directions.RIGHT] = loadAnimation(mAtlas, "bomb_orig_", BOMB_FRAME_DURATION);
 		movableAnimation.numberOfFramesPerWalk = 4;
 		mBomb = movableAnimation;
 	}
@@ -506,43 +509,42 @@ public class GfxAssets {
 	
 	public static void loadUI()
 	{
-		TextureAtlas atlasHD = new TextureAtlas(Gdx.files.internal(ATLAS_HD_FILE));
-		
+
 		if(null == mControlPad)
-			mControlPad = atlasHD.findRegion("d-pad");
+			mControlPad = mAtlasHD.findRegion("d-pad");
 		
 		if(null == mButtonPause)
-			mButtonPause = atlasHD.findRegion("btn_pause");
+			mButtonPause = mAtlasHD.findRegion("btn_pause");
 		
 		if(null == mButtonBomb)
-			mButtonBomb = atlasHD.findRegion("btn_bomb");
+			mButtonBomb = mAtlasHD.findRegion("btn_bomb");
 		
 		if(null == mClockBar)
-			mClockBar = atlasHD.findRegion("clock_bar");
+			mClockBar = mAtlasHD.findRegion("clock_bar");
 		
 		if(null == mBonusBar)
-			mBonusBar = atlasHD.findRegion("bonus_bar");
+			mBonusBar = mAtlasHD.findRegion("bonus_bar");
 		
 		if(null == mScreens.get("pause"))
-			mScreens.put("pause", atlasHD.findRegion("pause_screen"));
+			mScreens.put("pause", mAtlasHD.findRegion("pause_screen"));
 		
 		if(null == mScreens.get("levelcompleted"))
-			mScreens.put("levelcompleted", atlasHD.findRegion("level_completed"));
+			mScreens.put("levelcompleted", mAtlasHD.findRegion("level_completed"));
 		
 		if(null == mScreens.get("gameover"))
-			mScreens.put("gameover", atlasHD.findRegion("gameover"));
+			mScreens.put("gameover", mAtlasHD.findRegion("gameover"));
 		
 		if(null == mSoundButton)
-			mSoundButton = new Animation(1, atlasHD.findRegions("sound_"));
+			mSoundButton = new Animation(1, mAtlasHD.findRegions("sound_"));
 
 		if(null == mTrophy[0])
-			mTrophy[0] = atlasHD.findRegion("trophy");
+			mTrophy[0] = mAtlasHD.findRegion("trophy");
 		
 		if(null == mTrophy[1])
-			mTrophy[1] = atlasHD.findRegion("trophyBig");
+			mTrophy[1] = mAtlasHD.findRegion("trophyBig");
 		
 		if(null == mTrophy[2])
-			mTrophy[2] = atlasHD.findRegion("trophySmall");
+			mTrophy[2] = mAtlasHD.findRegion("trophySmall");
 
 		
 //		if(null == mGenericFont)
@@ -556,7 +558,7 @@ public class GfxAssets {
 
 
 		if(null == mWaitingAnimation)
-			mWaitingAnimation = new Animation(WAITING_FRAME_DURATION, atlasHD.findRegions("waiting_animation_"));
+			mWaitingAnimation = new Animation(WAITING_FRAME_DURATION, mAtlasHD.findRegions("waiting_animation_"));
 
 	}
 

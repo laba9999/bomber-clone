@@ -3,6 +3,7 @@ package com.bomber.remote;
 import java.io.IOException;
 
 import com.bomber.Game;
+import com.bomber.Settings;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gamestates.GameStateLoadingPVP;
@@ -170,7 +171,10 @@ public class MessagesHandler {
 			break;
 
 		default:
-			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+			if (Settings.DEBUG_MODE)
+				throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
+			else
+				Game.mRemoteConnections.closeAll("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
 		}
 	}
 
@@ -191,7 +195,10 @@ public class MessagesHandler {
 			break;
 
 		default:
-			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+			if (Settings.DEBUG_MODE)
+				throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
+			else
+				Game.mRemoteConnections.closeAll("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
 		}
 	}
 
@@ -241,7 +248,10 @@ public class MessagesHandler {
 			break;
 
 		default:
-			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
+			if (Settings.DEBUG_MODE)
+				throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
+			else
+				Game.mRemoteConnections.closeAll("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
 		}
 	}
 
@@ -254,7 +264,10 @@ public class MessagesHandler {
 			mWorld.mClock.sync(_msg.valLong1);
 			break;
 		default:
-			throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida.");
+			if (Settings.DEBUG_MODE)
+				throw new UnsupportedOperationException("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
+			else
+				Game.mRemoteConnections.closeAll("Não está definido tratamento para a mensagem recebida: " + _msg.eventType);
 		}
 	}
 }
