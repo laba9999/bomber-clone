@@ -19,6 +19,8 @@ import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -67,11 +69,12 @@ public class MultiplayerConnectionActivity extends GameActivity
 	ArrayAdapter<String> mBTArrayAdapter;
 
 	static final int DIALOG_PROGRESS = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.multiplayer_connection);
 
 		mBTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
@@ -110,6 +113,37 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 		// Listeners dos radio buttons/toggle buttons
 
+		mEditPort.addTextChangedListener(new TextWatcher()
+		{
+
+			public void onTextChanged(CharSequence _s, int _start, int _before, int _count)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			public void beforeTextChanged(CharSequence _s, int _start, int _count, int _after)
+			{
+				// TODO Auto-generated method stub
+
+			}
+
+			public void afterTextChanged(Editable _s)
+			{
+				
+				try{
+				int port = Integer.valueOf(_s.toString());
+
+				if (port >= 65535)
+					mEditPort.setText("65534");
+				else if (port < 1)
+					mEditPort.setText("1");
+				}catch(NumberFormatException n)
+				{
+					mEditPort.setText("50005");
+				}
+			}
+		});
 		mRadioTCP.setOnCheckedChangeListener(new OnCheckedChangeListener()
 		{
 
@@ -172,18 +206,17 @@ public class MultiplayerConnectionActivity extends GameActivity
 					mRadioBluetooth.setChecked(false);
 				}
 
-				if (_isChecked && !checkWifiConnection() && NetUtils.getLocalIpAddress()==null)
+				if (_isChecked && !checkWifiConnection() && NetUtils.getLocalIpAddress() == null)
 				{
 					((WifiManager) getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(true);
 				}
 
-				
 				mTableRowProtocols.setVisibility(_isChecked ? RadioGroup.VISIBLE : RadioGroup.GONE);
-				if(_isChecked)
+				if (_isChecked)
 				{
 					mRadioTCP.setChecked(true);
 				}
-				
+
 				mTableRowIpPort.setVisibility(_isChecked && (mRadioClient.isChecked() || mRadioServer.isChecked()) ? RadioGroup.VISIBLE : RadioGroup.GONE);
 
 				if (_isChecked && mRadioClient.isChecked())
@@ -216,10 +249,8 @@ public class MultiplayerConnectionActivity extends GameActivity
 				if (_isChecked && mRadioWifi.isChecked())
 				{
 
-					
 					AlertDialog alertDialog = new AlertDialog.Builder(MultiplayerConnectionActivity.this).create();
 					alertDialog.setMessage(getString(R.string.dialog_ask_client_public_text));
-
 
 					alertDialog.setButton(getString(R.string.public_text), new DialogInterface.OnClickListener()
 					{
@@ -227,22 +258,22 @@ public class MultiplayerConnectionActivity extends GameActivity
 						{
 							// Publico
 							dialog.dismiss();
-							
+
 							setupSettings(NetUtils.getLocalIpAddress());
 							Settings.PLAYING_ONLINE = true;
-							
+
 							launchActivity(BuildActivity.class);
 						}
 					});
-					
+
 					alertDialog.setButton2(getString(R.string.private_text), new DialogInterface.OnClickListener()
 					{
-						
+
 						public void onClick(DialogInterface _dialog, int _which)
 						{
 							// Privado
 							_dialog.dismiss();
-							
+
 							mTableRowIpPort.setVisibility(RadioButton.VISIBLE);
 							mEditIp.setVisibility(EditText.VISIBLE);
 							mTextIp.setVisibility(TextView.VISIBLE);
@@ -250,7 +281,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 					});
 
 					alertDialog.show();
-					
+
 				} else if (_isChecked && mRadioBluetooth.isChecked())
 				{
 					if (!checkBluetoothConnection())
@@ -456,35 +487,37 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 			if (!connected.get() && null == localIp)
 				Toast.makeText(this, this.getString(R.string.error_wificonnection), Toast.LENGTH_SHORT).show();
-			
+
 			else
 			{
 				// quando está a correr um hotspot, connected = false mas
 				// localIp != null
 
-//				AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-//				alertDialog.setTitle(getResources().getString(R.string.dialog_multiplayer_title));
-//				alertDialog.setMessage(getResources().getString(R.string.dialog_multiplayer_text));
-//
-//				alertDialog.setButton("OK", new DialogInterface.OnClickListener()
-//				{
-//					public void onClick(DialogInterface dialog, int which)
-//					{
-//						dialog.dismiss();
-//						setupSettings(localIp);
-//						launchActivity(mRadioServer.isChecked() ? PVPServerOptionsActivity.class : BuildActivity.class);
-//					}
-//				});
-//
-//				alertDialog.show();
-				
-				
-				
-				if (mRadioServer.isChecked()){
+				// AlertDialog alertDialog = new
+				// AlertDialog.Builder(this).create();
+				// alertDialog.setTitle(getResources().getString(R.string.dialog_multiplayer_title));
+				// alertDialog.setMessage(getResources().getString(R.string.dialog_multiplayer_text));
+				//
+				// alertDialog.setButton("OK", new
+				// DialogInterface.OnClickListener()
+				// {
+				// public void onClick(DialogInterface dialog, int which)
+				// {
+				// dialog.dismiss();
+				// setupSettings(localIp);
+				// launchActivity(mRadioServer.isChecked() ?
+				// PVPServerOptionsActivity.class : BuildActivity.class);
+				// }
+				// });
+				//
+				// alertDialog.show();
+
+				if (mRadioServer.isChecked())
+				{
 					askPublicOrPrivateServer();
 					return;
-				}
-				else{
+				} else
+				{
 					setupSettings(localIp);
 					launchActivity(BuildActivity.class);
 				}
@@ -508,26 +541,25 @@ public class MultiplayerConnectionActivity extends GameActivity
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setMessage(getString(R.string.dialog_ask_server_public_text));
 
-
 		alertDialog.setButton(getString(R.string.public_text), new DialogInterface.OnClickListener()
 		{
 			public void onClick(DialogInterface dialog, int which)
 			{
 				// Publico
 				dialog.dismiss();
-				
+
 				new PrepareOnlineServer().execute();
 			}
 		});
-		
+
 		alertDialog.setButton2(getString(R.string.private_text), new DialogInterface.OnClickListener()
 		{
-			
+
 			public void onClick(DialogInterface _dialog, int _which)
 			{
 				// Privado
 				_dialog.dismiss();
-				
+
 				setupSettings(NetUtils.getLocalIpAddress());
 				launchActivity(PVPServerOptionsActivity.class);
 			}
@@ -536,7 +568,6 @@ public class MultiplayerConnectionActivity extends GameActivity
 		alertDialog.show();
 	}
 
-	
 	private void setupSettings(String _localIp)
 	{
 		Settings.PLAYING_ONLINE = false;
@@ -550,8 +581,6 @@ public class MultiplayerConnectionActivity extends GameActivity
 			Settings.REMOTE_SERVER_ADDRESS = mEditIp.getText().toString() + ":" + mEditPort.getText().toString();
 
 	}
-
-	
 
 	private boolean checkWifiConnection()
 	{
@@ -596,17 +625,17 @@ public class MultiplayerConnectionActivity extends GameActivity
 		@Override
 		protected void onPostExecute(String _result)
 		{
-			
+
 			removeDialog(DIALOG_PROGRESS);
-			
+
 			if (isCancelled())
 			{
 				Toast.makeText(getApplication(), getApplication().getString(R.string.error_serverconnection), Toast.LENGTH_SHORT).show();
 				return;
 			}
-			
+
 			String localIp = NetUtils.getLocalIpAddress();
-			if( !localIp.equals(_result) )
+			if (!localIp.equals(_result))
 			{
 				AlertDialog alertDialog = new AlertDialog.Builder(MultiplayerConnectionActivity.this).create();
 				alertDialog.setTitle(getString(R.string.warning_router_tilte));
@@ -618,16 +647,16 @@ public class MultiplayerConnectionActivity extends GameActivity
 					{
 						// Publico
 						dialog.dismiss();
-						
+
 						setupSettings(NetUtils.getLocalIpAddress());
 						Settings.PLAYING_ONLINE = true;
 						launchActivity(PVPServerOptionsActivity.class);
 					}
 				});
-				
+
 				alertDialog.setButton2(getString(R.string.no), new DialogInterface.OnClickListener()
 				{
-					
+
 					public void onClick(DialogInterface _dialog, int _which)
 					{
 						// Desistiu
@@ -637,7 +666,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 				alertDialog.show();
 			}
-			
+
 			super.onPostExecute(_result);
 		}
 
@@ -658,9 +687,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 		}
 
 	}
-	
 
-	
 	protected Dialog onCreateDialog(int id)
 	{
 		Dialog dialog;
@@ -693,12 +720,11 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 		return dialog;
 	}
-	
 
 	public void onMultiplayerHelpButton(View v)
 	{
 		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/site/ccrniltda/bomberman-online"));
 		startActivity(browserIntent);
 	}
-	
+
 }

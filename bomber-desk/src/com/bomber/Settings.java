@@ -34,7 +34,7 @@ public class Settings {
 
 	// Game
 	public static boolean STARTED_FROM_DESKTOP = true;
-	public static String LEVEL_TO_LOAD = "level8";
+	public static String LEVEL_TO_LOAD = "level5";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
 	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
@@ -42,11 +42,11 @@ public class Settings {
 	public static boolean PLAYING_ONLINE = false;
 	
 	// Players
-	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = false;
+	public static final boolean PLAYER_DIE_WITH_EXPLOSIONS = true;
 	public static String PLAYER_NAME = "zezao2";
 
 	// Monstros
-	public static final boolean MONSTERS_KILL_PLAYERS = false;
+	public static final boolean MONSTERS_KILL_PLAYERS = true;
 
 	// Mapa
 	public static final boolean MAP_LOAD_DESTROYABLE_TILES = true;

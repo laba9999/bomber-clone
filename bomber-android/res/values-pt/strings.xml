@@ -38,7 +38,7 @@
     <string name="public_text">Público</string>
     <string name="private_text">Privado</string>
     
-    <string name="error_no_online_servers">Não existem servidores públicos disponíveis. Por favor tente mais tarde ou tente criar um novo server.</string>
+    <string name="error_no_online_servers">Não existem servidores públicos disponíveis. Por favor tente mais tarde ou tente criar você um novo server.</string>
     
     <string name="average_waiting_time">Tempo médio de espera:</string>
     <string name="error_registration_ban">Foi banido temporáriamente de jogar jogos públicos. Tente mais tarde</string>
@@ -80,7 +80,7 @@
     <string name="help_subtitle_bonus">Bonus</string>
     <string name="help_description_bonus">No fundo do ecrã pode ver o estado geral dos bonus que apanhou. Esses bonus referem-se a: Vidas, Tamanho da explosão, Bombas Simultaneas e Velocidade. No canto superior direito do ecrã serão visiveis ainda os bonus temporários tais como: Escudo, Multiplicador de Pontos ou as Luvas de Empurrar Bombas.</string>
     <string name="help_subtitle_campaign">Modo Campanha</string>
-    <string name="help_description_campaign">Este é um modo de um só jogador onde tem de procurar o Portal algures sob um objecto destrutível. Assim que matar todos os seus inimgos, o Portal começa a piscar indicando que pode ir até ele e prosseguir para o próximo nível.</string>
+    <string name="help_description_campaign">Este é um modo de um só jogador onde tem de procurar o Portal algures sob um objecto destrutível. Assim que matar todos os seus inimigos, o Portal começa a piscar indicando que pode ir até ele e prosseguir para o próximo nível.</string>
     <string name="help_subtitle_ctf">Modo Catch The Flag</string>
     <string name="help_description_ctf">Este é um modo multi-jogador onde deve defender a sua bandeira. Ao mesmo tempo, deve ir buscar a bandeira do seu inimigo para a sua base. Pode ainda jogar em equipa contra equipa.</string>
     <string name="help_subtitle_dm">Modo DeathMatch</string>

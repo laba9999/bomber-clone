@@ -264,6 +264,7 @@ public class BuildActivity extends GameActivity
 			if (results[0].equals("N/A2"))
 			{
 				Toast.makeText(getApplication(), getApplication().getString(R.string.error_no_online_servers), Toast.LENGTH_LONG).show();
+				return;
 			} else if (!results[0].equals("OK"))
 			{
 				if (results[0].equals("BAN"))
