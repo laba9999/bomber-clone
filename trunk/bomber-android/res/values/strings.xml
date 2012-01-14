@@ -118,5 +118,6 @@
     <string name="about_credits">Developed using libGDX library.\n\nCredits to HudsonSoft, authors of the original game art and sounds, and Yellow Icon Design, authors of the launcher icon.</string>
     <string name="deis_isec">DEIS-ISEC</string>
     <string name="tcp_recommended">TCP Recommended</string>
+    <string name="multiplayer_help">Online Help</string>
 
 </resources>

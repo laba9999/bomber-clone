@@ -116,5 +116,6 @@
     <string name="about_credits">Desenvolvido com recurso à biblioteca libGDX.\n\nCreditos para a Hudson Soft, autores dos gráficos e sons originais, e para a Yellow Icon Design, autores do ícone do launcher.</string>
     <string name="deis_isec">DEIS-ISEC</string>
     <string name="tcp_recommended">TCP Recomendado</string>
+	<string name="multiplayer_help">Ajuda Online</string>
     
 </resources>
