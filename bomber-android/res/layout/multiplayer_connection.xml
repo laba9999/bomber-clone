@@ -282,5 +282,15 @@
         android:textColor="#ffffff"
         android:textSize="22sp"
         android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonMultiplayerHelp"
+        android:layout_width="100sp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/tableLayout1"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/menu_button"
+        android:text="@string/multiplayer_help"
+        android:textColor="#ffffff" android:onClick="onMultiplayerHelpButton"/>
 
 </RelativeLayout>

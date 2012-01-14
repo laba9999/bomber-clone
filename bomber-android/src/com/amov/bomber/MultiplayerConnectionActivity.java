@@ -15,6 +15,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -691,4 +692,12 @@ public class MultiplayerConnectionActivity extends GameActivity
 
 		return dialog;
 	}
+	
+
+	public void onMultiplayerHelpButton(View v)
+	{
+		Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sites.google.com/site/ccrniltda/bomberman-online"));
+		startActivity(browserIntent);
+	}
+	
 }
