@@ -2,62 +2,167 @@ atlas_hd.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-sound_
+flag_pole_team
   rotate: false
-  xy: 883, 189
-  size: 105, 105
-  orig: 105, 105
+  xy: 981, 2
+  size: 40, 40
+  orig: 40, 40
   offset: 0, 0
   index: 1
-waiting_animation_
+flag_transport_left_team
   rotate: false
-  xy: 110, 965
-  size: 52, 52
-  orig: 52, 52
+  xy: 483, 791
+  size: 56, 43
+  orig: 56, 43
   offset: 0, 0
-  index: 4
-waiting_animation_
+  index: 1
+bonus_star_
   rotate: false
-  xy: 954, 403
-  size: 52, 52
-  orig: 52, 52
+  xy: 975, 216
+  size: 46, 61
+  orig: 46, 61
   offset: 0, 0
-  index: 0
-btn_pause
+  index: 1
+b_sad_
   rotate: false
-  xy: 860, 403
-  size: 92, 72
-  orig: 92, 72
+  xy: 788, 725
+  size: 57, 90
+  orig: 57, 90
   offset: 0, 0
-  index: -1
-trophyBig
+  index: 2
+bonus_speed_
   rotate: false
-  xy: 806, 106
-  size: 75, 213
-  orig: 75, 213
-  offset: 0, 0
-  index: -1
-waiting_animation_
-  rotate: false
-  xy: 56, 965
-  size: 52, 52
-  orig: 52, 52
+  xy: 96, 746
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 5
+bonus_life_
+  rotate: false
+  xy: 193, 817
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: 0
 waiting_animation_
   rotate: false
-  xy: 806, 429
+  xy: 541, 817
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
-  index: 1
-trophy
+  index: 7
+b_happy_
   rotate: false
-  xy: 806, 321
-  size: 54, 52
-  orig: 54, 52
+  xy: 806, 425
+  size: 63, 102
+  orig: 63, 102
+  offset: 0, 0
+  index: 2
+bonus_shield_
+  rotate: false
+  xy: 425, 929
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: 1
+flag_transport_team
+  rotate: false
+  xy: 425, 746
+  size: 56, 43
+  orig: 56, 43
+  offset: 0, 0
+  index: 2
+waiting_animation_
+  rotate: false
+  xy: 703, 807
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 2
+bonus_bomb_
+  rotate: false
+  xy: 378, 872
+  size: 45, 56
+  orig: 45, 56
+  offset: 0, 0
+  index: 2
+bonus_potion_
+  rotate: false
+  xy: 473, 872
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: 1
+bonus_star_
+  rotate: false
+  xy: 2, 940
+  size: 45, 65
+  orig: 45, 65
+  offset: 0, 0
+  index: 4
+bonus_speed_
+  rotate: false
+  xy: 49, 817
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: 0
+face_blue
+  rotate: false
+  xy: 963, 814
+  size: 56, 56
+  orig: 56, 56
   offset: 0, 0
   index: -1
+bonus_shield_
+  rotate: false
+  xy: 331, 872
+  size: 45, 56
+  orig: 45, 56
+  offset: 0, 0
+  index: 2
+bonus_potion_
+  rotate: false
+  xy: 378, 746
+  size: 45, 56
+  orig: 45, 56
+  offset: 0, 0
+  index: 2
+face_green
+  rotate: false
+  xy: 905, 814
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+bonus_speed_
+  rotate: false
+  xy: 2, 746
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 4
+bonus_star_
+  rotate: false
+  xy: 975, 154
+  size: 47, 60
+  orig: 47, 60
+  offset: 0, 0
+  index: 0
+bonus_life_
+  rotate: false
+  xy: 143, 932
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 5
+bonus_hand_
+  rotate: false
+  xy: 284, 872
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 3
 clock_bar
   rotate: false
   xy: 554, 2
@@ -65,20 +170,76 @@ clock_bar
   orig: 425, 48
   offset: 0, 0
   index: -1
+bonus_invencibility
+  rotate: false
+  xy: 978, 86
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+trophySmall
+  rotate: false
+  xy: 883, 126
+  size: 90, 129
+  orig: 90, 129
+  offset: 0, 0
+  index: -1
+flag_transport_left_team
+  rotate: false
+  xy: 425, 791
+  size: 56, 43
+  orig: 56, 43
+  offset: 0, 0
+  index: 2
+b_sad_
+  rotate: false
+  xy: 936, 722
+  size: 57, 90
+  orig: 57, 90
+  offset: 0, 0
+  index: 3
+bonus_life_
+  rotate: false
+  xy: 473, 929
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: 1
 d-pad
   rotate: false
-  xy: 2, 746
+  xy: 554, 588
   size: 232, 217
   orig: 232, 217
   offset: 0, 0
   index: -1
+trophy
+  rotate: false
+  xy: 337, 817
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+bonus_shield
+  rotate: false
+  xy: 978, 120
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 waiting_animation_
   rotate: false
-  xy: 218, 965
+  xy: 649, 807
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
-  index: 2
+  index: 3
+bonus_bomb_
+  rotate: false
+  xy: 521, 872
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: 1
 gameover
   rotate: false
   xy: 2, 374
@@ -86,20 +247,69 @@ gameover
   orig: 550, 370
   offset: 0, 0
   index: -1
-waiting_animation_
+bonus_hand_
   rotate: false
-  xy: 2, 965
-  size: 52, 52
-  orig: 52, 52
+  xy: 378, 930
+  size: 45, 56
+  orig: 45, 56
   offset: 0, 0
-  index: 6
+  index: 2
 btn_bomb
   rotate: false
-  xy: 884, 52
+  xy: 883, 279
   size: 117, 135
   orig: 117, 135
   offset: 0, 0
   index: -1
+bonus_shield_
+  rotate: false
+  xy: 96, 872
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 3
+bonus_potion_
+  rotate: false
+  xy: 143, 872
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 3
+bonus_bomb_
+  rotate: false
+  xy: 284, 746
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 5
+bonus_star_
+  rotate: false
+  xy: 2, 807
+  size: 45, 63
+  orig: 45, 63
+  offset: 0, 0
+  index: 3
+b_sad_
+  rotate: false
+  xy: 788, 633
+  size: 63, 90
+  orig: 63, 90
+  offset: 0, 0
+  index: 0
+bonus_speed_
+  rotate: false
+  xy: 49, 746
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 3
+bonus_life_
+  rotate: false
+  xy: 331, 930
+  size: 45, 56
+  orig: 45, 56
+  offset: 0, 0
+  index: 2
 bonus_bar
   rotate: false
   xy: 554, 52
@@ -107,45 +317,276 @@ bonus_bar
   orig: 328, 52
   offset: 0, 0
   index: -1
+level_completed
+  rotate: false
+  xy: 2, 2
+  size: 550, 370
+  orig: 550, 370
+  offset: 0, 0
+  index: -1
+waiting_animation_
+  rotate: false
+  xy: 811, 850
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 0
+bonus_bomb_
+  rotate: false
+  xy: 241, 817
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: 0
+b_happy_
+  rotate: false
+  xy: 806, 529
+  size: 63, 102
+  orig: 63, 102
+  offset: 0, 0
+  index: 1
 sound_
   rotate: false
-  xy: 883, 296
+  xy: 871, 523
   size: 105, 105
   orig: 105, 105
   offset: 0, 0
   index: 0
 waiting_animation_
   rotate: false
-  xy: 164, 965
+  xy: 569, 926
   size: 52, 52
   orig: 52, 52
+  offset: 0, 0
+  index: 4
+bonus_bomb_
+  rotate: false
+  xy: 190, 932
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 4
+bonus_speed_
+  rotate: false
+  xy: 284, 932
+  size: 45, 56
+  orig: 45, 56
+  offset: 0, 0
+  index: 2
+bonus_star_
+  rotate: false
+  xy: 49, 872
+  size: 45, 61
+  orig: 45, 61
+  offset: 0, 0
+  index: 2
+bonus_hand_
+  rotate: false
+  xy: 521, 929
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: 1
+bonus_shield_
+  rotate: false
+  xy: 49, 935
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 4
+b_happy_
+  rotate: false
+  xy: 871, 630
+  size: 63, 102
+  orig: 63, 102
+  offset: 0, 0
+  index: 0
+bonus_potion_
+  rotate: false
+  xy: 96, 932
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 4
+face_red
+  rotate: false
+  xy: 847, 792
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+bonus_throw
+  rotate: false
+  xy: 978, 416
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+flag_pole_team
+  rotate: false
+  xy: 981, 44
+  size: 40, 40
+  orig: 40, 40
+  offset: 0, 0
+  index: 2
+b_sad_
+  rotate: false
+  xy: 936, 630
+  size: 57, 90
+  orig: 57, 90
+  offset: 0, 0
+  index: 1
+face_white
+  rotate: false
+  xy: 847, 734
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+bonus_life_
+  rotate: false
+  xy: 237, 746
+  size: 45, 58
+  orig: 45, 58
   offset: 0, 0
   index: 3
+bonus_hand_
+  rotate: false
+  xy: 331, 746
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 5
 waiting_animation_
   rotate: false
-  xy: 806, 375
+  xy: 569, 872
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
-  index: 7
+  index: 6
+bonus_shield_
+  rotate: false
+  xy: 97, 817
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: 0
+waiting_animation_
+  rotate: false
+  xy: 757, 817
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 1
+bonus_potion_
+  rotate: false
+  xy: 145, 817
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: 0
+bonus_hand_
+  rotate: false
+  xy: 289, 817
+  size: 46, 53
+  orig: 46, 53
+  offset: 0, 0
+  index: 0
+sound_
+  rotate: false
+  xy: 871, 416
+  size: 105, 105
+  orig: 105, 105
+  offset: 0, 0
+  index: 1
+trophyBig
+  rotate: false
+  xy: 806, 106
+  size: 75, 213
+  orig: 75, 213
+  offset: 0, 0
+  index: -1
+b_happy_
+  rotate: false
+  xy: 806, 321
+  size: 63, 102
+  orig: 63, 102
+  offset: 0, 0
+  index: 3
+flag_transport_team
+  rotate: false
+  xy: 483, 746
+  size: 56, 43
+  orig: 56, 43
+  offset: 0, 0
+  index: 1
+waiting_animation_
+  rotate: false
+  xy: 595, 817
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: 5
+bonus_bomb_
+  rotate: false
+  xy: 237, 872
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 3
+bonus_speed_
+  rotate: false
+  xy: 425, 872
+  size: 46, 55
+  orig: 46, 55
+  offset: 0, 0
+  index: 1
+bonus_star_
+  rotate: false
+  xy: 2, 872
+  size: 45, 66
+  orig: 45, 66
+  offset: 0, 0
+  index: 5
+btn_pause
+  rotate: false
+  xy: 884, 52
+  size: 92, 72
+  orig: 92, 72
+  offset: 0, 0
+  index: -1
+bonus_hand_
+  rotate: false
+  xy: 237, 932
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 4
+bonus_life_
+  rotate: false
+  xy: 190, 872
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 4
+bonus_shield_
+  rotate: false
+  xy: 143, 746
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 5
+bonus_potion_
+  rotate: false
+  xy: 190, 746
+  size: 45, 58
+  orig: 45, 58
+  offset: 0, 0
+  index: 5
 pause_screen
   rotate: false
   xy: 554, 106
   size: 250, 480
   orig: 250, 480
-  offset: 0, 0
-  index: -1
-trophySmall
-  rotate: false
-  xy: 860, 477
-  size: 90, 129
-  orig: 90, 129
-  offset: 0, 0
-  index: -1
-level_completed
-  rotate: false
-  xy: 2, 2
-  size: 550, 370
-  orig: 550, 370
   offset: 0, 0
   index: -1
