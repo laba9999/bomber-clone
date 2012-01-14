@@ -33,6 +33,8 @@ public class AssetsLoader extends AndroidApplication
 		super.onCreate(_savedInstanceState);
 		Log.d("GAM", "AssetsLoader onCreate()");
 
+		GameActivity.mDestroyed = false;
+
 		initialize(new ApplicationListener()
 		{
 			boolean startedMainActivity = false;
@@ -50,9 +52,9 @@ public class AssetsLoader extends AndroidApplication
 				loadSharedPreferences();
 				Log.d("GAM", "AssetsLoader initialize - create() LOADS END");
 				
-				Log.d("GAM", "AssetsLoader initialize - antes postrunnable()");
-				postRunnable(new AssetsLoaderThread());
-				Log.d("GAM", "AssetsLoader initialize - depois postrunnable()");
+				Log.d("GAM", "AssetsLoader initialize - antes threzd()");
+				new AssetsLoaderThread().start();
+				Log.d("GAM", "AssetsLoader initialize - depois thread()");
 				SoundAssets.mIsloaded = false;
 
 			}
@@ -60,7 +62,7 @@ public class AssetsLoader extends AndroidApplication
 			public void render()
 			{
 				Log.d("GAM", "AssetsLoader initialize - render()");
-
+				GameActivity.mGoneBackToAssetsLoader = false;
 				
 				if (SoundAssets.mIsloaded && !startedMainActivity)
 				{
