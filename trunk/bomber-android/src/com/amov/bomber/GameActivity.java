@@ -6,14 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.badlogic.gdx.Gdx;
 import com.bomber.Settings;
 import com.bomber.common.assets.SoundAssets;
 
 public abstract class GameActivity extends Activity
 {
 	public static int NEXT_ACTIVITY = -1;
-	public static boolean mDestroyed = true;
+	public static boolean mDestroyed = false;
 
 	private boolean startedActivity = false;
 	public static boolean mGoneBackToAssetsLoader = false;
@@ -37,8 +36,8 @@ public abstract class GameActivity extends Activity
 			startActivity(myIntent);
 			mDestroyed = false;
 		}
-		
 	}
+	
 
 	@Override
 	protected void onResume()
@@ -50,6 +49,7 @@ public abstract class GameActivity extends Activity
 		{
 			Log.d("GAM", "GameActivity onResume() inside if!");
 			mGoneBackToAssetsLoader = true;
+			
 			Intent myIntent = new Intent(this, AssetsLoader.class);
 			// proibe a animação na transição entre activities
 			myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -62,7 +62,6 @@ public abstract class GameActivity extends Activity
 		
 		startedActivity = false;
 		SoundAssets.resume();
-		
 	}
 
 	protected void loadSharedPreferences()

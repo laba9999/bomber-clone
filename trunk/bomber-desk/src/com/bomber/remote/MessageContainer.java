@@ -109,7 +109,7 @@ public class MessageContainer {
 		return mMessages.remove();
 	}
 	
-	public boolean hasNext()
+	public synchronized boolean hasNext()
 	{
 		return !mMessages.isEmpty();
 	}

@@ -3,7 +3,7 @@ package com.bomber.renderers;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.GL11;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -48,9 +48,9 @@ public class WorldRenderer {
 		// Porque é chamado antes da apresentação da UI
 		mBatch.end();
 
-		GLCommon gl = Gdx.gl;
+		GLCommon gl = Gdx.gl11;
 		gl.glClearColor(0.15f, 0.15f, 0.15f, 1);
-		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+		gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
 		// Actualiza a posição da camera para seguir o local player
 		updateCameraPosition();

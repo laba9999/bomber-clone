@@ -62,7 +62,8 @@ public class SoundAssets {
 				System.gc();
 				try
 				{
-					Thread.sleep(1000);
+					Log.d("GAM"," SoundAssets cleaning()");
+					Thread.sleep(250);
 				} catch (InterruptedException ie)
 				{
 					ie.printStackTrace();
@@ -100,7 +101,7 @@ public class SoundAssets {
 					System.gc();
 					try
 					{
-						Thread.sleep(100);
+						Thread.sleep(250);
 					} catch (InterruptedException ie)
 					{
 						ie.printStackTrace();

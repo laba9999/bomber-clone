@@ -8,9 +8,7 @@ public class AssetsLoaderThread extends Thread
 	@Override
 	public void run()
 	{
-
 		SoundAssets.load();
-		
 		super.run();
 	}
 }

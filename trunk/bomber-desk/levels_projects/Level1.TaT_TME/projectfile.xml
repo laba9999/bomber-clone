@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a project file for TaT Tile Map Editor. -->
+<!-- This file is only used to load a project into the tile map editor. -->
+<!-- This file is not needed when loading maps into games. -->
+
+<TaT_TileMapEditor version="1.0.0">
+	<project name="level" author="filipe">
+		<tiles defaultTileWidth="40" defaultTileHeight="40" tilesetFile="tileset.xml"/>
+		<description>
+level1
+
+		</description>
+	</project>
+	<tilepalette name="palette_level1" tileWidth="40" tileHeight="40">
+		<image file="tiles_11.png"/>
+		<image file="tiles_9.png"/>
+		<image file="tiles_19.png"/>
+		<image file="tiles_20.png"/>
+		<image file="spawn_p3.png"/>
+		<image file="tiles_1.png"/>
+		<image file="spawn_p4.png"/>
+		<image file="flag_pole_team2.png"/>
+		<image file="tiles_16.png"/>
+		<image file="tiles_3.png"/>
+		<image file="spawn_p2.png"/>
+		<image file="spawn_p1.png"/>
+		<image file="tiles_8.png"/>
+		<image file="tiles_5.png"/>
+		<image file="tiles_13.png"/>
+		<image file="tiles_18.png"/>
+		<image file="tiles_10.png"/>
+		<image file="tiles_0.png"/>
+		<image file="tiles_17.png"/>
+		<image file="tiles_2.png"/>
+		<image file="m_generic1_walk_0_scaled.png"/>
+		<image file="tiles_7.png"/>
+		<image file="tiles_12.png"/>
+		<image file="flag_pole_team1.png"/>
+		<image file="tiles_4.png"/>
+	</tilepalette>
+	<editorwindow mapName="level1" dotsBelowTiles="true" dotColor="128,128,128" collisionColor="255,0,0,64" showCollision="true" codeColor="255,0,0" codeFont="SansSerif,0,9" showCode="true" fps="30" measureFps="false" visible="true">
+		<mapFile file="level1.xml"/>
+	</editorwindow>
+</TaT_TileMapEditor>
