@@ -63,18 +63,11 @@ public class AssetsLoader extends AndroidApplication
 				mBatcher = new SpriteBatch();
 				mBatcher.setProjectionMatrix(mUICamera.combined);
 				
-
-
-				Log.d("GAM", "AssetsLoader initialize - antes postrunnable()");
-				new AssetsLoaderThread().start();
-				Log.d("GAM", "AssetsLoader initialize - depois postrunnable()");
-
-				Log.d("GAM", "AssetsLoader initialize - antes threzd()");
+				SoundAssets.mIsloaded = false;
+				
+				Log.d("GAM", "AssetsLoader initialize - antes thread()");
 				new AssetsLoaderThread().start();
 				Log.d("GAM", "AssetsLoader initialize - depois thread()");
-
-				SoundAssets.mIsloaded = false;
-
 			}
 
 			public void render()
@@ -110,12 +103,11 @@ public class AssetsLoader extends AndroidApplication
 
 			public void pause()
 			{
-				
+
 			}
 
 			public void resume()
 			{				
-
 
 			}
 

@@ -44,7 +44,7 @@ public class GameStateBomberChamp extends GameState {
 	@Override
 	protected void onUpdate()
 	{
-		if (Gdx.input.justTouched() && mTicksSinceStarted++ > Game.TICKS_PER_SECOND)
+		if (mTicksSinceStarted++ > Game.TICKS_PER_SECOND && Gdx.input.justTouched() )
 			Game.goBackToActivities();
 
 	}
