@@ -50,13 +50,12 @@ public class BuildActivity extends GameActivity
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.build);
-		
+
 		mAvailablePoints = 0;
 		mExplosionPoints = 0;
 		mBombsPoints = 0;
 		mSpeedPoints = 0;
-		
-		
+
 		if (Achievements.isMonsterKillsCompleted())
 			mAvailablePoints++;
 		if (Achievements.isPlayerKillsCompleted())
@@ -275,9 +274,10 @@ public class BuildActivity extends GameActivity
 					Toast.makeText(getApplication(), getApplication().getString(R.string.error_server_registration), Toast.LENGTH_SHORT).show();
 				return;
 			}
-
-			Settings.REMOTE_SERVER_ADDRESS = results[1];
-			Game.LOGGER.log("Fetched remote addr: " + results[1]);
+			int protocol = Integer.valueOf(results[1]);
+			Settings.REMOTE_PROTOCOL_IN_USE = (short) protocol;
+			Settings.REMOTE_SERVER_ADDRESS = results[2];
+			Game.LOGGER.log("Fetched remote addr: " + results[2]);
 			launchActivity(AndroidGame.class);
 
 			super.onPostExecute(_result);
@@ -290,7 +290,7 @@ public class BuildActivity extends GameActivity
 			{
 				String mac = NetUtils.getIMEI(BuildActivity.this);
 				reportAbandonedGame(mac);
-				
+
 				return NetUtils.getDBResult("fetch_server.php?mac=" + mac);
 
 			} catch (IOException e)
@@ -335,7 +335,10 @@ public class BuildActivity extends GameActivity
 				return;
 			}
 
-			Settings.AVERAGE_WAITING_TIME_ONLINE = getApplication().getString(R.string.average_waiting_time) + results[1];
+			int protocol = Integer.valueOf(results[1]);
+			Settings.REMOTE_PROTOCOL_IN_USE = (short) protocol;
+			
+			Settings.AVERAGE_WAITING_TIME_ONLINE = getApplication().getString(R.string.average_waiting_time) + results[2];
 
 			launchActivity(AndroidGame.class);
 
@@ -349,7 +352,7 @@ public class BuildActivity extends GameActivity
 			{
 				String mac = NetUtils.getIMEI(BuildActivity.this);
 				reportAbandonedGame(mac);
-				
+
 				String[] addressComponents = Settings.LOCAL_SERVER_ADDRESS.split(":");
 				return NetUtils.getDBResult("register_server.php?port=" + addressComponents[1] + "&mac=" + mac);
 
@@ -362,13 +365,13 @@ public class BuildActivity extends GameActivity
 			return null;
 		}
 	}
-	
+
 	private void reportAbandonedGame(String mac) throws IOException
 	{
-		if( Settings.GAME_PREFS.getBoolean("abandonedGame", false))
+		if (Settings.GAME_PREFS.getBoolean("abandonedGame", false))
 		{
 			NetUtils.getDBResult("add_leave.php?mac=" + mac);
-			
+
 			SharedPreferences.Editor editor = Settings.GAME_PREFS.edit();
 			editor.putBoolean("abandonedGame", false);
 			editor.commit();
