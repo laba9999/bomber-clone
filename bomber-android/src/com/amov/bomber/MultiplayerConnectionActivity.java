@@ -71,6 +71,7 @@ public class MultiplayerConnectionActivity extends GameActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.multiplayer_connection);
 
 		mBTArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);

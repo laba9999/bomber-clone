@@ -34,7 +34,7 @@ public class Settings {
 
 	// Game
 	public static boolean STARTED_FROM_DESKTOP = true;
-	public static String LEVEL_TO_LOAD = "level1";
+	public static String LEVEL_TO_LOAD = "level8";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
 	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
