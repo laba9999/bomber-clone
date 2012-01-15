@@ -80,12 +80,21 @@ public abstract class GameState {
 
 		onPresent();
 
+		drawRTT();
 		// Informação de debug
-		drawDebugInfo();
+		//drawDebugInfo();
 
 		mBatcher.end();
 	}
 
+	private final void drawRTT()
+	{
+		BitmapFont font = GfxAssets.mGenericFont;
+
+		if (Game.mIsPVPGame && RemoteConnections.mGameServer != null)
+			font.draw(mBatcher, "LAG: " + RemoteConnections.mGameServer.getRTT(), 630, 470);
+
+	}
 	private final void drawDebugInfo()
 	{
 		BitmapFont font = GfxAssets.mGenericFont;
