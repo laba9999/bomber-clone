@@ -49,6 +49,11 @@ public class BuildActivity extends GameActivity
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
 		setContentView(R.layout.build);
 
 		mAvailablePoints = 0;

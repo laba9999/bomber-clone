@@ -63,6 +63,11 @@ public class TopActivity extends GameActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
 		setContentView(R.layout.top);
 
 		mEditUsername = new EditText(this);

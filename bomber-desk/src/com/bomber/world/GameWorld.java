@@ -530,6 +530,8 @@ public class GameWorld {
 
 	public void update()
 	{
+		
+
 		mMap.update();
 
 		updateBombs();

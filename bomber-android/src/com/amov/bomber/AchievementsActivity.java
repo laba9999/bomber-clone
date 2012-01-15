@@ -11,6 +11,12 @@ public class AchievementsActivity extends GameActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
+		
 		setContentView(R.layout.achievements);
 
 		// actualiza progressos

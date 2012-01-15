@@ -8,6 +8,11 @@ public class AboutActivity extends GameActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
 		setContentView(R.layout.about);
 	}
 }

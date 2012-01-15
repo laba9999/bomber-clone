@@ -45,6 +45,11 @@ public class PVPServerOptionsActivity extends GameActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
 		setContentView(R.layout.multiplayer_server_options);
 
 		gallery = (Gallery) findViewById(R.id.pvpLevelgallery);
