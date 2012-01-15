@@ -400,7 +400,7 @@ public class GameMap {
 		else
 			valueOverlaped = tmpTile.mPosition.x - (_objBB.x + Tile.TILE_SIZE);
 
-		Utils.LOG("Value overlapped X: " + valueOverlaped);
+		//Utils.LOG("Value overlapped X: " + valueOverlaped);
 		if (Math.abs(valueOverlaped) < Collision.ALLOWED_OVERLAP)
 			_result.mAmounts.x = valueOverlaped;
 	}
@@ -419,7 +419,7 @@ public class GameMap {
 		else
 			valueOverlaped = (tmpTile.mPosition.y + Tile.TILE_SIZE) - _objBB.y;
 
-		Utils.LOG("Value overlapped Y: " + valueOverlaped);
+		//Utils.LOG("Value overlapped Y: " + valueOverlaped);
 		if (Math.abs(valueOverlaped) < Collision.ALLOWED_OVERLAP)
 			_result.mAmounts.y = valueOverlaped;
 	}

@@ -395,10 +395,15 @@ public class Player extends KillableObject {
 	@Override
 	protected void onStop()
 	{
+		if(!mMovedSinceLastStop)
+			return;
+		
+		mMovedSinceLastStop = false;
+		
 		if (!mIsDead)
 			stopCurrentAnimation();
 
-		if (Game.mRemoteConnections == null || !mIsLocalPlayer || !mMovedSinceLastStop || !mAcceptPlayerInput)
+		if (Game.mRemoteConnections == null || !mIsLocalPlayer || !mAcceptPlayerInput)
 			return;
 
 		mMovedSinceLastStop = false;
