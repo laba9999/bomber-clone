@@ -4,6 +4,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 import com.bomber.common.ObjectsPool;
+import com.bomber.common.Utils;
 import com.bomber.gameobjects.Player;
 
 public class Team {
@@ -29,20 +30,20 @@ public class Team {
 	
 	public void addElement(Player _player)
 	{
-		Game.LOGGER.log("A adicionar o jogador " + _player.mColor + " à equipa " + mId);
+		Utils.LOG("A adicionar o jogador " + _player.mColor + " à equipa " + mId);
 		if (mPlayers.contains(_player))
 		{
-			Game.LOGGER.log("Este jogador já pertence a esta equipa! (" + mId + ")");
+			Utils.LOG("Este jogador já pertence a esta equipa! (" + mId + ")");
 			return;
 		}
 
 		if (mPlayers.size() >= mNumberPlayers)
 		{
-			Game.LOGGER.log("A equipa já está cheia!");
+			Utils.LOG("A equipa já está cheia!");
 			return;
 		}
 
-		Game.LOGGER.log("O jogador " + _player.mColor + " foi adicionado à equipa " + mId);
+		Utils.LOG("O jogador " + _player.mColor + " foi adicionado à equipa " + mId);
 
 		mPlayerIds.add(_player.mColor);
 		mPlayers.add(_player);
@@ -54,7 +55,7 @@ public class Team {
 		if (!mPlayers.contains(_player))
 			throw new InvalidParameterException("Este jogador não pertence a esta equipa!");
 
-		Game.LOGGER.log("O jogador " + _player.mColor + " foi removido da equipa " + mId);
+		Utils.LOG("O jogador " + _player.mColor + " foi removido da equipa " + mId);
 
 		mPlayerIds.remove((Object) _player.mColor);
 		mPlayers.remove(_player);

@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.badlogic.gdx.utils.Base64Coder;
-import com.bomber.Game;
 import com.bomber.Settings;
 import com.bomber.common.Utils;
 
@@ -125,14 +124,14 @@ public class TopActivity extends GameActivity
 		@Override
 		public void onReceive(Context arg0, Intent intent)
 		{
-			// Game.LOGGER.log("broadcast1");
+			// Utils.LOG("broadcast1");
 			NetworkInfo networkInfo = (NetworkInfo) intent.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
 			if (networkInfo.getType() == ConnectivityManager.TYPE_WIFI)
 			{
-				// Game.LOGGER.log("broadcast2");
+				// Utils.LOG("broadcast2");
 				if (networkInfo.isConnected())
 				{
-					// Game.LOGGER.log("broadcast3");
+					// Utils.LOG("broadcast3");
 					if (!mListingTop)
 						listTop();
 
@@ -257,7 +256,7 @@ public class TopActivity extends GameActivity
 			{
 				mAnswerString = NetUtils.getDBResult("check.php?name=" + Settings.PLAYER_NAME + "&mac=" + NetUtils.getIMEI(TopActivity.this));
 
-				Game.LOGGER.log("Name allowed: " + mAnswerString);
+				Utils.LOG("Name allowed: " + mAnswerString);
 				boolean allowed = Boolean.parseBoolean(mAnswerString);
 				return allowed;
 
@@ -409,7 +408,7 @@ public class TopActivity extends GameActivity
 					s.replace("\n", "");
 					String[] entry = s.split(";");
 
-					Game.LOGGER.log(s);
+					Utils.LOG(s);
 
 					View vi = mInflater.inflate(R.layout.top_item, null);
 					if (Settings.PLAYER_NAME.equals(entry[2]))
@@ -494,8 +493,8 @@ public class TopActivity extends GameActivity
 			try
 			{
 				mAnswerString = NetUtils.getDBResult(query);
-				// Game.LOGGER.log("Query:" + query);
-				// Game.LOGGER.log("Answer:" + mAnswerString);
+				// Utils.LOG("Query:" + query);
+				// Utils.LOG("Answer:" + mAnswerString);
 				mSplitedData = mAnswerString.split(">");
 			} catch (IOException e)
 			{

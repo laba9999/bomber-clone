@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bomber.Game;
 import com.bomber.Settings;
 import com.bomber.common.Achievements;
 import com.bomber.common.BonusBuild;
@@ -263,7 +262,7 @@ public class BuildActivity extends GameActivity
 				return;
 			}
 
-			Game.LOGGER.log("Fetch server res: " + _result);
+			Utils.LOG("Fetch server res: " + _result);
 			String[] results = _result.split(";");
 			if (results[0].equals("N/A2"))
 			{
@@ -282,7 +281,7 @@ public class BuildActivity extends GameActivity
 			int protocol = Integer.valueOf(results[1]);
 			Settings.REMOTE_PROTOCOL_IN_USE = (short) protocol;
 			Settings.REMOTE_SERVER_ADDRESS = results[2];
-			Game.LOGGER.log("Fetched remote addr: " + results[2]);
+			Utils.LOG("Fetched remote addr: " + results[2]);
 			launchActivity(AndroidGame.class);
 
 			super.onPostExecute(_result);

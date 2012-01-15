@@ -1,6 +1,7 @@
 package com.bomber.remote;
 
 import com.bomber.Game;
+import com.bomber.common.Utils;
 
 public class Connection extends Thread {
 
@@ -82,7 +83,7 @@ public class Connection extends Thread {
 		mIsConnected = false;
 		mSocket.close();
 
-		Game.LOGGER.log("Conexion " + mRemoteID + " has disconnected...");
+		Utils.LOG("Conexion " + mRemoteID + " has disconnected...");
 
 	}
 
@@ -97,12 +98,12 @@ public class Connection extends Thread {
 			{
 				if (mTimeoutsCounter++ < MAX_TIMEOUTS)
 				{
-					Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - Timeout " + mTimeoutsCounter + " de " + MAX_TIMEOUTS);
+					Utils.LOG("Tick: " + Game.mCurrentTick + " - Timeout " + mTimeoutsCounter + " de " + MAX_TIMEOUTS);
 					mLastRTTCheckTick = Game.mCurrentTick;
 					return;
 				}
 
-				Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - Conexion " + mRemoteID + " timed out...");
+				Utils.LOG("Tick: " + Game.mCurrentTick + " - Conexion " + mRemoteID + " timed out...");
 				disconnect("Timeout!");
 			}
 		} else
@@ -115,7 +116,7 @@ public class Connection extends Thread {
 				mSentPing = true;
 				sendMessage(mMessageForInternalUse);
 				
-				//Game.LOGGER.log("Tick: " + Game.mCurrentTick + " - PING enviado!");
+				//Utils.LOG("Tick: " + Game.mCurrentTick + " - PING enviado!");
 			}
 		}
 	}
@@ -154,7 +155,7 @@ public class Connection extends Thread {
 			// Actualiza o RTT e não adiciona a mensagem ao contentor
 			mSentPing = false;
 			mRTT = (short) (Game.mCurrentTick - mLastRTTCheckTick);
-			//Game.LOGGER.log("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + RemoteConnections.mLocalID + "<->" + mRemoteID + "): " + mRTT);
+			//Utils.LOG("Tick: " + mLastRTTCheckTick + " - >RTT ligação(" + RemoteConnections.mLocalID + "<->" + mRemoteID + "): " + mRTT);
 			break;
 
 		case EventType.LOCAL_SERVER_PORT:

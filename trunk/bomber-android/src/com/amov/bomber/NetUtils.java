@@ -24,7 +24,7 @@ public class NetUtils
 	{
 		URL myURL = new URL(Settings.WEBHOST_ADDRESS + _url);
 
-		// Game.LOGGER.log(mWebhost + _url);
+		// Utils.LOG(mWebhost + _url);
 		Scanner scanner = new Scanner(new BufferedInputStream(myURL.openStream()));
 
 		StringBuilder sb = new StringBuilder();

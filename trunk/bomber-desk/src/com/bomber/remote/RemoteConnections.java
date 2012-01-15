@@ -9,6 +9,7 @@ import com.bomber.Game;
 import com.bomber.Settings;
 import com.bomber.common.ObjectFactory;
 import com.bomber.common.Strings;
+import com.bomber.common.Utils;
 import com.bomber.gamestates.GameStateLoadingPVP;
 import com.bomber.gamestates.GameStateServerConnectionError;
 import com.bomber.remote.bluetooth.BluetoothLocalServer;
@@ -130,7 +131,7 @@ public class RemoteConnections {
 	 */
 	public boolean connectToPlayer(short _protocol, String _connectionString) throws IOException
 	{
-		Game.LOGGER.log("A tentar ligar ao cliente: " + _connectionString);
+		Utils.LOG("A tentar ligar ao cliente: " + _connectionString);
 
 		Connection tmpConn = ObjectFactory.CreateConnection.Create(_protocol, _connectionString, mRecvMessages);
 
@@ -141,7 +142,7 @@ public class RemoteConnections {
 		tmpConn.start();
 		mPlayers.add(tmpConn);
 
-		Game.LOGGER.log("Agora também ligado a: " + _connectionString);
+		Utils.LOG("Agora também ligado a: " + _connectionString);
 		return true;
 	}
 
@@ -163,7 +164,7 @@ public class RemoteConnections {
 		// Verifica se ainda estamos ligados ao servidor.
 		if (!mIsGameServer && !connectedToServer() && !Game.mGameIsOver)
 		{
-			Game.LOGGER.log("Foi perdida a ligação ao servidor... ");
+			Utils.LOG("Foi perdida a ligação ao servidor... ");
 			Game.mRemoteConnections = null;
 			if (mGame != null)
 				mGame.setGameState(new GameStateServerConnectionError(mGame, Strings.mStrings.get("lost_server")));
@@ -211,9 +212,9 @@ public class RemoteConnections {
 			// ligações previstas.
 
 			// TODO : comentar este bloco na release
-			Game.LOGGER.log("Clientes ligados:");
+			Utils.LOG("Clientes ligados:");
 			for (int i = 0; i < mPlayers.size(); i++)
-				Game.LOGGER.log(mPlayers.get(i).toString());
+				Utils.LOG(mPlayers.get(i).toString());
 
 			if (mIsGameServer)
 				mGameServer.mReadyToStart = true;
@@ -295,13 +296,13 @@ public class RemoteConnections {
 			{
 				if (_protocol != Protocols.BLUETOOTH)
 				{
-					Game.LOGGER.log("A ligar o servidor local no porto: " + port);
+					Utils.LOG("A ligar o servidor local no porto: " + port);
 					connections.acceptConnections(_protocol, port.toString(), (short) 3);
-					Game.LOGGER.log("À espera de ligações...");
+					Utils.LOG("À espera de ligações...");
 				}
 			} catch (IOException e)
 			{
-				Game.LOGGER.log("Erro ao lançar o servidor local.");
+				Utils.LOG("Erro ao lançar o servidor local.");
 				e.printStackTrace();
 				return null;
 			}
@@ -309,12 +310,12 @@ public class RemoteConnections {
 			// Liga ao servidor
 			try
 			{
-				Game.LOGGER.log("A tentar ligar ao servidor de jogo...");
+				Utils.LOG("A tentar ligar ao servidor de jogo...");
 				connections.connectToGameServer(_protocol, _serverAddress);
-				Game.LOGGER.log("Connectado ao servidor!");
+				Utils.LOG("Connectado ao servidor!");
 			} catch (IOException e)
 			{
-				Game.LOGGER.log("Erro ao ligar ao servidor de jogo.");
+				Utils.LOG("Erro ao ligar ao servidor de jogo.");
 				e.printStackTrace();
 				GameStateLoadingPVP.mFailedToConnectToServer = true;
 				return null;
@@ -327,13 +328,13 @@ public class RemoteConnections {
 			{
 				String[] addressComponents = _serverAddress.split(":");
 
-				Game.LOGGER.log("A inicializar o servidor de jogo no porto " + addressComponents[1]);
+				Utils.LOG("A inicializar o servidor de jogo no porto " + addressComponents[1]);
 				connections.acceptConnections(_protocol, addressComponents[1], (short) (Game.mNumberPlayers - 1));
 				//if (_isServer)
-					Game.LOGGER.log("Server online!");
+					Utils.LOG("Server online!");
 			} catch (IOException e)
 			{
-				Game.LOGGER.log("Erro ao inicializar o servidor.");
+				Utils.LOG("Erro ao inicializar o servidor.");
 				e.printStackTrace();
 				return null;
 			}
