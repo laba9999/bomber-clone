@@ -74,9 +74,9 @@
     <string name="error_select_different_username">Nome não disponivel.Por favor introduza um diferente.</string>
     <string name="help_title">Ajuda</string>
     <string name="help_subtitle_moving">Movimento</string>
-    <string name="help_description_moving">Pode usar os botões direccionais no canto inferior esquerdo do ecrã para mover o seu personagem.</string>
+    <string name="help_description_moving">Pode usar os botões direccionais no canto inferior esquerdo do ecrã para mover o seu personagem. Se possuir teclado pode usar as teclas "A" – Esquerda, "W" – Cima, "D" – Direita, "S" ou "Z" – Baixo</string>
     <string name="help_subtitle_bombs">Bombas</string>
-    <string name="help_description_bombs">Pode usar o botão circular no canto inferior direito do ecrã para colocar bombas perto do seu personagem.</string>
+    <string name="help_description_bombs">Pode usar o botão circular no canto inferior direito do ecrã para colocar bombas perto do seu personagem. Se possuir teclado pode usar as teclas "BARRA_DE_ESPAÇO" ou "L" </string>
     <string name="help_subtitle_bonus">Bonus</string>
     <string name="help_description_bonus">No fundo do ecrã pode ver o estado geral dos bonus que apanhou. Esses bonus referem-se a: Vidas, Tamanho da explosão, Bombas Simultaneas e Velocidade. No canto superior direito do ecrã serão visiveis ainda os bonus temporários tais como: Escudo, Multiplicador de Pontos ou as Luvas de Empurrar Bombas.</string>
     <string name="help_subtitle_campaign">Modo Campanha</string>
