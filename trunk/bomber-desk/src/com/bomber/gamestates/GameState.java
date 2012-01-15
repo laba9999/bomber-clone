@@ -1,7 +1,7 @@
 package com.bomber.gamestates;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL11;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -66,8 +66,8 @@ public abstract class GameState {
 	public void present()
 	{
 		mBatcher.begin();
-		Gdx.gl11.glClearColor(0.21f, 0.21f, 0.21f, 0.8f);
-		Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(0.21f, 0.21f, 0.21f, 0.8f);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		if (!GfxAssets.mFinishedLoading)
 		{
