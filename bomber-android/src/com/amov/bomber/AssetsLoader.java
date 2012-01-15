@@ -9,7 +9,7 @@ import android.util.Log;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.graphics.GL11;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bomber.Settings;
@@ -95,8 +95,8 @@ public class AssetsLoader extends AndroidApplication
 				}
 
 				mBatcher.begin();
-				Gdx.gl11.glClearColor(0.21f, 0.21f, 0.21f, 0.8f);
-				Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+				Gdx.gl.glClearColor(0.21f, 0.21f, 0.21f, 0.8f);
+				Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 				GfxAssets.mBigFont.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
 				mBatcher.end();
