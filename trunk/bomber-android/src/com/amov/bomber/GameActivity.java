@@ -32,7 +32,7 @@ public abstract class GameActivity extends Activity
 			myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(myIntent);
 			mDestroyed = false;
-			
+			finish();
 			return;
 		}
 		

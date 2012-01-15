@@ -45,6 +45,11 @@ public class LevelChooserActivity extends GameActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
 		setContentView(R.layout.levels2);
 		
 		

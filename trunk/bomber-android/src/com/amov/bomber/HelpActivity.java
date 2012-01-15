@@ -31,6 +31,11 @@ public class HelpActivity extends GameActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
 		setContentView(R.layout.help);
 
 		mImage = (ImageView) findViewById(R.id.imageHelp);

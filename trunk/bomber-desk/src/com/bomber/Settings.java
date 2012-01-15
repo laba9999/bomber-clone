@@ -22,7 +22,7 @@ public class Settings {
 	
 	public static short PROTOCOL_TO_USE_ONLINE = Protocols.TCP;
 	
-	public static String REMOTE_SERVER_ADDRESS = "localhost:50005";
+	public static String REMOTE_SERVER_ADDRESS = "192.168.43.1:50005";
 	public static String AVERAGE_WAITING_TIME_ONLINE;
 
 	// Alterar este valor não tem efeito nenhum
@@ -37,7 +37,7 @@ public class Settings {
 	public static String LEVEL_TO_LOAD = "level5";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
+	public static short GAME_TYPE = GameTypeHandler.DEADMATCH;
 	public static SharedPreferences GAME_PREFS = null;
 	public static boolean PLAYING_ONLINE = false;
 	

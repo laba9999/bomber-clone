@@ -18,9 +18,14 @@ public class MainActivity extends GameActivity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		if(mGoneBackToAssetsLoader)
+		{
+			finish();
+			return;
+		}
+		
 		Log.d("GAM", "MainActivity onCreate()");
 
-		
 		setContentView(R.layout.main);
 		SoundAssets.playMusic("intro", true, 1.0f);
 
