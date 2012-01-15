@@ -61,7 +61,11 @@ public class InputPlayingState extends Input {
 	{
 		boolean hasTouched = false;
 		
-		short p = 0;
+		int p = 0;
+		if( !Gdx.input.isTouched(0))
+			if(mDirectionsPointerIdx != -1)
+				p = mDirectionsPointerIdx;
+		
 		while (Gdx.input.isTouched(p++))
 		{
 			mIsUsingKeyboard = false;
@@ -89,28 +93,25 @@ public class InputPlayingState extends Input {
 			if(mTouchPoint.x <= 400 && mTouchPoint.y <= 300)
 			{ //limita a zona de movimento direccional
 				
+                mDirectionsPointerIdx = p - 1;
+                
 				mTouchingPointXY.set(mTouchPoint.x,mTouchPoint.y);
 				mTouchingPointXY.sub(mCenter);			
 				mTouchingAngle = mTouchingPointXY.angle();
 				
 				if(mTouchingAngle>=0 && mTouchingAngle < 45  || mTouchingAngle<=360 && mTouchingAngle> 315)
 				{//RIGHT
-	                mDirectionsPointerIdx = p - 1;
 					parseInputZone(INPUT_RIGHT);
 				}else if(mTouchingAngle>=45 && mTouchingAngle < 135)
 				{//UP
-	                mDirectionsPointerIdx = p - 1;
 					parseInputZone(INPUT_UP);
 				}else if(mTouchingAngle >= 135 && mTouchingAngle < 225)
 				{//LEFT
-	                mDirectionsPointerIdx = p - 1;
 					parseInputZone(INPUT_LEFT);
 				}else if(mTouchingAngle >= 225 && mTouchingAngle < 315)
 				{//DOWN
-	                mDirectionsPointerIdx = p - 1;
 					parseInputZone(INPUT_DOWN);
 				}
-			
 			}
 			
 			if (!mJustPlacedBomb && mInputZones[INPUT_BOMB].contains(mTouchPoint.x, mTouchPoint.y))
@@ -135,7 +136,6 @@ public class InputPlayingState extends Input {
 		}
 		
 		return hasTouched;
-		
 	}
 
 	@Override

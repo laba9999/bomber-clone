@@ -87,8 +87,8 @@ public abstract class WorldMovableObject extends Drawable {
 
 	public void stop()
 	{
-		mIsMoving = false;
 		onStop();
+		mIsMoving = false;
 	}
 
 	/**

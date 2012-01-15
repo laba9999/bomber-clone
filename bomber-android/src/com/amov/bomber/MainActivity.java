@@ -24,7 +24,8 @@ public class MainActivity extends GameActivity
 			return;
 		}
 		
-		Log.d("GAM", "MainActivity onCreate()");
+		if(Settings.DEBUG_MODE)
+			Log.d("GAM", "MainActivity onCreate()");
 
 		setContentView(R.layout.main);
 		SoundAssets.playMusic("intro", true, 1.0f);
