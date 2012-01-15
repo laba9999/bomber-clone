@@ -75,9 +75,9 @@
     <string name="error_connecting_to_top_server">Connection to server failed. Please try again later.</string>
     <string name="help_title">Help</string>
     <string name="help_subtitle_moving">Moving</string>
-    <string name="help_description_moving">You can use the directional buttons on the bottom left corner of the screen to move your character.</string>
+    <string name="help_description_moving">You can use the directional buttons on the bottom left corner of the screen to move your character. If you have keypad you can use  "A" – LEFT, "W" – UP, "D" – RIGHT, "S" or "Z" – DOWN </string>
     <string name="help_subtitle_bombs">Bombs</string>
-    <string name="help_description_bombs">You can use the round button on the bottom right corner of the screen to place bombs near your character.</string>
+    <string name="help_description_bombs">You can use the round button on the bottom right corner of the screen to place bombs near your character. If you have keypad you can use "SPACE_BAR" or "L"</string>
     <string name="help_subtitle_bonus">Bonus</string>
     <string name="help_description_bonus">At the bottom of the screen you can see the overall status of the bonus you caught. Those bonus refer to : Lives, Explosion size, Simultaneous bombs and Speed. Also, at the top right corner of the screen will be shown the temporary bonus such as Shield, Points Multiplier or the Bomb Pushing Gloves.</string>
     <string name="help_subtitle_campaign">Campaign Mode</string>
