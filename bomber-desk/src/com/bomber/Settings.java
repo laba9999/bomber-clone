@@ -13,7 +13,7 @@ import com.bomber.remote.Protocols;
 public class Settings {
 
 	public static boolean LIMPAR_SARAMPO = false;
-	public static boolean DEBUG_MODE=true;
+	public static boolean DEBUG_MODE=false;
 	// Remote
 	public static String WEBHOST_ADDRESS = "http://bbm.host22.com/";
 	public static boolean START_ANDROID_AS_SERVER = false;

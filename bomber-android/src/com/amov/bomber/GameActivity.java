@@ -12,19 +12,21 @@ import com.bomber.common.assets.SoundAssets;
 public abstract class GameActivity extends Activity
 {
 	private boolean startedActivity = false;
-	
+
 	public static boolean mDestroyed = false;
 	public static boolean mGoneBackToAssetsLoader = false;
-	
+
 	@Override
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
-		Log.d("GAM", "GameACtivity onCreate()");
+		if (Settings.DEBUG_MODE)
+			Log.d("GAM", "GameACtivity onCreate()");
 
-		if(mDestroyed || SoundAssets.checkNullSounds())
+		if (mDestroyed || SoundAssets.checkNullSounds())
 		{
-			Log.d("GAM", "GameActivity onCreate() inside if!");
+			if (Settings.DEBUG_MODE)
+				Log.d("GAM", "GameActivity onCreate() inside if!");
 			mGoneBackToAssetsLoader = true;
 			Intent myIntent = new Intent(this, AssetsLoader.class);
 			// proibe a animação na transição entre activities
@@ -35,22 +37,23 @@ public abstract class GameActivity extends Activity
 			finish();
 			return;
 		}
-		
+
 		loadSharedPreferences();
 	}
-	
 
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
+		if(Settings.DEBUG_MODE)
 		Log.d("GAM", "GameACtivity onResume()");
-		
-		if((mDestroyed || SoundAssets.checkNullSounds()) && !mGoneBackToAssetsLoader)
+
+		if ((mDestroyed || SoundAssets.checkNullSounds()) && !mGoneBackToAssetsLoader)
 		{
+			if(Settings.DEBUG_MODE)
 			Log.d("GAM", "GameActivity onResume() inside if!");
 			mGoneBackToAssetsLoader = true;
-			
+
 			Intent myIntent = new Intent(this, AssetsLoader.class);
 			// proibe a animação na transição entre activities
 			myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -60,7 +63,7 @@ public abstract class GameActivity extends Activity
 			finish();
 			return;
 		}
-		
+
 		startedActivity = false;
 		SoundAssets.resume();
 	}

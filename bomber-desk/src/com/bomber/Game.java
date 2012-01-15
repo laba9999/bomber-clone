@@ -130,7 +130,7 @@ public class Game implements ApplicationListener {
 		Game.setGameType(_type);
 		mRoundsToPlay = _nRounds;
 		mLevelToLoad = _levelToLoad;
-		Game.LOGGER.log("Received game info - Type: " + _type + " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
+		Utils.LOG("Received game info - Type: " + _type + " - Number rounds: " + _nRounds + " - level: " + mLevelToLoad);
 
 		mTeams[0].clear();
 		mTeams[1].clear();

@@ -1,9 +1,17 @@
 package com.bomber.common;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.bomber.Game;
+import com.bomber.Settings;
 
 public class Utils {
 	private static int mUUID = 0;
+
+	public static void LOG(String msg)
+	{
+		if (Settings.DEBUG_MODE = true && Game.LOGGER != null)
+			Game.LOGGER.log(msg);
+	}
 
 	public static int getNextUUID()
 	{
@@ -39,5 +47,4 @@ public class Utils {
 			return result;
 	}
 
-	
 }

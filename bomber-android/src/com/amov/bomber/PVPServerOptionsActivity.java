@@ -19,8 +19,8 @@ import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.bomber.Game;
 import com.bomber.Settings;
+import com.bomber.common.Utils;
 import com.bomber.gametypes.GameTypeHandler;
 import com.bomber.remote.Protocols;
 
@@ -96,7 +96,7 @@ public class PVPServerOptionsActivity extends GameActivity
 		Settings.LEVEL_TO_LOAD = valueLevels[gallery.getSelectedItemPosition()];
 		Settings.GAME_ROUNDS = valueNumberRounds[mSpinnerNumberRounds.getSelectedItemPosition()];
 		Settings.GAME_TYPE = valueGameType[mSpinnerGameType.getSelectedItemPosition()];
-		Game.LOGGER.log("Starting game as: " + Settings.GAME_TYPE);
+		Utils.LOG("Starting game as: " + Settings.GAME_TYPE);
 
 		Intent myIntent = new Intent(this, BuildActivity.class);
 		myIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

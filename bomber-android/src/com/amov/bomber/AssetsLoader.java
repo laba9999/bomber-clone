@@ -22,7 +22,8 @@ public class AssetsLoader extends AndroidApplication
 	@Override
 	protected void onActivityResult(int _requestCode, int _resultCode, Intent _data)
 	{
-		Log.d("GAM", "AssetsLoader onActivityResult()");
+		if (Settings.DEBUG_MODE)
+			Log.d("GAM", "AssetsLoader onActivityResult()");
 
 		SoundAssets.mIsloaded = false;
 		System.exit(0);
@@ -32,8 +33,8 @@ public class AssetsLoader extends AndroidApplication
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
-
-		Log.d("GAM", "AssetsLoader onCreate()");
+		if (Settings.DEBUG_MODE)
+			Log.d("GAM", "AssetsLoader onCreate()");
 
 		GameActivity.mDestroyed = false;
 
@@ -41,20 +42,21 @@ public class AssetsLoader extends AndroidApplication
 		{
 			boolean startedMainActivity = false;
 			SpriteBatch mBatcher;
-			
+
 			public void create()
 			{
-				Log.d("GAM", "AssetsLoader initialize - create()");
-
-				int[] maxTextureSize = new int[1];
-				Gdx.gl11.glGetIntegerv(GL11.GL_MAX_TEXTURE_SIZE, maxTextureSize, 0);
-				Log.i("glinfo", "Max texture size = " + maxTextureSize[0]);
-
-				Log.d("GAM", "AssetsLoader initialize - create() LOADS START");
+				// Log.d("GAM", "AssetsLoader initialize - create()");
+				//
+				// int[] maxTextureSize = new int[1];
+				// Gdx.gl11.glGetIntegerv(GL11.GL_MAX_TEXTURE_SIZE,
+				// maxTextureSize, 0);
+				// Log.i("glinfo", "Max texture size = " + maxTextureSize[0]);
+				if (Settings.DEBUG_MODE)
+					Log.d("GAM", "AssetsLoader initialize - create() LOADS START");
 				loadStrings();
 				loadSharedPreferences();
-				Log.d("GAM", "AssetsLoader initialize - create() LOADS END");
-				
+				if (Settings.DEBUG_MODE)
+					Log.d("GAM", "AssetsLoader initialize - create() LOADS END");
 
 				GfxAssets.loadBigFont();
 				OrthographicCamera mUICamera = new OrthographicCamera(800, 480);
@@ -62,36 +64,40 @@ public class AssetsLoader extends AndroidApplication
 				mUICamera.update();
 				mBatcher = new SpriteBatch();
 				mBatcher.setProjectionMatrix(mUICamera.combined);
-				
+
 				SoundAssets.mIsloaded = false;
-				
-				Log.d("GAM", "AssetsLoader initialize - antes thread()");
+
+				if (Settings.DEBUG_MODE)
+					Log.d("GAM", "AssetsLoader initialize - antes thread()");
 				new AssetsLoaderThread().start();
-				Log.d("GAM", "AssetsLoader initialize - depois thread()");
+
+				if (Settings.DEBUG_MODE)
+					Log.d("GAM", "AssetsLoader initialize - depois thread()");
 			}
 
 			public void render()
 			{
+				if(Settings.DEBUG_MODE)
 				Log.d("GAM", "AssetsLoader initialize - render()");
-				
-				if(startedMainActivity)
+
+				if (startedMainActivity)
 					return;
-				
+
 				if (SoundAssets.mIsloaded && !startedMainActivity)
 				{
 					startedMainActivity = true;
 					GameActivity.mGoneBackToAssetsLoader = false;
-					
+
 					Intent myIntent = new Intent(AssetsLoader.this, MainActivity.class);
 					startActivityForResult(myIntent, 0);
-					
+
 					mBatcher.dispose();
 				}
-				
+
 				mBatcher.begin();
 				Gdx.gl11.glClearColor(0.21f, 0.21f, 0.21f, 0.8f);
 				Gdx.gl11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-				
+
 				GfxAssets.mBigFont.draw(mBatcher, Strings.mStrings.get("loading"), 320, 250);
 				mBatcher.end();
 
@@ -107,7 +113,7 @@ public class AssetsLoader extends AndroidApplication
 			}
 
 			public void resume()
-			{				
+			{
 
 			}
 
@@ -138,9 +144,9 @@ public class AssetsLoader extends AndroidApplication
 
 	protected void loadSharedPreferences()
 	{
-			Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
-			Settings.PLAYER_NAME = Settings.GAME_PREFS.getString("playerName", null);
-			SoundAssets.mIsSoundActive = Settings.GAME_PREFS.getBoolean("soundEnabled", true);
+		Settings.loadPreferences(getSharedPreferences("super_prefs", 0));
+		Settings.PLAYER_NAME = Settings.GAME_PREFS.getString("playerName", null);
+		SoundAssets.mIsSoundActive = Settings.GAME_PREFS.getBoolean("soundEnabled", true);
 	}
 
 }

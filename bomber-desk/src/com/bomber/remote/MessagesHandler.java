@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.bomber.Game;
 import com.bomber.Settings;
+import com.bomber.common.Utils;
 import com.bomber.gameobjects.Player;
 import com.bomber.gameobjects.monsters.Monster;
 import com.bomber.gamestates.GameStateLoadingPVP;
@@ -80,7 +81,7 @@ public class MessagesHandler {
 			break;
 
 		case EventType.DISCONNECTED:
-			Game.LOGGER.log(_msg.getStringValue());
+			Utils.LOG(_msg.getStringValue());
 
 			if (Game.mHasStarted && !Game.mGameIsOver)
 				mWorld.onPlayerDisconnect(_msg.valShort);
@@ -127,13 +128,13 @@ public class MessagesHandler {
 			break;
 
 		case EventType.NAME:
-			Game.LOGGER.log("Recebido nome!");
+			Utils.LOG("Recebido nome!");
 			for (Player player : mWorld.mPlayers)
 			{
 				if (player.mColor == _msg.valShort)
 				{
 					player.mName = _msg.getStringValue();
-					Game.LOGGER.log("Atribuido nome!");
+					Utils.LOG("Atribuido nome!");
 					break;
 				}
 			}

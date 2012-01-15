@@ -3,7 +3,7 @@ package com.bomber.remote;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.bomber.Game;
+import com.bomber.common.Utils;
 
 public abstract class LocalServer extends Thread {
 
@@ -52,7 +52,7 @@ public abstract class LocalServer extends Thread {
 		mAllConnected = true;
 		mKeepReceiving = false;
 		
-		Game.LOGGER.log("Server desligado...");
+		Utils.LOG("Server desligado...");
 	}
 
 	/**
@@ -87,7 +87,7 @@ public abstract class LocalServer extends Thread {
 		tmpConn.start();
 		mConnectionsCache.add(tmpConn);
 		
-		Game.LOGGER.log("Recebida nova ligação: " + tmpConn.getSocketAddressString());
+		Utils.LOG("Recebida nova ligação: " + tmpConn.getSocketAddressString());
 	}
 
 	/**
