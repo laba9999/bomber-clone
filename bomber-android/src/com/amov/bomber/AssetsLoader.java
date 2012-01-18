@@ -3,7 +3,9 @@ package com.amov.bomber;
 import java.util.HashMap;
 
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Base64Coder;
 import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.bomber.Settings;
 import com.bomber.common.Strings;
@@ -34,6 +37,21 @@ public class AssetsLoader extends AndroidApplication
 	protected void onCreate(Bundle _savedInstanceState)
 	{
 		super.onCreate(_savedInstanceState);
+		
+		Settings.STARTED_FROM_DESKTOP = false;
+		
+		String version;
+		try
+		{
+			version = getPackageManager().getPackageInfo("com.amov.bomber", 0).versionName;
+		} catch (NameNotFoundException e)
+		{
+			version = "N/A";
+			e.printStackTrace();
+		}
+		
+		Settings.VERSION = version;
+		
 		if (Settings.DEBUG_MODE)
 			Log.d("GAM", "AssetsLoader onCreate()");
 
@@ -46,6 +64,12 @@ public class AssetsLoader extends AndroidApplication
 
 			public void create()
 			{
+				// Log.d("GAM", "AssetsLoader initialize - create()");
+				//
+				// int[] maxTextureSize = new int[1];
+				// Gdx.gl.glGetIntegerv(GL11.GL_MAX_TEXTURE_SIZE,
+				// maxTextureSize, 0);
+				// Log.i("glinfo", "Max texture size = " + maxTextureSize[0]);
 				GdxNativesLoader.load();
 
 				if (Settings.DEBUG_MODE)
@@ -74,8 +98,8 @@ public class AssetsLoader extends AndroidApplication
 
 			public void render()
 			{
-				if(Settings.DEBUG_MODE)
-				Log.d("GAM", "AssetsLoader initialize - render()");
+				if (Settings.DEBUG_MODE)
+					Log.d("GAM", "AssetsLoader initialize - render()");
 
 				if (startedMainActivity)
 					return;
@@ -92,6 +116,7 @@ public class AssetsLoader extends AndroidApplication
 				}
 
 				mBatcher.begin();
+
 				Gdx.gl.glClearColor(0.21f, 0.21f, 0.21f, 0.8f);
 				Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 

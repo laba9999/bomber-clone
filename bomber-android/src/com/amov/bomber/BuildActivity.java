@@ -253,7 +253,6 @@ public class BuildActivity extends GameActivity
 		@Override
 		protected void onPostExecute(String _result)
 		{
-
 			removeDialog(DIALOG_PROGRESS);
 
 			if (isCancelled())

@@ -116,7 +116,6 @@ public class GameServer {
 			mConnection.update();
 		else
 		{
-
 			//
 			// Somos o servidor
 			if (!mIsOnline)

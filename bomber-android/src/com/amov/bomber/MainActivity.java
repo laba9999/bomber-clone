@@ -33,7 +33,6 @@ public class MainActivity extends GameActivity
 		updateSoundButton(findViewById(R.id.imageButtonMainSound));
 
 		Settings.GAME_TYPE = GameTypeHandler.CAMPAIGN;
-		Settings.STARTED_FROM_DESKTOP = false;
 		Achievements.loadFile();
 
 
@@ -50,7 +49,6 @@ public class MainActivity extends GameActivity
 					public void onClick(DialogInterface dialog, int which)
 					{
 						dialog.dismiss();
-
 					}
 				});
 
