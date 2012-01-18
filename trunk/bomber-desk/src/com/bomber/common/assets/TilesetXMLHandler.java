@@ -8,9 +8,8 @@ public class TilesetXMLHandler extends XmlReader {
 	
 	@Override
 	protected void attribute(String name, String value) {
-		// TODO Auto-generated method stub
 		super.attribute(name, value);
-		System.out.println("attribute(name,value)" + name + "......" + value);
+		//System.out.println("attribute(name,value)" + name + "......" + value);
 		
 		if(name.equals("id"))
 		{
@@ -23,11 +22,6 @@ public class TilesetXMLHandler extends XmlReader {
 			
 			Level.mImageTiles.put(mId, mFile);
 		}
-	}
-
-	@Override
-	protected void text(String text) {
-
 	}
 
 }

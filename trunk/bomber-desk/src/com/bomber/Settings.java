@@ -37,7 +37,7 @@ public class Settings {
 	public static String LEVEL_TO_LOAD = "level5";
 	public static short GAME_ROUNDS = 3;
 	public static final short GAME_COUNTDOWN_SECONDS = 5;
-	public static short GAME_TYPE = GameTypeHandler.TEAM_DEADMATCH;
+	public static short GAME_TYPE = GameTypeHandler.CAMPAIGN;
 	public static SharedPreferences GAME_PREFS = null;
 	public static boolean PLAYING_ONLINE = false;
 	

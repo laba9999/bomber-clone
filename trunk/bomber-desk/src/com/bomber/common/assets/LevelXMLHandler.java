@@ -13,9 +13,8 @@ public class LevelXMLHandler extends XmlReader {
 
 	@Override
 	protected void attribute(String name, String value) {
-		// TODO Auto-generated method stub
 		super.attribute(name, value);
-		System.out.println("attribute(name,value)" + name + "......" + value);
+		//System.out.println("attribute(name,value)" + name + "......" + value);
 		if(name.equals("rows"))
 		{
 			Level.mRows = new Short(value).shortValue();
@@ -42,9 +41,8 @@ public class LevelXMLHandler extends XmlReader {
 
 	@Override
 	protected void text(String text) {
-		// TODO Auto-generated method stub
 		super.text(text);
-		System.out.println("text(text) " + text);
+		//System.out.println("text(text) " + text);
 		
 		
 		// separa dados através de separador não numérico
