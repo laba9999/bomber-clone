@@ -1,60 +1,54 @@
 package com.bomber.common.assets;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+import com.badlogic.gdx.utils.XmlReader;
 
+public class LevelXMLHandler extends XmlReader {
 
-public class LevelXMLHandler extends DefaultHandler
-{
+	boolean mIsWalkables = false;
+	boolean mIsDestroyables = false;
+	boolean mIsCollidables = false;
+	boolean mIsSpawns = false;
+	boolean mIsFlags = false;
 
-	// valores extraídos vão para o Level
-	// auxiliares
-	private String mCurrentLayer = null;
-	private boolean mIsData = false;
-	private StringBuilder mText = new StringBuilder();
 
 	@Override
-	public void startElement(String _uri, String _localName, String _qName, Attributes _attributes) throws SAXException
-	{
-
-		if (_qName.equals("tilemap"))
+	protected void attribute(String name, String value) {
+		// TODO Auto-generated method stub
+		super.attribute(name, value);
+		System.out.println("attribute(name,value)" + name + "......" + value);
+		if(name.equals("rows"))
 		{
-
-			Level.mName = _attributes.getValue("name");
-			Level.mRows = Short.parseShort(_attributes.getValue("rows"));
-			Level.mColumns = Short.parseShort(_attributes.getValue("columns"));
-
-		} else if (_qName.equals("layer"))
+			Level.mRows = new Short(value).shortValue();
+		}else if(name.equals("columns"))
 		{
-
-			mCurrentLayer = _attributes.getValue("name");
-
-		} else if (_qName.equals("data"))
+			Level.mColumns = new Short(value).shortValue();
+		}else if(value.equals("walkables"))
 		{
-
-			mIsData = true;
-
+			mIsWalkables = true;
+		}else if(value.equals("collidables"))
+		{
+			mIsCollidables = true;
+		}else if(value.equals("destroyables"))
+		{
+			mIsDestroyables = true;
+		}else if(value.equals("spawns"))
+		{
+			mIsSpawns = true;
+		}else if(value.equals("flags"))
+		{
+			mIsFlags = true;
 		}
 	}
 
 	@Override
-	public void endElement(String _uri, String _localName, String _qName) throws SAXException
-	{
-
-		if (_qName.equals("data"))
-		{
-			parseDataTagText();
-			// clean up
-			mText.delete(0, mText.length());
-			mIsData = false;
-		}
-	}
-
-	private void parseDataTagText()
-	{
-		// separa dados através de separados não numérico
-		String[] splitted = mText.toString().split("\\D");
+	protected void text(String text) {
+		// TODO Auto-generated method stub
+		super.text(text);
+		System.out.println("text(text) " + text);
+		
+		
+		// separa dados através de separador não numérico
+		String[] splitted = text.split("\\D");
 
 		int i = 0;
 		int j = 0;
@@ -80,36 +74,25 @@ public class LevelXMLHandler extends DefaultHandler
 			}
 		}
 
-		if (mCurrentLayer.equals("walkables"))
-		{
+		
+		if(mIsWalkables){
 			Level.mWalkableIDs = parsedValues;
-		} else if (mCurrentLayer.equals("destroyables"))
-		{
+			mIsWalkables = false;
+		}else if(mIsDestroyables){
 			Level.mDestroyableIDs = parsedValues;
-		} else if (mCurrentLayer.equals("spawns"))
-		{
-			Level.mSpawnIDs = parsedValues;
-		} else if (mCurrentLayer.equals("collidables"))
-		{
+			mIsDestroyables = false;
+		}else if(mIsCollidables){
 			Level.mCollidableIDs = parsedValues;
-		}else if (mCurrentLayer.equals("flags"))
-		{
+			mIsCollidables = false;
+		}else if(mIsSpawns){
+			Level.mSpawnIDs = parsedValues;
+			mIsSpawns = false;
+		}else if(mIsFlags){
 			Level.mFlags = parsedValues;
+			mIsFlags = false;
 		}
-
 	}
 
-	@Override
-	public void characters(char[] ch, int start, int length) throws SAXException
-	{
-
-		if (mIsData)
-		{
-			// append o texto extraído para que possa ser tratado apenas no
-			// endElement()
-			mText.append(new String(ch, start, length));
-		}
-
-	}
-
+	
+	
 }

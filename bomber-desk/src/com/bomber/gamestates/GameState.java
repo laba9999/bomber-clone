@@ -91,7 +91,7 @@ public abstract class GameState {
 	{
 		BitmapFont font = GfxAssets.mGenericFont;
 
-		if (Game.mIsPVPGame && RemoteConnections.mGameServer != null)
+		if (Game.mIsPVPGame && RemoteConnections.mGameServer != null && font != null)
 			font.draw(mBatcher, "LAG: " + RemoteConnections.mGameServer.getRTT(), 630, 470);
 
 	}

@@ -12,6 +12,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.bomber.Settings;
 import com.bomber.common.Strings;
 import com.bomber.common.assets.GfxAssets;
@@ -45,12 +46,8 @@ public class AssetsLoader extends AndroidApplication
 
 			public void create()
 			{
-				// Log.d("GAM", "AssetsLoader initialize - create()");
-				//
-				// int[] maxTextureSize = new int[1];
-				// Gdx.gl11.glGetIntegerv(GL11.GL_MAX_TEXTURE_SIZE,
-				// maxTextureSize, 0);
-				// Log.i("glinfo", "Max texture size = " + maxTextureSize[0]);
+				GdxNativesLoader.load();
+
 				if (Settings.DEBUG_MODE)
 					Log.d("GAM", "AssetsLoader initialize - create() LOADS START");
 				loadStrings();
