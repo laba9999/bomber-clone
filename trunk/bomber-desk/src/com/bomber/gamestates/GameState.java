@@ -66,6 +66,7 @@ public abstract class GameState {
 	public void present()
 	{
 		mBatcher.begin();
+
 		Gdx.gl.glClearColor(0.21f, 0.21f, 0.21f, 0.8f);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 

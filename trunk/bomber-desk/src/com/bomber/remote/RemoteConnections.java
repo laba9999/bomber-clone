@@ -235,13 +235,23 @@ public class RemoteConnections {
 	 */
 	public boolean acceptConnections(short _protocol, String _connectionString, short _maxConnections) throws IOException
 	{
+		int port = 50005;
+		try
+		{
+			port = Integer.valueOf(_connectionString);
+		}catch(NumberFormatException e)
+		{
+			return false;
+		}
+		
+		
 		switch (_protocol)
 		{
 		case Protocols.TCP:
-			mLocalServer = new TCPLocalServer(mRecvMessages, Integer.valueOf(_connectionString), _maxConnections);
+			mLocalServer = new TCPLocalServer(mRecvMessages, port, _maxConnections);
 			break;
 		case Protocols.UDP:
-			mLocalServer = new UDPLocalServer(mRecvMessages, Integer.valueOf(_connectionString), _maxConnections);
+			mLocalServer = new UDPLocalServer(mRecvMessages, port, _maxConnections);
 			break;
 		case Protocols.BLUETOOTH:
 			mLocalServer = new BluetoothLocalServer(mRecvMessages);
