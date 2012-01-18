@@ -8,4 +8,4 @@ end
 50
 
 #nº de bónus
-3
+4

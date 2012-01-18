@@ -8,4 +8,4 @@ level1
 0
 
 #nº de bónus
-3
+4

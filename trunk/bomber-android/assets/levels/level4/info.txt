@@ -8,4 +8,4 @@ level5
 20
 
 #nº de bónus
-3
+4

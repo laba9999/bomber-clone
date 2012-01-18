@@ -8,4 +8,4 @@ level4
 13
 
 #nº de bónus
-3
+4
