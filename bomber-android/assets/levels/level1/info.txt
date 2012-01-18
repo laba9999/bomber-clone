@@ -8,4 +8,4 @@ level2
 13
 
 #nº de bónus
-1
+2

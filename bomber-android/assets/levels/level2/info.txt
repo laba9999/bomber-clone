@@ -8,4 +8,4 @@ level3
 25
 
 #nº de bónus
-2
+3
