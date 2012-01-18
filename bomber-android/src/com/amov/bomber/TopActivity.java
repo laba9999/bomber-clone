@@ -156,7 +156,7 @@ public class TopActivity extends GameActivity
 					String value = Utils.filterName(mEditUsername.getText().toString());
 					Settings.PLAYER_NAME = value;
 
-					if (Settings.PLAYER_NAME.equals("Bomber"))
+					if (Settings.PLAYER_NAME.equals("Bomber") || Settings.PLAYER_NAME.equals(""))
 					{
 						Toast.makeText(TopActivity.this, TopActivity.this.getString(R.string.error_select_different_username), Toast.LENGTH_SHORT).show();
 						TopActivity.this.finish();
