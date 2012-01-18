@@ -8,6 +8,7 @@ import android.util.Log;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.GdxNativesLoader;
 import com.badlogic.gdx.utils.Logger;
 import com.bomber.common.Achievements;
 import com.bomber.common.ObjectFactory;
@@ -233,6 +234,8 @@ public class Game implements ApplicationListener {
 	@Override
 	public void create()
 	{
+		GdxNativesLoader.load();
+
 		mUICamera = new OrthographicCamera(800, 480);
 		mUICamera.position.set(800 / 2, 480 / 2, 0);
 		mUICamera.update();

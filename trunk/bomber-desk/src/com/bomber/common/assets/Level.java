@@ -64,28 +64,18 @@ public class Level {
 		}
 		try
 		{
-			// setup parser
-			SAXParserFactory factory = SAXParserFactory.newInstance();
-			SAXParser parser = factory.newSAXParser();
-			XMLReader xmlReader = parser.getXMLReader();
-
 			// parse level xml file
-			LevelXMLHandler myLevelXMLHandler = new LevelXMLHandler();
-
-			xmlReader.setContentHandler(myLevelXMLHandler);
 			InputStream inputStream = Gdx.files.internal("levels/" + _levelID + "/" + _levelID + ".xml").read();
 
-			Reader reader = new InputStreamReader(inputStream, "UTF-8");
-			xmlReader.parse(new InputSource(reader));
-
+			LevelXMLHandler x = new LevelXMLHandler();
+			x.parse(inputStream);
+			
 			// parse tileset xml file
-			TilesetXMLHandler myTilesetXMLHandler = new TilesetXMLHandler();
-
-			xmlReader.setContentHandler(myTilesetXMLHandler);
 
 			inputStream = Gdx.files.internal("levels/" + _levelID + "/tileset.xml").read();
-			reader = new InputStreamReader(inputStream, "UTF-8");
-			xmlReader.parse(new InputSource(reader));
+			TilesetXMLHandler y = new TilesetXMLHandler();
+			y.parse(inputStream);
+			
 
 			flipMatrixVertically(mWalkableIDs);
 			flipMatrixVertically(mCollidableIDs);
