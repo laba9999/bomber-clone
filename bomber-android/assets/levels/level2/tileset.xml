@@ -3,206 +3,185 @@
 <!-- This file is used to describe all the tiles and animations. -->
 <!-- This file is common for all the maps in the project. -->
 
-<tilesetFile version="1.0.0" animations="0" tiles="29">
+<tilesetFile version="1.0.0" animations="0" tiles="26">
 	<tiles>
-		<imageTile id="1" width="40" height="40">
-			<image file="tiles_59.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="2" width="40" height="40">
-			<image file="tiles_50.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="3" width="40" height="40">
-			<image file="tiles_49.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="4" width="40" height="40">
-			<image file="tiles_62.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="5" width="40" height="40">
+		<imageTile id="1" width="47" height="47">
 			<image file="tiles_41.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="6" width="40" height="40">
+		<imageTile id="2" width="47" height="47">
 			<image file="tiles_42.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="7" width="40" height="40">
-			<image file="tiles_58.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="8" width="40" height="40">
-			<image file="tiles_61.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="9" width="40" height="40">
-			<image file="tiles_47.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="10" width="40" height="40">
-			<image file="tiles_63.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="11" width="40" height="40">
-			<image file="tiles_45.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="12" width="40" height="40">
-			<image file="tiles_46.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="13" width="40" height="40">
-			<image file="tiles_48.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="14" width="40" height="40">
+		<imageTile id="3" width="47" height="47">
 			<image file="tiles_57.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="15" width="40" height="40">
-			<image file="tiles_44.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="16" width="40" height="40">
-			<image file="tiles_51.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="17" width="40" height="40">
-			<image file="tiles_56.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="18" width="40" height="40">
+		<imageTile id="4" width="47" height="47">
 			<image file="tiles_55.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="19" width="40" height="40">
+		<imageTile id="5" width="47" height="47">
+			<image file="tiles_46.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="6" width="47" height="47">
+			<image file="tiles_54.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="7" width="47" height="47">
+			<image file="tiles_47.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="8" width="47" height="47">
+			<image file="tiles_44.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="9" width="47" height="47">
+			<image file="tiles_45.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="10" width="47" height="47">
+			<image file="tiles_53.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="11" width="47" height="47">
+			<image file="tiles_50.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="12" width="47" height="47">
+			<image file="tiles_51.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="13" width="47" height="47">
 			<image file="tiles_52.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="20" width="40" height="40">
+		<imageTile id="14" width="47" height="47">
+			<image file="tiles_60.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="15" width="47" height="47">
+			<image file="tiles_58.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="16" width="47" height="47">
+			<image file="tiles_59.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="17" width="47" height="47">
+			<image file="tiles_49.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="18" width="47" height="47">
+			<image file="tiles_56.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="19" width="47" height="47">
+			<image file="tiles_48.png"/>
+			<collision area="none"/>
+			<rotate angle="0"/>
+			<flip vertically="false" horizontally="false"/>
+			<code first="none" second="none"/>
+		</imageTile>
+		<imageTile id="20" width="47" height="47">
 			<image file="tiles_43.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="21" width="40" height="40">
-			<image file="m_generic4_walk_0.png"/>
+		<imageTile id="21" width="47" height="47">
+			<image file="spawn_p1_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="22" width="40" height="40">
-			<image file="m_generic7_walk_0.png"/>
+		<imageTile id="22" width="47" height="47">
+			<image file="spawn_p3_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="23" width="40" height="40">
-			<image file="m_generic6_walk_0.png"/>
+		<imageTile id="23" width="47" height="47">
+			<image file="spawn_p4_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="24" width="40" height="40">
-			<image file="spawn_p1.png"/>
+		<imageTile id="24" width="47" height="47">
+			<image file="spawn_p2_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="25" width="40" height="40">
-			<image file="spawn_p3.png"/>
+		<imageTile id="25" width="47" height="47">
+			<image file="flag_pole_team1_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
 			<code first="none" second="none"/>
 		</imageTile>
-		<imageTile id="26" width="40" height="40">
-			<image file="spawn_p4.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="27" width="40" height="40">
-			<image file="spawn_p2.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="28" width="40" height="40">
-			<image file="flag_pole_team1.png"/>
-			<collision area="none"/>
-			<rotate angle="0"/>
-			<flip vertically="false" horizontally="false"/>
-			<code first="none" second="none"/>
-		</imageTile>
-		<imageTile id="29" width="40" height="40">
-			<image file="flag_pole_team2.png"/>
+		<imageTile id="26" width="47" height="47">
+			<image file="flag_pole_team2_scaled.png"/>
 			<collision area="none"/>
 			<rotate angle="0"/>
 			<flip vertically="false" horizontally="false"/>
