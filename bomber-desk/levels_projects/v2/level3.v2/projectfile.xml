@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a project file for TaT Tile Map Editor. -->
+<!-- This file is only used to load a project into the tile map editor. -->
+<!-- This file is not needed when loading maps into games. -->
+
+<TaT_TileMapEditor version="1.0.0">
+	<project name="level3" author="f">
+		<tiles defaultTileWidth="47" defaultTileHeight="47" tilesetFile="tileset.xml"/>
+		<description>
+level3
+
+		</description>
+	</project>
+	<tilepalette name="New palette 1" tileWidth="47" tileHeight="47">
+		<image file="tiles_86.png"/>
+		<image file="spawn_p2_scaled.png"/>
+		<image file="tiles_96_destroy_3.png"/>
+		<image file="Destroy 6.png"/>
+		<image file="Destroy 2.png"/>
+		<image file="Destroy 3.png"/>
+		<image file="tiles_87.png"/>
+		<image file="tiles_85.png"/>
+		<image file="Block.png"/>
+		<image file="tiles_84.png"/>
+		<image file="tiles_89.png"/>
+		<image file="tiles_96_destroy_1.png"/>
+		<image file="tiles_92.png"/>
+		<image file="NW.png"/>
+		<image file="SW.png"/>
+		<image file="tiles_94.png"/>
+		<image file="tiles_96_destroy_4.png"/>
+		<image file="W.png"/>
+		<image file="Destroy 1.png"/>
+		<image file="tiles_96_destroy_5.png"/>
+		<image file="flag_pole_team2_scaled.png"/>
+		<image file="SE.png"/>
+		<image file="tiles_83.png"/>
+		<image file="flag_pole_team1_scaled.png"/>
+		<image file="S.png"/>
+		<image file="tiles_96.png"/>
+		<image file="spawn_p1_scaled.png"/>
+		<image file="tiles_91.png"/>
+		<image file="spawn_p3_scaled.png"/>
+		<image file="Block 2.png"/>
+		<image file="tiles_96_destroy_2.png"/>
+		<image file="tiles_96_destroy_0.png"/>
+		<image file="E Outside.png"/>
+		<image file="Destroy 5.png"/>
+		<image file="Grass.png"/>
+		<image file="tiles_95.png"/>
+		<image file="tiles_90.png"/>
+		<image file="Grass 2.png"/>
+		<image file="N.png"/>
+		<image file="spawn_p4_scaled.png"/>
+		<image file="Destroy 4.png"/>
+		<image file="NE.png"/>
+		<image file="tiles_88.png"/>
+		<image file="E.png"/>
+		<image file="W Outside.png"/>
+		<image file="tiles_93.png"/>
+	</tilepalette>
+	<editorwindow mapName="level3" dotsBelowTiles="true" dotColor="128,128,128" collisionColor="255,0,0,64" showCollision="true" codeColor="255,0,0" codeFont="SansSerif,0,9" showCode="true" fps="30" measureFps="false" visible="true">
+		<mapFile file="level3.xml"/>
+	</editorwindow>
+</TaT_TileMapEditor>

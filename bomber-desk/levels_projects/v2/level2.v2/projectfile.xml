@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This is a project file for TaT Tile Map Editor. -->
+<!-- This file is only used to load a project into the tile map editor. -->
+<!-- This file is not needed when loading maps into games. -->
+
+<TaT_TileMapEditor version="1.0.0">
+	<project name="level2" author="f">
+		<tiles defaultTileWidth="47" defaultTileHeight="47" tilesetFile="tileset.xml"/>
+		<description>
+level2
+		</description>
+	</project>
+	<tilepalette name="New palette 1" tileWidth="47" tileHeight="47">
+		<image file="spawn_p2_scaled.png"/>
+		<image file="tiles_48.png"/>
+		<image file="tiles_45.png"/>
+		<image file="tiles_54.png"/>
+		<image file="tiles_53.png"/>
+		<image file="tiles_43_destroy_4.png"/>
+		<image file="tiles_56.png"/>
+		<image file="tiles_51.png"/>
+		<image file="tiles_41.png"/>
+		<image file="tiles_43.png"/>
+		<image file="tiles_52.png"/>
+		<image file="tiles_42.png"/>
+		<image file="tiles_59.png"/>
+		<image file="tiles_43_destroy_2.png"/>
+		<image file="tiles_43_destroy_3.png"/>
+		<image file="tiles_60.png"/>
+		<image file="tiles_47.png"/>
+		<image file="tiles_58.png"/>
+		<image file="flag_pole_team2_scaled.png"/>
+		<image file="tiles_44.png"/>
+		<image file="flag_pole_team1_scaled.png"/>
+		<image file="tiles_43_destroy_1.png"/>
+		<image file="tiles_49.png"/>
+		<image file="spawn_p1_scaled.png"/>
+		<image file="tiles_46.png"/>
+		<image file="spawn_p3_scaled.png"/>
+		<image file="tiles_43_destroy_0.png"/>
+		<image file="tiles_57.png"/>
+		<image file="tiles_50.png"/>
+		<image file="tiles_43_destroy_5.png"/>
+		<image file="spawn_p4_scaled.png"/>
+		<image file="tiles_55.png"/>
+	</tilepalette>
+	<editorwindow mapName="level2" dotsBelowTiles="true" dotColor="128,128,128" collisionColor="255,0,0,64" showCollision="true" codeColor="255,0,0" codeFont="SansSerif,0,9" showCode="true" fps="30" measureFps="false" visible="true">
+		<mapFile file="level2.xml"/>
+	</editorwindow>
+</TaT_TileMapEditor>
