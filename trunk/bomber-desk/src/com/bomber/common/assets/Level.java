@@ -203,16 +203,16 @@ public class Level {
 		String filename = mImageTiles.get(_id);
 
 		// BOMBERMANS
-		if (filename.equals("spawn_p1"))
+		if (filename.contains("spawn_p1"))
 		{
 			_world.spawnPlayer("b_white", _positionY, _positionX);
-		} else if (filename.equals("spawn_p2") && mNumberOfPlayers >= 2)
+		} else if (filename.contains("spawn_p2") && mNumberOfPlayers >= 2)
 		{
 			_world.spawnPlayer("b_red", _positionY, _positionX);
-		} else if (filename.equals("spawn_p3") && mNumberOfPlayers >= 3)
+		} else if (filename.contains("spawn_p3") && mNumberOfPlayers >= 3)
 		{
 			_world.spawnPlayer("b_blue", _positionY, _positionX);
-		} else if (filename.equals("spawn_p4") && mNumberOfPlayers == 4)
+		} else if (filename.contains("spawn_p4") && mNumberOfPlayers == 4)
 		{
 			_world.spawnPlayer("b_green", _positionY, _positionX);
 		} else if (filename.contains("m_"))
